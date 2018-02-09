@@ -1,0 +1,6 @@
+problems with
+packages/ddrescue
+packages/boost
+packages/ledger
+packages/ncmpcpp
+packages/mpd
