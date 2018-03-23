@@ -1,5 +1,15 @@
-problems with
+problems with:
+
 packages/ddrescue
+
+
+FIX - in container:
+
+in boost/build.sh add line 29
+--without-python \
+
+in mpd replace com.terxmu by pl.sviete.ais
+
 packages/boost
 packages/ledger
 packages/ncmpcpp

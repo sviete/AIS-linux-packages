@@ -1,0 +1,4 @@
+1. ./build-package.sh -a arm libmosquitto
+2. delete all package version
+3. cd AIS_APT_REPO and run:
+./ais-apt-repo-stable /home/andrzej/Projects/TERMUX/AIS-LINUX-PACKAGES/debs/
