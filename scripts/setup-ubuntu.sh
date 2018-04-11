@@ -40,5 +40,5 @@ PACKAGES+=" libjpeg-dev" # Needed by ghostscript
 
 DEBIAN_FRONTEND=noninteractive sudo apt-get install -yq --no-install-recommends $PACKAGES
 
-sudo mkdir -p /data/data/com.termux/files/usr
+sudo mkdir -p /data/data/pl.sviete.dom/files/usr
 sudo chown -R `whoami` /data

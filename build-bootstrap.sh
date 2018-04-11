@@ -35,7 +35,7 @@ dpkg -x libc++_* .
 # "gpgv",
 dpkg -x gpgv_* .
 
-# ais
+# sviete.dom
 dpkg -x libcurl_* .
 dpkg -x libcrypt_* .
 dpkg -x libnghttp2_* .
@@ -50,6 +50,6 @@ dpkg -x dpkg_* .
 dpkg -x apt_* .
 
 
-rm data/data/pl.sviete.ais/files/usr/bin/dpkg-genbuildinfo
+rm data/data/pl.sviete.dom/files/usr/bin/dpkg-genbuildinfo
 # TODO
-# cp data/data/pl.sviete.ais/files/usr/* bootstrap_org/
+# cp data/data/pl.sviete.dom/files/usr/* bootstrap_org/

@@ -255,8 +255,8 @@ termux_step_setup_variables() {
 	: "${TERMUX_MAKE_PROCESSES:="$(nproc)"}"
 	: "${TERMUX_TOPDIR:="$HOME/.termux-build"}"
 	: "${TERMUX_ARCH:="aarch64"}" # arm, aarch64, i686 or x86_64.
-	: "${TERMUX_PREFIX:="/data/data/pl.sviete.ais/files/usr"}"
-	: "${TERMUX_ANDROID_HOME:="/data/data/pl.sviete.ais/files/home"}"
+	: "${TERMUX_PREFIX:="/data/data/pl.sviete.dom/files/usr"}"
+	: "${TERMUX_ANDROID_HOME:="/data/data/pl.sviete.dom/files/home"}"
 	: "${TERMUX_DEBUG:=""}"
 	: "${TERMUX_PKG_API_LEVEL:="21"}"
 	: "${TERMUX_ANDROID_BUILD_TOOLS_VERSION:="27.0.3"}"

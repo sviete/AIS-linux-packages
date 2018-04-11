@@ -13,11 +13,11 @@ termux_step_make_install() {
 
 	./bootstrap.sh
 
-	echo "using clang : $TERMUX_ARCH : $CXX : <linkflags>-L/data/data/com.termux/files/usr/lib ; " >> project-config.jam
+	echo "using clang : $TERMUX_ARCH : $CXX : <linkflags>-L/data/data/pl.sviete.dom/files/usr/lib ; " >> project-config.jam
 
 	./b2 target-os=android -j${TERMUX_MAKE_PROCESSES} \
-		include=/data/data/com.termux/files/usr/include \
-		include=/data/data/com.termux/files/usr/include/python3.6m \
+		include=/data/data/pl.sviete.dom/files/usr/include \
+		include=/data/data/pl.sviete.dom/files/usr/include/python3.6m \
 		toolset=clang-$TERMUX_ARCH \
 		--prefix="$TERMUX_PREFIX"  \
 		-q \

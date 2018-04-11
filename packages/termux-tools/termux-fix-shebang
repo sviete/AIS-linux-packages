@@ -8,5 +8,5 @@ if [ $# = 0 -o "$1" = "-h" ]; then
 fi
 
 for file in "$@"; do
-	sed -i -E "1 s@^#\!(.*)/[sx]?bin/(.*)@#\!/data/data/com.termux/files/usr/bin/\2@" "$(realpath "${file}")"
+	sed -i -E "1 s@^#\!(.*)/[sx]?bin/(.*)@#\!/data/data/pl.sviete.dom/files/usr/bin/\2@" "$(realpath "${file}")"
 done

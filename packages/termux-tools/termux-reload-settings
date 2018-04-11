@@ -1,4 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/sh
+#!/data/data/pl.sviete.dom/files/usr/bin/sh
 
 if [ "$#" != "0" ]; then
 	echo 'usage: termux-reload-settings'
@@ -9,4 +9,4 @@ if [ "$#" != "0" ]; then
 	exit
 fi
 
-am broadcast --user 0 -a com.termux.app.reload_style com.termux > /dev/null
+am broadcast --user 0 -a pl.sviete.dom.app.reload_style pl.sviete.dom > /dev/null

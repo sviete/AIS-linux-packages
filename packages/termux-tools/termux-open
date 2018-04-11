@@ -1,4 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/sh
+#!/data/data/pl.sviete.dom/files/usr/bin/sh
 set -e -u
 
 SCRIPTNAME=termux-open
@@ -42,7 +42,7 @@ fi
 
 am broadcast --user 0 \
 	-a $ACTION \
-	-n com.termux/com.termux.app.TermuxOpenReceiver \
+	-n pl.sviete.dom/pl.sviete.dom.app.TermuxOpenReceiver \
 	$EXTRAS \
 	-d "$FILE" \
 	> /dev/null
