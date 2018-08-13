@@ -2,7 +2,6 @@
 set -e -u
 
 PACKAGES=""
-PACKAGES+=" ant" # Used by apksigner.
 PACKAGES+=" asciidoc"
 PACKAGES+=" automake"
 PACKAGES+=" bison"
@@ -32,13 +31,13 @@ PACKAGES+=" python3-sphinx" # Needed by notmuch man page generation.
 PACKAGES+=" ruby" # Needed to build ruby.
 PACKAGES+=" scons"
 PACKAGES+=" texinfo"
-PACKAGES+=" texlive-binaries" # Needed by texlive build.
 PACKAGES+=" xmlto"
 PACKAGES+=" xutils-dev" # Provides 'makedepend' which the openssl build uses.
 PACKAGES+=" libexpat1-dev" # Needed by ghostscript
 PACKAGES+=" libjpeg-dev" # Needed by ghostscript
 
-DEBIAN_FRONTEND=noninteractive sudo apt-get install -yq --no-install-recommends $PACKAGES
+sudo DEBIAN_FRONTEND=noninteractive \
+	apt-get install -yq --no-install-recommends $PACKAGES
 
 sudo mkdir -p /data/data/pl.sviete.dom/files/usr
 sudo chown -R `whoami` /data

@@ -1,9 +1,10 @@
 TERMUX_PKG_HOMEPAGE=https://mpv.io/
 TERMUX_PKG_DESCRIPTION="Command-line media player"
-TERMUX_PKG_VERSION=0.27.2
-TERMUX_PKG_SHA256=2ad104d83fd3b2b9457716615acad57e479fd1537b8fc5e37bfe9065359b50be
+TERMUX_PKG_VERSION=0.29.0
+TERMUX_PKG_REVISION=1
+TERMUX_PKG_SHA256=772af878cee5495dcd342788a6d120b90c5b1e677e225c7198f1e76506427319
 TERMUX_PKG_SRCURL=https://github.com/mpv-player/mpv/archive/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_DEPENDS="ffmpeg, openal-soft, libandroid-glob"
+TERMUX_PKG_DEPENDS="ffmpeg, openal-soft, libandroid-glob, libpulseaudio"
 TERMUX_PKG_RM_AFTER_INSTALL="share/icons share/applications"
 
 termux_step_pre_configure() {
@@ -20,15 +21,16 @@ termux_step_make_install () {
 		--disable-gl \
 		--disable-jpeg \
 		--disable-lcms2 \
+		--disable-libarchive \
 		--disable-libass \
 		--disable-lua \
-		--disable-pulse \
+		--enable-pulse \
 		--enable-openal \
 		--disable-caca \
 		--disable-alsa \
 		--disable-x11
 
-	./waf install
+	./waf -v install
 
 	# Use opensles audio out be default:
 	mkdir -p $TERMUX_PREFIX/etc/mpv

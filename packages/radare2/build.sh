@@ -1,7 +1,7 @@
 TERMUX_PKG_HOMEPAGE=https://rada.re
 TERMUX_PKG_DESCRIPTION="Advanced Hexadecimal Editor"
-TERMUX_PKG_VERSION=2.4.0
-TERMUX_PKG_SHA256=e2edef4d70c7bbbb47d04002ce9d384eb2fc9c0cd4cbfde77cda8c10cae9ff24
+TERMUX_PKG_VERSION=2.8.0
+TERMUX_PKG_SHA256=633c1b59e8935f6157142e7bd134b262f07595263c31c6ca3a194dd987a46360
 TERMUX_PKG_SRCURL=https://github.com/radare/radare2/archive/$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_BUILD_IN_SRC="yes"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--with-compiler=termux-host"
@@ -14,6 +14,8 @@ termux_step_pre_configure() {
 
 	# If this variable is not set, then build will fail on linking with 'pthread'
 	export ANDROID=1
+
+	export OBJCOPY=$TERMUX_HOST_PLATFORM-objcopy
 
 	# Remove old libs which may mess with new build:
 	rm -f $TERMUX_PREFIX/lib/libr_*

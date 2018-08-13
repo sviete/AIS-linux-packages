@@ -1,7 +1,7 @@
 TERMUX_PKG_HOMEPAGE=https://www.erlang.org/
 TERMUX_PKG_DESCRIPTION="General-purpose concurrent functional programming language developed by Ericsson"
-TERMUX_PKG_VERSION=20.3.2
-TERMUX_PKG_SHA256=9809be52baa23d6fd18ee70b9a9b7c548e44f586db2f46ff5bfe66719cfab10a
+TERMUX_PKG_VERSION=21.0.4
+TERMUX_PKG_SHA256=8830c81042835070d72130a0df78058a5ccb8db9f93829310d93ed6e2e323e0d
 TERMUX_PKG_SRCURL=https://github.com/erlang/otp/archive/OTP-$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_DEPENDS="openssl, ncurses, libutil"
 TERMUX_PKG_HOSTBUILD="yes"
@@ -22,6 +22,8 @@ termux_step_host_build () {
 }
 
 termux_step_pre_configure () {
+	(cd erts && autoreconf)
+
 	# liblog is needed for syslog usage:
 	LDFLAGS+=" -llog"
 	# Put binaries built in termux_step_host_build at start of PATH:
