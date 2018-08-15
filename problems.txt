@@ -26,3 +26,8 @@ sudo ./scripts/run-docker.sh ./build-package.sh -a arm -f ndk-sysroot
 
 1. debootstrap from mirrors
 http://mirrors.sth.sze.hu/pool/main/d/debootstrap
+
+
+HOW TO:
+1. go to container:
+sudo docker exec -it termux-package-builder /bin/bash

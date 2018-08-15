@@ -1351,7 +1351,6 @@ char const* const commands[] = {
 " tset",
 "ne",
 " ne",
-"neovim",
 " nvim",
 "net-tools",
 " arp",
