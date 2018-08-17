@@ -41,10 +41,10 @@
 #include <pulsecore/thread-mq.h>
 #include <pulsecore/rtpoll.h>
 
-#include <SLES/OpenSLES.h>
+#include <aaudio/AAudio.h>
 
-PA_MODULE_AUTHOR("Lennart Poettering, Nathan Martynov");
-PA_MODULE_DESCRIPTION("Android OpenSL ES sink");
+PA_MODULE_AUTHOR("Tom Yan");
+PA_MODULE_DESCRIPTION("Android AAudio sink");
 PA_MODULE_VERSION(PACKAGE_VERSION);
 PA_MODULE_LOAD_ONCE(false);
 PA_MODULE_USAGE(
@@ -52,10 +52,10 @@ PA_MODULE_USAGE(
     "sink_properties=<properties for the sink> "
     "rate=<sampling rate> "
     "latency=<buffer length> "
+    "no_close_hack=<avoid segfault caused by AAudioStream_close()> "
 );
 
-#define DEFAULT_SINK_NAME "OpenSL ES sink"
-#define BLOCK_USEC (PA_USEC_PER_MSEC * 125)
+#define DEFAULT_SINK_NAME "AAudio sink"
 
 struct userdata {
     pa_core *core;
@@ -66,19 +66,16 @@ struct userdata {
     pa_thread_mq thread_mq;
     pa_rtpoll *rtpoll;
 
-    pa_usec_t block_usec;
+    uint32_t latency;
+    uint32_t rate;
+    bool no_close;
 
     pa_memchunk memchunk;
-    void *buf;
-    size_t nbytes;
+    size_t frame_size;
 
-    SLObjectItf engineObject;
-    SLObjectItf outputMixObject;
-    SLObjectItf bqPlayerObject;
-
-    SLEngineItf engineEngine;
-    SLPlayItf bqPlayerPlay;
-    SLBufferQueueItf bqPlayerBufferQueue;
+    AAudioStreamBuilder *builder;
+    AAudioStream *stream;
+    pa_sample_spec ss;
 };
 
 static const char* const valid_modargs[] = {
@@ -86,10 +83,23 @@ static const char* const valid_modargs[] = {
     "sink_properties",
     "rate",
     "latency",
+    "no_close_hack",
     NULL
 };
 
-static void process_render(SLBufferQueueItf bq, void *userdata) {
+static void update_latency(struct userdata *u) {
+    pa_usec_t block_usec;
+
+    if(!u->latency) {
+        block_usec = PA_USEC_PER_SEC * AAudioStream_getBufferSizeInFrames(u->stream) / u->sink->sample_spec.rate / 2;
+        if(!pa_thread_mq_get())
+            pa_sink_set_fixed_latency(u->sink, block_usec);
+        else
+            pa_sink_set_fixed_latency_within_thread(u->sink, block_usec);
+    }
+}
+
+static aaudio_data_callback_result_t buffer_callback(AAudioStream *stream, void *userdata, void *audioData, int32_t numFrames) {
     struct userdata* u = userdata;
 
     pa_assert(u);
@@ -99,62 +109,66 @@ static void process_render(SLBufferQueueItf bq, void *userdata) {
         pa_thread_mq_install(&u->thread_mq);
     }
 
-    u->memchunk.length = u->nbytes;
-    pa_sink_render_into(u->sink, &u->memchunk);
-    (*bq)->Enqueue(bq, u->buf, u->memchunk.length);
+    u->memchunk.memblock = pa_memblock_new_fixed(u->core->mempool, audioData, numFrames * u->frame_size, false);
+    u->memchunk.length = numFrames * u->frame_size;
+    pa_sink_render_into_full(u->sink, &u->memchunk);
+    pa_memblock_unref_fixed(u->memchunk.memblock);
+
+    return AAUDIO_CALLBACK_RESULT_CONTINUE;
+}
+
+static void error_callback(AAudioStream *stream, void *userdata, aaudio_result_t error) {
+    struct userdata* u = userdata;
+
+    pa_assert(u);
+
+    if (error == AAUDIO_ERROR_DISCONNECTED) {
+        if (!pa_thread_mq_get()) {
+            pa_sink_suspend(u->sink, true, PA_SUSPEND_UNAVAILABLE);
+            pa_sink_suspend(u->sink, false, PA_SUSPEND_UNAVAILABLE);
+        } else {
+            AAudioStream_requestStop(u->stream);
+            AAudioStream_requestStart(u->stream);
+            update_latency(u);
+            pa_log("Failed to reconfigure sink for new device.\n");
+        }
+    }
 }
 
 #define CHK(stmt) { \
-    SLresult res = stmt; \
-    if (res != SL_RESULT_SUCCESS) { \
+    aaudio_result_t res = stmt; \
+    if (res != AAUDIO_OK) { \
         fprintf(stderr, "error %d at %s:%d\n", res, __FILE__, __LINE__); \
         goto fail; \
     } \
 }
 
-static int pa_init_sles_player(struct userdata *u, pa_sample_spec *ss) {
-    CHK(slCreateEngine(&(u->engineObject), 0, NULL, 0, NULL, NULL));
-    CHK((*u->engineObject)->Realize(u->engineObject, SL_BOOLEAN_FALSE));
+static int pa_open_aaudio_stream(struct userdata *u)
+{
+    bool want_float;
+    aaudio_format_t format;
+    pa_sample_spec *ss = &u->ss;
 
-    CHK((*u->engineObject)->GetInterface(u->engineObject, SL_IID_ENGINE, &(u->engineEngine)));
+    CHK(AAudio_createStreamBuilder(&u->builder));
+    AAudioStreamBuilder_setPerformanceMode(u->builder, AAUDIO_PERFORMANCE_MODE_LOW_LATENCY);
+    AAudioStreamBuilder_setDataCallback(u->builder, buffer_callback, u);
+    AAudioStreamBuilder_setErrorCallback(u->builder, error_callback, u);
 
-    CHK((*u->engineEngine)->CreateOutputMix(u->engineEngine, &(u->outputMixObject), 0, NULL, NULL));
-    CHK((*u->outputMixObject)->Realize(u->outputMixObject, SL_BOOLEAN_FALSE));
+    want_float = ss->format > PA_SAMPLE_S16BE;
+    ss->format = want_float ? PA_SAMPLE_FLOAT32LE : PA_SAMPLE_S16LE;
+    format = want_float ? AAUDIO_FORMAT_PCM_FLOAT : AAUDIO_FORMAT_PCM_I16;
+    AAudioStreamBuilder_setFormat(u->builder, format);
 
-    SLDataLocator_BufferQueue locator_bufferqueue;
-    locator_bufferqueue.locatorType = SL_DATALOCATOR_BUFFERQUEUE;
-    locator_bufferqueue.numBuffers = 8;
+    if (u->rate)
+        AAudioStreamBuilder_setSampleRate(u->builder, u->rate);
 
-    SLDataFormat_PCM pcm;
-    pcm.formatType = SL_DATAFORMAT_PCM;
-    pcm.numChannels = ss->channels;
-    pcm.samplesPerSec = ss->rate * 1000;
-    pcm.bitsPerSample = pcm.containerSize = pa_sample_size(ss) * 8;
-    pcm.channelMask = SL_SPEAKER_FRONT_LEFT | SL_SPEAKER_FRONT_RIGHT;
-    pcm.endianness = SL_BYTEORDER_LITTLEENDIAN;
+    AAudioStreamBuilder_setChannelCount(u->builder, ss->channels);
 
-    SLDataSource audiosrc;
-    audiosrc.pLocator = &locator_bufferqueue;
-    audiosrc.pFormat = &pcm;
+    CHK(AAudioStreamBuilder_openStream(u->builder, &u->stream));
+    CHK(AAudioStreamBuilder_delete(u->builder));
 
-    SLDataLocator_OutputMix locator_outputmix;
-    locator_outputmix.locatorType = SL_DATALOCATOR_OUTPUTMIX;
-    locator_outputmix.outputMix = u->outputMixObject;
-
-    SLDataSink audiosnk;
-    audiosnk.pLocator = &locator_outputmix;
-    audiosnk.pFormat = NULL;
-
-    SLInterfaceID ids[1] = {SL_IID_BUFFERQUEUE};
-    SLboolean flags[1] = {SL_BOOLEAN_TRUE};
-
-    CHK((*u->engineEngine)->CreateAudioPlayer(u->engineEngine, &u->bqPlayerObject, &audiosrc, &audiosnk, 1, ids, flags));
-    CHK((*u->bqPlayerObject)->Realize(u->bqPlayerObject, SL_BOOLEAN_FALSE));
-
-    CHK((*u->bqPlayerObject)->GetInterface(u->bqPlayerObject, SL_IID_PLAY, &u->bqPlayerPlay));
-
-    CHK((*u->bqPlayerObject)->GetInterface(u->bqPlayerObject, SL_IID_BUFFERQUEUE, &u->bqPlayerBufferQueue));
-    CHK((*u->bqPlayerBufferQueue)->RegisterCallback(u->bqPlayerBufferQueue, process_render, u));
+    ss->rate = AAudioStream_getSampleRate(u->stream);
+    u->frame_size = pa_frame_size(ss);
 
     return 0;
 
@@ -169,12 +183,15 @@ static void thread_func(void *userdata) {
 
     pa_assert(u);
 
+    pa_log_debug("Thread starting up");
+    pa_thread_mq_install(&u->thread_mq);
+
     for (;;) {
         int ret;
 
-        /* Render some data and drop it immediately */
         if (PA_SINK_IS_LINKED(u->sink->thread_info.state)) {
-            process_render(u->bqPlayerBufferQueue, u);
+            AAudioStream_requestStart(u->stream);
+            update_latency(u);
             break;
         }
 
@@ -210,14 +227,49 @@ finish:
 static int state_func(pa_sink *s, pa_sink_state_t state, pa_suspend_cause_t suspend_cause) {
     struct userdata *u = s->userdata;
     int r = 0;
+    uint32_t idx;
+    pa_sink_input *i;
+    pa_idxset *inputs;
 
     if ((PA_SINK_IS_OPENED(s->state) && state == PA_SINK_SUSPENDED) ||
-        (PA_SINK_IS_LINKED(s->state) && state == PA_SINK_UNLINKED))
-        r = (*u->bqPlayerPlay)->SetPlayState(u->bqPlayerPlay, SL_PLAYSTATE_STOPPED);
-    else if ((s->state == PA_SINK_SUSPENDED && PA_SINK_IS_OPENED(state)) ||
-             (s->state == PA_SINK_INIT && PA_SINK_IS_LINKED(state)))
-        r = (*u->bqPlayerPlay)->SetPlayState(u->bqPlayerPlay, SL_PLAYSTATE_PLAYING);
+        (PA_SINK_IS_LINKED(s->state) && state == PA_SINK_UNLINKED)) {
+        if (u->no_close) {
+            AAudioStream_requestStop(u->stream);
+        } else {
+            AAudioStream_close(u->stream);
+        }
+    } else if (s->state == PA_SINK_SUSPENDED && PA_SINK_IS_OPENED(state)) {
+        pa_open_aaudio_stream(u);
+
+        inputs = pa_idxset_copy(s->inputs, NULL);
+        PA_IDXSET_FOREACH(i, inputs, idx) {
+            if (i->state == PA_SINK_INPUT_RUNNING) {
+                pa_sink_input_cork(i, true);
+            } else {
+                pa_idxset_remove_by_index(inputs, idx);
+            }
+        }
+
+        s->alternate_sample_rate = u->ss.rate;
+        pa_sink_reconfigure(s, &u->ss, false);
+        s->default_sample_rate = u->ss.rate;
+
+        /* Avoid infinite loop triggered if uncork in this case */
+        if (s->suspend_cause == PA_SUSPEND_IDLE)
+            pa_sink_suspend(u->sink, true, PA_SUSPEND_UNAVAILABLE);
+
+        PA_IDXSET_FOREACH(i, inputs, idx) pa_sink_input_cork(i, false);
+        pa_idxset_free(inputs, NULL);
+
+        AAudioStream_requestStart(u->stream);
+        update_latency(u);
+    }
     return r;
+}
+
+static int reconfigure_func(pa_sink *s, pa_sample_spec *ss, bool passthrough) {
+    s->sample_spec.rate = ss->rate;
+    return 0;
 }
 
 static void process_rewind(pa_sink *s) {
@@ -226,11 +278,10 @@ static void process_rewind(pa_sink *s) {
 
 int pa__init(pa_module*m) {
     struct userdata *u = NULL;
-    pa_sample_spec ss;
     pa_channel_map map;
     pa_modargs *ma = NULL;
     pa_sink_new_data data;
-    uint32_t latency = 0;
+    pa_usec_t block_usec;
 
     pa_assert(m);
 
@@ -246,23 +297,22 @@ int pa__init(pa_module*m) {
         goto fail;
     }
 
-    ss = m->core->default_sample_spec;
-    pa_channel_map_init_stereo(&map);
+    u->ss = m->core->default_sample_spec;
+    map = m->core->default_channel_map;
+    pa_modargs_get_sample_rate(ma, &u->rate);
 
-    ss.format = ss.format > PA_SAMPLE_S16BE ? PA_SAMPLE_S32LE : PA_SAMPLE_S16LE;
-    pa_modargs_get_sample_rate(ma, &ss.rate);
-    ss.channels = map.channels;
+    pa_modargs_get_value_boolean(ma, "no_close_hack", &u->no_close);
 
-    if (pa_init_sles_player(u, &ss) < 0)
+    if (pa_open_aaudio_stream(u) < 0)
         goto fail;
 
     pa_sink_new_data_init(&data);
     data.driver = __FILE__;
     data.module = m;
     pa_sink_new_data_set_name(&data, pa_modargs_get_value(ma, "sink_name", DEFAULT_SINK_NAME));
-    pa_sink_new_data_set_sample_spec(&data, &ss);
+    pa_sink_new_data_set_sample_spec(&data, &u->ss);
     pa_sink_new_data_set_channel_map(&data, &map);
-    pa_proplist_sets(data.proplist, PA_PROP_DEVICE_DESCRIPTION, _("OpenSL ES Output"));
+    pa_proplist_sets(data.proplist, PA_PROP_DEVICE_DESCRIPTION, _("AAudio Output"));
     pa_proplist_sets(data.proplist, PA_PROP_DEVICE_CLASS, "abstract");
 
     if (pa_modargs_get_proplist(ma, "sink_properties", data.proplist, PA_UPDATE_REPLACE) < 0) {
@@ -281,24 +331,20 @@ int pa__init(pa_module*m) {
 
     u->sink->parent.process_msg = pa_sink_process_msg;
     u->sink->set_state_in_main_thread = state_func;
+    u->sink->reconfigure = reconfigure_func;
     u->sink->request_rewind = process_rewind;
     u->sink->userdata = u;
 
     pa_sink_set_asyncmsgq(u->sink, u->thread_mq.inq);
     pa_sink_set_rtpoll(u->sink, u->rtpoll);
 
-    pa_modargs_get_value_u32(ma, "latency", &latency);
-    if (latency)
-        u->block_usec = latency * PA_USEC_PER_MSEC;
-    else
-        u->block_usec = BLOCK_USEC;
-    pa_sink_set_fixed_latency(u->sink, u->block_usec);
+    pa_modargs_get_value_u32(ma, "latency", &u->latency);
+    if (u->latency) {
+        block_usec = PA_USEC_PER_MSEC * u->latency;
+        pa_sink_set_fixed_latency(u->sink, block_usec);
+    }
 
-    u->nbytes = pa_usec_to_bytes(u->block_usec, &u->sink->sample_spec);
-    u->buf = calloc(1, u->nbytes);
-    u->memchunk.memblock = pa_memblock_new_fixed(m->core->mempool, u->buf, u->nbytes, false);
-
-    if (!(u->thread = pa_thread_new("sles-sink", thread_func, u))) {
+    if (!(u->thread = pa_thread_new("aaudio-sink", thread_func, u))) {
         pa_log("Failed to create thread.");
         goto fail;
     }
@@ -327,8 +373,6 @@ int pa__get_n_used(pa_module *m) {
     return pa_sink_linked_by(u->sink);
 }
 
-#define DESTROY(object) if (u->object) (*u->object)->Destroy(u->object);
-
 void pa__done(pa_module*m) {
     struct userdata *u;
 
@@ -345,13 +389,6 @@ void pa__done(pa_module*m) {
         pa_thread_free(u->thread);
     }
 
-    DESTROY(bqPlayerObject);
-    DESTROY(outputMixObject);
-    DESTROY(engineObject);
-
-    pa_memblock_unref_fixed(u->memchunk.memblock);
-    free(u->buf);
-
     pa_thread_mq_done(&u->thread_mq);
 
     if (u->sink)
@@ -362,5 +399,3 @@ void pa__done(pa_module*m) {
 
     pa_xfree(u);
 }
-
-#undef DESTROY
