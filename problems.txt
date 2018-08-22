@@ -9,5 +9,8 @@ sudo docker exec -it termux-package-builder /bin/bash
 sudo ./scripts/run-docker.sh ./build-package.sh -a arm -f busybox
 
 3. skeep package
+add this package to buildstatus:
 in container go to /home/builder/.termux-build/_buildall-arm
-echo "package_name" >> buildstatus.txt
+  echo "package_name" >> buildstatus.txt
+or remove it from buildorder:
+grep -vwE "packages/toxic" buildorder.txt > new_buildorder.txt
