@@ -398,6 +398,7 @@ packages/byobu
 packages/cgdb
 packages/cboard
 packages/luarocks
+packages/neovim
 packages/nmap
 packages/fossil
 packages/gnupg2

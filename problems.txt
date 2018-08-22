@@ -1,33 +1,13 @@
-problems with:
-
-packages/ddrescue
-
-
-FIX - in container:
-
-in boost/build.sh add line 29
---without-python \
-
-in mpd replace com.terxmux by pl.sviete.dom
-
-packages/boost
-packages/ledger
-packages/ncmpcpp
-packages/mpd
-
-
-
-root@ccb240948ae4:~/.termux-build# rm -rf binutils/
-root@ccb240948ae4:~/.termux-build# rm -rf busybox/
-root@ccb240948ae4:~/.termux-build# rm -rf mlocate/
-root@ccb240948ae4:~/.termux-build# rm -rf ndk-stl/
-root@ccb240948ae4:~/.termux-build# rm -rf ndk-sysroot/
-sudo ./scripts/run-docker.sh ./build-package.sh -a arm -f ndk-sysroot
-
-1. debootstrap from mirrors
-http://mirrors.sth.sze.hu/pool/main/d/debootstrap
+PROBLEMS:
 
 
 HOW TO:
 1. go to container:
 sudo docker exec -it termux-package-builder /bin/bash
+
+2. rebuild package force
+sudo ./scripts/run-docker.sh ./build-package.sh -a arm -f busybox
+
+3. skeep package
+in container go to /home/builder/.termux-build/_buildall-arm
+echo "package_name" >> buildstatus.txt
