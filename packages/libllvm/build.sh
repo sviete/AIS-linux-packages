@@ -1,11 +1,10 @@
 TERMUX_PKG_HOMEPAGE=https://clang.llvm.org/
 TERMUX_PKG_DESCRIPTION="Modular compiler and toolchain technologies library"
-_PKG_MAJOR_VERSION=6.0
-TERMUX_PKG_VERSION=${_PKG_MAJOR_VERSION}.1
-TERMUX_PKG_SHA256=(b6d6c324f9c71494c0ccaf3dac1f16236d970002b42bb24a6c9e1634f7d0f4e2
-		   7c243f1485bddfdfedada3cd402ff4792ea82362ff91fbdac2dae67c6026b667
-		   e706745806921cea5c45700e13ebe16d834b5e3c0b7ad83bf6da1f28b0634e11
-		   66afca2b308351b180136cf899a3b22865af1a775efaf74dc8a10c96d4721c5a)
+TERMUX_PKG_VERSION=7.0.1
+TERMUX_PKG_SHA256=(a38dfc4db47102ec79dcc2aa61e93722c5f6f06f0a961073bd84b78fb949419b
+		   a45b62dde5d7d5fdcdfa876b0af92f164d434b06e9e89b5d0b1cbc65dfe3f418
+		   8869aab2dd2d8e00d69943352d3166d159d7eae2615f66a684f4a0999fc74031
+		   bf16b78a678da67d68405214ec7ee59d86a15f599855806192a75dcfca9b0d0c)
 TERMUX_PKG_SRCURL=(https://releases.llvm.org/${TERMUX_PKG_VERSION}/llvm-${TERMUX_PKG_VERSION}.src.tar.xz
 		   https://releases.llvm.org/${TERMUX_PKG_VERSION}/cfe-${TERMUX_PKG_VERSION}.src.tar.xz
 		   https://llvm.org/releases/${TERMUX_PKG_VERSION}/lld-${TERMUX_PKG_VERSION}.src.tar.xz
@@ -27,7 +26,7 @@ TERMUX_PKG_CONFLICTS="gcc, clang (<< 3.9.1-3)"
 TERMUX_PKG_REPLACES=gcc
 # See http://llvm.org/docs/CMake.html:
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DPYTHON_EXECUTABLE=`which python`
+-DPYTHON_EXECUTABLE=`which python3`
 -DLLVM_ENABLE_PIC=ON
 -DLLVM_ENABLE_LIBEDIT=OFF
 -DLLVM_BUILD_TESTS=OFF
@@ -107,7 +106,7 @@ termux_step_post_make_install () {
 	cd $TERMUX_PREFIX/bin
 
 	for tool in clang clang++ cc c++ cpp gcc g++ ${TERMUX_HOST_PLATFORM}-{clang,clang++,gcc,g++,cpp}; do
-		ln -f -s clang-${_PKG_MAJOR_VERSION} $tool
+		ln -f -s clang-${TERMUX_PKG_VERSION:0:1} $tool
 	done
 }
 
