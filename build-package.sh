@@ -77,7 +77,7 @@ termux_setup_golang() {
 		termux_error_exit "Unsupported arch: $TERMUX_ARCH"
 	fi
 
-	local TERMUX_GO_VERSION=go1.11
+	local TERMUX_GO_VERSION=go1.11.4
 	local TERMUX_GO_PLATFORM=linux-amd64
 
 	local TERMUX_BUILDGO_FOLDER=$TERMUX_COMMON_CACHEDIR/${TERMUX_GO_VERSION}
@@ -90,7 +90,7 @@ termux_setup_golang() {
 	rm -Rf "$TERMUX_COMMON_CACHEDIR/go" "$TERMUX_BUILDGO_FOLDER"
 	termux_download https://storage.googleapis.com/golang/${TERMUX_GO_VERSION}.${TERMUX_GO_PLATFORM}.tar.gz \
 		"$TERMUX_BUILDGO_TAR" \
-		b3fcf280ff86558e0559e185b601c9eade0fd24c900b4c63cd14d1d38613e499
+		fb26c30e6a04ad937bbc657a1b5bba92f80096af1e8ee6da6430c045a8db3a5b
 
 	( cd "$TERMUX_COMMON_CACHEDIR"; tar xf "$TERMUX_BUILDGO_TAR"; mv go "$TERMUX_BUILDGO_FOLDER"; rm "$TERMUX_BUILDGO_TAR" )
 }
@@ -132,7 +132,7 @@ termux_setup_ninja() {
 # Utility function to setup a current meson build system.
 termux_setup_meson() {
 	termux_setup_ninja
-	local MESON_VERSION=0.47.0
+	local MESON_VERSION=0.49.0
 	local MESON_FOLDER=$TERMUX_COMMON_CACHEDIR/meson-$MESON_VERSION-v1
 	if [ ! -d "$MESON_FOLDER" ]; then
 		local MESON_TAR_NAME=meson-$MESON_VERSION.tar.gz
@@ -141,53 +141,93 @@ termux_setup_meson() {
 		termux_download \
 			"https://github.com/mesonbuild/meson/releases/download/$MESON_VERSION/meson-$MESON_VERSION.tar.gz" \
 			"$MESON_TAR_FILE" \
-			1bd360a58c28039cdb3b8ce909764e90a58481deb79396227ba4081af377f009
+			fb0395c4ac208eab381cd1a20571584bdbba176eb562a7efa9cb17cace0e1551
 		tar xf "$MESON_TAR_FILE" -C "$TERMUX_PKG_TMPDIR"
 		mv "$MESON_TMP_FOLDER" "$MESON_FOLDER"
 	fi
 	TERMUX_MESON="$MESON_FOLDER/meson.py"
-	TERMUX_MESON_CROSSFILE=$TERMUX_COMMON_CACHEDIR/meson-crossfile-$TERMUX_ARCH-v2.txt
-	if [ ! -f "$TERMUX_MESON_CROSSFILE" ]; then
-		local MESON_CPU MESON_CPU_FAMILY
-		if [ "$TERMUX_ARCH" = "arm" ]; then
-			MESON_CPU_FAMILY="arm"
-			MESON_CPU="armv7"
-		elif [ "$TERMUX_ARCH" = "i686" ]; then
-			MESON_CPU_FAMILY="x86"
-			MESON_CPU="i686"
-		elif [ "$TERMUX_ARCH" = "x86_64" ]; then
-			MESON_CPU_FAMILY="x86_64"
-			MESON_CPU="x86_64"
-		elif [ "$TERMUX_ARCH" = "aarch64" ]; then
-			MESON_CPU_FAMILY="arm"
-			MESON_CPU="aarch64"
-		else
-			termux_error_exit "Unsupported arch: $TERMUX_ARCH"
-		fi
-
-		cat > "$TERMUX_MESON_CROSSFILE" <<-HERE
-			[binaries]
-			ar = '$AR'
-			c = '$CC'
-			cpp = '$CXX'
-			ld = '$LD'
-			pkgconfig = '$PKG_CONFIG'
-			strip = '$STRIP'
-			[properties]
-			needs_exe_wrapper = true
-			[host_machine]
-			cpu_family = '$MESON_CPU_FAMILY'
-			cpu = '$MESON_CPU'
-			endian = 'little'
-			system = 'android'
-		HERE
+	TERMUX_MESON_CROSSFILE=$TERMUX_PKG_TMPDIR/meson-crossfile-$TERMUX_ARCH.txt
+	local MESON_CPU MESON_CPU_FAMILY
+	if [ "$TERMUX_ARCH" = "arm" ]; then
+		MESON_CPU_FAMILY="arm"
+		MESON_CPU="armv7"
+	elif [ "$TERMUX_ARCH" = "i686" ]; then
+		MESON_CPU_FAMILY="x86"
+		MESON_CPU="i686"
+	elif [ "$TERMUX_ARCH" = "x86_64" ]; then
+		MESON_CPU_FAMILY="x86_64"
+		MESON_CPU="x86_64"
+	elif [ "$TERMUX_ARCH" = "aarch64" ]; then
+		MESON_CPU_FAMILY="arm"
+		MESON_CPU="aarch64"
+	else
+		termux_error_exit "Unsupported arch: $TERMUX_ARCH"
 	fi
+
+	local CONTENT=""
+	echo "[binaries]" > $TERMUX_MESON_CROSSFILE
+	echo "ar = '$AR'" >> $TERMUX_MESON_CROSSFILE
+	echo "c = '$CC'" >> $TERMUX_MESON_CROSSFILE
+	echo "cpp = '$CXX'" >> $TERMUX_MESON_CROSSFILE
+	echo "ld = '$LD'" >> $TERMUX_MESON_CROSSFILE
+	echo "pkgconfig = '$PKG_CONFIG'" >> $TERMUX_MESON_CROSSFILE
+	echo "strip = '$STRIP'" >> $TERMUX_MESON_CROSSFILE
+
+	echo '' >> $TERMUX_MESON_CROSSFILE
+	echo "[properties]" >> $TERMUX_MESON_CROSSFILE
+	echo "needs_exe_wrapper = true" >> $TERMUX_MESON_CROSSFILE
+
+	echo -n "c_args = [" >> $TERMUX_MESON_CROSSFILE
+	local word first=true
+	for word in $CFLAGS $CPPFLAGS; do
+		if [ "$first" = "true" ]; then
+			first=false
+		else
+			echo -n ", " >> $TERMUX_MESON_CROSSFILE
+		fi
+		echo -n "'$word'" >> $TERMUX_MESON_CROSSFILE
+	done
+	echo ']' >> $TERMUX_MESON_CROSSFILE
+
+	echo -n "cpp_args = [" >> $TERMUX_MESON_CROSSFILE
+	local word first=true
+	for word in $CXXFLAGS $CPPFLAGS; do
+		if [ "$first" = "true" ]; then
+			first=false
+		else
+			echo -n ", " >> $TERMUX_MESON_CROSSFILE
+		fi
+		echo -n "'$word'" >> $TERMUX_MESON_CROSSFILE
+	done
+	echo ']' >> $TERMUX_MESON_CROSSFILE
+
+	local property
+	for property in c_link_args cpp_link_args; do
+		echo -n "$property = [" >> $TERMUX_MESON_CROSSFILE
+		first=true
+		for word in $LDFLAGS; do
+			if [ "$first" = "true" ]; then
+				first=false
+			else
+				echo -n ", " >> $TERMUX_MESON_CROSSFILE
+			fi
+			echo -n "'$word'" >> $TERMUX_MESON_CROSSFILE
+		done
+		echo ']' >> $TERMUX_MESON_CROSSFILE
+	done
+
+	echo '' >> $TERMUX_MESON_CROSSFILE
+	echo "[host_machine]" >> $TERMUX_MESON_CROSSFILE
+	echo "cpu_family = '$MESON_CPU_FAMILY'" >> $TERMUX_MESON_CROSSFILE
+	echo "cpu = '$MESON_CPU'" >> $TERMUX_MESON_CROSSFILE
+	echo "endian = 'little'" >> $TERMUX_MESON_CROSSFILE
+	echo "system = 'android'" >> $TERMUX_MESON_CROSSFILE
 }
 
 # Utility function to setup a current cmake build system
 termux_setup_cmake() {
-	local TERMUX_CMAKE_MAJORVESION=3.12
-	local TERMUX_CMAKE_MINORVERSION=1
+	local TERMUX_CMAKE_MAJORVESION=3.13
+	local TERMUX_CMAKE_MINORVERSION=2
 	local TERMUX_CMAKE_VERSION=$TERMUX_CMAKE_MAJORVESION.$TERMUX_CMAKE_MINORVERSION
 	local TERMUX_CMAKE_TARNAME=cmake-${TERMUX_CMAKE_VERSION}-Linux-x86_64.tar.gz
 	local TERMUX_CMAKE_TARFILE=$TERMUX_PKG_TMPDIR/$TERMUX_CMAKE_TARNAME
@@ -195,7 +235,7 @@ termux_setup_cmake() {
 	if [ ! -d "$TERMUX_CMAKE_FOLDER" ]; then
 		termux_download https://cmake.org/files/v$TERMUX_CMAKE_MAJORVESION/$TERMUX_CMAKE_TARNAME \
 		                "$TERMUX_CMAKE_TARFILE" \
-				f4c5caeed9841029895cfb5b1d71e77ea71949ac85737cbbc3a70c12df28854c
+				6370de82999baafc2dbbf0eda23007d93f78d0c3afda8434a646518915ca0846
 		rm -Rf "$TERMUX_PKG_TMPDIR/cmake-${TERMUX_CMAKE_VERSION}-Linux-x86_64"
 		tar xf "$TERMUX_CMAKE_TARFILE" -C "$TERMUX_PKG_TMPDIR"
 		mv "$TERMUX_PKG_TMPDIR/cmake-${TERMUX_CMAKE_VERSION}-Linux-x86_64" \
@@ -207,30 +247,28 @@ termux_setup_cmake() {
 
 # First step is to handle command-line arguments. Not to be overridden by packages.
 termux_step_handle_arguments() {
-	# shellcheck source=/dev/null
-	test -f "$HOME/.termuxrc" && source "$HOME/.termuxrc"
-
-	# Handle command-line arguments:
 	_show_usage () {
-	    echo "Usage: ./build-package.sh [-a ARCH] [-d] [-D] [-f] [-q] [-s] PACKAGE"
+	    echo "Usage: ./build-package.sh [-a ARCH] [-d] [-D] [-f] [-q] [-s] [-o DIR] PACKAGE"
 	    echo "Build a package by creating a .deb file in the debs/ folder."
 	    echo "  -a The architecture to build for: aarch64(default), arm, i686, x86_64 or all."
 	    echo "  -d Build with debug symbols."
 	    echo "  -D Build a disabled package in disabled-packages/."
 	    echo "  -f Force build even if package has already been built."
-	    echo "  -q Quiet build"
+	    echo "  -q Quiet build."
 	    echo "  -s Skip dependency check."
+	    echo "  -o Specify deb directory. Default: debs/."
 	    exit 1
 	}
-	while getopts :a:hdDfqs option; do
+	while getopts :a:hdDfqso: option; do
 		case "$option" in
 		a) TERMUX_ARCH="$OPTARG";;
 		h) _show_usage;;
-		d) TERMUX_DEBUG=true;;
+		d) export TERMUX_DEBUG=true;;
 		D) local TERMUX_IS_DISABLED=true;;
 		f) TERMUX_FORCE_BUILD=true;;
 		q) export TERMUX_QUIET_BUILD=true;;
 		s) export TERMUX_SKIP_DEPCHECK=true;;
+		o) TERMUX_DEBDIR="$(realpath -m $OPTARG)";;
 		?) termux_error_exit "./build-package.sh: illegal option -$OPTARG";;
 		esac
 	done
@@ -242,7 +280,8 @@ termux_step_handle_arguments() {
 	# Handle 'all' arch:
 	if [ -n "${TERMUX_ARCH+x}" ] && [ "${TERMUX_ARCH}" = 'all' ]; then
 		for arch in 'aarch64' 'arm' 'i686' 'x86_64'; do
-			./build-package.sh ${TERMUX_FORCE_BUILD+-f} -a $arch "$1"
+			./build-package.sh ${TERMUX_FORCE_BUILD+-f} -a $arch \
+				${TERMUX_DEBUG+-d} ${TERMUX_DEBDIR+-o $TERMUX_DEBDIR} "$1"
 		done
 		exit
 	fi
@@ -274,8 +313,6 @@ termux_step_handle_arguments() {
 termux_step_setup_variables() {
 	# shellcheck source=scripts/properties.sh
 	. "$TERMUX_SCRIPTDIR/scripts/properties.sh"
-	: "${ANDROID_HOME:="${HOME}/lib/android-sdk"}"
-	: "${NDK:="${HOME}/lib/android-ndk"}"
 	: "${TERMUX_MAKE_PROCESSES:="$(nproc)"}"
 	: "${TERMUX_TOPDIR:="$HOME/.termux-build"}"
 	: "${TERMUX_ARCH:="aarch64"}" # arm, aarch64, i686 or x86_64.
@@ -349,7 +386,6 @@ termux_step_setup_variables() {
 	# Set if a host build should be done in TERMUX_PKG_HOSTBUILD_DIR:
 	TERMUX_PKG_HOSTBUILD=""
 	TERMUX_PKG_MAINTAINER="Fredrik Fornwall @fornwall"
-	TERMUX_PKG_CLANG=yes # does nothing for cmake based packages. clang is chosen by cmake
 	TERMUX_PKG_FORCE_CMAKE=no # if the package has autotools as well as cmake, then set this to prefer cmake
 	TERMUX_CMAKE_BUILD=Ninja # Which cmake generator to use
 	TERMUX_PKG_HAS_DEBUG=yes # set to no if debug build doesn't exist or doesn't work, for example for python based packages
@@ -407,6 +443,7 @@ termux_step_start_build() {
 		TERMUX_ALL_DEPS=$(./scripts/buildorder.py "$TERMUX_PKG_BUILDER_DIR")
 		for p in $TERMUX_ALL_DEPS; do
 			echo "Building dependency $p if necessary..."
+			# Built dependencies are put in the default TERMUX_DEBDIR instead of the specified one
 			./build-package.sh -a $TERMUX_ARCH -s "$p"
 		done
 	fi
@@ -577,17 +614,9 @@ termux_step_setup_toolchain() {
 	export CFLAGS=""
 	export LDFLAGS="-L${TERMUX_PREFIX}/lib"
 
-	if [ "$TERMUX_PKG_CLANG" = "no" ]; then
-		export AS=${TERMUX_HOST_PLATFORM}-gcc
-		export CC=$TERMUX_HOST_PLATFORM-gcc
-		export CXX=$TERMUX_HOST_PLATFORM-g++
-		LDFLAGS+=" -specs=$TERMUX_SCRIPTDIR/termux.spec"
-		CFLAGS+=" -specs=$TERMUX_SCRIPTDIR/termux.spec"
-	else
-		export AS=${TERMUX_HOST_PLATFORM}-clang
-		export CC=$TERMUX_HOST_PLATFORM-clang
-		export CXX=$TERMUX_HOST_PLATFORM-clang++
-	fi
+	export AS=${TERMUX_HOST_PLATFORM}-clang
+	export CC=$TERMUX_HOST_PLATFORM-clang
+	export CXX=$TERMUX_HOST_PLATFORM-clang++
 
 	export AR=$TERMUX_HOST_PLATFORM-ar
 	export CPP=${TERMUX_HOST_PLATFORM}-cpp
@@ -609,9 +638,6 @@ termux_step_setup_toolchain() {
 		# "We recommend using the -mthumb compiler flag to force the generation of 16-bit Thumb-2 instructions".
 		# With r13 of the ndk ruby 2.4.0 segfaults when built on arm with clang without -mthumb.
 		CFLAGS+=" -march=armv7-a -mfpu=neon -mfloat-abi=softfp -mthumb"
-		if [ "$TERMUX_PKG_CLANG" != "no" ]; then
-			CFLAGS+=" -fno-integrated-as"
-		fi
 		LDFLAGS+=" -march=armv7-a"
 	elif [ "$TERMUX_ARCH" = "i686" ]; then
 		# From $NDK/docs/CPU-ARCH-ABIS.html:
@@ -627,17 +653,10 @@ termux_step_setup_toolchain() {
 	if [ -n "$TERMUX_DEBUG" ]; then
 		CFLAGS+=" -g3 -O1 -fstack-protector --param ssp-buffer-size=4 -D_FORTIFY_SOURCE=2"
 	else
-		if [ "$TERMUX_PKG_CLANG" = "no" ]; then
+		if [ $TERMUX_ARCH = arm ]; then
 			CFLAGS+=" -Os"
 		else
-			# -Oz seems good for clang, see https://github.com/android-ndk/ndk/issues/133.
-			# However, on arm it has a lot of issues such as #1520, #1680, #1765 and
-			# https://bugs.llvm.org/show_bug.cgi?id=35379, so use so use -Os there for now:
-			if [ $TERMUX_ARCH = arm ]; then
-				CFLAGS+=" -Os"
-			else
-				CFLAGS+=" -Oz"
-			fi
+			CFLAGS+=" -Oz"
 		fi
 	fi
 
@@ -654,6 +673,7 @@ termux_step_setup_toolchain() {
 	export ac_cv_func_getpwnam=no
 	export ac_cv_func_getpwuid=no
 	export ac_cv_func_sigsetmask=no
+	export ac_cv_c_bigendian=no
 
 	if [ ! -d $TERMUX_STANDALONE_TOOLCHAIN ]; then
 		# Do not put toolchain in place until we are done with setup, to avoid having a half setup
@@ -676,20 +696,6 @@ termux_step_setup_toolchain() {
 
 		# Remove android-support header wrapping not needed on android-21:
 		rm -Rf $_TERMUX_TOOLCHAIN_TMPDIR/sysroot/usr/local
-
-		local wrapped plusplus CLANG_TARGET=$TERMUX_HOST_PLATFORM
-		if [ $TERMUX_ARCH = arm ]; then CLANG_TARGET=${CLANG_TARGET/arm-/armv7a-}; fi
-		for wrapped in ${TERMUX_HOST_PLATFORM}-clang clang; do
-			for plusplus in "" "++"; do
-				local FILE_TO_REPLACE=$_TERMUX_TOOLCHAIN_TMPDIR/bin/${wrapped}${plusplus}
-				if [ ! -f $FILE_TO_REPLACE ]; then
-					termux_error_exit "No toolchain file to override: $FILE_TO_REPLACE"
-				fi
-				cp "$TERMUX_SCRIPTDIR/scripts/clang-pie-wrapper" $FILE_TO_REPLACE
-				sed -i "s/COMPILER/clang60$plusplus/" $FILE_TO_REPLACE
-				sed -i "s/CLANG_TARGET/$CLANG_TARGET/" $FILE_TO_REPLACE
-			done
-		done
 
 		if [ "$TERMUX_ARCH" = "aarch64" ]; then
 			# Use gold by default to work around https://github.com/android-ndk/ndk/issues/148
@@ -714,6 +720,12 @@ termux_step_setup_toolchain() {
 				echo ' --exclude-libs libgcc.a "$@"' >> $wrap_linker
 			done
 		fi
+
+		# Setup the cpp preprocessor:
+		cp $_TERMUX_TOOLCHAIN_TMPDIR/bin/$TERMUX_HOST_PLATFORM-clang \
+		   $_TERMUX_TOOLCHAIN_TMPDIR/bin/$TERMUX_HOST_PLATFORM-cpp
+		sed -i 's/clang70/clang70 -E/' \
+		   $_TERMUX_TOOLCHAIN_TMPDIR/bin/$TERMUX_HOST_PLATFORM-cpp
 
 		cd $_TERMUX_TOOLCHAIN_TMPDIR/sysroot
 
@@ -749,6 +761,9 @@ termux_step_setup_toolchain() {
 		unset file
 		cd $_TERMUX_TOOLCHAIN_TMPDIR/include/c++/4.9.x
                 sed "s%\@TERMUX_HOST_PLATFORM\@%${TERMUX_HOST_PLATFORM}%g" $TERMUX_SCRIPTDIR/ndk-patches/*.cpppatch | patch -p1
+		# Fix relative path in gcc/g++ script:
+		sed -i "s%\`dirname \$0\`/../../../../%$NDK/toolchains/%g" $_TERMUX_TOOLCHAIN_TMPDIR/bin/${TERMUX_HOST_PLATFORM}-gcc
+		sed -i "s%\`dirname \$0\`/../../../../%$NDK/toolchains/%g" $_TERMUX_TOOLCHAIN_TMPDIR/bin/${TERMUX_HOST_PLATFORM}-g++
 		mv $_TERMUX_TOOLCHAIN_TMPDIR $TERMUX_STANDALONE_TOOLCHAIN
 	fi
 
@@ -976,6 +991,7 @@ termux_step_configure_cmake () {
 		-DCMAKE_SYSTEM_VERSION=$TERMUX_PKG_API_LEVEL \
 		-DCMAKE_SKIP_INSTALL_RPATH=ON \
 		-DCMAKE_USE_SYSTEM_LIBRARIES=True \
+		-DDOXYGEN_EXECUTABLE= \
 		-DBUILD_TESTING=OFF \
 		$TERMUX_PKG_EXTRA_CONFIGURE_ARGS $TOOLCHAIN_ARGS
 }
@@ -1037,11 +1053,12 @@ termux_step_make_install() {
 		fi
 	elif test -f Cargo.toml; then
 		termux_setup_rust
-		cargo build --release --target $CARGO_TARGET_NAME
-		# Once https://github.com/rust-lang/cargo/commit/0774e97da3894f07ed5b6f7db175027a9bc4718b
-		# is available on master we can use cargo install:
-		# cargo install --root $TERMUX_PREFIX
-		# rm $TERMUX_PREFIX/.crates.toml
+		cargo install --force \
+			--target $CARGO_TARGET_NAME \
+			--root $TERMUX_PREFIX \
+			$TERMUX_PKG_EXTRA_CONFIGURE_ARGS
+		# https://github.com/rust-lang/cargo/issues/3316:
+		rm $TERMUX_PREFIX/.crates.toml
 	fi
 }
 

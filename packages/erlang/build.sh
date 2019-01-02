@@ -1,13 +1,15 @@
 TERMUX_PKG_HOMEPAGE=https://www.erlang.org/
 TERMUX_PKG_DESCRIPTION="General-purpose concurrent functional programming language"
-TERMUX_PKG_VERSION=21.0.7
-TERMUX_PKG_SHA256=4e9c98b5f29918d0896b21ce28b13c7928d4c9bd6a0c7d23b4f19b27f6e3b6f7
+TERMUX_PKG_VERSION=21.2.2
+TERMUX_PKG_SHA256=41b1c3a8343218157a683776e71d80a05ac4eb4019a90a760846608d78817690
 TERMUX_PKG_SRCURL=https://github.com/erlang/otp/archive/OTP-$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_DEPENDS="openssl, ncurses, libutil"
 TERMUX_PKG_HOSTBUILD="yes"
 TERMUX_PKG_BUILD_IN_SRC="yes"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--without-javac --with-ssl=${TERMUX_PREFIX} --with-termcap"
 TERMUX_PKG_EXTRA_MAKE_ARGS="noboot"
+TERMUX_PKG_KEEP_STATIC_LIBRARIES="true"
+TERMUX_PKG_NO_DEVELSPLIT="yes"
 
 termux_step_post_extract_package() {
 	# We need a host build every time:
