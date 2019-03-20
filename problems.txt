@@ -1,5 +1,7 @@
 PROBLEMS:
-
+/data/data/pl.sviete.dom/files/usr/etc/apt/sources.list
+/data/data/pl.sviete.dom/files/usr/etc/tor/torrc
+/data/data/pl.sviete.dom/files/usr/etc/ssh/sshd_config
 
 HOW TO:
 1. go to container:
