@@ -1,4 +1,5 @@
 1. delete all previous package versions from /Projekty/AIS-LINUX-PACKAGES/debs
+rm ~/Projekty/AIS-LINUX-PACKAGES/debs/rclone*
 2. ./scripts/run-docker.sh  ./build-package.sh -a arm libmosquitto
 3. cd DOM_APT_REPO and run:
 ./dom-apt-repo-stable /home/andrzej/Projekty/AIS-LINUX-PACKAGES/debs/
