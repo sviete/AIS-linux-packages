@@ -1,17 +1,24 @@
 TERMUX_PKG_HOMEPAGE=https://www.perl.org/
 TERMUX_PKG_DESCRIPTION="Capable, feature-rich programming language"
-TERMUX_PKG_VERSION=(5.28.1
-                    1.2.1)
-TERMUX_PKG_SHA256=(3ebf85fe65df2ee165b22596540b7d5d42f84d4b72d84834f74e2e0b8956c347
-                   8b706bc688ddf71b62d649bde72f648669f18b37fe0c54ec6201142ca3943498)
+TERMUX_PKG_LICENSE="Artistic-License-2.0"
+TERMUX_PKG_VERSION=(5.30.0
+                    1.3)
+TERMUX_PKG_REVISION=1
+TERMUX_PKG_SHA256=(851213c754d98ccff042caa40ba7a796b2cee88c5325f121be5cbb61bbf975f2
+                   49edea1ea2cd6c5c47386ca71beda8d150c748835781354dbe7f75b1df27e703)
 TERMUX_PKG_SRCURL=(http://www.cpan.org/src/5.0/perl-${TERMUX_PKG_VERSION}.tar.gz
-                   https://github.com/arsv/perl-cross/releases/download/${TERMUX_PKG_VERSION[1]}/perl-cross-${TERMUX_PKG_VERSION[1]}.tar.gz)
-TERMUX_PKG_BUILD_IN_SRC="yes"
+		   https://github.com/arsv/perl-cross/releases/download/${TERMUX_PKG_VERSION[1]}/perl-cross-${TERMUX_PKG_VERSION[1]}.tar.gz)
+TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_MAKE_PROCESSES=1
 TERMUX_PKG_RM_AFTER_INSTALL="bin/perl${TERMUX_PKG_VERSION}"
-TERMUX_PKG_NO_DEVELSPLIT=yes
 
-termux_step_post_extract_package () {
+termux_step_post_extract_package() {
+	# Certain packages are not safe to build on device because their
+	# build.sh script deletes specific files in $TERMUX_PREFIX.
+	if $TERMUX_ON_DEVICE_BUILD; then
+		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
+	fi
+
 	# This port uses perl-cross: http://arsv.github.io/perl-cross/
 	cp -rf perl-cross-${TERMUX_PKG_VERSION[1]}/* .
 
@@ -21,7 +28,7 @@ termux_step_post_extract_package () {
 	rm -f $TERMUX_PREFIX/include/perl
 }
 
-termux_step_configure () {
+termux_step_configure() {
 	export PATH=$PATH:$TERMUX_STANDALONE_TOOLCHAIN/bin
 
 	ORIG_AR=$AR; unset AR
@@ -49,11 +56,11 @@ termux_step_configure () {
 		-Dsysroot=$TERMUX_STANDALONE_TOOLCHAIN/sysroot \
 		-Dprefix=$TERMUX_PREFIX \
 		-Dsh=$TERMUX_PREFIX/bin/sh \
-		-Dcc=$ORIG_CC \
+		-Dcc="$ORIG_CC -Wl,-rpath=$TERMUX_PREFIX/lib -Wl,--enable-new-dtags" \
 		-Duseshrplib
 }
 
-termux_step_post_make_install () {
+termux_step_post_make_install() {
 	# Replace hardlinks with symlinks:
 	cd $TERMUX_PREFIX/share/man/man1
 	rm perlbug.1

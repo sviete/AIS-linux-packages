@@ -1,10 +1,12 @@
 TERMUX_PKG_HOMEPAGE=https://git-scm.com/
 TERMUX_PKG_DESCRIPTION="Fast, scalable, distributed revision control system"
-# less is required as a pager for git log, and the busybox less does not handle used escape sequences.
-TERMUX_PKG_DEPENDS="libcurl, less, openssl, pcre2"
-TERMUX_PKG_VERSION=2.20.1
-TERMUX_PKG_SHA256=9d2e91e2faa2ea61ba0a70201d023b36f54d846314591a002c610ea2ab81c3e9
+TERMUX_PKG_LICENSE="GPL-2.0"
+TERMUX_PKG_VERSION=2.22.0
 TERMUX_PKG_SRCURL=https://www.kernel.org/pub/software/scm/git/git-${TERMUX_PKG_VERSION}.tar.xz
+TERMUX_PKG_SHA256=159e4b599f8af4612e70b666600a3139541f8bacc18124daf2cbe8d1b934f29f
+# less is required as a pager for git log, and the busybox less does not handle used escape sequences.
+TERMUX_PKG_DEPENDS="libcurl, libiconv, less, openssl, pcre2, zlib"
+
 ## This requires a working $TERMUX_PREFIX/bin/sh on the host building:
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 ac_cv_fread_reads_directories=yes
@@ -24,7 +26,7 @@ NO_INSTALL_HARDLINKS=1
 PERL_PATH=$TERMUX_PREFIX/bin/perl
 USE_LIBPCRE2=1
 "
-TERMUX_PKG_BUILD_IN_SRC="yes"
+TERMUX_PKG_BUILD_IN_SRC=true
 
 # Things to remove to save space:
 #  bin/git-cvsserver - server emulating CVS
@@ -38,10 +40,16 @@ share/man/man1/git-cvsserver.1
 share/man/man1/git-shell.1
 "
 
-termux_step_pre_configure () {
+termux_step_pre_configure() {
+	# Certain packages are not safe to build on device because their
+	# build.sh script deletes specific files in $TERMUX_PREFIX.
+	if $TERMUX_ON_DEVICE_BUILD; then
+		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
+	fi
+
 	# Setup perl so that the build process can execute it:
 	rm -f $TERMUX_PREFIX/bin/perl
-	ln -s `which perl` $TERMUX_PREFIX/bin/perl
+	ln -s $(which perl) $TERMUX_PREFIX/bin/perl
 
 	# Force fresh perl files (otherwise files from earlier builds
 	# remains without bumped modification times, so are not picked
@@ -52,10 +60,21 @@ termux_step_pre_configure () {
 	CPPFLAGS="-I$TERMUX_PKG_SRCDIR $CPPFLAGS"
 }
 
-termux_step_post_make_install () {
+termux_step_make() {
+	make -j $TERMUX_MAKE_PROCESSES $TERMUX_PKG_EXTRA_MAKE_ARGS
+	make -j $TERMUX_MAKE_PROCESSES -C contrib/subtree $TERMUX_PKG_EXTRA_MAKE_ARGS
+}
+
+termux_step_make_install() {
+	make $TERMUX_PKG_EXTRA_MAKE_ARGS install
+	make -C contrib/subtree $TERMUX_PKG_EXTRA_MAKE_ARGS install
+
 	# Installing man requires asciidoc and xmlto, so git uses separate make targets for man pages
 	make -j $TERMUX_MAKE_PROCESSES install-man
+	make -j $TERMUX_MAKE_PROCESSES -C contrib/subtree install-man
+}
 
+termux_step_post_make_install() {
 	mkdir -p $TERMUX_PREFIX/etc/bash_completion.d/
 	cp $TERMUX_PKG_SRCDIR/contrib/completion/git-completion.bash \
 	   $TERMUX_PKG_SRCDIR/contrib/completion/git-prompt.sh \
@@ -72,7 +91,7 @@ termux_step_post_make_install () {
 	(cd $TERMUX_PREFIX/bin; ln -s -f ../libexec/git-core/git-upload-pack git-upload-pack)
 }
 
-termux_step_post_massage () {
+termux_step_post_massage() {
 	if [ ! -f libexec/git-core/git-remote-https ]; then
 		termux_error_exit "Git built without https support"
 	fi

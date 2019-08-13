@@ -1,7 +1,8 @@
 TERMUX_PKG_HOMEPAGE=https://github.com/jarun/nnn
 TERMUX_PKG_DESCRIPTION="Free, fast, friendly file browser"
-TERMUX_PKG_VERSION=2.2
-TERMUX_PKG_SHA256=88dd08d624ae7a61ef749b1e258e4b29ed61ba9fcc5a18813f291ce80efc5e74
+TERMUX_PKG_LICENSE="BSD 2-Clause"
+TERMUX_PKG_VERSION=2.6
+TERMUX_PKG_SHA256=17fd3e517308e41065594ffe8dcde348b4d10dea4240699f4708337db48b3e25
 TERMUX_PKG_SRCURL=https://github.com/jarun/nnn/archive/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_DEPENDS="file, findutils, ncurses"
-TERMUX_PKG_BUILD_IN_SRC=yes
+TERMUX_PKG_DEPENDS="file, findutils, readline, wget, libandroid-support"
+TERMUX_PKG_BUILD_IN_SRC=true

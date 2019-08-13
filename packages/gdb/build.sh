@@ -1,20 +1,22 @@
 TERMUX_PKG_HOMEPAGE=https://www.gnu.org/software/gdb/
 TERMUX_PKG_DESCRIPTION="The standard GNU Debugger that runs on many Unix-like systems and works for many programming languages"
-TERMUX_PKG_DEPENDS="liblzma, libexpat, readline, ncurses, libmpfr"
-TERMUX_PKG_VERSION=8.2.1
-TERMUX_PKG_SHA256=0a6a432907a03c5c8eaad3c3cffd50c00a40c3a5e3c4039440624bae703f2202
+TERMUX_PKG_LICENSE="GPL-3.0"
+TERMUX_PKG_VERSION=8.3
+TERMUX_PKG_REVISION=4
 TERMUX_PKG_SRCURL=https://mirrors.kernel.org/gnu/gdb/gdb-${TERMUX_PKG_VERSION}.tar.xz
-# gdb can not build with our normal --disable-static: https://sourceware.org/bugzilla/show_bug.cgi?id=15916
+TERMUX_PKG_SHA256=802f7ee309dcc547d65a68d61ebd6526762d26c3051f52caebe2189ac1ffd72e
+TERMUX_PKG_DEPENDS="libc++, liblzma, libexpat, readline, ncurses, libmpfr, zlib"
+TERMUX_PKG_BREAKS="gdb-dev"
+TERMUX_PKG_REPLACES="gdb-dev"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --with-system-readline
 --with-curses
---enable-static
 ac_cv_func_getpwent=no
 ac_cv_func_getpwnam=no
 "
 TERMUX_PKG_RM_AFTER_INSTALL="share/gdb/python share/gdb/syscalls share/gdb/system-gdbinit"
 TERMUX_PKG_MAKE_INSTALL_TARGET="-C gdb install"
-TERMUX_PKG_BUILD_IN_SRC="yes"
+TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_pre_configure() {
 	# Fix "undefined reference to 'rpl_gettimeofday'" when building:

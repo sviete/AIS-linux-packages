@@ -1,8 +1,9 @@
 TERMUX_PKG_HOMEPAGE=https://picolisp.com
 TERMUX_PKG_DESCRIPTION="Lisp interpreter and application server framework"
+TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_DEPENDS="libcrypt, openssl"
-TERMUX_PKG_VERSION=18.12.27
-TERMUX_PKG_SHA256=13669b17e726b00e3f73578b817a47bc9ebd6b2fc962894489730dc0b6c06f43
+TERMUX_PKG_VERSION=19.7.31
+TERMUX_PKG_SHA256=3d890d1d808bc48e545d14d3b0550b472d767bec0ba9e49861ac55c1427f815d
 # We use our bintray mirror since old version snapshots are not kept on main site.
 TERMUX_PKG_SRCURL=https://dl.bintray.com/termux/upstream/picolisp_${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_BUILD_IN_SRC=true
@@ -11,6 +12,12 @@ TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_BLACKLISTED_ARCHES="arm, i686, x86_64"
 
 termux_step_pre_configure() {
+	# Certain packages are not safe to build on device because their
+	# build.sh script deletes specific files in $TERMUX_PREFIX.
+	if $TERMUX_ON_DEVICE_BUILD; then
+		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
+	fi
+
 	# Validate that we have the right version:
 	grep -q "Version ${TERMUX_PKG_VERSION//./ }" src64/version.l || {
 		termux_error_exit "Picolisp version needs to be bumped"
@@ -32,7 +39,7 @@ termux_step_pre_configure() {
 	CFLAGS+=" -c $LDFLAGS $CPPFLAGS"
 }
 
-termux_step_make_install () {
+termux_step_make_install() {
 	cd $TERMUX_PKG_SRCDIR/
 
 	if [ $TERMUX_ARCH_BITS = "64" ]; then

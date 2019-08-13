@@ -1,17 +1,17 @@
 TERMUX_PKG_HOMEPAGE=https://ffmpeg.org
 TERMUX_PKG_DESCRIPTION="Tools and libraries to manipulate a wide range of multimedia formats and protocols"
+TERMUX_PKG_LICENSE="GPL-3.0"
 # NOTE: mpv has to be rebuilt and version bumped after updating ffmpeg.
-TERMUX_PKG_VERSION=4.1
-TERMUX_PKG_SHA256=a38ec4d026efb58506a99ad5cd23d5a9793b4bf415f2c4c2e9c1bb444acd1994
+TERMUX_PKG_VERSION=4.1.4
+TERMUX_PKG_REVISION=2
 TERMUX_PKG_SRCURL=https://www.ffmpeg.org/releases/ffmpeg-${TERMUX_PKG_VERSION}.tar.xz
-# libbz2 is used by matroska decoder:
-# libvpx is the VP8 & VP9 video encoder for WebM, see
-# https://trac.ffmpeg.org/wiki/Encode/VP8 and https://trac.ffmpeg.org/wiki/Encode/VP9
-TERMUX_PKG_DEPENDS="libbz2, libsoxr, libx264, libx265, xvidcore, libvorbis, libmp3lame, libopus, libvpx, libgnutls, libandroid-glob"
-TERMUX_PKG_INCLUDE_IN_DEVPACKAGE="share/ffmpeg/examples"
+TERMUX_PKG_SHA256=f1f049a82fcfbf156564e73a3935d7e750891fab2abf302e735104fd4050a7e1
+TERMUX_PKG_DEPENDS="libass, libbz2, libiconv, libsoxr, libx264, libx265, xvidcore, libvorbis, libmp3lame, libopus, libvpx, libgnutls, libandroid-glob, freetype, zlib, liblzma"
 TERMUX_PKG_CONFLICTS="libav"
+TERMUX_PKG_BREAKS="ffmpeg-dev"
+TERMUX_PKG_REPLACES="ffmpeg-dev"
 
-termux_step_configure () {
+termux_step_configure() {
 	cd $TERMUX_PKG_BUILDDIR
 
 	export ASFLAGS="-no-integrated-as"
@@ -34,23 +34,23 @@ termux_step_configure () {
 		termux_error_exit "Unsupported arch: $TERMUX_ARCH"
 	fi
 
-	# --disable-lzma to avoid problem with shared library clashes, see
-	# https://github.com/termux/termux-packages/issues/511
-	# Only used for LZMA compression support for tiff decoder.
 	$TERMUX_PKG_SRCDIR/configure \
 		--arch=${_ARCH} \
 		--as=$AS \
 		--cc=$CC \
 		--cxx=$CXX \
 		--cross-prefix=${TERMUX_HOST_PLATFORM}- \
-		--disable-avdevice \
+		--disable-indevs \
+		--disable-outdevs \
+		--enable-indev=lavfi \
 		--disable-static \
 		--disable-symver \
-		--disable-lzma \
 		--enable-cross-compile \
 		--enable-gnutls \
 		--enable-gpl \
+		--enable-libass \
 		--enable-libmp3lame \
+		--enable-libfreetype \
 		--enable-libvorbis \
 		--enable-libopus \
 		--enable-libx264 \

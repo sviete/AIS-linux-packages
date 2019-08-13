@@ -1,13 +1,22 @@
-TERMUX_PKG_HOMEPAGE=http://elinux.org/Android_aapt
+TERMUX_PKG_HOMEPAGE=https://elinux.org/Android_aapt
 TERMUX_PKG_DESCRIPTION="Android Asset Packaging Tool"
+TERMUX_PKG_LICENSE="Apache-2.0"
 _TAG_VERSION=7.1.2
 _TAG_REVISION=33
 TERMUX_PKG_VERSION=${_TAG_VERSION}.${_TAG_REVISION}
-TERMUX_PKG_REVISION=2
-TERMUX_PKG_BUILD_IN_SRC=yes
-TERMUX_PKG_DEPENDS="libexpat, libpng, libzopfli"
+TERMUX_PKG_REVISION=7
+TERMUX_PKG_BUILD_IN_SRC=true
+TERMUX_PKG_DEPENDS="libc++, libexpat, libpng, libzopfli, zlib"
 
-termux_step_make_install () {
+termux_step_pre_configure() {
+	# Certain packages are not safe to build on device because their
+	# build.sh script deletes specific files in $TERMUX_PREFIX.
+	if $TERMUX_ON_DEVICE_BUILD; then
+		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
+	fi
+}
+
+termux_step_make_install() {
 	# FIXME: We would like to enable checksums when downloading
 	# tar files, but they change each time as the tar metadata
 	# differs: https://github.com/google/gitiles/issues/84
@@ -95,13 +104,14 @@ termux_step_make_install () {
 	# In file included from process_name.c:29:
 	# /data/data/pl.sviete.dom/files/usr/include/aosp/cutils/properties.h:116:45: error: expected identifier
 	# __errordecl(__property_get_too_small_error, "property_get() called with too small of a buffer");
-	#                                               ^
+	#						^
 	# /data/data/pl.sviete.dom/files/usr/include/aosp/cutils/properties.h:119:5: error: static declaration of 'property_get' follows non-static declaration
 	# int property_get(const char *key, char *value, const char *default_value) {
-	#       ^
+	#	^
 	# /data/data/pl.sviete.dom/files/usr/include/aosp/cutils/properties.h:46:5: note: previous declaration is here
 	# int property_get(const char *key, char *value, const char *default_value);
 	$CC ${CFLAGS/-D_FORTIFY_SOURCE=2/} \
+		$LDFLAGS \
 		-Dchar16_t=uint16_t \
 		-std=c11 \
 		-isystem $AOSP_INCLUDE_DIR \
@@ -197,6 +207,7 @@ termux_step_make_install () {
 		errors_unix.cpp"
 	# __USE_BSD for DEFFILEMODE to be defined by <sys/stat.h>.
 	$CXX $CXXFLAGS $CPPFLAGS \
+		$LDFLAGS \
 		-std=c++11 \
 		-include memory \
 		-D__USE_BSD \
@@ -221,7 +232,7 @@ termux_step_make_install () {
 		zip_archive_stream_entry.cc \
 		zip_writer.cc"
 	patch -p0 < $TERMUX_PKG_BUILDER_DIR/libziparchive.patch.txt
-	$CXX $CXXFLAGS $LDFLAGS -std=c++11 \
+	$CXX $CPPFLAGS $CXXFLAGS $LDFLAGS -std=c++11 \
 		-DZLIB_CONST \
 		-isystem $AOSP_INCLUDE_DIR \
 		$libziparchive_source_files \
@@ -322,7 +333,7 @@ termux_step_make_install () {
 	rm -rf android-jar
 	mkdir android-jar
 	cd android-jar
-	cp $ANDROID_HOME/platforms/android-27/android.jar .
+	cp $ANDROID_HOME/platforms/android-28/android.jar .
 	unzip -q android.jar
 	mkdir -p $TERMUX_PREFIX/share/aapt
 	jar cfM $TERMUX_PREFIX/share/aapt/android.jar AndroidManifest.xml resources.arsc

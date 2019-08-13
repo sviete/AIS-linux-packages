@@ -1,19 +1,25 @@
 TERMUX_PKG_HOMEPAGE=https://www.rust-lang.org/
 TERMUX_PKG_DESCRIPTION="Systems programming language focused on safety, speed and concurrency"
+TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="Kevin Cotugno @kcotugno"
-TERMUX_PKG_VERSION=1.31.1
-TERMUX_PKG_SHA256=b38f6a1b5e12619f242e44ea494d177c72fd1f80160386b2e69b69446685fcfa
+TERMUX_PKG_VERSION=1.36.0
 TERMUX_PKG_SRCURL=https://static.rust-lang.org/dist/rustc-$TERMUX_PKG_VERSION-src.tar.xz
-TERMUX_PKG_DEPENDS="clang, openssl, lld"
+TERMUX_PKG_SHA256=f51645b9f787af4a5d94db17f6af39db0c55980ed24fe366cad55b57900f8f2d
+TERMUX_PKG_DEPENDS="libc++, clang, openssl, lld, zlib"
 
-termux_step_configure () {
+termux_step_configure() {
 	termux_setup_cmake
 	termux_setup_rust
 
 	# it breaks building rust tools without doing this because it tries to find
 	# ../lib from bin location:
-	export PATH=$HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin:$PATH
-	
+	# this is about to get ugly but i have to make sure a rustc in a proper bin lib
+	# configuration is used otherwise it fails a long time into the build...
+	# like 30 to 40 + minutes ... so lets get it right
+
+	# 1.36 needs 1.35 to build revert to using $TERMUX_PKG_VERSION next time..
+	rustup install 1.35.0
+	export PATH=$HOME/.rustup/toolchains/1.35.0-x86_64-unknown-linux-gnu/bin:$PATH
 	local RUSTC=$(which rustc)
 	local CARGO=$(which cargo)
 
@@ -25,35 +31,27 @@ termux_step_configure () {
 		| sed "s%\\@CARGO\\@%$CARGO%g" \
 		> config.toml
 
-	local env_host=`printf $CARGO_TARGET_NAME | tr a-z A-Z | sed s/-/_/g`
-
-	export LD_LIBRARY_PATH=$TERMUX_PKG_BUILDDIR/build/x86_64-unknown-linux-gnu/llvm/lib
+	local env_host=$(printf $CARGO_TARGET_NAME | tr a-z A-Z | sed s/-/_/g)
+	export LD_LIBRARY_PATH=$TERMUX_PKG_BUILDDIR/build/x86_64-unknown-linux-gnu/stage2/lib
 	export ${env_host}_OPENSSL_DIR=$TERMUX_PREFIX
 	export X86_64_UNKNOWN_LINUX_GNU_OPENSSL_LIB_DIR=/usr/lib/x86_64-linux-gnu
 	export X86_64_UNKNOWN_LINUX_GNU_OPENSSL_INCLUDE_DIR=/usr/include
+	export PKG_CONFIG_ALLOW_CROSS=1
 	# for backtrace-sys
 	export CC_x86_64_unknown_linux_gnu=gcc
 	export CFLAGS_x86_64_unknown_linux_gnu="-O2"
-	unset CC CXX CPP LD CFLAGS CXXFLAGS CPPFLAGS LDFLAGS PKG_CONFIG
+	unset CC CXX CPP LD CFLAGS CXXFLAGS CPPFLAGS LDFLAGS PKG_CONFIG AR RANLIB
 }
 
-termux_step_make () {
-	$TERMUX_PKG_SRCDIR/x.py dist \
+termux_step_make() {
+return 0;
+}
+
+termux_step_make_install() {
+	$TERMUX_PKG_SRCDIR/x.py install  \
 		--host $CARGO_TARGET_NAME \
 		--target $CARGO_TARGET_NAME \
 		--target wasm32-unknown-unknown
-}
-
-termux_step_make_install () {
-	local host_files_to_remove="$TERMUX_PREFIX/lib/rustlib/x86_64-unknown-linux-gnu \
-		$TERMUX_PREFIX/lib/rustlib/manifest-rust-analysis-x86_64-unknown-linux-gnu \
-		$TERMUX_PREFIX/lib/rustlib/manifest-rust-std-x86_64-unknown-linux-gnu"
-
-	$TERMUX_PKG_SRCDIR/x.py install \
-		--host $CARGO_TARGET_NAME \
-		--target $CARGO_TARGET_NAME \
-		--target wasm32-unknown-unknown && \
-		rm -rf $host_files_to_remove
 
 	cd "$TERMUX_PREFIX/lib"
 	ln -sf rustlib/$CARGO_TARGET_NAME/lib/*.so .

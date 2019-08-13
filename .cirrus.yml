@@ -1,0 +1,70 @@
+container:
+  image: termux/package-builder:latest
+  cpu: 4
+  memory: 8
+
+docker_builder:
+  name: Update docker image
+
+  only_if: $CIRRUS_BRANCH == 'master'
+
+  env:
+    DOCKER_USERNAME: xeffyr
+    DOCKER_PASSWORD: ENCRYPTED[abe4dc4418b40a4c5a0c1671e4018fd9cc3bcb811a71f87bdb35967ba721501f958d47d48a3d31ab9cac466b48f238a0]
+
+  update_script: |
+    bash ./scripts/build/ci/cirrus-ci_dispatcher.sh --update-docker
+
+task:
+  name: Build
+
+  # 2 hours is a maximal timeout available for free use.
+  timeout_in: 120m
+
+  depends_on:
+    - Update docker image
+
+  environment:
+    TERMUX_MAKE_PROCESSES: 4
+    matrix:
+      TERMUX_ARCH: aarch64
+      TERMUX_ARCH: arm
+      TERMUX_ARCH: i686
+      TERMUX_ARCH: x86_64
+
+  # Do not use built-in git client provided by Cirrus as may
+  # cause problems when determining changed files.
+  clone_script: |
+    if [[ -z "$CIRRUS_PR" ]]; then
+      git clone --recursive --branch="$CIRRUS_BRANCH" "https://x-access-token:${CIRRUS_REPO_CLONE_TOKEN}@github.com/${CIRRUS_REPO_FULL_NAME}.git" "$CIRRUS_WORKING_DIR"
+      git reset --hard "$CIRRUS_CHANGE_IN_REPO"
+    else
+      git clone --recursive "https://x-access-token:${CIRRUS_REPO_CLONE_TOKEN}@github.com/${CIRRUS_REPO_FULL_NAME}.git" "$CIRRUS_WORKING_DIR"
+      git fetch origin "pull/$CIRRUS_PR/head:pull/$CIRRUS_PR"
+      git reset --hard "$CIRRUS_CHANGE_IN_REPO"
+    fi
+
+  build_script: |
+    bash ./scripts/build/ci/cirrus-ci_dispatcher.sh
+
+  output_artifacts:
+    path: "./debs/*.deb"
+
+task:
+  name: Publish
+
+  only_if: $CIRRUS_BRANCH == 'master'
+
+  timeout_in: 60m
+
+  depends_on:
+    - Build
+
+  environment:
+    BINTRAY_USERNAME: xeffyr
+    BINTRAY_API_KEY: ENCRYPTED[c056d345d7a15f90b818dd9382129c27ce4ce2b802831ec890786414fc214c4203714c353a8fef3a6b9b1b1d68e4685e]
+    BINTRAY_GPG_SUBJECT: termux
+    BINTRAY_GPG_PASSPHRASE: ENCRYPTED[854c09c78b3318a30d3c9094b1010dfebd4c71ad9173b64479eaafaa7e941b050afaa936ad635af3709382492828316f]
+
+  upload_script: |
+    bash ./scripts/build/ci/cirrus-ci_dispatcher.sh --upload
