@@ -1,7 +1,7 @@
 V=%VER%
 R=%REL%
 
-prefix=/data/data/com.termux/files/usr
+prefix=/data/data/pl.sviete.dom/files/usr
 INSTALL_BIN=${prefix}/bin
 INSTALL_INC=${prefix}/include/lua5.2
 INSTALL_LIB=${prefix}/lib
@@ -15,6 +15,6 @@ includedir=${prefix}/include/lua5.2
 Name: Lua
 Description: An Extensible Extension Language
 Version: ${R}
-Requires: 
+Requires:
 Libs: -L${libdir} -llua5.2 -lm
 Cflags: -I${includedir}

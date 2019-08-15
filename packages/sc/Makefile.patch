@@ -5,19 +5,19 @@
  # this to /usr.  Otherwise, /usr/local is probably more appropriate, unless
  # you're replacing the vendor-supplied version.
 -prefix=/usr
-+prefix=/data/data/com.termux/files/usr
- 
++prefix=/data/data/pl.sviete.dom/files/usr
+
  # This is where the install step puts it.
  EXDIR=${prefix}/bin
- 
+
  # This is where the man page goes.
 -MANDIR=${prefix}/man/man1
 +MANDIR=${prefix}/share/man/man1
  MANEXT=1
  MANMODE=644
- 
+
 @@ -331,13 +331,14 @@
- 
+
  #########################################
  # Use this for Linux
 -CC=gcc
@@ -31,25 +31,25 @@
 +# CFLAGS=-DSYSV3 -O2 -pipe
 +
 +LIB=-L$(prefix)/lib -lm -lncurses
- 
+
  # All of the source files
  SRC=Makefile abbrev.c cmds.c color.c crypt.c eres.sed frame.c format.c gram.y \
 @@ -500,15 +501,15 @@
- 
+
  $(EXDIR)/$(name): $(name)
  	cp $(name) $(EXDIR)
 -	strip $(EXDIR)/$(name)
 +	$(STRIP) $(EXDIR)/$(name)
- 
+
  $(EXDIR)/$(name)qref: $(name)qref
  	cp $(name)qref $(EXDIR)
 -	strip $(EXDIR)/$(name)qref
 +	$(STRIP) $(EXDIR)/$(name)qref
- 
+
  $(EXDIR)/p$(name): p$(name)
  	cp p$(name) $(EXDIR)
 -	strip $(EXDIR)/p$(name)
 +	$(STRIP) $(EXDIR)/p$(name)
- 
+
  $(LIBDIR)/tutorial: tutorial.sc $(LIBDIR)
  	-mkdir -p $(LIBDIR)/plugins

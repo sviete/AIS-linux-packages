@@ -14,3 +14,11 @@ in container go to /home/builder/.termux-build/_buildall-arm
   echo "package_name" >> buildstatus.txt
 or remove it from buildorder:
 grep -vwE "packages/toxic" buildorder.txt > new_buildorder.txt
+
+1. vim - kill yes process
+2. termux-services - no licenses remove from build
+3. bat
+
+
+4. slow packages
+dart... done in 5242
