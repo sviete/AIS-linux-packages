@@ -1,0 +1,27 @@
+PROBLEMS:
+/data/data/pl.sviete.dom/files/usr/etc/apt/sources.list
+/data/data/pl.sviete.dom/files/usr/etc/tor/torrc
+/data/data/pl.sviete.dom/files/usr/etc/ssh/sshd_config
+
+HOW TO:
+1. go to container:
+sudo docker exec -it termux-package-builder /bin/bash
+
+2. rebuild package force
+sudo ./scripts/run-docker.sh ./build-package.sh -a arm -f busybox
+
+3. skeep package
+add this package to buildstatus:
+in container go to /home/builder/.termux-build/_buildall-arm
+  echo "package_name" >> buildstatus.txt
+or remove it from buildorder:
+grep -vwE "packages/toxic" buildorder.txt > new_buildorder.txt
+
+1. vim - kill yes process
+2. termux-services - no licenses remove from build
+3. bat
+
+
+4. slow packages
+dart... done in 5242
+rust 4 hours

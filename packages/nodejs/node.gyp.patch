@@ -1,19 +1,17 @@
-diff -u -r ../node-v11.0.0/node.gyp ./node.gyp
---- ../node-v11.0.0/node.gyp	2018-10-23 15:59:38.000000000 +0000
-+++ ./node.gyp	2018-10-25 20:46:25.481050534 +0000
-@@ -848,78 +848,7 @@
-           ],
+diff -uNr node-v12.4.0/node.gyp node-v12.4.0.mod/node.gyp
+--- node-v12.4.0/node.gyp	2019-06-04 14:57:31.000000000 +0300
++++ node-v12.4.0.mod/node.gyp	2019-06-08 01:35:11.310854320 +0300
+@@ -1051,98 +1051,6 @@
          } ],
        ]
--    }, # rename_node_bin_win
+     }, # specialize_node_d
 -    {
 -      'target_name': 'cctest',
 -      'type': 'executable',
 -
 -      'dependencies': [
 -        '<(node_lib_target_name)',
--        'rename_node_bin_win',
--        'deps/gtest/gtest.gyp:gtest',
+-        'deps/histogram/histogram.gyp:histogram',
 -        'node_dtrace_header',
 -        'node_dtrace_ustack',
 -        'node_dtrace_provider',
@@ -29,21 +27,29 @@ diff -u -r ../node-v11.0.0/node.gyp ./node.gyp
 -        'deps/v8/include',
 -        'deps/cares/include',
 -        'deps/uv/include',
--        '<(SHARED_INTERMEDIATE_DIR)', # for node_natives.h
+-        'test/cctest',
 -      ],
 -
 -      'defines': [ 'NODE_WANT_INTERNALS=1' ],
 -
 -      'sources': [
+-        'src/node_snapshot_stub.cc',
+-        'src/node_code_cache_stub.cc',
+-        'test/cctest/gtest/gtest-all.cc',
+-        'test/cctest/gtest/gtest_main.cc',
 -        'test/cctest/node_test_fixture.cc',
+-        'test/cctest/node_test_fixture.h',
 -        'test/cctest/test_aliased_buffer.cc',
 -        'test/cctest/test_base64.cc',
 -        'test/cctest/test_node_postmortem_metadata.cc',
 -        'test/cctest/test_environment.cc',
+-        'test/cctest/test_linked_binding.cc',
+-        'test/cctest/test_per_process.cc',
 -        'test/cctest/test_platform.cc',
+-        'test/cctest/test_report_util.cc',
 -        'test/cctest/test_traced_value.cc',
 -        'test/cctest/test_util.cc',
--        'test/cctest/test_url.cc'
+-        'test/cctest/test_url.cc',
 -      ],
 -
 -      'conditions': [
@@ -61,7 +67,9 @@ diff -u -r ../node-v11.0.0/node.gyp ./node.gyp
 -            'HAVE_INSPECTOR=1',
 -          ],
 -        }, {
--          'defines': [ 'HAVE_INSPECTOR=0' ]
+-           'defines': [
+-             'HAVE_INSPECTOR=0',
+-           ]
 -        }],
 -        ['OS=="solaris"', {
 -          'ldflags': [ '-I<(SHARED_INTERMEDIATE_DIR)' ]
@@ -75,9 +83,20 @@ diff -u -r ../node-v11.0.0/node.gyp ./node.gyp
 -            'OTHER_LDFLAGS': [ '-Wl,-rpath,@loader_path', ],
 -          },
 -        }],
+-        [ 'node_report=="true"', {
+-          'defines': [
+-            'NODE_REPORT',
+-            'NODE_ARCH="<(target_arch)"',
+-            'NODE_PLATFORM="<(OS)"',
+-          ],
+-          'conditions': [
+-            ['OS=="win"', {
+-              'libraries': [ 'Ws2_32' ],
+-            }],
+-          ],
+-        }],
 -      ],
 -    }, # cctest
-+    } # rename_node_bin_win
-   ], # end targets
- 
-   'conditions': [
+     # TODO(joyeecheung): do not depend on node_lib,
+     # instead create a smaller static library node_lib_base that does
+     # just enough for node_native_module.cc and the cache builder to

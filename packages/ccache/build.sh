@@ -1,6 +1,8 @@
 TERMUX_PKG_HOMEPAGE=https://ccache.samba.org
 TERMUX_PKG_DESCRIPTION="Compiler cache for fast recompilation of C/C++ code"
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="Vishal Biswas @vishalbiswas"
-TERMUX_PKG_VERSION=3.5
-TERMUX_PKG_SHA256=bdd44b72ae4506a2e2deef9fefb15c606a474bbca7658cd2be26105155eec012
-TERMUX_PKG_SRCURL=https://www.samba.org/ftp/ccache/ccache-$TERMUX_PKG_VERSION.tar.xz
+TERMUX_PKG_VERSION=3.7.2
+TERMUX_PKG_SRCURL=https://github.com/ccache/ccache/releases/download/v$TERMUX_PKG_VERSION/ccache-$TERMUX_PKG_VERSION.tar.xz
+TERMUX_PKG_SHA256=a5da0008512ff9e882097acaffb3616fae98ec25827167bb4bd1e4acf0b66793
+TERMUX_PKG_DEPENDS="zlib"

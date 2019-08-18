@@ -1,12 +1,5 @@
-Welcome to Termux!
+Witamy w konsoli AI-speaker
 
-Wiki:            https://wiki.termux.com
-Community forum: https://termux.com/community
-IRC channel:     #termux on freenode
-Gitter chat:     https://gitter.im/termux/termux
-Mailing list:    termux+subscribe@groups.io
-
-Search packages:   pkg search <query>
-Install a package: pkg install <package>
-Upgrade packages:  pkg upgrade
-Learn more:        pkg help
+  * Dokumentacja  https://sviete.github.io/AIS-docs/
+  * Kod źródłowy  https://github.com/sviete
+  * Wsparcie      info@sviete.pl
