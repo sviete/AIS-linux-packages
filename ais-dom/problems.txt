@@ -22,3 +22,4 @@ grep -vwE "packages/toxic" buildorder.txt > new_buildorder.txt
 
 4. slow packages
 dart... done in 5242
+rust 4 hours

@@ -11,6 +11,7 @@ PACKAGES+=" python"			# Used buildorder.py core script.
 PACKAGES+=" unzip"			# Used to extract *.zip source archives.
 
 # Tier 2: requirements for building many other packages.
+PACKAGES+=" asciidoc"
 PACKAGES+=" autoconf"
 PACKAGES+=" automake"
 PACKAGES+=" bc"
@@ -22,6 +23,7 @@ PACKAGES+=" gettext"
 PACKAGES+=" git"
 PACKAGES+=" golang"
 PACKAGES+=" gperf"
+PACKAGES+=" help2man"
 PACKAGES+=" libtool"
 PACKAGES+=" m4"
 PACKAGES+=" make"			# Used for all Makefile-based projects.

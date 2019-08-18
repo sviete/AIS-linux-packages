@@ -2,6 +2,12 @@ termux_step_start_build() {
 	# shellcheck source=/dev/null
 	source "$TERMUX_PKG_BUILDER_SCRIPT"
 
+	if [ "$TERMUX_PKG_METAPACKAGE" = "true" ]; then
+		# Metapackage has no sources and therefore platform-independent.
+		TERMUX_PKG_SKIP_SRC_EXTRACT=true
+		TERMUX_PKG_PLATFORM_INDEPENDENT=true
+	fi
+
 	TERMUX_STANDALONE_TOOLCHAIN="$TERMUX_COMMON_CACHEDIR/android-r${TERMUX_NDK_VERSION}-api-${TERMUX_PKG_API_LEVEL}"
 	# Bump the below version if a change is made in toolchain setup to ensure
 	# that everyone gets an updated toolchain:
@@ -18,8 +24,8 @@ termux_step_start_build() {
 		TERMUX_PKG_FULLVERSION+="-$TERMUX_PKG_REVISION"
 	fi
 
-	if $TERMUX_DEBUG; then
-		if $TERMUX_PKG_HAS_DEBUG; then
+	if [ "$TERMUX_DEBUG" = "true" ]; then
+		if [ "$TERMUX_PKG_HAS_DEBUG" = "true" ]; then
 			DEBUG="-dbg"
 		else
 			echo "Skipping building debug build for $TERMUX_PKG_NAME"
@@ -29,24 +35,24 @@ termux_step_start_build() {
 		DEBUG=""
 	fi
 
-	if ! $TERMUX_DEBUG && ${TERMUX_FORCE_BUILD-false}; then
+	if [ "$TERMUX_DEBUG" = "false" ] && [ "$TERMUX_FORCE_BUILD" = "false" ]; then
 		if [ -e "$TERMUX_BUILT_PACKAGES_DIRECTORY/$TERMUX_PKG_NAME" ] &&
 		   [ "$(cat "$TERMUX_BUILT_PACKAGES_DIRECTORY/$TERMUX_PKG_NAME")" = "$TERMUX_PKG_FULLVERSION" ]; then
 			echo "$TERMUX_PKG_NAME@$TERMUX_PKG_FULLVERSION built - skipping (rm $TERMUX_BUILT_PACKAGES_DIRECTORY/$TERMUX_PKG_NAME to force rebuild)"
 			exit 0
-		elif $TERMUX_ON_DEVICE_BUILD &&
+		elif [ "$TERMUX_ON_DEVICE_BUILD" = "true" ] &&
 		     [ "$(dpkg-query -W -f '${db:Status-Status} ${Version}\n' "$TERMUX_PKG_NAME" 2>/dev/null)" = "installed $TERMUX_PKG_FULLVERSION" ]; then
 			echo "$TERMUX_PKG_NAME@$TERMUX_PKG_FULLVERSION installed - skipping"
 			exit 0
 		fi
 	fi
 
-	if [ "$TERMUX_SKIP_DEPCHECK" = false ] && [ "$TERMUX_INSTALL_DEPS" = true ]; then
+	if [ "$TERMUX_SKIP_DEPCHECK" = false ] && [ "$TERMUX_INSTALL_DEPS" = true ] && [ "$TERMUX_PKG_METAPACKAGE" = "false" ]; then
 		# Download repo files
 		termux_get_repo_files
 
 		# When doing build on device, ensure that apt lists are up-to-date.
-		$TERMUX_ON_DEVICE_BUILD && apt update
+		[ "$TERMUX_ON_DEVICE_BUILD" = "true" ] && apt update
 
 		# Download dependencies
 		while read PKG PKG_DIR; do
@@ -74,7 +80,7 @@ termux_step_start_build() {
 				TERMUX_BUILD_IGNORE_LOCK=true ./build-package.sh -I "${PKG_DIR}"
 				continue
 			else
-				if ! $TERMUX_ON_DEVICE_BUILD; then
+				if [ "$TERMUX_ON_DEVICE_BUILD" = "false" ]; then
 					if [ ! "$TERMUX_QUIET_BUILD" = true ]; then echo "extracting $PKG..."; fi
 					(
 						cd $TERMUX_COMMON_CACHEDIR-$DEP_ARCH
@@ -87,7 +93,7 @@ termux_step_start_build() {
 			mkdir -p $TERMUX_BUILT_PACKAGES_DIRECTORY
 			echo "$DEP_VERSION" > "$TERMUX_BUILT_PACKAGES_DIRECTORY/$PKG"
 		done<<<$(./scripts/buildorder.py -i "$TERMUX_PKG_BUILDER_DIR" $TERMUX_PACKAGES_DIRECTORIES || echo "ERROR")
-	elif [ "$TERMUX_SKIP_DEPCHECK" = false ] && [ "$TERMUX_INSTALL_DEPS" = false ]; then
+	elif [ "$TERMUX_SKIP_DEPCHECK" = false ] && [ "$TERMUX_INSTALL_DEPS" = false ] && [ "$TERMUX_PKG_METAPACKAGE" = "false" ]; then
 		# Build dependencies
 		while read PKG PKG_DIR; do
 			if [ -z $PKG ]; then
@@ -125,7 +131,7 @@ termux_step_start_build() {
 
 	# Make $TERMUX_PREFIX/bin/sh executable on the builder, so that build
 	# scripts can assume that it works on both builder and host later on:
-	! $TERMUX_ON_DEVICE_BUILD && ln -sf /bin/sh "$TERMUX_PREFIX/bin/sh"
+	[ "$TERMUX_ON_DEVICE_BUILD" = "false" ] && ln -sf /bin/sh "$TERMUX_PREFIX/bin/sh"
 
 	local TERMUX_ELF_CLEANER_SRC=$TERMUX_COMMON_CACHEDIR/termux-elf-cleaner.cpp
 	local TERMUX_ELF_CLEANER_VERSION
@@ -133,13 +139,13 @@ termux_step_start_build() {
 	termux_download \
 		"https://raw.githubusercontent.com/termux/termux-elf-cleaner/v$TERMUX_ELF_CLEANER_VERSION/termux-elf-cleaner.cpp" \
 		"$TERMUX_ELF_CLEANER_SRC" \
-		96044b5e0a32ba9ce8bea96684a0723a9b777c4ae4b6739eaafc444dc23f6d7a
+		35a4a88542352879ca1919e2e0a62ef458c96f34ee7ce3f70a3c9f74b721d77a
 	if [ "$TERMUX_ELF_CLEANER_SRC" -nt "$TERMUX_ELF_CLEANER" ]; then
 		g++ -std=c++11 -Wall -Wextra -pedantic -Os -D__ANDROID_API__=$TERMUX_PKG_API_LEVEL \
 			"$TERMUX_ELF_CLEANER_SRC" -o "$TERMUX_ELF_CLEANER"
 	fi
 
-	if ${TERMUX_PKG_BUILD_IN_SRC-false}; then
+	if [ "$TERMUX_PKG_BUILD_IN_SRC" = "true" ]; then
 		echo "Building in src due to TERMUX_PKG_BUILD_IN_SRC being set to true" > "$TERMUX_PKG_BUILDDIR/BUILDING_IN_SRC.txt"
 		TERMUX_PKG_BUILDDIR=$TERMUX_PKG_SRCDIR
 	fi
