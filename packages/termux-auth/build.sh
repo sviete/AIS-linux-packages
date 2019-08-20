@@ -1,10 +1,10 @@
 TERMUX_PKG_HOMEPAGE=https://github.com/termux/termux-auth
 TERMUX_PKG_DESCRIPTION="Password authentication library and utility for Termux"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com> @xeffyr"
-TERMUX_PKG_VERSION=1.2
+TERMUX_PKG_VERSION=1.3
 TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://github.com/araczkowski/termux-auth/archive/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=29253c2932425995a9ca416702389cd6f185bac7f56c7738091086b7c235be1e
+TERMUX_PKG_SHA256=4723afd9c0dbe7e913beb0a108e7dcc94368d854efa90553edc70cd6e6f638c0
 TERMUX_PKG_DEPENDS="openssl"
 TERMUX_PKG_BREAKS="termux-auth-dev"
 TERMUX_PKG_REPLACES="termux-auth-dev"

@@ -17,11 +17,15 @@ in container go to /home/builder/.termux-build/_buildall-arm
 or remove it from buildorder:
 grep -vwE "packages/toxic" buildorder.txt > new_buildorder.txt
 
-1. vim - kill yes process
+1. dtc
 2. termux-services - no licenses remove from build
-3. bat
+3. vim - kill "yes" process
+4. bat
+5. libllvm
+6. cgdb
+7. wordgrinder
 
 
 4. slow packages
-dart... done in 5242
-rust 4 hours
+dart... done in 2 hours
+rust... done in 4 hours
