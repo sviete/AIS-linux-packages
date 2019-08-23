@@ -20,6 +20,7 @@ dasm
 datamash
 debianutils
 direnv
+dnsmasq
 dtc
 dx
 ecj
@@ -41,6 +42,7 @@ gifsicle
 git-lfs
 gotty
 gsl
+gumbo-parser
 gzip
 heyu
 hoedown
@@ -284,6 +286,7 @@ ack-grep
 autoconf
 colordiff
 cowsay
+help2man
 ipcalc
 parallel
 stow
@@ -357,6 +360,7 @@ libidn2
 wget
 cpio
 dart
+rust
 libsndfile
 vorbis-tools
 opus-tools
@@ -473,7 +477,6 @@ tcl
 golang
 ldc
 lldb
-rust
 telepathy-glib
 gst-plugins-base
 ccnet
@@ -487,6 +490,7 @@ pngquant
 cmake
 swi-prolog
 gettext
+docbook-xsl
 tidy
 xmlsec
 xmlstarlet
@@ -529,13 +533,12 @@ getmail
 expect
 gst-plugins-ugly
 seafile-client
-dtc
-dtc
 libcairo
 libgd
 gmic
 ghostscript
 barcode
+asciidoc
 oathtool
 subversion
 apt
@@ -566,29 +569,16 @@ libpulseaudio
 squid
 tesseract
 pass-otp
-Skipping tergent
-Skipping libass
-Skipping pango
-Skipping pdfgrep
-Skipping texlive-bin
-Skipping mp3splt
-Skipping cava
-Skipping gst-plugins-good
-Skipping sox
-Skipping ffmpeg
-Skipping gnuplot
-Skipping imagemagick
-Skipping librsvg
-Skipping texlive
-Skipping bs1770gain
-Skipping cmus
-Skipping mpd
-mpv
-zbar
-gegl
-graphviz
-gst-plugins-bad
-texlive-tlmgr
-mpdscribble
-imgflo
-valac
+tergent
+libass
+pango
+pdfgrep
+texlive-bin
+mp3splt
+cava
+gst-plugins-good
+sox
+ffmpeg
+gnuplot
+imagemagick
+librsvg

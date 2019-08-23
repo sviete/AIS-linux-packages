@@ -20,6 +20,7 @@ dasm                           packages/dasm
 datamash                       packages/datamash
 debianutils                    packages/debianutils
 direnv                         packages/direnv
+dnsmasq                        packages/dnsmasq
 dtc                            packages/dtc
 dx                             packages/dx
 ecj                            packages/ecj
@@ -41,6 +42,7 @@ gifsicle                       packages/gifsicle
 git-lfs                        packages/git-lfs
 gotty                          packages/gotty
 gsl                            packages/gsl
+gumbo-parser                   packages/gumbo-parser
 gzip                           packages/gzip
 heyu                           packages/heyu
 hoedown                        packages/hoedown
@@ -284,6 +286,7 @@ ack-grep                       packages/ack-grep
 autoconf                       packages/autoconf
 colordiff                      packages/colordiff
 cowsay                         packages/cowsay
+help2man                       packages/help2man
 ipcalc                         packages/ipcalc
 parallel                       packages/parallel
 stow                           packages/stow
@@ -487,6 +490,7 @@ pngquant                       packages/pngquant
 cmake                          packages/cmake
 swi-prolog                     packages/swi-prolog
 gettext                        packages/gettext
+docbook-xsl                    packages/docbook-xsl
 tidy                           packages/tidy
 xmlsec                         packages/xmlsec
 xmlstarlet                     packages/xmlstarlet
@@ -534,6 +538,7 @@ libgd                          packages/libgd
 gmic                           packages/gmic
 ghostscript                    packages/ghostscript
 barcode                        packages/barcode
+asciidoc                       packages/asciidoc
 oathtool                       packages/oathtool
 subversion                     packages/subversion
 apt                            packages/apt

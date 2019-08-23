@@ -1,31 +1,73 @@
-PROBLEMS:
-/data/data/pl.sviete.dom/files/usr/etc/apt/sources.list
-/data/data/pl.sviete.dom/files/usr/etc/tor/torrc
-/data/data/pl.sviete.dom/files/usr/etc/ssh/sshd_config
-
-HOW TO:
-1. go to container:
-sudo docker exec -it termux-package-builder /bin/bash
-
-2. rebuild package force
-sudo ./scripts/run-docker.sh ./build-package.sh -a arm -f busybox
-
-3. skeep package
+HOW TO skeep package
 add this package to buildstatus:
 in container go to /home/builder/.termux-build/_buildall-arm
   echo "package_name" >> buildstatus.txt
 or remove it from buildorder:
 grep -vwE "packages/toxic" buildorder.txt > new_buildorder.txt
 
-1. dtc
-2. termux-services - no licenses remove from build
-3. vim - kill "yes" process
-4. bat
-5. libllvm
-6. cgdb
-7. wordgrinder
+compilation from 23/08/2019
+1. bat
+2. libllvm (because no bat)
+3. cgdb
+4. wordgrinder
+5. lldb
+6. ccnet
+7. seafile-client
+8. php
+9. pango
+10. librsvg
 
-
-4. slow packages
+Warnings:
+- slow packages
 dart... done in 2 hours
 rust... done in 4 hours
+- after this package building was finished, need to rerun
+erlang
+
+
+deleting dists/dom/stable/binary-aarch64/vim-runtime_8.1.1800-2_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/tcl-static_8.6.9-4_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/rust_1.36.0_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/pango_1.42.4-3_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/pango-static_1.42.4-3_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/nodejs-lts_10.16.0-3_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/mpv_0.29.1-7_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/mpdscribble_0.22-1_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/mpc_0.32_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/minicom_2.7.1-1_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/libxapian_1.4.12_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/libxapian-static_1.4.12_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/libtalloc_2.1.14-2_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/librsvg_2.45.90_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/librsvg-static_2.45.90_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/libopus_1.3.1-2_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/libopus-static_1.3.1-2_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/libgit2_0.28.2-1_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/json-c_0.13.1_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/json-c-dev_0.13.1_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/gegl_0.4.16-3_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/gegl-static_0.4.16-3_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/ffmpeg_4.1.4-2_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/dash_0.5.10.2-1_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/dart_2.4.1_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/cmus_2.8.0-3_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/cgdb_0.7.0-7_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/c-ares_1.15.0_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/c-ares-dev_1.15.0_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/busybox_1.29.3-1_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/bs1770gain_0.5.2_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/brotli_1.0.7_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/brotli-dev_1.0.7_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/binutils_2.31.1-3_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/binutils-gold_2.31.1-3_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/binutils-dev_2.31.1-3_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/bat_0.9.0_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/bash_5.0.7-5_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/babl_0.1.60_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/babl-dev_0.1.60_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/attr_2.4.48_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/attr-dev_2.4.48_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/atomicparsley_0.9.6-2_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/argp_1.3_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/apt-transport-tor_1.4.9-15_aarch64.deb
+deleting dists/dom/stable/binary-aarch64/apache2_2.4.39-2_aarch64.deb
