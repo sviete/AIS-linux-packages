@@ -2,9 +2,9 @@ TERMUX_PKG_HOMEPAGE=https://www.clamav.net/
 TERMUX_PKG_DESCRIPTION="Anti-virus toolkit for Unix"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
-TERMUX_PKG_VERSION=0.101.3
+TERMUX_PKG_VERSION=0.101.4
 TERMUX_PKG_SRCURL=https://www.clamav.net/downloads/production/clamav-$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=68d42aac4a9cbde293288533a9a3c3d55863de38f2b8707c1ef2d987b1260338
+TERMUX_PKG_SHA256=0bf094f0919d158a578421d66bc2569c8c8181233ba162bb51722f98c802bccd
 TERMUX_PKG_DEPENDS="json-c, libandroid-support, libbz2, libc++, libcurl, libltdl, liblzma, libxml2, openssl, pcre2, zlib"
 TERMUX_PKG_BREAKS="clamav-dev"
 TERMUX_PKG_REPLACES="clamav-dev"
@@ -34,9 +34,9 @@ termux_step_pre_configure() {
 
 termux_step_post_make_install() {
 	for conf in clamd.conf freshclam.conf; do
-		install -Dm600 \
-			"$TERMUX_PKG_BUILDER_DIR"/$conf \
-			"$TERMUX_PREFIX"/etc/clamav/$conf
+		sed "s|@TERMUX_PREFIX@|$TERMUX_PREFIX|" \
+			"$TERMUX_PKG_BUILDER_DIR"/$conf.in \
+			> "$TERMUX_PREFIX"/etc/clamav/$conf
 	done
 	unset conf
 }
