@@ -1,10 +1,14 @@
 TERMUX_PKG_HOMEPAGE=http://x265.org/
 TERMUX_PKG_DESCRIPTION="H.265/HEVC video stream encoder library"
-TERMUX_PKG_VERSION=2.9
-TERMUX_PKG_SHA256=ebae687c84a39f54b995417c52a2fdde65a4e2e7ebac5730d251471304b91024
-TERMUX_PKG_SRCURL=http://ftp.videolan.org/pub/videolan/x265/x265_${TERMUX_PKG_VERSION}.tar.gz
+TERMUX_PKG_LICENSE="GPL-2.0"
+TERMUX_PKG_VERSION=3.1.2
+TERMUX_PKG_SRCURL=https://bitbucket.org/multicoreware/x265/downloads/x265_$TERMUX_PKG_VERSION.tar.gz
+TERMUX_PKG_SHA256=6f785f1c9a42e00a56402da88463bb861c49d9af108be53eb3ef10295f2a59aa
+TERMUX_PKG_DEPENDS="libc++"
+TERMUX_PKG_BREAKS="libx265-dev"
+TERMUX_PKG_REPLACES="libx265-dev"
 
-termux_step_pre_configure () {
+termux_step_pre_configure() {
 	if [ $TERMUX_ARCH = "i686" ]; then
 		# Avoid text relocations.
 		TERMUX_PKG_EXTRA_CONFIGURE_ARGS="-DENABLE_ASSEMBLY=OFF"

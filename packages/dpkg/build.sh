@@ -1,27 +1,35 @@
 TERMUX_PKG_HOMEPAGE=https://packages.debian.org/dpkg
 TERMUX_PKG_DESCRIPTION="Debian package management system"
-TERMUX_PKG_VERSION=1.19.2
-TERMUX_PKG_SHA256=f8f2ae2cf8065b81239db960b3794099ec607c94a125cec61c986f68f9861b71
+TERMUX_PKG_LICENSE="GPL-2.0"
+TERMUX_PKG_VERSION=1.19.7
+TERMUX_PKG_REVISION=9
 TERMUX_PKG_SRCURL=https://mirrors.kernel.org/debian/pool/main/d/dpkg/dpkg_${TERMUX_PKG_VERSION}.tar.xz
+TERMUX_PKG_SHA256=4c27fededf620c0aa522fff1a48577ba08144445341257502e7730f2b1a296e8
+# with the extract.c.patch we remove the -p and --warning=no-timestamp tar options so we can use busybox tar
+TERMUX_PKG_DEPENDS="bzip2, coreutils, diffutils, gzip, less, libbz2, liblzma, tar, xz-utils, zlib"
+TERMUX_PKG_BREAKS="dpkg-dev"
+TERMUX_PKG_REPLACES="dpkg-dev"
+TERMUX_PKG_ESSENTIAL=true
+
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 ac_cv_lib_selinux_setexecfilecon=no
 --disable-dselect
 --disable-largefile
 --disable-shared
 --disable-start-stop-daemon
---disable-update-alternatives
 dpkg_cv_c99_snprintf=yes
 HAVE_SETEXECFILECON_FALSE=#
 --host=${TERMUX_ARCH}-linux
---without-libbz2
 --without-selinux
 "
+
 TERMUX_PKG_RM_AFTER_INSTALL="
 bin/dpkg-architecture
 bin/dpkg-buildflags
 bin/dpkg-buildpackage
 bin/dpkg-checkbuilddeps
 bin/dpkg-distaddfile
+bin/dpkg-genbuildinfo
 bin/dpkg-genchanges
 bin/dpkg-gencontrol
 bin/dpkg-gensymbols
@@ -35,14 +43,15 @@ bin/dpkg-shlibdeps
 bin/dpkg-source
 bin/dpkg-statoverride
 bin/dpkg-vendor
-lib/dpkg/parsechangelog
-lib/perl5
+include
+lib
 share/dpkg
 share/man/man1/dpkg-architecture.1
 share/man/man1/dpkg-buildflags.1
 share/man/man1/dpkg-buildpackage.1
 share/man/man1/dpkg-checkbuilddeps.1
 share/man/man1/dpkg-distaddfile.1
+share/man/man1/dpkg-genbuildinfo.1
 share/man/man1/dpkg-genchanges.1
 share/man/man1/dpkg-gencontrol.1
 share/man/man1/dpkg-gensymbols.1
@@ -59,12 +68,17 @@ share/man/man1/dpkg-vendor.1
 share/man/man3
 share/man/man5
 share/perl5
+share/polkit-1
 "
-# with the extract.c.patch we remove the -p and --warning=no-timestamp tar options so we can use busybox tar
-TERMUX_PKG_DEPENDS="busybox, liblzma"
-TERMUX_PKG_ESSENTIAL=yes
 
-termux_step_pre_configure () {
+termux_step_pre_configure() {
 	export TAR=tar # To make sure dpkg tries to use "tar" instead of e.g. "gnutar" (which happens when building on OS X)
 	perl -p -i -e "s/TERMUX_ARCH/$TERMUX_ARCH/" $TERMUX_PKG_SRCDIR/configure
+}
+
+termux_step_post_massage() {
+	mkdir -p "${TERMUX_PKG_MASSAGEDIR}/${TERMUX_PREFIX}/var/lib/dpkg/alternatives"
+	mkdir -p "${TERMUX_PKG_MASSAGEDIR}/${TERMUX_PREFIX}/var/lib/dpkg/info"
+	mkdir -p "${TERMUX_PKG_MASSAGEDIR}/${TERMUX_PREFIX}/var/lib/dpkg/triggers"
+	mkdir -p "${TERMUX_PKG_MASSAGEDIR}/${TERMUX_PREFIX}/var/lib/dpkg/updates"
 }

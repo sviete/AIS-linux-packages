@@ -1,9 +1,13 @@
 TERMUX_PKG_HOMEPAGE=https://ipfs.io/
 TERMUX_PKG_DESCRIPTION="A peer-to-peer hypermedia distribution protocol"
-TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com> @xeffyr"
-TERMUX_PKG_VERSION=0.4.18
-TERMUX_PKG_SHA256=bc03def6ac902d99ae29c60819dad2133af776d3f6779c55781afccaa89cec84
-TERMUX_PKG_SRCURL=https://github.com/ipfs/go-ipfs/archive/v${TERMUX_PKG_VERSION}.tar.gz
+TERMUX_PKG_LICENSE="MIT"
+TERMUX_PKG_MAINTAINER="Leonid Plyushch <leonid.plyushch@gmail.com>"
+TERMUX_PKG_VERSION=0.4.22
+TERMUX_PKG_REVISION=1
+# Use a snapshot to fix building with go 1.13:
+#TERMUX_PKG_SRCURL=https://github.com/ipfs/go-ipfs/archive/v${TERMUX_PKG_VERSION}.tar.gz
+TERMUX_PKG_SRCURL=https://github.com/ipfs/go-ipfs/archive/d5977fc4759137f13c8980323d577759dad3d923.zip
+TERMUX_PKG_SHA256=7d8c791489b5de14aa72a78485d5ef87ada205b185b63d25467f42692e5d6d8d
 
 termux_step_make() {
     termux_setup_golang
@@ -12,11 +16,11 @@ termux_step_make() {
     export GOARCH=${TERMUX_ARCH}
 
     if [ "${TERMUX_ARCH}" = "aarch64" ]; then
-        export GOARCH="arm64"
+        GOARCH="arm64"
     elif [ "${TERMUX_ARCH}" = "i686" ]; then
-        export GOARCH="386"
+        GOARCH="386"
     elif [ "${TERMUX_ARCH}" = "x86_64" ]; then
-        export GOARCH="amd64"
+        GOARCH="amd64"
     fi
 
     mkdir -p "${GOPATH}/src/github.com/ipfs"
@@ -24,6 +28,10 @@ termux_step_make() {
     cd "${GOPATH}/src/github.com/ipfs/go-ipfs"
 
     make build
+
+    # Fix folders without write permissions preventing which fails repeating builds:
+    cd $TERMUX_PKG_BUILDDIR
+    find . -type d -exec chmod u+w {} \;
 }
 
 termux_step_make_install() {

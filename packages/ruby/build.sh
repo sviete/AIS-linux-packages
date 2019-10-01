@@ -1,11 +1,14 @@
 TERMUX_PKG_HOMEPAGE=https://www.ruby-lang.org/
 TERMUX_PKG_DESCRIPTION="Dynamic programming language with a focus on simplicity and productivity"
-_MAJOR_VERSION=2.5
-TERMUX_PKG_VERSION=${_MAJOR_VERSION}.3
-TERMUX_PKG_SHA256=1cc9d0359a8ea35fc6111ec830d12e60168f3b9b305a3c2578357d360fcf306f
+TERMUX_PKG_LICENSE="BSD 2-Clause"
+_MAJOR_VERSION=2.6
+TERMUX_PKG_VERSION=${_MAJOR_VERSION}.4
+TERMUX_PKG_SHA256=df593cd4c017de19adf5d0154b8391bb057cef1b72ecdd4a8ee30d3235c65f09
 TERMUX_PKG_SRCURL=https://cache.ruby-lang.org/pub/ruby/${_MAJOR_VERSION}/ruby-${TERMUX_PKG_VERSION}.tar.xz
 # libbffi is used by the fiddle extension module:
-TERMUX_PKG_DEPENDS="libandroid-support, libffi, libgmp, readline, openssl, libutil, libyaml"
+TERMUX_PKG_DEPENDS="libandroid-support, libffi, libgmp, readline, openssl, libyaml, zlib"
+TERMUX_PKG_BREAKS="ruby-dev"
+TERMUX_PKG_REPLACES="ruby-dev"
 # Needed to fix compilation on android:
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="ac_cv_func_setgroups=no ac_cv_func_setresuid=no ac_cv_func_setreuid=no --enable-rubygems"
 # The gdbm module seems to be very little used:
@@ -24,7 +27,7 @@ termux_step_pre_configure() {
 	fi
 }
 
-termux_step_make_install () {
+termux_step_make_install() {
 	make install
 	make uninstall # remove possible remains to get fresh timestamps
 	make install
@@ -40,7 +43,7 @@ termux_step_make_install () {
 	perl -p -i -e 's/^.*CONFIG\["GREP"\].*$/  CONFIG["GREP"] = "grep"/' $RBCONFIG
 }
 
-termux_step_post_massage () {
+termux_step_post_massage() {
 	if [ ! -f $TERMUX_PREFIX/lib/ruby/${_MAJOR_VERSION}.0/${TERMUX_HOST_PLATFORM}/readline.so ]; then
 		echo "Error: The readline extension was not built"
 	fi

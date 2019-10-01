@@ -1,12 +1,17 @@
 TERMUX_PKG_HOMEPAGE=https://github.com/tesseract-ocr/tesseract
 TERMUX_PKG_DESCRIPTION="Tesseract is probably the most accurate open source OCR engine available"
-TERMUX_PKG_VERSION=3.05.02
+TERMUX_PKG_LICENSE="Apache-2.0"
+TERMUX_PKG_VERSION=4.1.0
 TERMUX_PKG_REVISION=1
-TERMUX_PKG_SHA256=494d64ffa7069498a97b909a0e65a35a213989e0184f1ea15332933a90d43445
 TERMUX_PKG_SRCURL=https://github.com/tesseract-ocr/tesseract/archive/${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_DEPENDS="libtool, libuuid, leptonica"
+TERMUX_PKG_SHA256=5c5ed5f1a76888dc57a83704f24ae02f8319849f5c4cf19d254296978a1a1961
+TERMUX_PKG_DEPENDS="libc++, libtool, libuuid, leptonica, libandroid-glob"
+TERMUX_PKG_BREAKS="tesseract-dev"
+TERMUX_PKG_REPLACES="tesseract-dev"
 
 termux_step_pre_configure() {
+	export LIBS="-landroid-glob"
+
 	# http://blog.matt-swain.com/post/26419042500/installing-tesseract-ocr-on-mac-os-x-lion
 	export LIBLEPT_HEADERSDIR=${TERMUX_PREFIX}/include/leptonica
 
@@ -33,15 +38,9 @@ termux_step_post_make_install() {
 
 	mkdir -p $TERMUX_PKG_CACHEDIR/tessdata
 
-	local f
-	for f in cube.{bigrams,fold,lm,nn,params,size,word-freq} tesseract_cube.nn traineddata; do
-		# From the tessdata README: "These language data files only work with
-		# Tesseract 4. They are based on the sources in tesseract-ocr/langdata on GitHub.
-		# Get language data files for Tesseract 3.04 or 3.05 from the 3.04 tree."
-		termux_download \
-			https://raw.githubusercontent.com/tesseract-ocr/tessdata/3.04.00/eng.$f \
-			$TERMUX_PKG_CACHEDIR/tessdata/eng.$f \
-			${checksums[$f]}
-		cp $TERMUX_PKG_CACHEDIR/tessdata/eng.$f .
-	done
+	termux_download \
+		https://raw.githubusercontent.com/tesseract-ocr/tessdata/4.0.0/eng.traineddata \
+		$TERMUX_PKG_CACHEDIR/tessdata/eng.traineddata \
+		daa0c97d651c19fba3b25e81317cd697e9908c8208090c94c3905381c23fc047
+	cp $TERMUX_PKG_CACHEDIR/tessdata/eng.traineddata .
 }

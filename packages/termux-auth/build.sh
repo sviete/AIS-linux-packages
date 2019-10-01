@@ -5,3 +5,5 @@ TERMUX_PKG_VERSION=1.2
 TERMUX_PKG_SRCURL=https://github.com/araczkowski/termux-auth/archive/v${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_SHA256=29253c2932425995a9ca416702389cd6f185bac7f56c7738091086b7c235be1e
 TERMUX_PKG_DEPENDS="openssl"
+TERMUX_PKG_BREAKS="termux-auth-dev"
+TERMUX_PKG_REPLACES="termux-auth-dev"

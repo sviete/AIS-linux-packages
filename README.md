@@ -1,146 +1,135 @@
-Termux packages
-===============
-[![Build Status](https://travis-ci.org/termux/termux-packages.svg?branch=master)](https://travis-ci.org/termux/termux-packages)
+# Termux packages
+
+[![Powered by JFrog Bintray](./.github/static/powered-by-bintray.png)](https://bintray.com)
+
+[![build status](https://api.cirrus-ci.com/github/termux/termux-packages.svg?branch=master)](https://cirrus-ci.com/termux/termux-packages)
 [![Join the chat at https://gitter.im/termux/termux](https://badges.gitter.im/termux/termux.svg)](https://gitter.im/termux/termux)
 
-This project contains scripts and patches to build packages for the [Termux](https://termux.com/) Android application. Note that packages are cross compiled and that on-device builds are not currently supported.
+This project contains scripts and patches to build packages for the [Termux]
+Android application.
 
-Setting up a build environment using Docker
-===========================================
-For most people the best way to obtain an environment for building packages is by using Docker. This should work everywhere Docker is supported (replace `/` with `\` if using Windows) and ensures an up to date build environment that is tested by other package builders.
+There available packages only from main set. We have some additional
+repositories:
 
-Run the following script to setup a container (from an image created by [scripts/Dockerfile](scripts/Dockerfile)) suitable for building packages:
+- https://github.com/termux/game-packages
 
-    ./scripts/run-docker.sh
+	Game packages, e.g. `angband` or `moon-buggy`.
 
-This source folder is mounted as the `/root/termux-packages` data volume, so changes are kept
-in sync between the host and the container when trying things out before committing, and built
-deb files will be available on the host in the `debs/` directory just as when building on the host.
+- https://github.com/termux/science-packages
 
-The docker container used for building packages is a Ubuntu installation with necessary packages
-pre-installed. The default user is a non-root user to avoid problems with package builds modifying the system
-by mistake, but `sudo` can be used to install additional Ubuntu packages to be used during development.
+	Science-related packages like `gap` and `gnucap`.
 
-Build commands can be given to be executed in the docker container directly:
+- https://github.com/termux/termux-root-packages
 
-    ./scripts/run-docker.sh ./build-package.sh libandroid-support
+	All packages which usable only on rooted devices. Some stuff available
+	here requiring custom kernel (like `aircrack-ng` or `lxc`).
 
-will launch the docker container, execute the `./build-package.sh libandroid-support`
-command inside it and afterwards return you to the host prompt, with the newly built
-deb in `debs/` to try out.
+- https://github.com/termux/unstable-packages
 
-Note that building packages can take up a lot of space (especially if `build-all.sh` is used to build all packages) and you may need to [increase the base device size](http://www.projectatomic.io/blog/2016/03/daemon_option_basedevicesize/) if running with a storage driver using a small base size of 10 GB.
+	Staging repository. Packages that are not stable available only here. New
+	packages most likely will be placed here too.
 
-Build environment without Docker
-================================
-If you can't run Docker you can use a Ubuntu 18.10 installation (either by installing a virtual maching guest or on direct hardware) by using the below scripts:
+- https://github.com/termux/x11-packages
 
-- Run `scripts/setup-ubuntu.sh` to install required packages and setup the `/data/` folder.
+	Packages requiring X11 Windowing System.
 
-- Run `scripts/setup-android-sdk.sh` to install the Android SDK and NDK at `$HOME/lib/android-{sdk,ndk}`.
+Termux package management quick how-to available on https://wiki.termux.com/wiki/Package_Management.
+To learn about using our build environment, read the [Developer's Wiki].
 
-There is also a [Vagrantfile](scripts/Vagrantfile) available as a shortcut for setting up an Ubuntu installation with the above steps applied.
+## Project structure
 
-Building a package
-==================
-The basic build operation is to run `./build-package.sh $PKG`, which:
+There 2 main branches available:
 
-1. Sets up a patched stand-alone Android NDK toolchain if necessary.
+- [master] - packages for Android 7.0 or higher.
 
-2. Reads `packages/$PKG/build.sh` to find out where to find the source code of the package and how to build it.
+	Packages are built automatically by [CI] and published on [Bintray].
 
-3. Extracts the source in `$HOME/.termux-build/$PKG/src`.
+- [android-5] - packages for Android versions 5.x - 6.x.
 
-4. Applies all patches in packages/$PKG/\*.patch.
+    Packages are built by @fornwall and published on https://termux.net.
 
-5. Builds the package under `$HOME/.termux-build/$PKG/` (either in the build/ directory there or in the
-  src/ directory if the package is specified to build in the src dir) and installs it to `$PREFIX`.
+Directories:
 
-6. Extracts modified files in `$PREFIX` into `$HOME/.termux-build/$PKG/massage` and massages the
-  files there for distribution (removes some files, splits it up in sub-packages, modifies elf files).
+- [disabled-packages](disabled-packages/):
 
-7. Creates a deb package file for distribution in `debs/`.
+	Packages that cannot be published due to serious issues.
 
-Reading [build-package.sh](build-package.sh) is the best way to understand what is going on.
+- [ndk-patches](ndk-patches/):
 
-Additional utilities
-====================
-* build-all.sh: used for building all packages in the correct order (using buildorder.py).
+	Our changes to Android NDK headers.
 
-* clean.sh: used for doing a clean rebuild of all packages.
+- [packages](packages/):
 
-* scripts/check-pie.sh: Used for verifying that all binaries are using PIE, which is required for Android 5+.
+	Main set of packages.
 
-* scripts/check-versions.sh: used for checking for package updates.
-	
-* scripts/list-packages.sh: used for listing all packages with a one-line summary.
+- [sample](sample/):
 
+	Sample structure for creating new packages.
 
-Resources
-=========
-* [Android changes for NDK developers](https://android.googlesource.com/platform/bionic/+/master/android-changes-for-ndk-developers.md)
+- [scripts](scripts/):
 
-* [Linux From Scratch](http://www.linuxfromscratch.org/lfs/view/stable/)
+	Set of utilities and build system scripts.
 
-* [Beyond Linux From Scratch](http://www.linuxfromscratch.org/blfs/view/stable/)
+## Contributing
 
-* [OpenWrt](https://openwrt.org/) as an embedded Linx distribution contains [patches and build scripts](https://dev.openwrt.org/browser/packages)
+### Bug reports
 
-* [Kivy recipes](https://github.com/kivy/python-for-android/tree/master/pythonforandroid/recipes) contains recipes for building packages for Android.
+Please, use templates for submitting bug reports. The *bug report* issue template
+can be initialized by clicking on https://github.com/termux/termux-packages/issues/new?template=bug_report.md.
 
+General requirements for bug reports are:
 
-Common porting problems
-=======================
-* The Android bionic libc does not have iconv and gettext/libintl functionality built in. A `libandroid-support` package contains these and may be used by all packages.
+- All packages are up-to-date.
 
-* "error: z: no archive symbol table (run ranlib)" usually means that the build machines libz is used instead of the one for cross compilation, due to the builder library -L path being setup incorrectly
+- Problem is not related to third-party software.
 
-* rindex(3) does not exist, but strrchr(3) is preferred anyway.
+- Output of `termux-info` attached.
 
-* &lt;sys/termios.h&gt; does not exist, but &lt;termios.h&gt; is the standard location.
+- Be ready to provide more info if requested.
 
-* &lt;sys/fcntl.h&gt; does not exist, but &lt;fcntl.h&gt; is the standard location.
+### New packages
 
-* &lt;sys/timeb.h&gt; does not exist (removed in POSIX 2008), but ftime(3) can be replaced with gettimeofday(2).
+Use the *package request* template: https://github.com/termux/termux-packages/issues/new?template=package_request.md.
 
-* &lt;glob.h&gt; does not exist, but is available through the `libandroid-glob` package.
+General requirements for new packages are:
 
-* SYSV shared memory is not supported by the kernel. A `libandroid-shmem` package, which emulates SYSV shared memory on top of the [ashmem](http://elinux.org/Android_Kernel_Features#ashmem) shared memory system, is available. Use it with `LDFLAGS+=" -landroid-shmem`.
+- Packages should be open source and have widely recognised OSS licenses like
+  GNU GPL.
 
-* SYSV semaphores is not supported by the kernel. Use unnamed POSIX semaphores instead (named semaphores are unimplemented).
+- Packages should not be installable via language-specific package managers such
+  as `gem`, `pip` or `cpan`.
 
-dlopen() and RTLD&#95;&#42; flags
-=================================
-&lt;dlfcn.h&gt; declares
+- Packages should not be outdated dead projects.
 
-    RTLD_NOW=0; RTLD_LAZY=1; RTLD_LOCAL=0; RTLD_GLOBAL=2;       RTLD_NOLOAD=4; // 32-bit
-    RTLD_NOW=2; RTLD_LAZY=1; RTLD_LOCAL=0; RTLD_GLOBAL=0x00100; RTLD_NOLOAD=4; // 64-bit
+- Be ready that your package request will not be processed immediately.
 
-These differs from glibc ones in that
+## Pull Requests
 
-1. They differ in value from glibc ones, so cannot be hardcoded in files (DLFCN.py in python does this)
-2. They are missing some values (`RTLD_BINDING_MASK`, ...)
+All pull requests are welcome.
 
-Android Dynamic Linker
-======================
-The Android dynamic linker is located at `/system/bin/linker` (32-bit) or `/system/bin/linker64` (64-bit). Here are source links to different versions of the linker:
+We use [CI] for processing all pushes including pull requests. All build logs
+and artifacts are public, so you can verify whether your changes work properly.
 
-- [Android 5.0 linker](https://android.googlesource.com/platform/bionic/+/lollipop-mr1-release/linker/linker.cpp)
-- [Android 6.0 linker](https://android.googlesource.com/platform/bionic/+/marshmallow-mr1-release/linker/linker.cpp)
-- [Android 7.0 linker](https://android.googlesource.com/platform/bionic/+/nougat-mr1-release/linker/linker.cpp)
+People who are new for packaging can begin with sending PRs for updating
+packages. Check the outdated packages on https://repology.org/projects/?inrepo=termux&outdated=1.
 
-Some notes about the linker:
+Get started with information available on [Developer's Wiki].
 
-- The linker warns about unused [dynamic section entries](https://docs.oracle.com/cd/E23824_01/html/819-0690/chapter6-42444.html) with a `WARNING: linker: $BINARY: unused DT entry: type ${VALUE_OF_d_tag}` message.
+## Contacts
 
-- The supported types of dynamic section entries has increased over time.
+- General Mailing List: https://groups.io/g/termux
 
-- The Termux build system uses [termux-elf-cleaner](https://github.com/termux/termux-elf-cleaner) to strip away unused ELF entries causing the above mentioned linker warnings.
+- Developer Mailing List: https://groups.io/g/termux-dev
 
-- Symbol versioning is supported only as of Android 6.0, so is stripped away.
+- Developer Chat: https://gitter.im/termux/dev or #termux/development on IRC/freenode.
 
-- `DT_RPATH`, the list of directories where the linker should look for shared libraries, is not supported, so is stripped away.
+If you are interested in our weekly development sessions, please check the
+https://wiki.termux.com/wiki/Dev:Development_Sessions. Also, you may want to
+check the https://wiki.termux.com/wiki/Development.
 
-- `DT_RUNPATH`, the same as above but looked at after `LD_LIBRARY_PATH`, is supported only from Android 7.0, so is stripped away.
-
-- Symbol visibility when opening shared libraries using `dlopen()` works differently. On a normal linker, when an executable linking against a shared library libA dlopen():s another shared library libB, the symbols of libA are exposed to libB without libB needing to link against libA explicitly. This does not work with the Android linker, which can break plug-in systems where the main executable dlopen():s a plug-in which doesn't explicitly link against some shared libraries already linked to by the executable. See [the relevant NDK issue](https://github.com/android-ndk/ndk/issues/201) for more information.
+[Bintray]: <https://bintray.com/termux/termux-packages-24>
+[CI]: <https://cirrus-ci.com/termux/termux-packages>
+[Developer's Wiki]: <https://github.com/termux/termux-packages/wiki>
+[Termux]: <https://github.com/termux/termux-app>
+[android-5]: <https://github.com/termux/termux-packages/tree/android-5>
+[master]: <https://github.com/termux/termux-packages/tree/master>

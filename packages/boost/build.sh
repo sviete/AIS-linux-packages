@@ -1,13 +1,23 @@
 TERMUX_PKG_HOMEPAGE=https://boost.org
 TERMUX_PKG_DESCRIPTION="Free peer-reviewed portable C++ source libraries"
-TERMUX_PKG_VERSION=1.69.0
-TERMUX_PKG_SHA256=8f32d4617390d1c2d16f26a27ab60d97807b35440d45891fa340fc2648b04406
+TERMUX_PKG_LICENSE="BSL-1.0"
+TERMUX_PKG_VERSION=1.70.0
+TERMUX_PKG_REVISION=5
 TERMUX_PKG_SRCURL=https://dl.bintray.com/boostorg/release/$TERMUX_PKG_VERSION/source/boost_${TERMUX_PKG_VERSION//./_}.tar.bz2
-TERMUX_PKG_BUILD_IN_SRC=yes
-TERMUX_PKG_DEPENDS="libbz2, liblzma"
+TERMUX_PKG_SHA256=430ae8354789de4fd19ee52f3b1f739e1fba576f0aded0897c3c2bc00fb38778
+TERMUX_PKG_BUILD_IN_SRC=true
+TERMUX_PKG_DEPENDS="libc++, libbz2, libiconv, liblzma, zlib"
 TERMUX_PKG_BUILD_DEPENDS="python, python2"
-TERMUX_PKG_BREAKS="libboost-python (<= 1.65.1-2)"
-TERMUX_PKG_REPLACES="libboost-python (<= 1.65.1-2)"
+TERMUX_PKG_BREAKS="libboost-python (<= 1.65.1-2), boost-dev"
+TERMUX_PKG_REPLACES="libboost-python (<= 1.65.1-2), boost-dev"
+
+termux_step_pre_configure() {
+	# Certain packages are not safe to build on device because their
+	# build.sh script deletes specific files in $TERMUX_PREFIX.
+	if $TERMUX_ON_DEVICE_BUILD; then
+		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
+	fi
+}
 
 termux_step_make_install() {
 	CXXFLAGS+=" -std=c++14"
@@ -43,6 +53,7 @@ termux_step_make_install() {
 		--disable-icu \
 		-sNO_ZSTD=1 \
 		cxxflags="$CXXFLAGS" \
+		linkflags="$LDFLAGS" \
 		architecture="$BOOSTARCH" \
 		abi="$BOOSTABI" \
 		address-model="$BOOSTAM" \
@@ -65,6 +76,7 @@ termux_step_make_install() {
 		--disable-icu \
 		-sNO_ZSTD=1 \
 		cxxflags="$CXXFLAGS" \
+		linkflags="$LDFLAGS" \
 		link=shared \
 		threading=multi \
 		boost.locale.icu=off \

@@ -1,8 +1,11 @@
 TERMUX_PKG_HOMEPAGE=https://keybase.io
-TERMUX_PKG_DESCRIPTION="keybase"
-TERMUX_PKG_VERSION=2.11.0
-TERMUX_PKG_SHA256=858d81a25f141eff130c8c3725e511e79e2e28c67e1daeafe29e6dca6c138b72
+TERMUX_PKG_DESCRIPTION="Key directory that maps social media identities to encryption keys"
+TERMUX_PKG_LICENSE="BSD 3-Clause"
+TERMUX_PKG_VERSION=4.5.0
 TERMUX_PKG_SRCURL=https://github.com/keybase/client/archive/v${TERMUX_PKG_VERSION}.tar.gz
+TERMUX_PKG_SHA256=c74a909b53a3d62c2d71a7209e74c3f5721782a007eba8e48ddd80121343a8da
+TERMUX_PKG_REPLACES="kbfs"
+TERMUX_PKG_CONFLICTS="kbfs"
 
 termux_step_make_install() {
 	cd $TERMUX_PKG_SRCDIR
@@ -14,6 +17,10 @@ termux_step_make_install() {
 	export GOPATH="$PWD/.gopath"
 
 	go build -v -tags 'production' -o keybase github.com/keybase/client/go/keybase
+	go build -v -tags 'production' -o git-remote-keybase github.com/keybase/client/go/kbfs/kbfsgit/git-remote-keybase
+	go build -v -tags 'production' -o kbfsfusebin github.com/keybase/client/go/kbfs/kbfsfuse
 
 	cp keybase $TERMUX_PREFIX/bin/keybase
+	cp git-remote-keybase $TERMUX_PREFIX/bin/git-remote-keybase
+	cp kbfsfusebin $TERMUX_PREFIX/bin/kbfsfuse
 }

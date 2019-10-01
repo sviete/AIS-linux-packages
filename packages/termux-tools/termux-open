@@ -37,7 +37,7 @@ fi
 
 FILE="$1"
 if [ -f "$FILE" ]; then
-	FILE=`realpath "$FILE"`
+	FILE=$(realpath "$FILE")
 fi
 
 am broadcast --user 0 \
@@ -46,4 +46,3 @@ am broadcast --user 0 \
 	$EXTRAS \
 	-d "$FILE" \
 	> /dev/null
-

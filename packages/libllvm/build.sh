@@ -1,14 +1,16 @@
 TERMUX_PKG_HOMEPAGE=https://clang.llvm.org/
 TERMUX_PKG_DESCRIPTION="Modular compiler and toolchain technologies library"
-TERMUX_PKG_VERSION=7.0.1
-TERMUX_PKG_SHA256=(a38dfc4db47102ec79dcc2aa61e93722c5f6f06f0a961073bd84b78fb949419b
-		   a45b62dde5d7d5fdcdfa876b0af92f164d434b06e9e89b5d0b1cbc65dfe3f418
-		   8869aab2dd2d8e00d69943352d3166d159d7eae2615f66a684f4a0999fc74031
-		   bf16b78a678da67d68405214ec7ee59d86a15f599855806192a75dcfca9b0d0c)
-TERMUX_PKG_SRCURL=(https://releases.llvm.org/${TERMUX_PKG_VERSION}/llvm-${TERMUX_PKG_VERSION}.src.tar.xz
-		   https://releases.llvm.org/${TERMUX_PKG_VERSION}/cfe-${TERMUX_PKG_VERSION}.src.tar.xz
-		   https://llvm.org/releases/${TERMUX_PKG_VERSION}/lld-${TERMUX_PKG_VERSION}.src.tar.xz
-		   https://releases.llvm.org/${TERMUX_PKG_VERSION}/openmp-${TERMUX_PKG_VERSION}.src.tar.xz)
+TERMUX_PKG_LICENSE="NCSA"
+TERMUX_PKG_VERSION=8.0.1
+TERMUX_PKG_REVISION=4
+TERMUX_PKG_SHA256=(44787a6d02f7140f145e2250d56c9f849334e11f9ae379827510ed72f12b75e7
+                   70effd69f7a8ab249f66b0a68aba8b08af52aa2ab710dfb8a0fba102685b1646
+                   9fba1e94249bd7913e8a6c3aadcb308b76c8c3d83c5ce36c99c3f34d73873d88
+                   3e85dd3cad41117b7c89a41de72f2e6aa756ea7b4ef63bb10dcddf8561a7722c)
+TERMUX_PKG_SRCURL=(https://github.com/llvm/llvm-project/releases/download/llvmorg-$TERMUX_PKG_VERSION/llvm-$TERMUX_PKG_VERSION.src.tar.xz
+                   https://github.com/llvm/llvm-project/releases/download/llvmorg-$TERMUX_PKG_VERSION/cfe-$TERMUX_PKG_VERSION.src.tar.xz
+                   https://github.com/llvm/llvm-project/releases/download/llvmorg-$TERMUX_PKG_VERSION/lld-$TERMUX_PKG_VERSION.src.tar.xz
+                   https://github.com/llvm/llvm-project/releases/download/llvmorg-$TERMUX_PKG_VERSION/openmp-$TERMUX_PKG_VERSION.src.tar.xz)
 TERMUX_PKG_HOSTBUILD=true
 TERMUX_PKG_RM_AFTER_INSTALL="
 bin/clang-check
@@ -19,14 +21,15 @@ bin/macho-dump
 lib/libgomp.a
 lib/libiomp5.a
 "
-TERMUX_PKG_DEPENDS="binutils, ncurses, ndk-sysroot, ndk-stl, libffi"
+TERMUX_PKG_DEPENDS="binutils, libc++, ncurses, ndk-sysroot, libffi, zlib"
 # Replace gcc since gcc is deprecated by google on android and is not maintained upstream.
 # Conflict with clang versions earlier than 3.9.1-3 since they bundled llvm.
 TERMUX_PKG_CONFLICTS="gcc, clang (<< 3.9.1-3)"
-TERMUX_PKG_REPLACES=gcc
+TERMUX_PKG_BREAKS="libclang, libclang-dev, libllvm-dev"
+TERMUX_PKG_REPLACES="gcc, libclang, libclang-dev, libllvm-dev"
 # See http://llvm.org/docs/CMake.html:
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
--DPYTHON_EXECUTABLE=`which python3`
+-DPYTHON_EXECUTABLE=$(which python3)
 -DLLVM_ENABLE_PIC=ON
 -DLLVM_ENABLE_LIBEDIT=OFF
 -DLLVM_BUILD_TESTS=OFF
@@ -43,21 +46,24 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DLLVM_BINUTILS_INCDIR=$TERMUX_PREFIX/include
 -DLLVM_ENABLE_SPHINX=ON
 -DSPHINX_OUTPUT_MAN=ON
--DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=WebAssembly
+-DLLVM_TARGETS_TO_BUILD=all
+-DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=RISCV
 -DPERL_EXECUTABLE=$(which perl)
 -DLLVM_ENABLE_FFI=ON
 "
-TERMUX_PKG_FORCE_CMAKE=yes
-TERMUX_PKG_KEEP_STATIC_LIBRARIES=true
-TERMUX_PKG_HAS_DEBUG=no
+TERMUX_PKG_FORCE_CMAKE=true
+TERMUX_PKG_HAS_DEBUG=false
+# Debug build succeeds but make install with:
+# cp: cannot stat '../src/projects/openmp/runtime/exports/common.min.50.ompt.optional/include/omp.h': No such file or directory
+# common.min.50.ompt.optional should be common.deb.50.ompt.optional when doing debug build
 
-termux_step_post_extract_package () {
+termux_step_post_extract_package() {
 	mv cfe-${TERMUX_PKG_VERSION}.src tools/clang
 	mv lld-${TERMUX_PKG_VERSION}.src tools/lld
 	mv openmp-${TERMUX_PKG_VERSION}.src projects/openmp
 }
 
-termux_step_host_build () {
+termux_step_host_build() {
 	termux_setup_cmake
 	cmake -G "Unix Makefiles" $TERMUX_PKG_SRCDIR \
 		-DLLVM_BUILD_TESTS=OFF \
@@ -65,7 +71,7 @@ termux_step_host_build () {
 	make -j $TERMUX_MAKE_PROCESSES clang-tblgen llvm-tblgen
 }
 
-termux_step_pre_configure () {
+termux_step_pre_configure() {
 	mkdir projects/openmp/runtime/src/android
 	cp $TERMUX_PKG_BUILDER_DIR/nl_types.h projects/openmp/runtime/src/android
 	cp $TERMUX_PKG_BUILDER_DIR/nltypes_stubs.cpp projects/openmp/runtime/src/android
@@ -84,19 +90,19 @@ termux_step_pre_configure () {
 	else
 		termux_error_exit "Invalid arch: $TERMUX_ARCH"
 	fi
-        # see CMakeLists.txt and tools/clang/CMakeLists.txt
+	# see CMakeLists.txt and tools/clang/CMakeLists.txt
 	TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" -DLLVM_DEFAULT_TARGET_TRIPLE=$LLVM_DEFAULT_TARGET_TRIPLE"
 	TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" -DLLVM_TARGET_ARCH=$LLVM_TARGET_ARCH -DLLVM_TARGETS_TO_BUILD=all"
 	TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" -DLLVM_HOST_TRIPLE=$LLVM_DEFAULT_TARGET_TRIPLE"
 }
-termux_step_post_make_install () {
+termux_step_post_make_install() {
 	if [ $TERMUX_ARCH = "arm" ]; then
 		cp ../src/projects/openmp/runtime/exports/common.min.50/include/omp.h $TERMUX_PREFIX/include
 	else
 		cp ../src/projects/openmp/runtime/exports/common.min.50.ompt.optional/include/omp.h $TERMUX_PREFIX/include
 	fi
 
-	if [ $TERMUX_CMAKE_BUILD = Ninja ]; then
+	if [ "$TERMUX_CMAKE_BUILD" = Ninja ]; then
 		ninja docs-llvm-man
 	else
 		make docs-llvm-man
@@ -110,7 +116,7 @@ termux_step_post_make_install () {
 	done
 }
 
-termux_step_post_massage () {
+termux_step_post_massage() {
 	sed $TERMUX_PKG_BUILDER_DIR/llvm-config.in \
 		-e "s|@TERMUX_PKG_VERSION@|$TERMUX_PKG_VERSION|g" \
 		-e "s|@TERMUX_PREFIX@|$TERMUX_PREFIX|g" \
@@ -119,4 +125,6 @@ termux_step_post_massage () {
 		-e "s|@LLVM_DEFAULT_TARGET_TRIPLE@|$LLVM_DEFAULT_TARGET_TRIPLE|g" \
 		-e "s|@TERMUX_ARCH@|$TERMUX_ARCH|g" > $TERMUX_PREFIX/bin/llvm-config
 	chmod 755 $TERMUX_PREFIX/bin/llvm-config
+	cp $TERMUX_PKG_HOSTBUILD_DIR/bin/llvm-tblgen $TERMUX_PREFIX/bin
+	cp $TERMUX_PKG_HOSTBUILD_DIR/bin/clang-tblgen $TERMUX_PREFIX/bin
 }
