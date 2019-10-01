@@ -1,27 +1,29 @@
 TERMUX_PKG_HOMEPAGE=https://www.freedesktop.org/wiki/Software/PulseAudio
 TERMUX_PKG_DESCRIPTION="A featureful, general-purpose sound server - shared libraries"
+TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_VERSION=12.2
-TERMUX_PKG_REVISION=9
+TERMUX_PKG_REVISION=21
 TERMUX_PKG_SHA256=809668ffc296043779c984f53461c2b3987a45b7a25eb2f0a1d11d9f23ba4055
 TERMUX_PKG_SRCURL=https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-${TERMUX_PKG_VERSION}.tar.xz
-TERMUX_PKG_DEPENDS="libltdl, libsndfile, libandroid-glob, libsoxr"
+TERMUX_PKG_DEPENDS="libltdl, libsndfile, libandroid-glob, libsoxr, speexdsp"
+TERMUX_PKG_BREAKS="libpulseaudio-dev"
+TERMUX_PKG_REPLACES="libpulseaudio-dev"
 TERMUX_PKG_BUILD_DEPENDS="libtool"
-TERMUX_PKG_INCLUDE_IN_DEVPACKAGE="share/vala"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-neon-opt
 --disable-alsa
 --disable-esound
 --disable-glib2
+--disable-x11
+--disable-gtk3
 --disable-openssl
 --without-caps
 --with-database=simple
 --disable-memfd
 --disable-gsettings
---bindir=$TERMUX_PREFIX/libexec
 ax_cv_PTHREAD_PRIO_INHERIT=no
 ac_cv_func_posix_madvise=no"
-TERMUX_PKG_CONFFILES="etc/pulse/client.conf etc/pulse/daemon.conf etc/pulse/default.pa etc/pulse/system.pa"
 
-termux_step_pre_configure () {
+termux_step_pre_configure() {
 	# Avoid aclocal-1.15 dependency:
 	NOCONFIGURE=1 ./bootstrap.sh
 
@@ -39,6 +41,7 @@ termux_step_pre_configure () {
 
 	mkdir $TERMUX_PKG_SRCDIR/src/modules/sles
 	cp $TERMUX_PKG_BUILDER_DIR/module-sles-sink.c $TERMUX_PKG_SRCDIR/src/modules/sles
+	cp $TERMUX_PKG_BUILDER_DIR/module-sles-source.c $TERMUX_PKG_SRCDIR/src/modules/sles
 	mkdir $TERMUX_PKG_SRCDIR/src/modules/aaudio
 	cp $TERMUX_PKG_BUILDER_DIR/module-aaudio-sink.c $TERMUX_PKG_SRCDIR/src/modules/aaudio
 
@@ -47,11 +50,11 @@ termux_step_pre_configure () {
 	LDFLAGS+=" -llog -landroid-glob"
 }
 
-termux_step_post_make_install () {
+termux_step_post_make_install() {
 	# Some binaries link against these:
 	cd $TERMUX_PREFIX/lib
 	for lib in pulseaudio/lib*.so* pulse-${TERMUX_PKG_VERSION}/modules/lib*.so*; do
-		ln -s -f $lib `basename $lib`
+		ln -s -f $lib $(basename $lib)
 	done
 
 	# Pulseaudio fails to start when it cannot detect any sound hardware
@@ -60,18 +63,4 @@ termux_step_post_make_install () {
 		-e '/^load-module module-detect$/s/^/#/'
 	echo "load-module module-sles-sink" >> $TERMUX_PREFIX/etc/pulse/default.pa
 	echo "#load-module module-aaudio-sink" >> $TERMUX_PREFIX/etc/pulse/default.pa
-
-	if [ "$TERMUX_ARCH_BITS" = 32 ]; then
-		SYSTEM_LIB=lib
-	else
-		SYSTEM_LIB=lib64
-	fi
-
-	cd $TERMUX_PREFIX/libexec
-	for bin in pacat pacmd pactl pasuspender pulseaudio; do
-		rm -f ../bin/$bin
-		echo "#!$TERMUX_PREFIX/bin/sh" >> ../bin/$bin
-		echo "LD_LIBRARY_PATH=/system/$SYSTEM_LIB:/system/vendor/$SYSTEM_LIB:$TERMUX_PREFIX/lib exec $TERMUX_PREFIX/libexec/$bin \"\$@\"" >> ../bin/$bin
-		chmod +x ../bin/$bin
-	done
 }
