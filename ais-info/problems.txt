@@ -1,0 +1,40 @@
+PROBLEMS:
+/home/builder/.termux-build/_buildall-all/sharutils.err
+/home/builder/.termux-build/_buildall-all/codecrypt.err
+/home/builder/.termux-build/_buildall-all/bison.err
+/home/builder/.termux-build/_buildall-all/gcal.err
+/home/builder/.termux-build/_buildall-all/zile.err
+/home/builder/.termux-build/_buildall-all/libelf.err
+/home/builder/.termux-build/_buildall-all/starship.err
+/home/builder/.termux-build/_buildall-all/wget.err
+/home/builder/.termux-build/_buildall-all/bat.err
+/home/builder/.termux-build/_buildall-all/libllvm.err
+/home/builder/.termux-build/_buildall-all/ltrace.err
+/home/builder/.termux-build/_buildall-all/libgrpc.err
+/home/builder/.termux-build/_buildall-all/fish.err
+/home/builder/.termux-build/_buildall-all/wordgrinder.err
+/home/builder/.termux-build/_buildall-all/lldb.err
+rust
+ccnet
+gettext
+uftrace
+seafile-client
+barcode
+
+echo "lldb" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+
+
+HOW TO:
+1. go to container:
+sudo docker exec -it termux-package-builder /bin/bash
+
+2. rebuild package force
+in conteiner
+./build-package.sh -a all -f busybox
+
+3. skeep package
+add this package to buildstatus, in conteiner
+echo "<package-name>" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+
+or remove it from buildorder:
+grep -vwE "packages/toxic" buildorder.txt > new_buildorder.txt
