@@ -20,6 +20,9 @@ gettext
 uftrace
 seafile-client
 barcode
+php
+texlive
+mpd
 
 echo "lldb" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 
