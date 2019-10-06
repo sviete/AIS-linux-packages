@@ -10,4 +10,5 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 ac_cv_func_getpass=yes
 --disable-iri
 --with-ssl=openssl
+ac_cv_header_spawn_h=no
 "

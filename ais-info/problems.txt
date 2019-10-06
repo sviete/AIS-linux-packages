@@ -1,30 +1,8 @@
-PROBLEMS:
-/home/builder/.termux-build/_buildall-all/sharutils.err
-/home/builder/.termux-build/_buildall-all/codecrypt.err
-/home/builder/.termux-build/_buildall-all/bison.err
-/home/builder/.termux-build/_buildall-all/gcal.err
-/home/builder/.termux-build/_buildall-all/zile.err
-/home/builder/.termux-build/_buildall-all/libelf.err
-/home/builder/.termux-build/_buildall-all/starship.err
-/home/builder/.termux-build/_buildall-all/wget.err
-/home/builder/.termux-build/_buildall-all/bat.err
-/home/builder/.termux-build/_buildall-all/libllvm.err
-/home/builder/.termux-build/_buildall-all/ltrace.err
-/home/builder/.termux-build/_buildall-all/libgrpc.err
-/home/builder/.termux-build/_buildall-all/fish.err
-/home/builder/.termux-build/_buildall-all/wordgrinder.err
-/home/builder/.termux-build/_buildall-all/lldb.err
-rust
-ccnet
-gettext
-uftrace
-seafile-client
-barcode
-php
-texlive
-mpd
-
-echo "lldb" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+PROBLEMS - disable these packages first (there are to big - not needed)
+echo "texlive" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo "mpd" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo "rust" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo "erlang" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 
 
 HOW TO:
