@@ -3,7 +3,7 @@
 @@ -118,8 +118,8 @@
  #define LUA_TMPNAMTEMPLATE	"@TERMUX_PREFIX@/tmp/lua_XXXXXX"
  #endif
-
+ 
 -#define lua_tmpnam(b,e) { \
 -        strcpy(b, LUA_TMPNAMTEMPLATE); \
 +#define lua_tmpnam(b,e,s) {	       \

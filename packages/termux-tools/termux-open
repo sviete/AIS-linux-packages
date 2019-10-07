@@ -1,4 +1,4 @@
-#!/data/data/pl.sviete.dom/files/usr/bin/sh
+#!/bin/sh
 set -e -u
 
 SCRIPTNAME=termux-open
@@ -46,3 +46,4 @@ am broadcast --user 0 \
 	$EXTRAS \
 	-d "$FILE" \
 	> /dev/null
+

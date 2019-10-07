@@ -1749,6 +1749,7 @@
 " tset",
 "ne",
 " ne",
+"neovim",
 " nvim",
 "net-tools",
 " mii-tool",

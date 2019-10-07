@@ -81,3 +81,4 @@ termux_step_post_make_install() {
 	ln -sf $PREFIX/share/termux-services/svlogger telnetd/log/run
 	ln -sf $PREFIX/share/termux-services/svlogger ftpd/log/run
 }
+
