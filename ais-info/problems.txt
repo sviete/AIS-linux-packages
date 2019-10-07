@@ -9,14 +9,6 @@ echo "bat" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 
 libllvm
 
-TODO remowe apt repos
-
-game-repo                      packages/game-repo
-root-repo                      packages/root-repo
-science-repo                   packages/science-repo
-unstable-repo                  packages/unstable-repo
-x11-repo                       packages/x11-repo
-
 
 HOW TO:
 1. go to container:

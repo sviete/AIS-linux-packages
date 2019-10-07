@@ -323,11 +323,6 @@ help2man
 ipcalc
 parallel
 stow
-game-repo
-root-repo
-science-repo
-unstable-repo
-x11-repo
 wireguard-tools
 atomicparsley
 binutils

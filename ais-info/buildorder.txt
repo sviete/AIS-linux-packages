@@ -321,11 +321,6 @@ help2man                       packages/help2man
 ipcalc                         packages/ipcalc
 parallel                       packages/parallel
 stow                           packages/stow
-game-repo                      packages/game-repo
-root-repo                      packages/root-repo
-science-repo                   packages/science-repo
-unstable-repo                  packages/unstable-repo
-x11-repo                       packages/x11-repo
 wireguard-tools                packages/wireguard-tools
 atomicparsley                  packages/atomicparsley
 binutils                       packages/binutils
