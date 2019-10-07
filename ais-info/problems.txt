@@ -7,6 +7,8 @@ echo "dart" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo "starship" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo "bat" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 
+libllvm
+
 TODO remowe apt repos
 
 game-repo                      packages/game-repo
