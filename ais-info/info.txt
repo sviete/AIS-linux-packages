@@ -1,16 +1,12 @@
-PROBLEMS - disable these packages first (there are to big - not needed)
+CHANGES:
+1. removed game, unstable, root and other repos
+2. disable these packages first (there are to big - not needed)
 echo "texlive" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo "mpd" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo "rust" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo "erlang" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo "dart" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo "starship" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo "bat" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-
-libllvm
-lldb
-
-
 
 HOW TO:
 1. go to container:
