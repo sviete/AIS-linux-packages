@@ -27,6 +27,7 @@ debianutils                    packages/debianutils
 direnv                         packages/direnv
 diskus                         packages/diskus
 dnsmasq                        packages/dnsmasq
+double-conversion              packages/double-conversion
 dtc                            packages/dtc
 dx                             packages/dx
 ecj                            packages/ecj
@@ -350,7 +351,6 @@ zstd                           packages/zstd
 fakeroot                       packages/fakeroot
 apk-tools                      packages/apk-tools
 axel                           packages/axel
-erlang                         packages/erlang
 httping                        packages/httping
 httrack                        packages/httrack
 iperf3                         packages/iperf3
@@ -390,12 +390,10 @@ lynx                           packages/lynx
 libidn2                        packages/libidn2
 wget                           packages/wget
 cpio                           packages/cpio
-dart                           packages/dart
 libsndfile                     packages/libsndfile
 vorbis-tools                   packages/vorbis-tools
 opus-tools                     packages/opus-tools
 abduco                         packages/abduco
-bat                            packages/bat
 dpkg                           packages/dpkg
 man                            packages/man
 abook                          packages/abook
@@ -452,6 +450,7 @@ libical                        packages/libical
 libxslt                        packages/libxslt
 netpbm                         packages/netpbm
 nzbget                         packages/nzbget
+mtd-utils                      packages/mtd-utils
 alpine                         packages/alpine
 apg                            packages/apg
 apr-util                       packages/apr-util
@@ -641,3 +640,4 @@ mpdscribble                    packages/mpdscribble
 imgflo                         packages/imgflo
 valac                          packages/valac
 zbar                           packages/zbar
+starship
