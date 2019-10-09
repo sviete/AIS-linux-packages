@@ -50,7 +50,7 @@ termux_step_pre_configure() {
 }
 
 termux_step_post_make_install() {
-	printf "# The main AI-Speaker repository:\ndeb https://powiedz.co/apt stable main\n" > $TERMUX_PREFIX/etc/apt/sources.list
+	printf "# The main AI-Speaker repository:\ndeb [trusted=yes] https://powiedz.co/apt dom stable\n" > $TERMUX_PREFIX/etc/apt/sources.list
 	cp $TERMUX_PKG_BUILDER_DIR/trusted.gpg $TERMUX_PREFIX/etc/apt/
 	rm $TERMUX_PREFIX/include/apt-pkg -r
 
