@@ -7,6 +7,8 @@ TERMUX_PKG_SRCURL=https://github.com/araczkowski/fuse/archive/v${TERMUX_PKG_VERS
 TERMUX_PKG_SHA256=b3ad520f07f540147446c94cd97c2a945ba9deb978b03ca90bd1069e575cdc25
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-mtab
+--enable-example=no
+--enable-android=yes
 MOUNT_FUSE_PATH=$TERMUX_PREFIX/bin
 UDEV_RULES_PATH=$TERMUX_PREFIX/etc/udev/rules.d
 INIT_D_PATH=$TERMUX_PREFIX/etc/init.d
