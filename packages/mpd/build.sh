@@ -1,9 +1,9 @@
 TERMUX_PKG_HOMEPAGE=https://www.musicpd.org
 TERMUX_PKG_DESCRIPTION="Music player daemon"
 TERMUX_PKG_LICENSE="GPL-2.0"
-TERMUX_PKG_VERSION=0.21.16
+TERMUX_PKG_VERSION=0.21.19
 TERMUX_PKG_SRCURL=https://github.com/MusicPlayerDaemon/MPD/archive/v$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=fc9f14e3bc5d7cba8fff8da0bfe33781448ebf1dafef142636e1d1206e1313e1
+TERMUX_PKG_SHA256=356e416bfd4f2083e5a16d995c5df3be3abb6f890b178d413db080ef3bdb7691
 TERMUX_PKG_DEPENDS="libc++, libcurl, libid3tag, libopus, pulseaudio, libmpdclient, openal-soft, libvorbis, libsqlite, ffmpeg, libmp3lame, libbz2, libogg, libnfs, zlib"
 TERMUX_PKG_BUILD_DEPENDS="boost"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
@@ -17,7 +17,8 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -Dpcre=disabled
 -Dsndio=disabled
 "
-TERMUX_PKG_CONFFILES="etc/mpd.conf var/service/mpd/run var/service/mpd/log/run"
+TERMUX_PKG_CONFFILES="etc/mpd.conf"
+TERMUX_PKG_SERVICE_SCRIPT=("mpd" 'if [ -f "$HOME/.mpd/mpd.conf" ]; then CONFIG="$HOME/.mpd/mpd.conf"; else CONFIG="$PREFIX/etc/mpd.conf"; fi\nexec mpd --stdout --no-daemon $CONFIG 2>&1')
 
 termux_step_pre_configure() {
 	# Certain packages are not safe to build on device because their
@@ -27,23 +28,12 @@ termux_step_pre_configure() {
 	fi
 
 	CXXFLAGS+=" -DTERMUX -UANDROID"
-	LDFLAGS+=" -llog -lOpenSLES"
+	LDFLAGS+=" -lOpenSLES"
 	rm -f $TERMUX_PREFIX/etc/mpd.conf
 }
 
 termux_step_post_make_install() {
 	install -Dm600 $TERMUX_PKG_SRCDIR/doc/mpdconf.example $TERMUX_PREFIX/etc/mpd.conf
-
-	# Setup mpd service script
-	mkdir -p $TERMUX_PREFIX/var/service
-	cd $TERMUX_PREFIX/var/service
-	mkdir -p mpd/log
-	echo "#!$TERMUX_PREFIX/bin/sh" > mpd/run
-	echo 'if [ -f "$HOME/.mpd/mpd.conf" ]; then CONFIG="$HOME/.mpd/mpd.conf"; else CONFIG="$PREFIX/etc/mpd.conf"; fi' >> mpd/run
-	echo 'exec mpd --stdout --no-daemon $CONFIG 2>&1' >> mpd/run
-	chmod +x mpd/run
-	touch mpd/down
-	ln -sf $PREFIX/share/termux-services/svlogger mpd/log/run
 }
 
 termux_step_create_debscripts() {

@@ -3,7 +3,7 @@ TERMUX_PKG_DESCRIPTION="TeX Live is a distribution of the TeX typesetting system
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="Henrik Grimler @Grimler91"
 TERMUX_PKG_VERSION=20190410
-TERMUX_PKG_REVISION=7
+TERMUX_PKG_REVISION=9
 TERMUX_PKG_SRCURL=https://github.com/TeX-Live/texlive-source/archive/build-svn50882.tar.gz
 TERMUX_PKG_SHA256=a7462f8e29163faa52ad2ac658727b60f95241449832f1a4dac8d8a406d18233
 TERMUX_PKG_DEPENDS="libc++, libiconv, freetype, libpng, libgd, libgmp, libmpfr, libicu, liblua, poppler, libgraphite, harfbuzz, harfbuzz-icu, teckit, libpixman, libcairo, zlib"
@@ -129,6 +129,6 @@ termux_step_pre_configure() {
 	     {} +
 
 	# These files are from upstream master:
-	cp "$TERMUX_PKG_BUILDER_DIR"/pdftoepdf-poppler0.76.0.cc "$TERMUX_PKG_SRCDIR"/texk/web2c/pdftexdir/pdftoepdf.cc # commit 473d82b
-	cp "$TERMUX_PKG_BUILDER_DIR"/pdftosrc-poppler0.76.0.cc "$TERMUX_PKG_SRCDIR"/texk/web2c/pdftexdir/pdftosrc.cc # commit 473d82b
+	cp "$TERMUX_PKG_BUILDER_DIR"/pdftoepdf-poppler0.83.0.cc "$TERMUX_PKG_SRCDIR"/texk/web2c/pdftexdir/pdftoepdf.cc # commit f0d0598b
+	cp "$TERMUX_PKG_BUILDER_DIR"/pdftosrc-poppler0.83.0.cc "$TERMUX_PKG_SRCDIR"/texk/web2c/pdftexdir/pdftosrc.cc # commit f0d0598b
 }

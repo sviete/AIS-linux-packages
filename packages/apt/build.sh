@@ -2,13 +2,13 @@ TERMUX_PKG_HOMEPAGE=https://packages.debian.org/apt
 TERMUX_PKG_DESCRIPTION="Front-end for the dpkg package manager"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_VERSION=1.4.9
-TERMUX_PKG_REVISION=19
+TERMUX_PKG_REVISION=25
 TERMUX_PKG_SRCURL=http://ftp.debian.org/debian/pool/main/a/apt/apt_${TERMUX_PKG_VERSION}.tar.xz
 TERMUX_PKG_SHA256=d4d65e7c84da86f3e6dcc933bba46a08db429c9d933b667c864f5c0e880bac0d
 # apt-key requires utilities from coreutils, findutils, gpgv, grep, sed.
 TERMUX_PKG_DEPENDS="coreutils, dpkg, findutils, gpgv, grep, libc++, libcurl, liblzma, sed, termux-licenses, zlib"
-TERMUX_PKG_CONFLICTS="apt-transport-https"
-TERMUX_PKG_REPLACES="apt-transport-https"
+TERMUX_PKG_CONFLICTS="apt-transport-https, libapt-pkg"
+TERMUX_PKG_REPLACES="apt-transport-https, libapt-pkg"
 TERMUX_PKG_ESSENTIAL=true
 
 TERMUX_PKG_CONFFILES="
@@ -25,12 +25,17 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DWITH_DOC=OFF
 "
 
+# ubuntu uses instead $PREFIX/lib instead of $PREFIX/libexec to
+# "Work around bug in GNUInstallDirs" (from apt 1.4.8 CMakeLists.txt).
+# Archlinux uses $PREFIX/libexec though, so let's force libexec->lib to
+# get same build result on ubuntu and archlinux.
+TERMUX_PKG_EXTRA_CONFIGURE_ARGS+="-DCMAKE_INSTALL_LIBEXECDIR=lib"
+
 TERMUX_PKG_RM_AFTER_INSTALL="
 bin/apt-cdrom
 bin/apt-extracttemplates
 bin/apt-sortpkgs
 etc/apt/apt.conf.d
-lib/apt/apt-helper
 lib/apt/methods/bzip2
 lib/apt/methods/cdrom
 lib/apt/methods/mirror
@@ -38,7 +43,6 @@ lib/apt/methods/rred
 lib/apt/planners/
 lib/apt/solvers/
 lib/dpkg/
-lib/libapt-inst.so
 "
 
 termux_step_pre_configure() {
@@ -52,7 +56,6 @@ termux_step_pre_configure() {
 termux_step_post_make_install() {
 	printf "# The main AI-Speaker repository:\ndeb [trusted=yes] https://powiedz.co/apt dom stable\n" > $TERMUX_PREFIX/etc/apt/sources.list
 	cp $TERMUX_PKG_BUILDER_DIR/trusted.gpg $TERMUX_PREFIX/etc/apt/
-	rm $TERMUX_PREFIX/include/apt-pkg -r
 
 	# apt-transport-tor
 	ln -sfr $TERMUX_PREFIX/lib/apt/methods/http $TERMUX_PREFIX/lib/apt/methods/tor
