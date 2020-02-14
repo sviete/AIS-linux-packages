@@ -1,12 +1,10 @@
 TERMUX_PKG_HOMEPAGE=https://poppler.freedesktop.org/
 TERMUX_PKG_DESCRIPTION="PDF rendering library"
 TERMUX_PKG_LICENSE="GPL-2.0"
-TERMUX_PKG_VERSION=0.79.0
-TERMUX_PKG_REVISION=2
+TERMUX_PKG_VERSION=0.85.0
 TERMUX_PKG_SRCURL=https://poppler.freedesktop.org/poppler-${TERMUX_PKG_VERSION}.tar.xz
-TERMUX_PKG_SHA256=f985a4608fe592d2546d9d37d4182e502ff6b4c42f8db4be0a021a1c369528c8
-# libcairo and littlecms is used by pdftocairo:
-TERMUX_PKG_DEPENDS="libc++, libiconv, fontconfig, glib, libcairo, libpng, libjpeg-turbo, libtiff, littlecms, openjpeg, freetype, libcurl"
+TERMUX_PKG_SHA256=2bc875eb323002ae6b287e09980473518e2b2ed6b5b7d2e1089e36a6cd00d94b
+TERMUX_PKG_DEPENDS="fontconfig, freetype, glib, libc++, libcairo, libcurl, libiconv, libjpeg-turbo, libpng, libtiff, littlecms, openjpeg, zlib"
 TERMUX_PKG_BREAKS="poppler-dev"
 TERMUX_PKG_REPLACES="poppler-dev"
 #texlive needs the xpdf headers

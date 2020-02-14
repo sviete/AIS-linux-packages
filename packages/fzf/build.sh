@@ -1,10 +1,9 @@
 TERMUX_PKG_HOMEPAGE=https://github.com/junegunn/fzf
 TERMUX_PKG_DESCRIPTION="Command-line fuzzy finder"
 TERMUX_PKG_LICENSE="MIT"
-TERMUX_PKG_VERSION=0.18.0
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SHA256=5406d181785ea17b007544082b972ae004b62fb19cdb41f25e265ea3cc8c2d9d
+TERMUX_PKG_VERSION=0.20.0
 TERMUX_PKG_SRCURL=https://github.com/junegunn/fzf/archive/${TERMUX_PKG_VERSION}.tar.gz
+TERMUX_PKG_SHA256=fe6a7d07bdf999324a4f90fa97a4d2e8416c89bc92f19c9848c1cbcf365b59dc
 
 # Depend on findutils as fzf uses the -fstype option, which busybox
 # find does not support, when invoking find:
@@ -43,10 +42,6 @@ termux_step_make_install() {
 	# Install the fzf.1 man page:
 	mkdir -p $TERMUX_PREFIX/share/man/man1/
 	cp $TERMUX_PKG_SRCDIR/man/man1/fzf.1 $TERMUX_PREFIX/share/man/man1/
-
-	# Install the vim plugin:
-	mkdir -p $TERMUX_PREFIX/share/vim/vim81/plugin
-	cp $TERMUX_PKG_SRCDIR/plugin/fzf.vim $TERMUX_PREFIX/share/vim/vim81/plugin/fzf.vim
 
 	# Install bash completion script:
 	mkdir -p $TERMUX_PREFIX/share/bash-completion/completions/
