@@ -22,3 +22,16 @@ echo "<package-name>" >> /home/builder/.termux-build/_buildall-all/buildstatus.t
 
 or remove it from buildorder:
 grep -vwE "packages/toxic" buildorder.txt > new_buildorder.txt
+
+
+20200215, errors:
+1. libtheora
+2. bat
+3. libllvm
+4. json-glib
+5. aapt
+6. libmediainfo (check this.. https://github.com/jaeguly/libmediainfo)
+7. ttyd
+8. wordgrinder
+9. ldc
+10. lldb
