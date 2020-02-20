@@ -3,13 +3,15 @@ TERMUX_PKG_DESCRIPTION="par2cmdline is a PAR 2.0 compatible file verification an
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="Oliver Schmidhauser @Neo-Oli"
 TERMUX_PKG_VERSION=0.8.1
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://github.com/Parchive/par2cmdline/archive/v${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_SHA256=529f85857ec44e501cd8d95b0c8caf47477d7daa5bfb989e422c800bb71b689a
 TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_pre_configure() {
 	if [ $TERMUX_ARCH = "i686" ]; then
-		sed -i 's/LDADD = -lstdc++/LDADD = -lstdc++ -latomic/' $TERMUX_PKG_SRCDIR/Makefile.am
+		# Avoid undefined reference to __atomic_* functions:
+		export LIBS=" -latomic"
 	fi
 	aclocal
 	automake --add-missing

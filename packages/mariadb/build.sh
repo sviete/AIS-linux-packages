@@ -3,7 +3,8 @@ TERMUX_PKG_DESCRIPTION="A drop-in replacement for mysql server"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="Vishal Biswas @vishalbiswas"
 _VERSION=10.4.12
-TERMUX_PKG_VERSION=1:${_VERSION}
+TERMUX_PKG_VERSION=2:${_VERSION}
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-${_VERSION}/source/mariadb-${_VERSION}.tar.gz
 TERMUX_PKG_SHA256=fef1e1d38aa253dd8a51006bd15aad184912fce31c446bb69434fcde735aa208
 TERMUX_PKG_DEPENDS="libc++, libiconv, liblzma, ncurses, libedit, openssl, pcre, libcrypt, libandroid-support, libandroid-glob, zlib"
@@ -58,6 +59,11 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 TERMUX_PKG_HOSTBUILD=true
 TERMUX_PKG_CONFLICTS="mysql"
 TERMUX_PKG_RM_AFTER_INSTALL="bin/mysqltest*"
+
+# i686 build fails due to:
+#  /home/builder/.termux-build/mariadb/src/include/my_pthread.h:822:10: error: use of undeclared identifier 'my_atomic_add32'
+#    (void) my_atomic_add32_explicit(value, 1, MY_MEMORY_ORDER_RELAXED);
+TERMUX_PKG_BLACKLISTED_ARCHES="i686"
 
 termux_step_host_build() {
 	termux_setup_cmake
