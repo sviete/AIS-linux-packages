@@ -1,21 +1,22 @@
-1. delete all previous package versions from /Projekty/AIS-LINUX-PACKAGES/debs
-rm ~/Projekty/AIS-LINUX-PACKAGES/debs/rclone*
-2. ./scripts/run-docker.sh  ./build-package.sh -a arm rclone
-3. cd DOM_APT_REPO and run:
-./dom-apt-repo-stable /home/andrzej/Projekty/AIS-LINUX-PACKAGES/debs/
-
-
-
 safe build, rclone_1.46-1_arm.deb example:
-1. rm ~/Projekty/AIS-LINUX-PACKAGES/debs/rclone*
 
-2. cd ~/Projekty/AIS-LINUX-PACKAGES and run: sudo ./scripts/run-docker.sh ./build-package.sh -f -a all rclone
+1. remove all versions from debs repo (if you want to support only the last one)
+rm ~/Projekty/AIS-LINUX-PACKAGES/debs/rclone*
 
-3. cp deb
-cp ~/Projekty/AIS-LINUX-PACKAGES/debs/rclone_1.46-1_arm.deb ~/Projects/DOM-APT-REPO/dists/dom/stable/binary-arm/
-cp ~/Projekty/AIS-LINUX-PACKAGES/debs/rclone_1.46-1_aarch64.deb ~/Projects/DOM-APT-REPO/dists/dom/stable/binary-aarch64/
-cp ~/Projekty/AIS-LINUX-PACKAGES/debs/rclone_1.46-1_i686.deb ~/Projects/DOM-APT-REPO/dists/dom/stable/binary-i686/
-cp ~/Projekty/AIS-LINUX-PACKAGES/debs/rclone_1.46-1_x86_64.deb ~/Projects/DOM-APT-REPO/dists/dom/stable/binary-x86_64/
+2. build force only this one package
+cd AIS-linux-packages and run: sudo ./scripts/run-docker.sh ./build-package.sh -f -a all rclone
 
-4. rm ~/Projects/DOM-APT-REPO/dists/dom/Release
-5. ~/Projects/DOM-APT-REPO/dom-apt-repo-stable-safe-add-package
+3. copy debs to local debs repo
+cp AIS-linux-packages/debs/rclone_1.46-1_arm.deb DOM-APT-REPO/dists/dom/stable/binary-arm/
+cp AIS-linux-packages/debs/rclone_1.46-1_aarch64.deb DOM-APT-REPO/dists/dom/stable/binary-aarch64/
+cp AIS-linux-packages/debs/rclone_1.46-1_i686.deb DOM-APT-REPO/dists/dom/stable/binary-i686/
+cp AIS-linux-packages/debs/rclone_1.46-1_x86_64.deb DOM-APT-REPO/dists/dom/stable/binary-x86_64/
+
+4. remove Release file from local debs repo
+rm DOM-APT-REPO/dists/dom/Release
+
+5. run script to recreate Release in local debs repo
+./DOM-APT-REPO/dom-apt-repo-stable-safe-add-package
+
+6. upload changes to apt server via rsync
+rsync -e "ssh -p xxxx" --delete --progress --stats -ravzh /media/andrzej/d1/DOM-APT-REPO/dists/dom/ dom@powiedz.co:/var/www/AIS-WWW/apt/dists/dom

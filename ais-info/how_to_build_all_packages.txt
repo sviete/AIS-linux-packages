@@ -1,4 +1,4 @@
-CHANGES:
+PRE STEPS:
 1. removed game, unstable, root and other repos
 2. disable these packages first (there are to big - not needed)
 echo "texlive" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
@@ -12,26 +12,15 @@ HOW TO:
 1. go to container:
 sudo docker exec -it termux-package-builder /bin/bash
 
-2. rebuild package force
+2. rebuild all packages force
 in conteiner
-./build-package.sh -a all -f busybox
+./build-all.sh -f -a all
 
-3. skeep package
+
+
+HOW TO SKEEP ONE PACKAGE FROM BUILD
 add this package to buildstatus, in conteiner
-echo "<package-name>" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo "<package-name>" >> .termux-build/_buildall-all/buildstatus.txt
 
 or remove it from buildorder:
 grep -vwE "packages/toxic" buildorder.txt > new_buildorder.txt
-
-
-20200215, errors:
-1. libtheora
-2. bat
-3. libllvm
-4. json-glib
-5. aapt
-6. libmediainfo (check this.. https://github.com/jaeguly/libmediainfo)
-7. ttyd
-8. wordgrinder
-9. ldc
-10. lldb
