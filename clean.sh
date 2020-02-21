@@ -18,7 +18,7 @@ fi
 
 # Read settings from .termuxrc if existing
 test -f "$HOME/.termuxrc" && . "$HOME/.termuxrc"
-: "${TERMUX_TOPDIR:="$HOME/.termux-build"}"
+: "${TERMUX_TOPDIR:="$HOME/termux-packages/.termux-build"}"
 : "${TMPDIR:=/tmp}"
 export TMPDIR
 

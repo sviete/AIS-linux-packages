@@ -9,3 +9,4 @@ Session.vim
 ### Vagrant ###
 scripts/*.log
 scripts/.vagrant/
+/.termux-build/
