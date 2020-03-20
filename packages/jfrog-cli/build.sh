@@ -1,10 +1,9 @@
 TERMUX_PKG_HOMEPAGE=https://jfrog.com/getcli
 TERMUX_PKG_DESCRIPTION="A CLI for JFrog products."
 TERMUX_PKG_LICENSE="Apache-2.0"
-TERMUX_PKG_VERSION=1.33.2
-TERMUX_PKG_REVISION=1
+TERMUX_PKG_VERSION=1.35.1
 TERMUX_PKG_SRCURL=https://github.com/jfrog/jfrog-cli/archive/$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=b6682085d1ed19448e32bd208227229de43a85bb7e85653bc332c714ffaeb425
+TERMUX_PKG_SHA256=e7549c49a270090b66745b17b7f1b4dea941809e8bcac69e4bddb3ed7498b479
 TERMUX_PKG_DEPENDS="libc++"
 
 termux_step_make() {
@@ -12,11 +11,6 @@ termux_step_make() {
 	export GOPATH=$TERMUX_PKG_BUILDDIR
 
 	cd $TERMUX_PKG_SRCDIR
-	(
-	unset GOOS GOARCH CGO_LDFLAGS
-	unset CC CXX CFLAGS CXXFLAGS LDFLAGS
-	go run python/addresources.go
-	)
 	go build \
 		-o "$TERMUX_PREFIX/bin/jfrog" \
 		-tags "linux extended" \
