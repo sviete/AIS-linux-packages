@@ -1,12 +1,19 @@
 PRE STEPS:
-1. removed game, unstable, root and other repos
-2. disable these packages first (there are to big - not needed)
-echo "texlive" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo "rust" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo "erlang" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo "dart" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo "starship" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo "bat" >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+1. edit new_buildorder
+- move libfuse to the end of the file
+- remove other repos
+game-repo
+root-repo
+science-repo
+unstable-repo
+x11-repo
+- remove these packages (there are to big - not needed):
+texlive
+rust
+erlang
+dart
+starship
+bat
 
 HOW TO:
 1. go to container:
