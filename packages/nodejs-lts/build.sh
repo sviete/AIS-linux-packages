@@ -1,19 +1,20 @@
 TERMUX_PKG_HOMEPAGE=https://nodejs.org/
 TERMUX_PKG_DESCRIPTION="Platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications"
 TERMUX_PKG_LICENSE="MIT"
-TERMUX_PKG_VERSION=12.16.1
-TERMUX_PKG_REVISION=1
+TERMUX_PKG_VERSION=12.16.2
+TERMUX_PKG_REVISION=3
 TERMUX_PKG_SRCURL=https://nodejs.org/dist/v${TERMUX_PKG_VERSION}/node-v${TERMUX_PKG_VERSION}.tar.xz
-TERMUX_PKG_SHA256=0a95845ba02c46102b5671d0c5732460073f2d397488337e18d1fc30146d412d
+TERMUX_PKG_SHA256=555c47ca0a40e5526d9ab7b2e9c18f9dbd1d956cbdc013fd2223bb11a069be78
 # Note that we do not use a shared libuv to avoid an issue with the Android
 # linker, which does not use symbols of linked shared libraries when resolving
 # symbols on dlopen(). See https://github.com/termux/termux-packages/issues/462.
 TERMUX_PKG_DEPENDS="libc++, openssl, c-ares, libicu, zlib"
-TERMUX_PKG_RM_AFTER_INSTALL="lib/node_modules/npm/html lib/node_modules/npm/make.bat share/systemtap lib/dtrace"
-TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_CONFLICTS="nodejs, nodejs-current"
 TERMUX_PKG_BREAKS="nodejs-dev"
 TERMUX_PKG_REPLACES="nodejs-current, nodejs-dev"
+TERMUX_PKG_SUGGESTS="clang, make, pkg-config, python"
+TERMUX_PKG_RM_AFTER_INSTALL="lib/node_modules/npm/html lib/node_modules/npm/make.bat share/systemtap lib/dtrace"
+TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_HOSTBUILD=true
 
 termux_step_post_extract_package() {
@@ -23,12 +24,12 @@ termux_step_post_extract_package() {
 
 termux_step_host_build() {
 	local ICU_VERSION=66.1
-	local ICU_TAR=icu4c-${ICU_VERSION//./_}-src.tar.xz
-	local ICU_DOWNLOAD=https://fossies.org/linux/misc/$ICU_TAR
+	local ICU_TAR=icu4c-${ICU_VERSION//./_}-src.tgz
+	local ICU_DOWNLOAD=https://github.com/unicode-org/icu/releases/download/release-${ICU_VERSION//./-}/$ICU_TAR
 	termux_download \
 		$ICU_DOWNLOAD\
 		$TERMUX_PKG_CACHEDIR/$ICU_TAR \
-		fc4cb13d2ff25c848584bb08058d849cc03b9f45d3c06bc607b2f1aa930b7f24
+		52a3f2209ab95559c1cf0a14f24338001f389615bf00e2585ef3dbc43ecf0a2e
 	tar xf $TERMUX_PKG_CACHEDIR/$ICU_TAR
 	cd icu/source
 	if [ "$TERMUX_ARCH_BITS" = 32 ]; then

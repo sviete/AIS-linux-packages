@@ -1,9 +1,11 @@
 TERMUX_PKG_HOMEPAGE=https://php.net
 TERMUX_PKG_DESCRIPTION="Server-side, HTML-embedded scripting language"
 TERMUX_PKG_LICENSE="PHP-3.0"
-TERMUX_PKG_VERSION=7.4.4
-TERMUX_PKG_SRCURL=https://secure.php.net/distributions/php-${TERMUX_PKG_VERSION}.tar.xz
-TERMUX_PKG_SHA256=1873c4cefdd3df9a78dcffb2198bba5c2f0464f55c9c960720c84df483fca74c
+TERMUX_PKG_VERSION=7.4.5
+TERMUX_PKG_REVISION=3
+#TERMUX_PKG_SRCURL=https://secure.php.net/distributions/php-${TERMUX_PKG_VERSION}.tar.xz
+TERMUX_PKG_SRCURL=https://github.com/php/php-src/archive/php-${TERMUX_PKG_VERSION}.tar.gz
+TERMUX_PKG_SHA256=3bef00e7599a09640efb6a9febf31b9f071cedc8fc1c19cb6e96488bc45e8e21
 # Build native php for phar to build (see pear-Makefile.frag.patch):
 TERMUX_PKG_HOSTBUILD=true
 # Build the native php without xml support as we only need phar:
@@ -48,6 +50,12 @@ ac_cv_func_res_nsearch=no
 --sbindir=$TERMUX_PREFIX/bin
 "
 
+termux_step_host_build() {
+	(cd "$TERMUX_PKG_SRCDIR" && ./buildconf --force)
+	"$TERMUX_PKG_SRCDIR/configure" ${TERMUX_PKG_EXTRA_HOSTBUILD_CONFIGURE_ARGS}
+	make -j "$TERMUX_MAKE_PROCESSES"
+}
+
 termux_step_pre_configure() {
 	LDFLAGS+=" -landroid-glob -llog"
 
@@ -57,8 +65,8 @@ termux_step_pre_configure() {
 		CFLAGS+=" -march=armv8-a+crc"
 		CXXFLAGS+=" -march=armv8-a+crc"
 	fi
-	# Run autoconf since we have patched config.m4 files.
-	autoconf
+	# Regenerate configure again since we have patched config.m4 files.
+	./buildconf --force
 
 	export EXTENSION_DIR=$TERMUX_PREFIX/lib/php
 
