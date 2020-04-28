@@ -1,7 +1,7 @@
 safe build, rclone_1.46-1_arm.deb example:
 
 1. remove all versions from debs repo (if you want to support only the last one)
-rm ~/Projekty/AIS-LINUX-PACKAGES/debs/rclone*
+rm AIS-linux-packages/debs/rclone*
 
 2. build force only this one package
 cd AIS-linux-packages and run: sudo ./scripts/run-docker.sh ./build-package.sh -f -a all rclone
@@ -16,7 +16,13 @@ cp AIS-linux-packages/debs/rclone_1.46-1_x86_64.deb DOM-APT-REPO/dists/dom/stabl
 rm DOM-APT-REPO/dists/dom/Release
 
 5. run script to recreate Release in local debs repo
-./DOM-APT-REPO/dom-apt-repo-stable-safe-add-package
+cd /DOM-APT-REPO
+./dom-apt-repo-stable-safe-add-package
 
-6. upload changes to apt server via rsync
-rsync -e "ssh -p xxxx" --delete --progress --stats -ravzh /media/andrzej/d1/DOM-APT-REPO/dists/dom/ dom@xxxxxxxxxx:/var/www/AIS-WWW/apt/dists/dom
+6. check if all is ok
+
+find dists/dom/* |  wc -l
+find /var/www/AIS-WWW/apt/dists/dom/* |  wc -l
+
+7. upload changes to apt server via rsync
+rsync -e "ssh -p 7777" --delete --progress --stats -ravzh dists/dom/ dom@147.135.209.212:/var/www/AIS-WWW/apt/dists/dom
