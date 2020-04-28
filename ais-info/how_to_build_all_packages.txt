@@ -14,6 +14,10 @@ erlang
 dart
 starship
 bat
+- remove not working packages
+recutils
+restic
+fcgiwrap
 
 HOW TO:
 1. go to container:
