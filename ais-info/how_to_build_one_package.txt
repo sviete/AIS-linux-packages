@@ -19,4 +19,4 @@ rm DOM-APT-REPO/dists/dom/Release
 ./DOM-APT-REPO/dom-apt-repo-stable-safe-add-package
 
 6. upload changes to apt server via rsync
-rsync -e "ssh -p xxxx" --delete --progress --stats -ravzh /media/andrzej/d1/DOM-APT-REPO/dists/dom/ dom@powiedz.co:/var/www/AIS-WWW/apt/dists/dom
+rsync -e "ssh -p xxxx" --delete --progress --stats -ravzh /media/andrzej/d1/DOM-APT-REPO/dists/dom/ dom@xxxxxxxxxx:/var/www/AIS-WWW/apt/dists/dom
