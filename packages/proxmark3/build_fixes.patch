@@ -46,7 +46,7 @@ diff -uNr proxmark3-011f973e7ff145ee0f6ccf58c850765513c43d04/client/Makefile pro
 
  LIBS = -I$(LUALIBPATH) -I$(MBEDTLSLIBPATH) -I$(JANSSONLIBPATH) -I$(CBORLIBPATH) -I$(ZLIBPATH) -I$(REVENGPATH) -I$(AMIIBOLIBPATH) -I$(HARDNESTEDPATH) -I$(CLIPARSERPATH)
 -INCLUDES_CLIENT = -I./src -I../include -I../common -I../common_fpga $(LIBS)
-+INCLUDES_CLIENT = -I./src -I../include -I../common -I../common_fpga -I/data/data/com.termux/files/usr/include $(LIBS)
++INCLUDES_CLIENT = -I./src -I../include -I../common -I../common_fpga -I/data/data/pl.sviete.dom/files/usr/include $(LIBS)
  CFLAGS ?= -Wall -Werror -O3
  # We cannot just use CFLAGS+=... because it has impact on sub-makes if CFLAGS is defined in env:
  PM3CFLAGS = $(CFLAGS) $(INCLUDES_CLIENT)
