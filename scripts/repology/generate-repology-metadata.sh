@@ -22,6 +22,7 @@ set -e
 
 BASEDIR=$(dirname "$(realpath "$0")")
 export TERMUX_ARCH=aarch64
+export TERMUX_PREFIX=/data/data/com.termux/files/usr
 
 check_package() { # path
 	# Avoid ending on errors such as $(which prog)
@@ -30,7 +31,7 @@ check_package() { # path
 
 	local path=$1
 	local pkg=$(basename $path)
-	TERMUX_PKG_MAINTAINER="Fredrik Fornwall @fornwall"
+	TERMUX_PKG_MAINTAINER="Termux members @termux"
 	TERMUX_PKG_API_LEVEL=24
 	. $path/build.sh
 
