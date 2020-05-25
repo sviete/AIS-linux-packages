@@ -1,11 +1,9 @@
 TERMUX_PKG_HOMEPAGE=https://mariadb.org
 TERMUX_PKG_DESCRIPTION="A drop-in replacement for mysql server"
 TERMUX_PKG_LICENSE="GPL-2.0"
-_VERSION=10.4.12
-TERMUX_PKG_VERSION=2:${_VERSION}
-TERMUX_PKG_REVISION=4
-TERMUX_PKG_SRCURL=http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-${_VERSION}/source/mariadb-${_VERSION}.tar.gz
-TERMUX_PKG_SHA256=fef1e1d38aa253dd8a51006bd15aad184912fce31c446bb69434fcde735aa208
+TERMUX_PKG_VERSION=2:10.4.13
+TERMUX_PKG_SRCURL=http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-${TERMUX_PKG_VERSION:2}/source/mariadb-${TERMUX_PKG_VERSION:2}.tar.gz
+TERMUX_PKG_SHA256=45bbbb12d1de8febd9edf630e940c23cf14efd60570c743b268069516a5d91df
 TERMUX_PKG_DEPENDS="libc++, libiconv, liblzma, ncurses, libedit, openssl, pcre, libcrypt, libandroid-support, libandroid-glob, zlib"
 TERMUX_PKG_BREAKS="mariadb-dev"
 TERMUX_PKG_REPLACES="mariadb-dev"
@@ -54,10 +52,15 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DWITH_UNIT_TESTS=OFF
 -DINSTALL_SYSCONFDIR=$TERMUX_PREFIX/etc
 "
-
 TERMUX_PKG_HOSTBUILD=true
 TERMUX_PKG_CONFLICTS="mysql"
-TERMUX_PKG_RM_AFTER_INSTALL="bin/mysqltest*"
+
+TERMUX_PKG_RM_AFTER_INSTALL="
+bin/mysqltest*
+share/man/man1/mysql-test-run.pl.1
+mysql-test
+sql-bench
+"
 
 # i686 build fails due to:
 #  /home/builder/.termux-build/mariadb/src/include/my_pthread.h:822:10: error: use of undeclared identifier 'my_atomic_add32'
@@ -90,12 +93,6 @@ termux_step_pre_configure() {
 		# Avoid undefined reference to __atomic_load_8:
 		CFLAGS+=" -latomic"
 	fi
-}
-
-termux_step_post_make_install() {
-	# files not needed
-	rm -r $TERMUX_PREFIX/{mysql-test,sql-bench}
-	rm $TERMUX_PREFIX/share/man/man1/mysql-test-run.pl.1
 }
 
 termux_step_post_massage() {

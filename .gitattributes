@@ -1,4 +1,20 @@
-*       text=lf
+# Default.
+*           text eol=lf
 
-*.sh    text eol=lf
-*.ps1   text eol=crlf
+# Patches.
+*.diff      text=auto
+*.patch     text=auto
+*.patch32   text=auto
+*.patch64   text=auto
+*.patch.*   text=auto
+
+# Powershell scripts.
+*.ps1       text eol=crlf
+
+# Binaries.
+*.gpg       binary
+*.gz        binary
+*.jpg       binary
+*.png       binary
+*.tar       binary
+*.tar.*     binary

@@ -6,6 +6,9 @@ PACKAGES=""
 # For en_US.UTF-8 locale.
 PACKAGES+=" locales"
 
+# To provide /usr/bin/python as symlink to /usr/bin/python3
+PACKAGES+=" python-is-python3"
+
 # Used by build-package.sh and CI/CD scripts.
 PACKAGES+=" curl"
 PACKAGES+=" gnupg"
@@ -94,6 +97,9 @@ PACKAGES+=" libssl-dev" # Needed to build Rust
 PACKAGES+=" libsigsegv-dev"
 PACKAGES+=" zip"
 
+# Needed for package sqlcipher.
+PACKAGES+=" tcl"
+
 # Needed by package swi-prolog.
 PACKAGES+=" openssl"
 PACKAGES+=" zlib1g-dev"
@@ -104,12 +110,17 @@ PACKAGES+=" zlib1g-dev:i386"
 PACKAGES+=" llvm-8-tools"
 
 # For swift.
-PACKAGES+=" clang-9"
-PACKAGES+=" libtinfo5"
+PACKAGES+=" clang-10"
 PACKAGES+=" lld"
+
+# Needed by wrk.
+PACKAGES+=" luajit"
 
 # Needed by gitea.
 PACKAGES+=" npm"
+
+# Needed by libduktape (2.5.0 still uses python2 unfortunately)
+PACKAGES+=" python-yaml"
 
 # Java.
 PACKAGES+=" openjdk-8-jdk"
@@ -131,8 +142,18 @@ PACKAGES+=" gtk-3-examples"
 PACKAGES+=" gtk-doc-tools"
 PACKAGES+=" itstool"
 PACKAGES+=" libgdk-pixbuf2.0-dev"
-PACKAGES+=" python-xcbgen"
+PACKAGES+=" python-setuptools"
+PACKAGES+=" python3-xcbgen"
+PACKAGES+=" texlive-extra-utils"
 PACKAGES+=" xfonts-utils"
+
+# Needed by packages in science repository
+PACKAGES+=" sqlite3"
+PACKAGES+=" protobuf-c-compiler"
+
+# Needed by packages in game repository
+PACKAGES+=" python3-yaml"
+PACKAGES+=" cvs"
 
 # Do not require sudo if already running as root.
 if [ "$(id -u)" = "0" ]; then
