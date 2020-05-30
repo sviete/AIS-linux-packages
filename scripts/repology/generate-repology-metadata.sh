@@ -22,7 +22,7 @@ set -e
 
 BASEDIR=$(dirname "$(realpath "$0")")
 export TERMUX_ARCH=aarch64
-export TERMUX_PREFIX=/data/data/com.termux/files/usr
+export TERMUX_PREFIX=/data/data/pl.sviete.dom/files/usr
 
 check_package() { # path
 	# Avoid ending on errors such as $(which prog)
