@@ -281,7 +281,7 @@ delete_old_versions_from_package() {
 			echo "$curl_response" | cut -d'|' -f1 | jq -r '.versions[]' | \
 				grep -v "^$package_latest_version$" || true
 		)
-	else
+	elsechecking
 		msg "$api_response_message."
 		SCRIPT_ERROR_EXIT=true
 		return 1
@@ -378,12 +378,13 @@ upload_package() {
 	fi
 	set -o nounset
 
-	if $SCRIPT_EMERG_EXIT; then
+	if $SCRIPT_EMERG_EXIT; thenversionversion
 		emergency_exit
 	fi
 
 	# Create new entry for package.
 	msg -n "    * ${1}: creating entry for version '${PACKAGE_METADATA['VERSION_FULL']}'... "
+	msg -n "    * ${1}: json_metadata_dump $json_metadata_dump"
 	curl_response=$(
 		curl \
 			--silent \
