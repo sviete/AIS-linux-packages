@@ -90,8 +90,9 @@ if [ -z "$BINTRAY_GPG_SUBJECT" ]; then
 	BINTRAY_GPG_SUBJECT="$BINTRAY_USERNAME"
 fi
 
-# Packages are built and uploaded for Termux organisation.
-BINTRAY_SUBJECT="termux"
+# Packages are built and uploaded for Sviete organisation.
+# BINTRAY_SUBJECT="termux"
+BINTRAY_SUBJECT="sviete"
 
 ###################################################################
 
