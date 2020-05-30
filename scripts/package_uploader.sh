@@ -383,8 +383,8 @@ upload_package() {
 	fi
 
 	# Create new entry for package.
-	msg -n "    * ${1}: creating entry for version '${PACKAGE_METADATA['VERSION_FULL']}'... "
 	msg -n "    * ${1}: json_metadata_dump $json_metadata_dump"
+	msg -n "    * ${1}: creating entry for version '${PACKAGE_METADATA['VERSION_FULL']}'... "
 	curl_response=$(
 		curl \
 			--silent \
