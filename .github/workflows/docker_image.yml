@@ -21,7 +21,7 @@ jobs:
     - name: Build
       run: |
         cd ./scripts
-        docker build --tag termux/package-builder:latest .
+        docker build --tag araczkowski/package-builder:latest .
     - name: Push to hub.docker.com
       env:
         DOCKER_LOGIN: araczkowski
