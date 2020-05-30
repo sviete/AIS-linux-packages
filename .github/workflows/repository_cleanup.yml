@@ -12,7 +12,7 @@ jobs:
       uses: actions/checkout@v2
     - name: Delete old versions
       env:
-        BINTRAY_USERNAME: xeffyr
+        BINTRAY_USERNAME: araczkowski
         BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
         BINTRAY_GPG_SUBJECT: termux
         BINTRAY_GPG_PASSPHRASE: ${{ secrets.BINTRAY_GPG_PASSWORD }}
