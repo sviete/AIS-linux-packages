@@ -70,9 +70,7 @@ SCRIPT_EMERG_EXIT=false
 SCRIPT_ERROR_EXIT=false
 
 # Bintray-specific configuration.
-# BINTRAY_REPO_NAME="termux-packages-24"
 BINTRAY_REPO_NAME="ais"
-# BINTRAY_REPO_GITHUB="termux/termux-packages"
 BINTRAY_REPO_GITHUB="sviete/AIS-linux-packages"
 BINTRAY_REPO_DISTRIBUTION="stable"
 BINTRAY_REPO_COMPONENT="main"
@@ -90,8 +88,7 @@ if [ -z "$BINTRAY_GPG_SUBJECT" ]; then
 	BINTRAY_GPG_SUBJECT="$BINTRAY_USERNAME"
 fi
 
-# Packages are built and uploaded for Sviete organisation.
-# BINTRAY_SUBJECT="termux"
+# Packages are built and uploaded for Termux organisation.
 BINTRAY_SUBJECT="sviete"
 
 ###################################################################
@@ -281,7 +278,7 @@ delete_old_versions_from_package() {
 			echo "$curl_response" | cut -d'|' -f1 | jq -r '.versions[]' | \
 				grep -v "^$package_latest_version$" || true
 		)
-	elsechecking
+	else
 		msg "$api_response_message."
 		SCRIPT_ERROR_EXIT=true
 		return 1
@@ -378,13 +375,11 @@ upload_package() {
 	fi
 	set -o nounset
 
-	if $SCRIPT_EMERG_EXIT; thenversionversion
+	if $SCRIPT_EMERG_EXIT; then
 		emergency_exit
 	fi
 
 	# Create new entry for package.
-	msg -n "    * ${1}: creating entry for version '${PACKAGE_METADATA['VERSION_FULL']}'... "
-	msg -n "    * ${1}: json_metadata_dump $json_metadata_dump"
 	curl_response=$(
 		curl \
 			--silent \
