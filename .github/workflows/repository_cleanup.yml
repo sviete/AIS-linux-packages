@@ -18,3 +18,4 @@ jobs:
         BINTRAY_GPG_PASSPHRASE: ${{ secrets.BINTRAY_GPG_PASSWORD }}
       run: |
         ./scripts/package_uploader.sh -c $(cd ./packages; echo *)
+
