@@ -14,7 +14,7 @@ jobs:
       env:
         BINTRAY_USERNAME: araczkowski
         BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
-        BINTRAY_GPG_SUBJECT: termux
+        BINTRAY_GPG_SUBJECT: sviete
         BINTRAY_GPG_PASSPHRASE: ${{ secrets.BINTRAY_GPG_PASSWORD }}
       run: |
         ./scripts/package_uploader.sh -c $(cd ./packages; echo *)
