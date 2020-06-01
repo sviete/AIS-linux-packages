@@ -5,7 +5,6 @@ TERMUX_PKG_VERSION=1.52.0
 TERMUX_PKG_SRCURL=https://github.com/rclone/rclone/releases/download/v${TERMUX_PKG_VERSION}/rclone-v${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_SHA256=b8cd06f62fa1623aa77e8a8f60f4a30c02c84c97488ded159968bf07beedf31b
 
-
 termux_step_make_install() {
 	cd $TERMUX_PKG_SRCDIR
 
