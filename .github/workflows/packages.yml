@@ -114,7 +114,7 @@ jobs:
         path: ./
     - name: Upload to bintray.com
       env:
-        BINTRAY_USERNAME: araczkowski
+        BINTRAY_USERNAME: asystentka-jolka
         BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
         # BINTRAY_GPG_SUBJECT: termux
         BINTRAY_GPG_SUBJECT: sviete
