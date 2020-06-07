@@ -39,29 +39,14 @@ termux_step_setup_variables() {
 	fi
 
 	TERMUX_REPO_URL=(
-		https://dl.bintray.com/termux/termux-packages-24
-		https://dl.bintray.com/grimler/game-packages-24
-		https://dl.bintray.com/grimler/science-packages-24
-		https://dl.bintray.com/grimler/termux-root-packages-24
-		https://dl.bintray.com/xeffyr/unstable-packages
-		https://dl.bintray.com/xeffyr/x11-packages
+		https://dl.bintray.com/sviete/ais
 	)
 
 	TERMUX_REPO_DISTRIBUTION=(
 		stable
-		games
-		science
-		root
-		unstable
-		x11
 	)
 
 	TERMUX_REPO_COMPONENT=(
-		main
-		stable
-		stable
-		stable
-		main
 		main
 	)
 
