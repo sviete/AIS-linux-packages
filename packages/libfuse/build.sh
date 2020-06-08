@@ -14,6 +14,7 @@ MOUNT_FUSE_PATH=$TERMUX_PREFIX/bin
 UDEV_RULES_PATH=$TERMUX_PREFIX/etc/udev/rules.d
 INIT_D_PATH=$TERMUX_PREFIX/etc/init.d
 "
+TERMUX_PKG_DEPENDS="bash, gettext"
 # Code uses telldir() and seekdir():
 TERMUX_PKG_API_LEVEL=23
 #
