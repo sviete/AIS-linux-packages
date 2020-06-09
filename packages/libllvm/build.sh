@@ -2,7 +2,7 @@ TERMUX_PKG_HOMEPAGE=https://clang.llvm.org/
 TERMUX_PKG_DESCRIPTION="Modular compiler and toolchain technologies library"
 TERMUX_PKG_LICENSE="NCSA"
 TERMUX_PKG_VERSION=9.0.1
-TERMUX_PKG_REVISION=6
+TERMUX_PKG_REVISION=7
 TERMUX_PKG_SHA256=(00a1ee1f389f81e9979f3a640a01c431b3021de0d42278f6508391a2f0b81c9a
 		   5778512b2e065c204010f88777d44b95250671103e434f9dc7363ab2e3804253
 		   86262bad3e2fd784ba8c5e2158d7aa36f12b85f2515e95bc81d65d75bb9b0c82
@@ -13,11 +13,6 @@ TERMUX_PKG_SRCURL=(https://github.com/llvm/llvm-project/releases/download/llvmor
                    https://github.com/llvm/llvm-project/releases/download/llvmorg-$TERMUX_PKG_VERSION/openmp-$TERMUX_PKG_VERSION.src.tar.xz)
 TERMUX_PKG_HOSTBUILD=true
 TERMUX_PKG_RM_AFTER_INSTALL="
-bin/clang-check
-bin/clang-import-test
-bin/clang-offload-bundler
-bin/git-clang-format
-bin/macho-dump
 lib/libgomp.a
 lib/libiomp5.a
 "
