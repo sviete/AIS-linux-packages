@@ -1,7 +1,6 @@
 TERMUX_PKG_HOMEPAGE=http://tcl.sourceforge.net/
 TERMUX_PKG_DESCRIPTION="A windowing toolkit for use with tcl"
-TERMUX_PKG_LICENSE="custom"
-TERMUX_PKG_LICENSE_FILE="license.terms"
+TERMUX_PKG_LICENSE="BSD"
 TERMUX_PKG_MAINTAINER="Leonid Pliushch <leonid.pliushch@gmail.com>"
 TERMUX_PKG_VERSION=8.6.10
 TERMUX_PKG_SRCURL=https://downloads.sourceforge.net/sourceforge/tcl/tk${TERMUX_PKG_VERSION}-src.tar.gz
