@@ -5,7 +5,7 @@ TERMUX_PKG_MAINTAINER="Andrzej Raczkowski @araczkowski"
 TERMUX_PKG_VERSION=1.1
 TERMUX_PKG_SRCURL=https://github.com/araczkowski/fuse/archive/v${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_SHA256=b3ad520f07f540147446c94cd97c2a945ba9deb978b03ca90bd1069e575cdc25
-TERMUX_PKG_DEPENDS="bash, gettext"
+TERMUX_PKG_DEPENDS="bash, gettext, autoconf, automake, libtool"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-mtab
 --enable-example=no
@@ -17,6 +17,6 @@ INIT_D_PATH=$TERMUX_PREFIX/etc/init.d
 # Code uses telldir() and seekdir():
 TERMUX_PKG_API_LEVEL=24
 #
-# termux_step_pre_configure () {
-# 	./makeconf_termux.sh
-# }
+termux_step_pre_configure () {
+	./makeconf_termux.sh
+}
