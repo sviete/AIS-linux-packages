@@ -2,9 +2,9 @@ TERMUX_PKG_HOMEPAGE=https://github.com/araczkowski/fuse
 TERMUX_PKG_DESCRIPTION="FUSE (Filesystem in Userspace) interface for userspace programs to export a filesystem to kernel"
 TERMUX_PKG_LICENSE="LGPL-2.1, GPL-2.0"
 TERMUX_PKG_MAINTAINER="Andrzej Raczkowski @araczkowski"
-TERMUX_PKG_VERSION=1.1
+TERMUX_PKG_VERSION=1.2
 TERMUX_PKG_SRCURL=https://github.com/araczkowski/fuse/archive/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=b3ad520f07f540147446c94cd97c2a945ba9deb978b03ca90bd1069e575cdc25
+TERMUX_PKG_SHA256=6aa4c4da977133f34251ae8e47bee51298f6a5a215360ceaa0ac84d072e92678
 TERMUX_PKG_DEPENDS="bash, gettext, autoconf, automake, libtool"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-mtab
