@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://github.com/araczkowski/fuse
-TERMUX_PKG_DESCRIPTION="FUSE (Filesystem in Userspace) is an interface for userspace programs to export a filesystem to the Linux kernel"
+TERMUX_PKG_DESCRIPTION="FUSE (Filesystem in Userspace) interface for userspace programs to export a filesystem to kernel"
 TERMUX_PKG_LICENSE="LGPL-2.1, GPL-2.0"
 TERMUX_PKG_MAINTAINER="Andrzej Raczkowski @araczkowski"
 TERMUX_PKG_VERSION=1.1
