@@ -16,7 +16,7 @@ INIT_D_PATH=$TERMUX_PREFIX/etc/init.d
 "
 TERMUX_PKG_DEPENDS="bash, gettext"
 # Code uses telldir() and seekdir():
-TERMUX_PKG_API_LEVEL=23
+TERMUX_PKG_API_LEVEL=24
 #
 termux_step_pre_configure () {
 	./makeconf_termux.sh
