@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://github.com/mvdan/sh
-TERMUX_PKG_DESCRIPTION="A shell parser and formatter"
+TERMUX_PKG_DESCRIPTION="A shell parser and formatter."
 TERMUX_PKG_LICENSE="BSD 3-Clause"
 TERMUX_PKG_VERSION=3.1.1
 TERMUX_PKG_SRCURL=https://github.com/mvdan/sh/archive/v${TERMUX_PKG_VERSION}.tar.gz
