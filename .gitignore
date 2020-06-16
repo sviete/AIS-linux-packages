@@ -10,6 +10,7 @@ Session.vim
 scripts/*.log
 scripts/.vagrant/
 /.termux-build/
+/termux-packages/
 ais_secret.txt
 script/ais_secret.txt
 ais-info/ais_secret.txt
