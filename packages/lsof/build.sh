@@ -1,6 +1,6 @@
 TERMUX_PKG_HOMEPAGE=https://github.com/lsof-org/lsof
 TERMUX_PKG_DESCRIPTION="Lists open files for running Unix processes"
-TERMUX_PKG_LICENSE="custom"
+TERMUX_PKG_LICENSE="BSD"
 TERMUX_PKG_VERSION=4.93.2
 TERMUX_PKG_SRCURL=https://github.com/lsof-org/lsof/archive/${TERMUX_PKG_VERSION}/lsof-${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_SHA256=3df912bd966fc24dc73ddea3e36a61d79270b21b085936a4caabca56e5b486a2
