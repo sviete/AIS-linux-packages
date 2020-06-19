@@ -1,5 +1,7 @@
 # AIS-linux-packages
 
+![APT repository cleanup](https://github.com/sviete/AIS-linux-packages/workflows/APT%20repository%20cleanup/badge.svg)
+
 ![Docker image](https://github.com/sviete/AIS-linux-packages/workflows/Docker%20image/badge.svg)
 
 ![Packages](https://github.com/sviete/AIS-linux-packages/workflows/Packages/badge.svg)
