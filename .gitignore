@@ -13,4 +13,4 @@ scripts/.vagrant/
 /termux-packages/
 ais_secret.txt
 scripts/ais-secret.txt
-ais-info/ais_secret.txt
+/ais-info/ais-secret.sh
