@@ -100,7 +100,7 @@ termux_step_post_make_install() {
 		cp $TERMUX_PKG_SRCDIR/projects/openmp/runtime/exports/common/include/omp.h $TERMUX_PREFIX/include
 	else
 		cp $TERMUX_PKG_SRCDIR/projects/openmp/runtime/exports/common.ompt.optional/include/omp.h $TERMUX_PREFIX/include
-	fi	
+	fi
 	if [ "$TERMUX_CMAKE_BUILD" = Ninja ]; then
 		ninja docs-llvm-man
 	else
