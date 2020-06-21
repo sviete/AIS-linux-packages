@@ -42,7 +42,7 @@ fi
 
 am broadcast --user 0 \
 	-a $ACTION \
-	-n com.termux/com.termux.app.TermuxOpenReceiver \
+	-n pl.sviete.dom/pl.sviete.dom.app.TermuxOpenReceiver \
 	$EXTRAS \
 	-d "$FILE" \
 	> /dev/null
