@@ -1,30 +1,15 @@
-# Termux packages
+# AIS-linux-packages
 
-[![Packages last build status](https://github.com/termux/termux-packages/workflows/Packages/badge.svg)](https://github.com/termux/termux-packages/actions)
-[![Docker image status](https://github.com/termux/termux-packages/workflows/Docker%20image/badge.svg)](https://hub.docker.com/r/termux/package-builder)
-[![Repology metadata status](https://github.com/termux/termux-packages/workflows/Repology%20metadata/badge.svg)](https://repology.org/repository/termux)
-[![Join the chat at https://gitter.im/termux/termux](https://badges.gitter.im/termux/termux.svg)](https://gitter.im/termux/termux)
+![APT repository cleanup](https://github.com/sviete/AIS-linux-packages/workflows/APT%20repository%20cleanup/badge.svg)
 
-[![Powered by JFrog Bintray](./.github/static/powered-by-bintray.png)](https://bintray.com)
+![Docker image](https://github.com/sviete/AIS-linux-packages/workflows/Docker%20image/badge.svg)
 
-This project contains scripts and patches to build packages for the [Termux]
-Android application.
+![Packages](https://github.com/sviete/AIS-linux-packages/workflows/Packages/badge.svg)
 
-Quick how-to about Termux package management is available at https://wiki.termux.com/wiki/Package_Management.
+This project contains scripts and patches to build packages for the Android terminal and Linux environment system used in the AI-Speaker project.
 
-## Contributing
 
-You can contribute to @termux by submitting bug fixes, version updates and
-new packages. Read [CONTRIBUTING.md](/CONTRIBUTING.md) for more details.
+This project is a fork off the Termux master branch - [master] - the packages are build for for Android 7.0 or higher.
 
-Developer's wiki is available at https://github.com/termux/termux-packages/wiki.
 
-## Contacts
-
-General mailing list: https://groups.io/g/termux
-
-Developer mailing list: https://groups.io/g/termux-dev
-
-General chat: https://gitter.im/termux/termux or #termux on IRC/freenode.
-
-Developer chat: https://gitter.im/termux/dev or #termux/development on IRC/freenode.
+[master]: <https://github.com/termux/termux-packages/tree/master>

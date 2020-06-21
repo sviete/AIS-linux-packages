@@ -21,11 +21,11 @@ jobs:
     - name: Build
       run: |
         cd ./scripts
-        docker build --tag termux/package-builder:latest .
+        docker build --tag araczkowski/package-builder:latest .
     - name: Push to hub.docker.com
       env:
-        DOCKER_LOGIN: xeffyr
+        DOCKER_LOGIN: araczkowski
         DOCKER_PASS: ${{ secrets.DOCKER_HUB_PASSWORD }}
       run: |
         docker login --username "${DOCKER_LOGIN}" --password "${DOCKER_PASS}"
-        docker push termux/package-builder:latest
+        docker push araczkowski/package-builder:latest

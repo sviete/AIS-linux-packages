@@ -13,7 +13,7 @@ termux_step_handle_buildarch() {
 			local TERMUX_DATA_CURRENT_BACKUPDIR=$TERMUX_DATA_BACKUPDIRS/$TERMUX_ARCH
 			# Save current /data (removing old backup if any)
 			if test -e "$TERMUX_DATA_PREVIOUS_BACKUPDIR"; then
-				termux_error_exit "Directory already exists"
+				termux_error_exit "Directory already exists: $TERMUX_DATA_PREVIOUS_BACKUPDIR"
 			fi
 			if [ -d /data/data ]; then
 				mv /data/data "$TERMUX_DATA_PREVIOUS_BACKUPDIR"

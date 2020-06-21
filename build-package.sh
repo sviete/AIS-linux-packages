@@ -233,7 +233,7 @@ _show_usage() {
     echo "  -D Build a disabled package in disabled-packages/."
     echo "  -f Force build even if package has already been built."
     [ "$TERMUX_ON_DEVICE_BUILD" = "false" ] && echo "  -i Download and extract dependencies instead of building them."
-    echo "  -I Download and extract dependencies instead of building them, keep existing /data/data/com.termux files."
+    echo "  -I Download and extract dependencies instead of building them, keep existing /data/data/pl.sviete.dom files."
     echo "  -q Quiet build."
     echo "  -s Skip dependency check."
     echo "  -o Specify deb directory. Default: debs/."

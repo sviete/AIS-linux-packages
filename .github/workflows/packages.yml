@@ -116,9 +116,10 @@ jobs:
         path: ./
     - name: Upload to bintray.com
       env:
-        BINTRAY_USERNAME: xeffyr
+        BINTRAY_USERNAME: asystentka-jolka
         BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
-        BINTRAY_GPG_SUBJECT: termux
+        # BINTRAY_GPG_SUBJECT: termux
+        BINTRAY_GPG_SUBJECT: sviete
         BINTRAY_GPG_PASSPHRASE: ${{ secrets.BINTRAY_GPG_PASSWORD }}
       run: |
         for i in debs-*.tar; do

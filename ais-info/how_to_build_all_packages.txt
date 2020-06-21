@@ -1,0 +1,37 @@
+PRE STEPS:
+1. edit new_buildorder
+- move libfuse to the end of the file
+- remove other repos
+game-repo
+root-repo
+science-repo
+unstable-repo
+x11-repo
+- remove these packages (there are to big - not needed):
+texlive
+rust
+erlang
+dart
+starship
+bat
+- remove not working packages
+recutils
+restic
+fcgiwrap
+
+HOW TO:
+1. go to container:
+sudo docker exec -it termux-package-builder /bin/bash
+
+2. rebuild all packages force
+in conteiner
+./build-all.sh -f -a all
+
+
+
+HOW TO SKEEP ONE PACKAGE FROM BUILD
+add this package to buildstatus, in conteiner
+echo "<package-name>" >> .termux-build/_buildall-all/buildstatus.txt
+
+or remove it from buildorder:
+grep -vwE "packages/toxic" buildorder.txt > new_buildorder.txt
