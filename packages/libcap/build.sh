@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://sites.google.com/site/fullycapable/
-TERMUX_PKG_DESCRIPTION="POSIX 1003.1e capabilities"
+TERMUX_PKG_DESCRIPTION="POSIX 1003.1e capabilities."
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_VERSION=2.36
 TERMUX_PKG_SRCURL=https://kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-${TERMUX_PKG_VERSION}.tar.xz
