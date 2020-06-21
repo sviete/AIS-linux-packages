@@ -2,10 +2,9 @@ TERMUX_PKG_HOMEPAGE=https://gitea.io
 TERMUX_PKG_DESCRIPTION="Git with a cup of tea, painless self-hosted git service"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="Leonid Pliushch <leonid.pliushch@gmail.com>"
-TERMUX_PKG_VERSION=1.11.6
-TERMUX_PKG_REVISION=3
+TERMUX_PKG_VERSION=1.12.0
 TERMUX_PKG_SRCURL=https://github.com/go-gitea/gitea/archive/v$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=ab6dcc47d3ba3441c8b343bfc2db9bae0a6ea3cae53519211adfd7e4e2716db9
+TERMUX_PKG_SHA256=feb0d370bce8972ad330775ff90c3a20338f55bb598923398b2e6b7c3bdd32d1
 TERMUX_PKG_DEPENDS="dash, git"
 TERMUX_PKG_CONFFILES="etc/gitea/app.ini"
 
@@ -16,10 +15,6 @@ termux_step_make() {
 	mkdir -p "$GOPATH"/src/code.gitea.io
 	cp -a "$TERMUX_PKG_SRCDIR" "$GOPATH"/src/code.gitea.io/gitea
 	cd "$GOPATH"/src/code.gitea.io/gitea
-
-	# go-bindata shoudn't be cross-compiled
-	GOOS=linux GOARCH=amd64 go get -u github.com/jteeuwen/go-bindata/...
-	export PATH="$PATH:$GOPATH/bin"
 
 	LDFLAGS=""
 	LDFLAGS+=" -X code.gitea.io/gitea/modules/setting.CustomConf=$TERMUX_PREFIX/etc/gitea/app.ini"
