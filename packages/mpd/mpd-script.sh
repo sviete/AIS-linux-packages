@@ -1,4 +1,4 @@
-mpd_test=$(pgrep -f /data/data/com.termux/files/usr/libexec/mpd)
+mpd_test=$(pgrep -f /data/data/pl.sviete.dom/files/usr/libexec/mpd)
 CmdArgs=$(echo "$@")
 #echo $mpd_test
 mkdir -p ~/.mpd
@@ -13,8 +13,8 @@ if [ "x$CmdArgs" = x ] ; then
 		read answer
 			if echo "$answer" | grep -iq "^y" ;then
 			echo "restarting music player daemon"
-			pgrep -f  /data/data/com.termux/files/usr/libexec/mpd  | while read line; do kill  "$line"; done
-			else 
+			pgrep -f  /data/data/pl.sviete.dom/files/usr/libexec/mpd  | while read line; do kill  "$line"; done
+			else
 			echo "doing nothing"
 			exit
 			fi
