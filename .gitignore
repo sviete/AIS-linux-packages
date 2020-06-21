@@ -9,3 +9,4 @@ Session.vim
 ### Vagrant ###
 scripts/*.log
 scripts/.vagrant/
+ais-info/ais-secret.sh
