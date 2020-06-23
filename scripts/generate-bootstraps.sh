@@ -174,7 +174,7 @@ create_bootstrap_archive() {
 		zip -r9 "${BOOTSTRAP_TMPDIR}/bootstrap-${1}.zip" ./*
 	)
 
-	mv -f "${BOOTSTRAP_TMPDIR}/bootstrap-${1}.zip" ./
+	mv -f "${BOOTSTRAP_TMPDIR}/bootstrap-${1}.zip" ./ais-bootstraps
 	echo "[*] Finished successfully (${1})."
 }
 
