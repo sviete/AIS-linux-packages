@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://www.gnu.org/software/ed/
-TERMUX_PKG_DESCRIPTION="Classic UNIX line editor"
+TERMUX_PKG_DESCRIPTION="Classic UNIX line editor."
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="Oliver Schmidhauser @Neo-Oli"
 TERMUX_PKG_VERSION=1.16
