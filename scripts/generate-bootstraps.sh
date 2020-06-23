@@ -17,7 +17,7 @@ TERMUX_ARCHITECTURES=("aarch64" "arm" "i686" "x86_64")
 REPO_BASE_URL="https://dl.bintray.com/sviete/ais"
 
 # Can be changed by using '--prefix' option.
-TERMUX_PREFIX="/data/data/com.termux/files/usr"
+TERMUX_PREFIX="/data/data/pl.sviete.dom/files/usr"
 
 # A list of non-essential packages. By default it is empty, but can
 # be filled with option '--add'.
