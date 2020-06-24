@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://rclone.org/
-TERMUX_PKG_DESCRIPTION="rsync for cloud storage"
+TERMUX_PKG_DESCRIPTION="rsync for cloud storage."
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_VERSION=1.52.2
 TERMUX_PKG_SRCURL=https://github.com/rclone/rclone/releases/download/v${TERMUX_PKG_VERSION}/rclone-v${TERMUX_PKG_VERSION}.tar.gz
