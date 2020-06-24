@@ -296,42 +296,43 @@ for package_arch in "${TERMUX_ARCHITECTURES[@]}"; do
 	read_package_list "$package_arch"
 
 	# Package manager.
-	pull_package apt
-	pull_package game-repo
-	pull_package science-repo
+	# pull_package apt
+	# pull_package game-repo
+	# pull_package science-repo
 
 	# Core utilities.
-	pull_package bash
-	pull_package bzip2
-	pull_package command-not-found
+	# pull_package bash
+	# pull_package bzip2
+	# pull_package command-not-found
 	pull_package coreutils
-	pull_package curl
-	pull_package dash
-	pull_package diffutils
-	pull_package findutils
-	pull_package gawk
-	pull_package grep
-	pull_package gzip
-	pull_package less
-	pull_package procps
-	pull_package psmisc
-	pull_package sed
-	pull_package tar
-	pull_package termux-exec
-	pull_package termux-tools
-	pull_package util-linux
-	pull_package xz-utils
+	# pull_package curl
+	# pull_package dash
+	# pull_package diffutils
+	# pull_package findutils
+	# pull_package gawk
+	# pull_package grep
+	# pull_package gzip
+	# pull_package less
+	# pull_package procps
+	# pull_package psmisc
+	# pull_package sed
+	# pull_package tar
+	# pull_package termux-exec
+	# pull_package termux-tools
+	# pull_package util-linux
+	# pull_package xz-utils
 
 	# Additional.
-	pull_package ed
-	pull_package debianutils
-	pull_package dos2unix
-	pull_package inetutils
-	pull_package lsof
-	pull_package nano
-	pull_package net-tools
-	pull_package patch
-	pull_package unzip
+	# pull_package ed
+	# pull_package debianutils
+	# pull_package dos2unix
+	# pull_package inetutils
+	# pull_package lsof
+	# pull_package nano
+	# pull_package net-tools
+	# pull_package patch
+	# pull_package unzip
+	pull_package p7zip
 
 
 	# Handle additional packages.
