@@ -8,7 +8,7 @@
 
 This project contains scripts and patches to build packages for the [AI-Speaker](https://www.ai-speaker.com) project.
 
-This project contains scripts and patches to build packages for the Android terminal and Linux environment system used in the AI-Speaker project.
+This project contains scripts and patches to build packages for the Android terminal and Linux environment system used in the [AI-Speaker](https://www.ai-speaker.com) project.
 
 
 This project is a fork off the Termux master branch - [master] - the packages are build for for Android 7.0 or higher.
