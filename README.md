@@ -6,6 +6,8 @@
 
 ![Packages](https://github.com/sviete/AIS-linux-packages/workflows/Packages/badge.svg)
 
+This project contains scripts and patches to build packages for the [AI-Speaker](https://www.ai-speaker.com) project.
+
 This project contains scripts and patches to build packages for the Android terminal and Linux environment system used in the AI-Speaker project.
 
 
