@@ -4,4 +4,4 @@ on:
   schedule:
     - cron:  '0 */3 * * *'
 
-echo Hello, AI-Speaker!
+echo Hello, AI-Speaker !
