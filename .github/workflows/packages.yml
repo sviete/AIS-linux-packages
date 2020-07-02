@@ -12,7 +12,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     env:
       ANDROID_HOME: "/opt/termux/android-sdk"
       NDK: "/opt/termux/android-ndk"
@@ -24,6 +24,11 @@ jobs:
       uses: actions/checkout@v2
       with:
         fetch-depth: 1000
+    - name: Free additional disk space on host
+      run: |
+        sudo apt purge -yq $(dpkg -l | grep '^ii' | awk '{ print $2 }' | grep -P '(cabal-|dotnet-|ghc-|libmono|php)') \
+          liblldb-6.0 libllvm6.0:amd64 mono-runtime-common monodoc-manual powershell ruby
+        sudo apt autoremove -yq
     - name: Build
       run: |
         BASE_COMMIT=$(jq --raw-output .pull_request.base.sha "$GITHUB_EVENT_PATH")
@@ -54,8 +59,14 @@ jobs:
           echo "[!] Force exiting as tag '%ci:no-build' was applied to HEAD commit message."
           exit 0
         fi
-        # Install build tools
-        ./scripts/setup-ubuntu.sh
+        # Build local Docker image if setup scripts were changed.
+        # Useful for pull requests submitting changes for both build environment and packages.
+        if grep -qP '^scripts/(Dockerfile|setup-ubuntu\.sh)$' <<< "$CHANGED_FILES"; then
+          echo "Detected changes for environment setup scripts. Building custom Docker image now."
+          cd ./scripts
+          docker build -t termux/package-builder:latest .
+          cd ..
+        fi
         # Remove duplicates and deleted packages from $PACKAGE_NAMES.
         # Write names of deleted packages to a list that will be passed to upload job for
         # further processing.
@@ -72,7 +83,7 @@ jobs:
         # in upload job.
         if [ -n "$PACKAGE_NAMES" ]; then
           ./scripts/lint-packages.sh $(echo "$PACKAGE_NAMES" | grep -P '^[a-zA-Z0-9]' | awk '{ print "./packages/"$0"/build.sh" }')
-          ./build-package.sh -a ${{ matrix.target_arch }} -I ${PACKAGE_NAMES}
+          ./scripts/run-docker.sh ./build-package.sh -a ${{ matrix.target_arch }} -I ${PACKAGE_NAMES}
           echo "${PACKAGE_NAMES}" > ./built_packages.txt
         fi
         # Put package lists into directory with *.deb files so they will be transferred to
