@@ -12,3 +12,4 @@ ac_cv_header_spawn_h=no
 "
 
 TERMUX_PKG_RM_AFTER_INSTALL="share/info/dir"
+
