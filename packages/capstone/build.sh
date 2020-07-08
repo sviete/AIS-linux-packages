@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=http://www.capstone-engine.org/
-TERMUX_PKG_DESCRIPTION="Lightweight multi-platform, multi-architecture disassembly framework"
+TERMUX_PKG_DESCRIPTION="Lightweight multi-platform, multi-architecture disassembly framework."
 TERMUX_PKG_LICENSE="BSD"
 TERMUX_PKG_VERSION=4.0.2
 TERMUX_PKG_REVISION=1
