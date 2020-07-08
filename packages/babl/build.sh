@@ -8,3 +8,4 @@ TERMUX_PKG_DEPENDS="littlecms"
 TERMUX_PKG_BREAKS="babl-dev"
 TERMUX_PKG_REPLACES="babl-dev"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="-Denable-gir=false"
+
