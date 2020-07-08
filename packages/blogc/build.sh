@@ -7,3 +7,4 @@ TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://github.com/blogc/blogc/releases/download/v$TERMUX_PKG_VERSION/blogc-$TERMUX_PKG_VERSION.tar.bz2
 TERMUX_PKG_SHA256=41d9b626ce3096558af143fae9a99ebedd72cec667e6e1f0caee8d5c1d349985
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-git-receiver --enable-make --enable-runserver --disable-tests --disable-valgrind"
+
