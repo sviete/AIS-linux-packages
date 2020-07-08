@@ -61,3 +61,4 @@ termux_step_make_install() {
 		threading=multi \
 		install
 }
+
