@@ -28,3 +28,4 @@ termux_step_make_install() {
 	install -Dm600 "$gemdir/gems/asciidoctor-${TERMUX_PKG_VERSION}/man/asciidoctor.1" \
 		"$TERMUX_PREFIX/share/man/main1/asciidoctor.1"
 }
+
