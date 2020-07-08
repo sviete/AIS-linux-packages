@@ -29,3 +29,4 @@ termux_step_make() {
 	echo "dalvikvm -cp $TERMUX_PREFIX/share/dex/apksigner.jar net.fornwall.apksigner.Main \$@" >> $TERMUX_PREFIX/bin/apksigner
 	chmod +x $TERMUX_PREFIX/bin/apksigner
 }
+
