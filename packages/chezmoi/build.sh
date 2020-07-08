@@ -33,3 +33,4 @@ termux_step_make_install() {
 	install ${GOPATH}/src/github.com/twpayne/chezmoi/docs/{FAQ,HOWTO,QUICKSTART,REFERENCE}.md \
 		$TERMUX_PREFIX/share/doc/chezmoi/
 }
+
