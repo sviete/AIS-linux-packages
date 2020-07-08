@@ -66,3 +66,4 @@ termux_step_post_make_install() {
 	mkdir -p $TERMUX_PREFIX/share/man/
 	cp -Rf $TERMUX_PKG_BUILDER_DIR/man/* $TERMUX_PREFIX/share/man/
 }
+
