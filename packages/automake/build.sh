@@ -6,3 +6,4 @@ TERMUX_PKG_SRCURL=https://mirrors.kernel.org/gnu/automake/automake-${TERMUX_PKG_
 TERMUX_PKG_SHA256=ccc459de3d710e066ab9e12d2f119bd164a08c9341ca24ba22c9adaa179eedd0
 TERMUX_PKG_DEPENDS="autoconf"
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
+
