@@ -34,3 +34,4 @@ termux_step_make_install() {
 	chmod 700 "$TERMUX_PREFIX"/bin/beanshell
 	ln -sfr "$TERMUX_PREFIX"/bin/beanshell "$TERMUX_PREFIX"/bin/bsh
 }
+
