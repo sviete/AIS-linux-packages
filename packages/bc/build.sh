@@ -18,3 +18,4 @@ termux_step_pre_configure() {
 	   $TERMUX_PKG_SRCDIR/bc/libmath.h
 	touch -d "next hour" $TERMUX_PKG_SRCDIR/bc/libmath.h
 }
+
