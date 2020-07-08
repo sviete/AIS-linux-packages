@@ -11,5 +11,5 @@ for file in $files; do
   git commit -m "build $file"
   git push
   sleep 10
-  echo "------------------"
+  echo "done ------------------"
 done
