@@ -76,3 +76,4 @@ termux_step_post_make_install() {
 		-e "s|@TERMUX_HOME@|$TERMUX_ANDROID_HOME|" \
 		$TERMUX_PKG_BUILDER_DIR/etc-bash.bashrc > $TERMUX_PREFIX/etc/bash.bashrc
 }
+
