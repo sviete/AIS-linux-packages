@@ -1,6 +1,6 @@
 # get changed files
 
-# credential caching, it will be cached for 7200 seconds (2 hour).
+# credential caching, it will be cached for 7200 seconds (2 hour) .
 git config --global credential.helper 'cache --timeout 7200'
 
 files=`git diff --name-only`
