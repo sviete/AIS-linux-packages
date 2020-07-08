@@ -11,3 +11,4 @@ TERMUX_PKG_DEPENDS="dvtm"
 termux_step_pre_configure() {
 	CFLAGS+=" $CPPFLAGS"
 }
+
