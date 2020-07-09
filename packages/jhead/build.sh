@@ -10,3 +10,4 @@ termux_step_make_install() {
 	install -Dm700 jhead $TERMUX_PREFIX/bin/jhead
 	install -Dm600 jhead.1 $TERMUX_PREFIX/share/man/man1/jhead.1
 }
+
