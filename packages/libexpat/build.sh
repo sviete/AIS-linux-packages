@@ -8,3 +8,4 @@ TERMUX_PKG_SHA256=f1063084dc4302a427dabcca499c8312b3a32a29b7d2506653ecc8f950a9a2
 TERMUX_PKG_BREAKS="libexpat-dev"
 TERMUX_PKG_REPLACES="libexpat-dev"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--without-xmlwf --without-docbook"
+
