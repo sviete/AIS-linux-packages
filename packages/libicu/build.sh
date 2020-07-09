@@ -20,3 +20,4 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-samples --disable-tests --with-cross-
 termux_step_post_extract_package() {
 	TERMUX_PKG_SRCDIR+="/source"
 }
+
