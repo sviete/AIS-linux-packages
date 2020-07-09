@@ -14,3 +14,4 @@ termux_step_install_license() {
 	install -Dm600 "$TERMUX_PKG_SRCDIR/libraries/liblmdb/LICENSE" \
 		"$TERMUX_PREFIX/share/doc/$TERMUX_PKG_NAME/LICENSE"
 }
+
