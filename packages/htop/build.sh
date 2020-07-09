@@ -13,3 +13,4 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 ac_cv_lib_ncursesw6_addnwstr=yes
 LIBS=-landroid-support
 "
+
