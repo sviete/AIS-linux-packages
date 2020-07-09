@@ -67,3 +67,4 @@ termux_step_configure() {
 		$_EXTRA_CONFIGURE_FLAGS
 }
 
+
