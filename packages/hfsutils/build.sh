@@ -12,3 +12,4 @@ termux_step_post_configure() {
 	mkdir -p ${TERMUX_PREFIX}/share/man/man1
 }
 
+
