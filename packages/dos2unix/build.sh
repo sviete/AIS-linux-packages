@@ -8,3 +8,4 @@ TERMUX_PKG_SRCURL=http://waterlan.home.xs4all.nl/dos2unix/dos2unix-${TERMUX_PKG_
 TERMUX_PKG_SHA256=1cd58a60b03ed28fa39046102a185c5e88c4f7665e1e0417c25de7f8b9f78623
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_DEPENDS="libandroid-support"
+
