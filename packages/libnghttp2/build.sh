@@ -10,3 +10,4 @@ TERMUX_PKG_REPLACES="libnghttp2-dev"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--enable-lib-only"
 # The tools are not built due to --enable-lib-only:
 TERMUX_PKG_RM_AFTER_INSTALL="share/man/man1 share/nghttp2/fetch-ocsp-response"
+
