@@ -7,3 +7,4 @@ TERMUX_PKG_SRCURL=https://github.com/Matroska-Org/libmatroska/archive/release-$T
 TERMUX_PKG_SHA256=924e4fc769764fd5ba0f8efcea342a7dc0e6e6aa4c6d7b67c7efab14e75fd54f
 TERMUX_PKG_DEPENDS=libebml
 TERMUX_PKG_NO_STATICSPLIT=true
+
