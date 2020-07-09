@@ -11,3 +11,4 @@ TERMUX_PKG_REPLACES="libnfs-dev"
 termux_step_pre_configure() {
 	autoreconf -fi
 }
+
