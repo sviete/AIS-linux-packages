@@ -52,3 +52,4 @@ termux_step_make_install() {
 	make install-pkgincludeHEADERS
 	make -C config install
 }
+
