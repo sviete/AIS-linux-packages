@@ -7,3 +7,4 @@ TERMUX_PKG_SRCURL=https://s3.amazonaws.com/json-c_releases/releases/json-c-${TER
 TERMUX_PKG_SHA256=b377de08c9b23ca3b37d9a9828107dff1de5ce208ff4ebb35005a794f30c6870
 TERMUX_PKG_BREAKS="json-c-dev"
 TERMUX_PKG_REPLACES="json-c-dev"
+
