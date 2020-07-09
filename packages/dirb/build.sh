@@ -17,3 +17,4 @@ termux_step_post_make_install() {
 	cp -rf  "$TERMUX_PKG_SRCDIR"/wordlists "$TERMUX_PREFIX"/share/dirb/wordlists
 	find "$TERMUX_PREFIX"/share/dirb/wordlists -type f | xargs chmod 600
 }
+
