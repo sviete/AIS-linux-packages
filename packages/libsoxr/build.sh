@@ -17,3 +17,4 @@ termux_step_make() {
 	termux_setup_cmake
 	./go
 }
+
