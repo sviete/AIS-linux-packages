@@ -12,3 +12,4 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-x11
 --with-db-backend=leveldb
 --disable-cairo"
+
