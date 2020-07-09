@@ -12,3 +12,4 @@ TERMUX_PKG_REPLACES="libconfig-dev"
 termux_step_pre_configure() {
 	autoreconf -fi
 }
+
