@@ -12,3 +12,4 @@ termux_step_post_configure () {
 	export LDFLAGS+=" -landroid-shmem"
 	mkdir -p ${TERMUX_PREFIX}/share/man/man8
 }
+
