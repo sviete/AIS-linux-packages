@@ -24,3 +24,4 @@ termux_step_post_make_install() {
 		make -j $TERMUX_MAKE_PROCESSES install
 	done
 }
+
