@@ -13,3 +13,4 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --with-gpgme
 --with-gpg=$TERMUX_PREFIX/bin/gpg2
 "
+
