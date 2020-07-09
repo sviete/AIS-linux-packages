@@ -20,3 +20,4 @@ TERMUX_PKG_API_LEVEL=24
 termux_step_pre_configure () {
 	./makeconf_termux.sh
 }
+
