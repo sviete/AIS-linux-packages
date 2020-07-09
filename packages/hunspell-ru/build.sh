@@ -19,3 +19,4 @@ termux_step_make_install() {
 			3280afe7829128ff589b2c5d8f46810ed9b0eddcc85e9b1cc3d12dc08d4c1a0b
 	touch $TERMUX_PREFIX/share/hunspell/ru_RU.{aff,dic}
 }
+
