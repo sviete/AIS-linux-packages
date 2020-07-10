@@ -39,3 +39,4 @@ termux_step_make_install() {
 		--dir=$TERMUX_PREFIX/share/man/man1/
 }
 
+
