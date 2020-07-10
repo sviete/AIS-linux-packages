@@ -10,3 +10,4 @@ TERMUX_PKG_SHA256=2d264499dcb05f56438dee12a1b4b71d76736ce7ba7aa6efbf15ebb113769c
 TERMUX_PKG_DEPENDS="libice, libuuid"
 TERMUX_PKG_BUILD_DEPENDS="xorg-util-macros, xtrans"
 
+
