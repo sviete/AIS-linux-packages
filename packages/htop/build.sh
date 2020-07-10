@@ -14,3 +14,4 @@ ac_cv_lib_ncursesw6_addnwstr=yes
 LIBS=-landroid-support
 "
 
+
