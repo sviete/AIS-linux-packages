@@ -28,3 +28,4 @@ termux_step_post_configure() {
 	cp $TERMUX_PKG_SRCDIR/doc/librsync.3 $TERMUX_PREFIX/share/man/man3
 }
 
+
