@@ -29,3 +29,4 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 # conflict with previous versions to avoid broken installations.
 TERMUX_PKG_CONFLICTS="apt (<< 1.4.8-8)"
 
+
