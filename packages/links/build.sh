@@ -12,3 +12,4 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --mandir=$TERMUX_PREFIX/share/man
 --enable-graphics
 "
+
