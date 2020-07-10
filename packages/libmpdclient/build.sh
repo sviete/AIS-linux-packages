@@ -9,3 +9,4 @@ TERMUX_PKG_BREAKS="libmpdclient-dev"
 TERMUX_PKG_REPLACES="libmpdclient-dev"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS=" -D default_socket==${TERMUX_PREFIX}/var/run/mpd/socket"
 
+
