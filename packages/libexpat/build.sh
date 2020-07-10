@@ -9,3 +9,4 @@ TERMUX_PKG_BREAKS="libexpat-dev"
 TERMUX_PKG_REPLACES="libexpat-dev"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--without-xmlwf --without-docbook"
 
+
