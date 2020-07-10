@@ -14,3 +14,4 @@ termux_step_pre_configure() {
 	CFLAGS+=" -D__STDC_ISO_10646__=201103L -DNBBY=CHAR_BIT"
 }
 
+
