@@ -9,3 +9,4 @@ TERMUX_PKG_DEPENDS="zlib"
 TERMUX_PKG_BREAKS="libid3tag-dev"
 TERMUX_PKG_REPLACES="libid3tag-dev"
 
+
