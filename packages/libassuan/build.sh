@@ -9,3 +9,4 @@ TERMUX_PKG_DEPENDS="libgpg-error"
 TERMUX_PKG_BREAKS="libassuan-dev"
 TERMUX_PKG_REPLACES="libassuan-dev"
 
+
