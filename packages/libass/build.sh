@@ -9,3 +9,4 @@ TERMUX_PKG_DEPENDS="fontconfig, fribidi, glib, harfbuzz"
 TERMUX_PKG_BREAKS="libass-dev"
 TERMUX_PKG_REPLACES="libass-dev"
 
+
