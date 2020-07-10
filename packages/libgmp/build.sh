@@ -14,3 +14,4 @@ termux_step_pre_configure() {
     CXXFLAGS+=" -L$TERMUX_PREFIX/lib"
 }
 
+
