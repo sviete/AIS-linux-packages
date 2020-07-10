@@ -12,3 +12,4 @@ termux_step_pre_configure() {
     perl -p -i -e "s#/etc/mime.types#$TERMUX_PREFIX/etc/mime.types#" $TERMUX_PKG_SRCDIR/src/cfgfile.c
 }
 
+
