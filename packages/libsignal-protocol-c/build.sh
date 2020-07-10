@@ -12,3 +12,4 @@ termux_step_pre_configure() {
     TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" -DM_LIB=$TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib/$TERMUX_HOST_PLATFORM/$TERMUX_PKG_API_LEVEL/libm.so"
 }
 
+
