@@ -16,3 +16,4 @@ termux_step_make_install() {
 		MAN3DIR=$TERMUX_PREFIX/share/man/man3
 }
 
+
