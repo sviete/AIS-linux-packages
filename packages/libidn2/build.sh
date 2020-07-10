@@ -9,3 +9,4 @@ TERMUX_PKG_DEPENDS="libunistring, libandroid-support"
 TERMUX_PKG_BREAKS="libidn2-dev"
 TERMUX_PKG_REPLACES="libidn2-dev"
 
+
