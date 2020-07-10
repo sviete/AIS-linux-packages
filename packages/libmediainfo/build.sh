@@ -21,3 +21,4 @@ termux_step_post_make_install() {
 	ln -sf "${TERMUX_PREFIX}/lib/libmediainfo.so" "${TERMUX_PREFIX}/lib/libmediainfo.so.0.0"
 }
 
+
