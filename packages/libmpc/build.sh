@@ -9,3 +9,4 @@ TERMUX_PKG_DEPENDS="libgmp, libmpfr"
 TERMUX_PKG_BREAKS="libmpc-dev"
 TERMUX_PKG_REPLACES="libmpc-dev"
 
+
