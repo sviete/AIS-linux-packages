@@ -9,3 +9,4 @@ TERMUX_PKG_BREAKS="libjpeg-turbo-dev"
 TERMUX_PKG_REPLACES="libjpeg-turbo-dev"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="-DWITH_JPEG8=1"
 
+
