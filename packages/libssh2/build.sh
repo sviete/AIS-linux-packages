@@ -9,3 +9,4 @@ TERMUX_PKG_DEPENDS="openssl, zlib"
 TERMUX_PKG_BREAKS="libssh2-dev"
 TERMUX_PKG_REPLACES="libssh2-dev"
 
+
