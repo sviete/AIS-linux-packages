@@ -10,3 +10,4 @@ TERMUX_PKG_DEPENDS="libc++, libuuid, zlib"
 TERMUX_PKG_BREAKS="libxapian-dev"
 TERMUX_PKG_REPLACES="libxapian-dev"
 
+
