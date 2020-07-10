@@ -28,3 +28,4 @@ termux_step_pre_configure() {
 	CPPFLAGS+=" -DLOGIN_PROCESS=6 -DDEAD_PROCESS=8 -DLOG_NFACILITIES=24"
 }
 
+
