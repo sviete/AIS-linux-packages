@@ -19,3 +19,4 @@ termux_step_make_install() {
 	install -Dm600 libandroid-spawn.so $TERMUX_PREFIX/lib/libandroid-spawn.so
 }
 
+
