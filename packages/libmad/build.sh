@@ -20,3 +20,4 @@ termux_post_configure() {
 	sed -i -e 's/-force-mem//g' Makefile
 }
 
+
