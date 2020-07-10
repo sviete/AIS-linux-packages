@@ -40,3 +40,4 @@ termux_step_make_install() {
 	mv -f "$TERMUX_PREFIX"/share/man/man1/luac.1 "$TERMUX_PREFIX"/share/man/man1/luac5.2.1
 }
 
+
