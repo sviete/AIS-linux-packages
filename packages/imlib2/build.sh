@@ -8,3 +8,4 @@ TERMUX_PKG_SHA256=668696d0a8961bb57353fe96669f44bbdf1696221a65da563408a5010c5bd7
 TERMUX_PKG_DEPENDS="freetype, giflib, libandroid-shmem, libbz2, libid3tag, libjpeg-turbo, libpng, libtiff, libxext, zlib"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="LIBS=-landroid-shmem"
 
+
