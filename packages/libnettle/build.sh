@@ -8,3 +8,4 @@ TERMUX_PKG_DEPENDS="libgmp"
 TERMUX_PKG_BREAKS="libnettle-dev"
 TERMUX_PKG_REPLACES="libnettle-dev"
 
+
