@@ -9,3 +9,4 @@ TERMUX_PKG_BREAKS="libandroid-shmem-dev"
 TERMUX_PKG_REPLACES="libandroid-shmem-dev"
 TERMUX_PKG_BUILD_IN_SRC=true
 
+
