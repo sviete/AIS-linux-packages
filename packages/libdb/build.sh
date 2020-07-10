@@ -22,3 +22,4 @@ termux_step_pre_configure() {
 	TERMUX_PKG_SRCDIR=$TERMUX_PKG_SRCDIR/dist
 }
 
+
