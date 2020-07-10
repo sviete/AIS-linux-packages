@@ -21,3 +21,4 @@ termux_step_pre_configure () {
 	./makeconf_termux.sh
 }
 
+
