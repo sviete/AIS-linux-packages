@@ -36,3 +36,4 @@ termux_step_make_install() {
 		"$TERMUX_PKG_HOSTBUILD_DIR"/gopath/src/github.com/github/hub/share/man/man1/*.1
 }
 
+
