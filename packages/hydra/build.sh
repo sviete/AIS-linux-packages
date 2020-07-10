@@ -16,3 +16,4 @@ termux_step_configure() {
 	cat Makefile.am | sed 's/^install:.*/install: all/'  >> Makefile
 }
 
+
