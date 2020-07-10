@@ -44,3 +44,4 @@ termux_step_make_install() {
 	rm $TERMUX_PREFIX/bin/bz{e,f}grep $TERMUX_PREFIX/share/man/man1/bz{e,f}grep.1
 }
 
+
