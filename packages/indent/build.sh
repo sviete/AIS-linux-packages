@@ -8,3 +8,4 @@ TERMUX_PKG_DEPENDS="libandroid-support"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="ac_cv_func_setlocale=no"
 TERMUX_PKG_RM_AFTER_INSTALL="bin/texinfo2man"
 
+
