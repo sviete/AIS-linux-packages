@@ -32,3 +32,4 @@ termux_step_make_install() {
 		$PKG_CONFIG_LIBDIR/unibilium.pc
 }
 
+
