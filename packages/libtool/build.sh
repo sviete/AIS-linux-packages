@@ -14,3 +14,4 @@ termux_step_post_make_install() {
 	perl -p -i -e "s|\"/bin/|\"$TERMUX_PREFIX/bin/|" $TERMUX_PREFIX/bin/{libtool,libtoolize}
 }
 
+
