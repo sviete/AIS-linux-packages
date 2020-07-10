@@ -8,3 +8,4 @@ TERMUX_PKG_DEPENDS="libmnl"
 TERMUX_PKG_BREAKS="libnftnl-dev"
 TERMUX_PKG_REPLACES="libnftnl-dev"
 
+
