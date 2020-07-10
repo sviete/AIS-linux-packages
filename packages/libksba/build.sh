@@ -8,3 +8,4 @@ TERMUX_PKG_DEPENDS="libgpg-error"
 TERMUX_PKG_BREAKS="libksba-dev"
 TERMUX_PKG_REPLACES="libksba-dev"
 
+
