@@ -7,3 +7,4 @@ TERMUX_PKG_SHA256=68cb4643d58152097f01c9b3abead7d7d4c9563183d72f3c2a31d22bc168f0
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--without-sasl ac_cv_header_db=no ac_cv_berkdb4=no"
 TERMUX_PKG_DEPENDS="openssl, zlib"
 
+
