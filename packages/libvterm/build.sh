@@ -21,3 +21,4 @@ termux_step_make_install() {
 	cp ../include/*.h $TERMUX_PREFIX/include/
 }
 
+
