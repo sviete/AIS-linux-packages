@@ -15,3 +15,4 @@ termux_step_post_make_install() {
 	cp $TERMUX_PKG_SRCDIR/docs/*.3 $TERMUX_PREFIX/share/man/man3/
 }
 
+
