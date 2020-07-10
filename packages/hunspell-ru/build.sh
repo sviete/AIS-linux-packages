@@ -20,3 +20,4 @@ termux_step_make_install() {
 	touch $TERMUX_PREFIX/share/hunspell/ru_RU.{aff,dic}
 }
 
+
