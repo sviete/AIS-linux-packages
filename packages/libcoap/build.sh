@@ -14,3 +14,4 @@ termux_step_pre_configure() {
 	NOCONFIGURE=1 ./autogen.sh
 }
 
+
