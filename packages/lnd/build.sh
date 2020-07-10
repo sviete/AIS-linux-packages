@@ -32,3 +32,4 @@ termux_step_post_make_install() {
 
 	ln -sf $TERMUX_PREFIX/share/termux-services/svlogger lnd/log/run
 }
+
