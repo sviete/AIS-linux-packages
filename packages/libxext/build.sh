@@ -11,3 +11,4 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--enable-malloc0returnsnull"
 TERMUX_PKG_DEPENDS="libx11, libxau, libxcb, libxdmcp"
 TERMUX_PKG_BUILD_DEPENDS="xorgproto, xorg-util-macros"
 
+
