@@ -9,3 +9,4 @@ TERMUX_PKG_BREAKS="lhasa-dev"
 TERMUX_PKG_REPLACES="lhasa-dev"
 TERMUX_PKG_BUILD_IN_SRC=true
 
+
