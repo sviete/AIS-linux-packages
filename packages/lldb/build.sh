@@ -57,3 +57,4 @@ termux_step_post_make_install() {
 		rm $TERMUX_PREFIX/bin/clang-import-test
 	fi
 }
+
