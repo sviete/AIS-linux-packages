@@ -10,3 +10,4 @@ TERMUX_PKG_BREAKS="libmhash-dev"
 TERMUX_PKG_REPLACES="libmhash-dev"
 TERMUX_PKG_BUILD_IN_SRC=true
 
+
