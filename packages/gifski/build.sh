@@ -6,3 +6,4 @@ TERMUX_PKG_SRCURL=https://github.com/ImageOptim/gifski/archive/$TERMUX_PKG_VERSI
 TERMUX_PKG_SHA256=0fd4b6beb880bb7719a3fb707f8f42678a62c8cf9bbb90f369f043864bbcc5ed
 TERMUX_PKG_BUILD_IN_SRC=true
 
+
