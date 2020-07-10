@@ -15,3 +15,4 @@ termux_step_install_license() {
 		"$TERMUX_PREFIX/share/doc/$TERMUX_PKG_NAME/LICENSE"
 }
 
+
