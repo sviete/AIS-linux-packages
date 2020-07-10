@@ -12,3 +12,4 @@ termux_step_pre_configure() {
 	CFLAGS+=" -Dsockaddr_storage=__kernel_sockaddr_storage"
 }
 
+
