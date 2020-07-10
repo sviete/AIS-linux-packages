@@ -28,3 +28,4 @@ termux_step_post_make_install() {
 	cp $TERMUX_PKG_SRCDIR/tea/generic/tclsqlite3.c $TERMUX_PREFIX/src/libsqlite/tclsqlite3.c
 }
 
+
