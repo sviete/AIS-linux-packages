@@ -21,3 +21,4 @@ termux_step_make_install() {
 	install -Dm600 libandroid-glob.so $TERMUX_PREFIX/lib/libandroid-glob.so
 }
 
+
