@@ -9,3 +9,4 @@ TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_DEPENDS="fftw, libandroid-support, ncurses, openssl"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--with-fftw3 --with-ncurses --with-openssl"
 
+
