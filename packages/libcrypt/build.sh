@@ -15,3 +15,4 @@ termux_step_make_install() {
 	cp $TERMUX_PKG_BUILDER_DIR/LICENSE $TERMUX_PKG_SRCDIR/
 }
 
+
