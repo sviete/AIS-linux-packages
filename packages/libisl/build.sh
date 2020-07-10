@@ -9,3 +9,4 @@ TERMUX_PKG_DEPENDS="libgmp"
 TERMUX_PKG_BREAKS="libisl-dev"
 TERMUX_PKG_REPLACES="libisl-dev"
 
+
