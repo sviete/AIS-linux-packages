@@ -20,3 +20,4 @@ termux_step_post_configure() {
 	echo "#define FFI_MMAP_EXEC_WRIT 1" >> fficonfig.h
 }
 
+
