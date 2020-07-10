@@ -17,4 +17,3 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 GLIB_GENMARSHAL=/usr/bin/glib-genmarshal
 GLIB_MKENUMS=/usr/bin/glib-mkenums
 "
-
