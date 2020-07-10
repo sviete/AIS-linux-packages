@@ -202,3 +202,4 @@ termux_step_make_install() {
 	cp -r $TERMUX_PKG_SRCDIR/{LICENSE,README,packaging/bash_completion.d} $TERMUX_PREFIX/share/ldc
 }
 
+
