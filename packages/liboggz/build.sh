@@ -9,3 +9,4 @@ TERMUX_PKG_DEPENDS="libogg"
 TERMUX_PKG_BREAKS="liboggz-dev"
 TERMUX_PKG_REPLACES="liboggz-dev"
 
+
