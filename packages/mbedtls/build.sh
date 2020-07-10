@@ -32,3 +32,4 @@ termux_step_extract_package() {
 	cd $TERMUX_PKG_SRCDIR
 	cp -Rf $CHECKED_OUT_FOLDER/* .
 }
+
