@@ -27,3 +27,4 @@ termux_step_post_make_install() {
 		-e "s|@TERMUX_HOME@|$TERMUX_ANDROID_HOME|g" \
 		$TERMUX_PKG_BUILDER_DIR/rsnapshot.conf > $TERMUX_PREFIX/etc/rsnapshot.conf
 }
+
