@@ -13,3 +13,4 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--includedir=$TERMUX_PREFIX/include/ossp-uuid"
 termux_step_pre_configure() {
 	export ac_cv_va_copy=C99
 }
+
