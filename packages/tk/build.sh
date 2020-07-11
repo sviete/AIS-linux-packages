@@ -1,6 +1,6 @@
 TERMUX_PKG_HOMEPAGE=http://tcl.sourceforge.net/
 TERMUX_PKG_DESCRIPTION="A windowing toolkit for use with tcl"
-TERMUX_PKG_LICENSE="BSD"
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="Leonid Pliushch <leonid.pliushch@gmail.com>"
 TERMUX_PKG_VERSION=8.6.10
 TERMUX_PKG_SRCURL=https://downloads.sourceforge.net/sourceforge/tcl/tk${TERMUX_PKG_VERSION}-src.tar.gz
@@ -31,4 +31,3 @@ termux_step_post_make_install() {
 		install -m644 -t "$TERMUX_PREFIX/include/tk-private/$dir" "$dir"/*.h
 	done
 }
-
