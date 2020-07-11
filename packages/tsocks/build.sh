@@ -16,3 +16,4 @@ termux_step_post_extract_package() {
 termux_step_pre_configure() {
 	cp $TERMUX_PKG_SRCDIR/tsocks.conf.complex.example $TERMUX_PREFIX/etc/tsocks.conf
 }
+
