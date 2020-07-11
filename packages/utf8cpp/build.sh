@@ -14,3 +14,4 @@ termux_step_configure() {
 termux_step_make_install(){
 	cp -r source/* $TERMUX_PREFIX/include/
 }
+
