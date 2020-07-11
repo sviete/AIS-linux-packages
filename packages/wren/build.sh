@@ -20,3 +20,4 @@ termux_step_make_install() {
 	install -Dm600 "$TERMUX_PKG_SRCDIR"/lib/libwren.so \
 		"$TERMUX_PREFIX"/lib/libwren.so
 }
+
