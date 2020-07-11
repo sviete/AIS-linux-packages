@@ -1,6 +1,6 @@
 TERMUX_PKG_HOMEPAGE=https://www.tcl.tk/
 TERMUX_PKG_DESCRIPTION="Powerful but easy to learn dynamic programming language"
-TERMUX_PKG_LICENSE="BSD"
+TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_VERSION=8.6.10
 TERMUX_PKG_SRCURL=https://downloads.sourceforge.net/project/tcl/Tcl/${TERMUX_PKG_VERSION}/tcl${TERMUX_PKG_VERSION}-src.tar.gz
 TERMUX_PKG_SHA256=5196dbf6638e3df8d5c87b5815c8c2b758496eb6f0e41446596c9a4e638d87ed
@@ -56,4 +56,3 @@ termux_step_post_make_install() {
 	#avoid conflict with perl
 	mv $TERMUX_PREFIX/share/man/man3/Thread.3 $TERMUX_PREFIX/share/man/man3/Tcl_Thread.3
 }
-
