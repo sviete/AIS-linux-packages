@@ -107,3 +107,4 @@ termux_step_post_massage() {
 		rm lib/libtinfo.so.6
 	fi
 }
+
