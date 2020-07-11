@@ -23,3 +23,4 @@ termux_step_make_install() {
 		"$GOPATH"/src/bitbucket.org/tmedwards/tweego/tweego \
 		"$TERMUX_PREFIX"/bin/
 }
+
