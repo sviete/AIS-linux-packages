@@ -18,3 +18,4 @@ termux_step_post_extract_package() {
 termux_step_pre_configure() {
 	LDFLAGS+=" -landroid-glob"
 }
+
