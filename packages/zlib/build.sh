@@ -12,3 +12,4 @@ termux_step_configure() {
 	"$TERMUX_PKG_SRCDIR/configure" --prefix=$TERMUX_PREFIX
 	sed -n '/Copyright (C) 1995-/,/madler@alumni.caltech.edu/p' "$TERMUX_PKG_SRCDIR/zlib.h" > "$TERMUX_PKG_SRCDIR/LICENSE"
 }
+
