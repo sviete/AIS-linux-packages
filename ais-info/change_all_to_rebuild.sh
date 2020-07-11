@@ -4,6 +4,7 @@ git pull
 git config --global credential.helper 'cache --timeout 7200'
 
 # chang
+# builds=`ls packages/z*/build.sh`
 builds=`ls packages/*/build.sh`
 for build in $builds; do
   echo "Adding line to file: $build"
@@ -11,6 +12,6 @@ for build in $builds; do
   git add $build
   git commit -m "$build"
   git push
-  sleep 100
+  sleep 10
   echo "done ------------------"
 done
