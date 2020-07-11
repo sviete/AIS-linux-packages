@@ -11,3 +11,4 @@ TERMUX_PKG_PLATFORM_INDEPENDENT=true
 termux_step_make_install() {
 	install -Dm700 -t $TERMUX_PREFIX/bin termux-create-package
 }
+
