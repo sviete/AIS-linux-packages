@@ -26,3 +26,4 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" --enable-image=no"
 
 # For Makefile.in.patch:
 export TERMUX_PKG_BUILDER_DIR
+
