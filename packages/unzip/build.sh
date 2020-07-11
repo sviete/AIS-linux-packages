@@ -34,3 +34,4 @@ termux_step_make() {
 termux_step_make_install() {
 	make -f unix/Makefile prefix=$TERMUX_PREFIX install
 }
+
