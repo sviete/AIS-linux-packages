@@ -9,3 +9,4 @@ TERMUX_PKG_BREAKS="pcre-dev"
 TERMUX_PKG_REPLACES="pcre-dev"
 TERMUX_PKG_RM_AFTER_INSTALL="bin/pcregrep bin/pcretest share/man/man1/pcre*.1"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--enable-cpp --enable-jit --enable-utf8 --enable-unicode-properties"
+
