@@ -7,3 +7,4 @@ TERMUX_PKG_SRCURL=https://github.com/termux/termux-api-package/archive/v${TERMUX
 TERMUX_PKG_SHA256=6b26e7028361e492ca187045e44170cf4bf94007ddb59ba0df580cce8610d282
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_DEPENDS="bash, busybox"
+
