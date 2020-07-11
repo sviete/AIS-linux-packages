@@ -20,3 +20,4 @@ termux_step_post_make_install() {
 	rm -f "$TERMUX_PREFIX"/etc/proxychains.conf
 	make install-config
 }
+
