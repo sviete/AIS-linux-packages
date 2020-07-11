@@ -14,3 +14,4 @@ termux_step_post_configure() {
 	cp $TERMUX_PKG_BUILDER_DIR/wordexp.c .
 	cp -rf src/* .
 }
+
