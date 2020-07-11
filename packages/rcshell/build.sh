@@ -12,3 +12,4 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 ac_cv_func_setpgrp_void=yes
 rc_cv_sysv_sigcld=no
 "
+
