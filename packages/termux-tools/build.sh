@@ -45,3 +45,4 @@ termux_step_make_install() {
 	install -Dm600 $TERMUX_PKG_BUILDER_DIR/motd $TERMUX_PREFIX/etc/motd
 	ln -sfr $TERMUX_PREFIX/bin/termux-open $TERMUX_PREFIX/bin/xdg-open
 }
+
