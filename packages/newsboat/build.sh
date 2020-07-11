@@ -25,3 +25,4 @@ termux_step_pre_configure() {
 
 	export PKG_CONFIG_ALLOW_CROSS=1
 }
+
