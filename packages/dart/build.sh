@@ -1,6 +1,6 @@
 TERMUX_PKG_HOMEPAGE=https://www.dartlang.org/
 TERMUX_PKG_DESCRIPTION="Dart is a general-purpose programming language"
-TERMUX_PKG_LICENSE="BSD"
+TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_LICENSE_FILE="sdk/LICENSE"
 TERMUX_PKG_VERSION=2.7.2
 TERMUX_PKG_BUILD_IN_SRC=true
@@ -78,4 +78,3 @@ termux_step_post_make_install() {
 	install -Dm600 $TERMUX_PKG_BUILDER_DIR/dart-pub-bin.sh \
 		$TERMUX_PREFIX/etc/profile.d/dart-pub-bin.sh
 }
-
