@@ -49,4 +49,3 @@ termux_step_make_install() {
 	echo "dalvikvm -cp $TERMUX_PREFIX/share/dex/apksigner.jar com.android.apksigner.ApkSignerTool \$@" >> $TERMUX_PREFIX/bin/apksigner
 	chmod +x $TERMUX_PREFIX/bin/apksigner
 }
-
