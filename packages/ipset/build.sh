@@ -12,3 +12,5 @@ TERMUX_PKG_BUILD_DEPENDS="libtool"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --with-kmod=no
 "
+
+
