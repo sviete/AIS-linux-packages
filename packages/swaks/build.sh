@@ -15,3 +15,4 @@ termux_step_make_install() {
 	pod2man ref.pod swaks.1
 	install -Dm600 swaks.1 "$TERMUX_PREFIX"/share/man/man1/swaks.1
 }
+

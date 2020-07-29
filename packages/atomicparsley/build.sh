@@ -14,3 +14,4 @@ termux_step_pre_configure() {
 	# Avoid the configure script from using g++ for linking:
 	export OBJCXX=$CXX
 }
+

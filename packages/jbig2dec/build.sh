@@ -11,3 +11,5 @@ TERMUX_PKG_REPLACES="jbig2dec-dev"
 termux_step_pre_configure() {
 	./autogen.sh
 }
+
+

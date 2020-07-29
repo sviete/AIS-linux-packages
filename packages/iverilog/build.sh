@@ -13,3 +13,5 @@ termux_step_pre_configure() {
 	aclocal
 	autoconf
 }
+
+

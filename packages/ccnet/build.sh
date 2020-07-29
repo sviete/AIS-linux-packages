@@ -19,3 +19,4 @@ termux_step_post_configure() {
 	cd $TERMUX_PKG_SRCDIR/lib
 	python $TERMUX_PREFIX/bin/searpc-codegen.py ../lib/rpc_table.py
 }
+

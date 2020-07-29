@@ -21,3 +21,4 @@ termux_step_make_install() {
 		prefix="$TERMUX_PREFIX" \
 		MANDIR="$TERMUX_PREFIX/share/man/man1"
 }
+

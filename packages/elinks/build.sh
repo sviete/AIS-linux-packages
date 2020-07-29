@@ -21,3 +21,4 @@ TERMUX_MAKE_PROCESSES=1
 termux_step_pre_configure() {
     ./autogen.sh
 }
+

@@ -1,8 +1,7 @@
 TERMUX_PKG_HOMEPAGE=https://termux.com/
 TERMUX_PKG_DESCRIPTION="Basic system tools for Termux"
 TERMUX_PKG_LICENSE="GPL-3.0"
-TERMUX_PKG_VERSION=0.83
-TERMUX_PKG_REVISION=1
+TERMUX_PKG_VERSION=0.85
 TERMUX_PKG_SKIP_SRC_EXTRACT=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
 TERMUX_PKG_ESSENTIAL=true
@@ -19,7 +18,6 @@ TERMUX_PKG_DEPENDS="bzip2, coreutils, curl, dash, diffutils, findutils, gawk, gr
 TERMUX_PKG_RECOMMENDS="ed, dos2unix, inetutils, net-tools, patch, unzip"
 
 termux_step_make_install() {
-	mkdir -p $TERMUX_PREFIX/bin/applets
 	# Remove LD_LIBRARY_PATH from environment to avoid conflicting
 	# with system libraries that system binaries may link against:
 	for tool in df getprop logcat mount ping ping6 ip pm settings top umount cmd; do
@@ -46,3 +44,4 @@ termux_step_make_install() {
 	install -Dm600 $TERMUX_PKG_BUILDER_DIR/motd $TERMUX_PREFIX/etc/motd
 	ln -sfr $TERMUX_PREFIX/bin/termux-open $TERMUX_PREFIX/bin/xdg-open
 }
+

@@ -25,3 +25,4 @@ termux_step_make() {
 termux_step_make_install() {
 	rake install
 }
+

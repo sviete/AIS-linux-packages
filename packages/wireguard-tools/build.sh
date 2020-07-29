@@ -12,3 +12,4 @@ termux_step_post_make_install() {
 	$CC $CFLAGS $LDFLAGS -DWG_CONFIG_SEARCH_PATHS="\"$TERMUX_ANDROID_HOME/.wireguard $TERMUX_PREFIX/etc/wireguard /data/misc/wireguard /data/data/com.wireguard.android/files\"" -o wg-quick android.c
 	install -Dm0700 wg-quick $TERMUX_PREFIX/bin/wg-quick
 }
+

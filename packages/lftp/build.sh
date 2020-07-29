@@ -26,3 +26,5 @@ termux_step_pre_configure() {
 
 	CXXFLAGS+=" -DNO_INLINE_GETPASS=1"
 }
+
+

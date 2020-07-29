@@ -20,3 +20,5 @@ termux_step_pre_configure() {
 	# meson setup in termux_step_configure.
 	rm configure
 }
+
+

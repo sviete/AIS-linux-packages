@@ -2,6 +2,7 @@ TERMUX_PKG_HOMEPAGE=https://nodejs.org/
 TERMUX_PKG_DESCRIPTION="Platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_VERSION=12.18.1
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://nodejs.org/dist/v${TERMUX_PKG_VERSION}/node-v${TERMUX_PKG_VERSION}.tar.xz
 TERMUX_PKG_SHA256=ca59051c7a307841c15b4fe141c74354cb191964106e1bdfe405551a3d6a5c7a
 # Note that we do not use a shared libuv to avoid an issue with the Android
@@ -16,7 +17,7 @@ TERMUX_PKG_RM_AFTER_INSTALL="lib/node_modules/npm/html lib/node_modules/npm/make
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_HOSTBUILD=true
 
-termux_step_post_extract_package() {
+termux_step_post_get_source() {
 	# Prevent caching of host build:
 	rm -Rf $TERMUX_PKG_HOSTBUILD_DIR
 }
@@ -83,3 +84,4 @@ termux_step_configure() {
 		$TERMUX_PKG_SRCDIR/out/tools/v8_gypfiles/v8_libbase.host.mk \
 		$TERMUX_PKG_SRCDIR/out/tools/v8_gypfiles/gen-regexp-special-case.host.mk
 }
+

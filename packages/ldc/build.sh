@@ -8,6 +8,7 @@ TERMUX_PKG_VERSION+=(1.22.0)
 TERMUX_PKG_VERSION+=(10.0.0)  # LLVM version
 TERMUX_PKG_VERSION+=(2.092.1) # TOOLS version
 TERMUX_PKG_VERSION+=(1.21.0)  # DUB version
+TERMUX_PKG_REVISION=3
 
 TERMUX_PKG_SRCURL=(https://github.com/ldc-developers/ldc/releases/download/v${TERMUX_PKG_VERSION}/ldc-${TERMUX_PKG_VERSION}-src.tar.gz
 		   https://github.com/ldc-developers/llvm-project/releases/download/ldc-v${TERMUX_PKG_VERSION[1]}/llvm-${TERMUX_PKG_VERSION[1]}.src.tar.xz
@@ -39,7 +40,7 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DCMAKE_INSTALL_PREFIX=$LLVM_INSTALL_DIR
 "
 
-termux_step_post_extract_package() {
+termux_step_post_get_source() {
 	# Certain packages are not safe to build on device because their
 	# build.sh script deletes specific files in $TERMUX_PREFIX.
 	if $TERMUX_ON_DEVICE_BUILD; then
@@ -73,7 +74,7 @@ termux_step_host_build() {
 
 # Just before CMake invokation for LLVM:
 termux_step_pre_configure() {
-	LDFLAGS+=" -lc++_shared"
+	LDFLAGS=" -L$TERMUX_PKG_BUILDDIR/llvm/lib $LDFLAGS -lc++_shared"
 
 	# Don't build compiler-rt sanitizers:
 	# * 64-bit targets: libclang_rt.hwasan-*-android.so fails to link
@@ -200,3 +201,5 @@ termux_step_make_install() {
 	mkdir $TERMUX_PREFIX/share/ldc
 	cp -r $TERMUX_PKG_SRCDIR/{LICENSE,README,packaging/bash_completion.d} $TERMUX_PREFIX/share/ldc
 }
+
+

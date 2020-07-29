@@ -21,3 +21,5 @@ termux_step_make_install() {
 	make -C libinotifytools install
 	make install
 }
+
+

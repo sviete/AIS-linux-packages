@@ -26,3 +26,5 @@ termux_step_pre_configure() {
 		TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" --disable-asm"
 	fi
 }
+
+

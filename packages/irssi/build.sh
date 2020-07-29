@@ -2,7 +2,7 @@ TERMUX_PKG_HOMEPAGE=https://irssi.org/
 TERMUX_PKG_DESCRIPTION="Terminal based IRC client"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_VERSION=1.2.2
-TERMUX_PKG_REVISION=3
+TERMUX_PKG_REVISION=4
 TERMUX_PKG_SRCURL=https://github.com/irssi/irssi/releases/download/$TERMUX_PKG_VERSION/irssi-$TERMUX_PKG_VERSION.tar.xz
 TERMUX_PKG_SHA256=6727060c918568ba2ff4295ad736128dba0b995d7b20491bca11f593bd857578
 TERMUX_PKG_DEPENDS="glib, libandroid-glob, libiconv, libotr, ncurses, openssl, perl, utf8proc"
@@ -45,3 +45,6 @@ termux_step_post_massage() {
 		$TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX/lib/perl5/site_perl/$perl_version/${TERMUX_ARCH}-android/
 	rm -rf $TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX/lib/perl5/site_perl/$perl_version/${TERMUX_ARCH}-android/x86_64-linux-gnu-thread-multi
 }
+
+
+

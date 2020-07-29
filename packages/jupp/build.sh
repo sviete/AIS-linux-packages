@@ -14,7 +14,7 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --enable-sysconfjoesubdir=/jupp
 "
 
-termux_step_post_extract_package() {
+termux_step_post_get_source() {
 	chmod +x $TERMUX_PKG_SRCDIR/configure
 }
 
@@ -38,3 +38,5 @@ termux_step_create_debscripts() {
 	fi
 	EOF
 }
+
+

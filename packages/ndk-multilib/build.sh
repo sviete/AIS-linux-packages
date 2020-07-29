@@ -2,7 +2,6 @@ TERMUX_PKG_HOMEPAGE=https://developer.android.com/tools/sdk/ndk/index.html
 TERMUX_PKG_DESCRIPTION="Multilib binaries for cross-compilation"
 TERMUX_PKG_LICENSE="NCSA"
 TERMUX_PKG_VERSION=$TERMUX_NDK_VERSION
-TERMUX_PKG_REVISION=4
 TERMUX_PKG_SKIP_SRC_EXTRACT=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
 TERMUX_PKG_NO_STATICSPLIT=true
@@ -42,3 +41,4 @@ termux_step_extract_into_massagedir() {
 	prepare_libs "x86" "i686-linux-android"
 	prepare_libs "x86_64" "x86_64-linux-android"
 }
+

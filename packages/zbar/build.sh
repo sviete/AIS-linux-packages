@@ -16,3 +16,4 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-pthread
 termux_step_pre_configure() {
 	autoconf
 }
+

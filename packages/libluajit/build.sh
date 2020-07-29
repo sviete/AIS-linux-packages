@@ -2,7 +2,7 @@ TERMUX_PKG_HOMEPAGE=https://luajit.org/
 TERMUX_PKG_DESCRIPTION="Just-In-Time Compiler for Lua"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_VERSION=2.1.0~beta3
-TERMUX_PKG_REVISION=6
+TERMUX_PKG_REVISION=7
 TERMUX_PKG_SRCURL=https://github.com/LuaJIT/LuaJIT/archive/v2.1.0-beta3.tar.gz
 TERMUX_PKG_SHA256=409f7fe570d3c16558e594421c47bdd130238323c9d6fd6c83dedd2aaeb082a8
 TERMUX_PKG_BREAKS="libluajit-dev"
@@ -48,3 +48,5 @@ termux_step_make_install () {
 	mkdir -p $TERMUX_LUAJIT_JIT_FOLDER
 	cp $TERMUX_PKG_SRCDIR/src/jit/*lua $TERMUX_LUAJIT_JIT_FOLDER
 }
+
+

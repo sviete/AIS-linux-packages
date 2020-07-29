@@ -6,3 +6,4 @@ TERMUX_PKG_SRCURL=https://github.com/scop/bash-completion/releases/download/${TE
 TERMUX_PKG_SHA256=123c17998e34b937ce57bb1b111cd817bc369309e9a8047c0bcf06ead4a3ec92
 TERMUX_PKG_DEPENDS="bash"
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
+

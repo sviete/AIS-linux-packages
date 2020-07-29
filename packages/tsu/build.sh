@@ -2,7 +2,7 @@ TERMUX_PKG_HOMEPAGE=https://github.com/cswl/tsu
 TERMUX_PKG_DESCRIPTION="A su wrapper for Termux"
 TERMUX_PKG_LICENSE="ISC"
 TERMUX_PKG_VERSION=8.5.1
-TERMUX_PKG_REVISION=1
+TERMUX_PKG_REVISION=2
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_SRCURL=(https://github.com/cswl/tsu/archive/v$TERMUX_PKG_VERSION.tar.gz)
@@ -20,3 +20,4 @@ termux_step_make_install() {
 	# sudo - is an included addon in tsu now
 	ln -sf "$TERMUX_PREFIX/bin/tsu" "$TERMUX_PREFIX/bin/sudo"
 }
+

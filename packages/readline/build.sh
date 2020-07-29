@@ -7,6 +7,7 @@ TERMUX_PKG_REPLACES="readline-dev"
 _MAIN_VERSION=8.0
 _PATCH_VERSION=4
 TERMUX_PKG_VERSION=$_MAIN_VERSION.$_PATCH_VERSION
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://mirrors.kernel.org/gnu/readline/readline-${_MAIN_VERSION}.tar.gz
 TERMUX_PKG_SHA256=e339f51971478d369f8a053a330a190781acb9864cf4c541060f12078948e461
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--with-curses --enable-multibyte bash_cv_wcwidth_broken=no"
@@ -38,3 +39,4 @@ termux_step_post_make_install() {
 	mkdir -p $TERMUX_PREFIX/etc
 	cp $TERMUX_PKG_BUILDER_DIR/inputrc $TERMUX_PREFIX/etc/
 }
+
