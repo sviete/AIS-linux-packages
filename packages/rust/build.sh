@@ -54,7 +54,7 @@ termux_step_configure() {
 		cp $TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib/x86_64-linux-android/$TERMUX_PKG_API_LEVEL/libc.so $TERMUX_PREFIX/lib/
 		cp $TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib/x86_64-linux-android/$TERMUX_PKG_API_LEVEL/libdl.so $TERMUX_PREFIX/lib/
 		mv $TERMUX_PREFIX/lib/libtinfo.so.6 $TERMUX_PREFIX/lib/libtinfo.so.6.tmp
-		export LD_LIBRARY_PATH=/lib/x86_64-linux-gnu/:/data/data/com.termux/files/usr/lib:$TERMUX_PKG_BUILDDIR/build/x86_64-unknown-linux-gnu/stage2/lib
+		export LD_LIBRARY_PATH=/lib/x86_64-linux-gnu/:/data/data/pl.sviete.dom/files/usr/lib:$TERMUX_PKG_BUILDDIR/build/x86_64-unknown-linux-gnu/stage2/lib
 	fi
 }
 
