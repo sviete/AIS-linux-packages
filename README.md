@@ -11,5 +11,6 @@ This project contains scripts and patches to build packages for the Android term
 
 This project is a fork off the Termux master branch - [master] - the packages are build for for Android 7.0 or higher.
 
-
 [master]: <https://github.com/termux/termux-packages/tree/master>
+
+Please submit the bug fixes, version updates and new packages - all contributions which will help to improve AI-Speaker are welcome.
