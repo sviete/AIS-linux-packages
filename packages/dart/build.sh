@@ -63,6 +63,7 @@ termux_step_make_install() {
 	done
 }
 
+
 termux_step_post_make_install() {
 	install -Dm600 $TERMUX_PKG_BUILDER_DIR/dart-pub-bin.sh \
 		$TERMUX_PREFIX/etc/profile.d/dart-pub-bin.sh
