@@ -13,4 +13,4 @@ This project is a fork off the Termux master branch - [master] - the packages ar
 
 [master]: <https://github.com/termux/termux-packages/tree/master>
 
-Please submit the bug fixes, version updates and new packages - all contributions which will help to improve AI-Speaker are welcome.
+Please submit the bug fixes, version updates and new packages - all contributions which will help to improve termux are welcome.
