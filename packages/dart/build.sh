@@ -8,7 +8,7 @@ TERMUX_PKG_SKIP_SRC_EXTRACT=true
 
 # Dart uses tar and gzip to extract downloaded packages.
 # Busybox-based versions of such utilities cause issues so
-# complete ones should be used.
+# complete ones should be used
 TERMUX_PKG_DEPENDS="gzip, tar"
 
 termux_step_get_source() {
