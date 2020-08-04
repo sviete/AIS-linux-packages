@@ -8,6 +8,7 @@ TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_EXTRA_MAKE_ARGS="DESTDIR=${TERMUX_PREFIX}/../"
 TERMUX_PKG_MAKE_INSTALL_TARGET="DESTDIR=${TERMUX_PREFIX}/../ install"
 
+
 termux_step_pre_configure() {
 	cp -f $TERMUX_PKG_BUILDER_DIR/license-bsd-2-clause.txt $TERMUX_PKG_SRCDIR/
 }
