@@ -38,7 +38,9 @@ jobs:
           .termux-builder/_cache-arm
           .termux-builder/_cache-i686
           .termux-builder/_cache-x86_64
-        key: debfiles-${{ matrix.target_arch }}
+        key: debfiles-${{ matrix.target_arch }}-${{ hashFiles('**/build.sh') }}-
+        restore-keys: |
+          debfiles-${{ matrix.target_arch }}-
     - name: Build
       run: |
         BASE_COMMIT=$(jq --raw-output .pull_request.base.sha "$GITHUB_EVENT_PATH")
