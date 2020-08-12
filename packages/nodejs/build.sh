@@ -4,6 +4,7 @@ TERMUX_PKG_LICENSE="MIT"
 # Note: package build may fail on Github Actions CI due to out-of-memory
 # condition. It should be built locally instead.
 TERMUX_PKG_VERSION=14.8.0
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://nodejs.org/dist/v${TERMUX_PKG_VERSION}/node-v${TERMUX_PKG_VERSION}.tar.xz
 TERMUX_PKG_SHA256=9b9e68e4e641ab099b3fe2d49308c65820eebe60ed733b5f8b07c67adef9f06d
 # Note that we do not use a shared libuv to avoid an issue with the Android
@@ -19,7 +20,7 @@ TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_HOSTBUILD=true
 # Build fails on x86_64 with:
 # g++ -rdynamic -m64 -pthread -m64 -fPIC  -o /home/builder/.termux-build/nodejs/src/out/Release/mksnapshot ...
-# /usr/bin/ld: /home/builder/.termux-build/nodejs/src/out/Release/obj.host/v8_base_without_compiler/deps/v8/src/api/api.o: 
+# /usr/bin/ld: /home/builder/.termux-build/nodejs/src/out/Release/obj.host/v8_base_without_compiler/deps/v8/src/api/api.o:
 # in function `v8::TryHandleWebAssemblyTrapPosix(int, siginfo_t*, void*)':
 # api.cc:(.text._ZN2v829TryHandleWebAssemblyTrapPosixEiP9siginfo_tPv+0x5):
 # undefined reference to `v8::internal::trap_handler::TryHandleSignal(int, siginfo_t*, void*)'
@@ -96,4 +97,3 @@ termux_step_configure() {
 		$TERMUX_PKG_SRCDIR/out/tools/v8_gypfiles/v8_libbase.host.mk \
 		$TERMUX_PKG_SRCDIR/out/tools/v8_gypfiles/gen-regexp-special-case.host.mk
 }
-
