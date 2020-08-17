@@ -1,8 +1,7 @@
-diff --git a/cmd/secretpass.go b/cmd/secretpass.go
-index ec3c091..f762b5d 100644
---- a/cmd/secretpass.go
-+++ b/cmd/secretpass.go
-@@ -3,6 +3,7 @@ package cmd
+diff -u -r ../chezmoi-1.8.4/cmd/secretpass.go ./cmd/secretpass.go
+--- ../chezmoi-1.8.4/cmd/secretpass.go	2020-08-12 13:38:36.000000000 +0200
++++ ./cmd/secretpass.go	2020-08-16 11:55:53.549406216 +0200
+@@ -3,6 +3,7 @@
  import (
  	"bytes"
  	"fmt"
@@ -10,7 +9,7 @@ index ec3c091..f762b5d 100644
  	"os/exec"
  
  	"github.com/spf13/cobra"
-@@ -18,8 +19,7 @@ var passCmd = &cobra.Command{
+@@ -18,8 +19,7 @@
  }
  
  type passCmdConfig struct {
@@ -20,12 +19,12 @@ index ec3c091..f762b5d 100644
  }
  
  var passCache = make(map[string]string)
-@@ -40,19 +40,10 @@ func (c *Config) passFunc(id string) string {
+@@ -40,19 +40,10 @@
  		return s
  	}
  	name := c.Pass.Command
 -	if !c.Pass.unlocked {
--		args := []string{"grep", "^$"}
+-		args := []string{"grep", "$^"}
 -		cmd := exec.Command(name, args...)
 -		cmd.Stdin = c.Stdin
 -		cmd.Stdout = c.Stdout
@@ -42,25 +41,25 @@ index ec3c091..f762b5d 100644
  	output, err := c.mutator.IdempotentCmdOutput(cmd)
  	if err != nil {
  		panic(fmt.Errorf("%s %s: %w", name, chezmoi.ShellQuoteArgs(args), err))
-diff --git a/testdata/scripts/secretpass.txt b/testdata/scripts/secretpass.txt
-index c606c7f..f9a79c7 100644
---- a/testdata/scripts/secretpass.txt
-+++ b/testdata/scripts/secretpass.txt
-@@ -8,8 +8,6 @@ cmp $HOME/.netrc golden/.netrc
+diff -u -r ../chezmoi-1.8.4/testdata/scripts/secretpass.txt ./testdata/scripts/secretpass.txt
+--- ../chezmoi-1.8.4/testdata/scripts/secretpass.txt	2020-08-12 13:38:36.000000000 +0200
++++ ./testdata/scripts/secretpass.txt	2020-08-16 11:58:00.293406125 +0200
+@@ -8,8 +8,6 @@
  #!/bin/sh
  
  case "$*" in
--"grep ^$")
+-"grep $^")
 -    ;;
  "show misc/example.com")
      echo "examplepassword"
      ;;
-@@ -19,11 +17,7 @@ case "$*" in
+@@ -19,12 +17,7 @@
  esac
  -- bin/pass.cmd --
  @echo off
--REM Windows drops the leading ^ from the ^$ argument that chezmoi passes to "pass grep" so match on $ only.
--REM For background information, read http://daviddeley.com/autohotkey/parameters/parameters.htm#WIN.
+-REM Matching "grep $^" seems more or less impossible on windows as it
+-REM is an escape character in the cmd.exe shell. See
+-REM https://github.com/twpayne/chezmoi/pull/839#issuecomment-670800462
 -IF "%*" == "grep $" (
 -    exit /b 0
 -) ELSE IF "%*" == "show misc/example.com" (
