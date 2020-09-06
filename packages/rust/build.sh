@@ -90,6 +90,7 @@ termux_step_make_install() {
 	rm $TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib/$TERMUX_HOST_PLATFORM/$TERMUX_PKG_API_LEVEL/libLLVM-10.0.1.so
 
 }
+
 termux_step_post_massage() {
 	if [ $TERMUX_ARCH = "x86_64" ]; then
 		rm lib/libtinfo.so.6
