@@ -2,10 +2,11 @@ TERMUX_PKG_HOMEPAGE=https://www.rust-lang.org/
 TERMUX_PKG_DESCRIPTION="Systems programming language focused on safety, speed and concurrency."
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="Kevin Cotugno @kcotugno"
-TERMUX_PKG_VERSION=1.45.2
+TERMUX_PKG_VERSION=1.46.0
 TERMUX_PKG_SRCURL=https://static.rust-lang.org/dist/rustc-$TERMUX_PKG_VERSION-src.tar.xz
-TERMUX_PKG_SHA256=f8412adac2f5d974b2f06c5bd4be7361084d18a678d098bf05de5ccfa57b74a9
+TERMUX_PKG_SHA256=865dae1290a205f16ded8818c6a0254cc32862985fc250a602a70285b7d92b82
 TERMUX_PKG_DEPENDS="libc++, clang, openssl, lld, zlib, libllvm"
+TERMUX_PKG_REVISION=2
 
 termux_step_configure() {
 	termux_setup_cmake
@@ -18,7 +19,7 @@ termux_step_configure() {
 	# like 30 to 40 + minutes ... so lets get it right
 
 	# upstream only tests build ver one version behind $TERMUX_PKG_VERSION
-	local BOOTSTRAP_VERSION=1.44.1
+	local BOOTSTRAP_VERSION=1.45.2
 	rustup install $BOOTSTRAP_VERSION
 	rustup default $BOOTSTRAP_VERSION-x86_64-unknown-linux-gnu
 	export PATH=$HOME/.rustup/toolchains/$BOOTSTRAP_VERSION-x86_64-unknown-linux-gnu/bin:$PATH
@@ -34,7 +35,6 @@ termux_step_configure() {
 		> config.toml
 
 	local env_host=$(printf $CARGO_TARGET_NAME | tr a-z A-Z | sed s/-/_/g)
-	export LD_LIBRARY_PATH=$TERMUX_PKG_BUILDDIR/build/x86_64-unknown-linux-gnu/stage2/lib
 	export ${env_host}_OPENSSL_DIR=$TERMUX_PREFIX
 	export X86_64_UNKNOWN_LINUX_GNU_OPENSSL_LIB_DIR=/usr/lib/x86_64-linux-gnu
 	export X86_64_UNKNOWN_LINUX_GNU_OPENSSL_INCLUDE_DIR=/usr/include
@@ -50,10 +50,7 @@ termux_step_configure() {
 	# know where those are. Putting them temporarly in $PREFIX/lib prevents that failure
 
 	if [ $TERMUX_ARCH = "x86_64" ]; then
-		cp $TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib/x86_64-linux-android/$TERMUX_PKG_API_LEVEL/libc.so $TERMUX_PREFIX/lib/
-		cp $TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib/x86_64-linux-android/$TERMUX_PKG_API_LEVEL/libdl.so $TERMUX_PREFIX/lib/
 		mv $TERMUX_PREFIX/lib/libtinfo.so.6 $TERMUX_PREFIX/lib/libtinfo.so.6.tmp
-		export LD_LIBRARY_PATH=/lib/x86_64-linux-gnu/:/data/data/pl.sviete.dom/files/usr/lib:$TERMUX_PKG_BUILDDIR/build/x86_64-unknown-linux-gnu/stage2/lib
 	fi
 }
 
@@ -63,10 +60,13 @@ termux_step_make() {
 termux_step_make_install() {
 	 if [ $TERMUX_ARCH = "x86_64" ]; then
 		 mv $TERMUX_PREFIX ${TERMUX_PREFIX}a
-		 $TERMUX_PKG_SRCDIR/x.py build cargo || $TERMUX_PKG_SRCDIR/x.py build rls || $TERMUX_PKG_SRCDIR/x.py build miri || $TERMUX_PKG_SRCDIR/x.py build cargo-miri || $TERMUX_PKG_SRCDIR/x.py build rustfmt || true
+		 $TERMUX_PKG_SRCDIR/x.py build --stage 1 cargo || $TERMUX_PKG_SRCDIR/x.py build --stage 1 rls || $TERMUX_PKG_SRCDIR/x.py --stage 1 build miri || $TERMUX_PKG_SRCDIR/x.py build --stage 1 cargo-miri || $TERMUX_PKG_SRCDIR/x.py build --stage 1 rustfmt || $TERMUX_PKG_SRCDIR/x.py --stage 1 build rustdoc || $TERMUX_PKG_SRCDIR/x.py --stage 1 build error_index_generator || true
 		 mv ${TERMUX_PREFIX}a ${TERMUX_PREFIX}
-	fi
-	$TERMUX_PKG_SRCDIR/x.py install --stage 2 --host $CARGO_TARGET_NAME --target $CARGO_TARGET_NAME --target wasm32-unknown-unknown || bash
+	 else
+		 $TERMUX_PKG_SRCDIR/x.py build cargo || $TERMUX_PKG_SRCDIR/x.py build rls || $TERMUX_PKG_SRCDIR/x.py build miri || $TERMUX_PKG_SRCDIR/x.py build cargo-miri || $TERMUX_PKG_SRCDIR/x.py build rustfmt || true
+	 fi
+#	$TERMUX_PKG_SRCDIR/x.py dist --stage 2 --host $CARGO_TARGET_NAME --target $CARGO_TARGET_NAME --target wasm32-unknown-unknown || bash
+	$TERMUX_PKG_SRCDIR/x.py install --stage 1 --host $CARGO_TARGET_NAME --target $CARGO_TARGET_NAME --target wasm32-unknown-unknown || bash
 	$TERMUX_PKG_SRCDIR/x.py dist rustc-dev --host $CARGO_TARGET_NAME --target $CARGO_TARGET_NAME --target wasm32-unknown-unknown || bash
 	tar xvf build/dist/rustc-dev-$TERMUX_PKG_VERSION-$CARGO_TARGET_NAME.tar.gz
 	./rustc-dev-$TERMUX_PKG_VERSION-$CARGO_TARGET_NAME/install.sh --prefix=$TERMUX_PREFIX
