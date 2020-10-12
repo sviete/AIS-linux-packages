@@ -19,7 +19,7 @@ etc/apt/trusted.gpg
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DPERL_EXECUTABLE=$(command -v perl)
 -DCMAKE_INSTALL_FULL_LOCALSTATEDIR=$TERMUX_PREFIX
--DCACHE_DIR=/data/data/pl.sviete.dpm/cache/apt
+-DCACHE_DIR=/data/data/pl.sviete.dom/cache/apt
 -DCOMMON_ARCH=$TERMUX_ARCH
 -DDPKG_DATADIR=$TERMUX_PREFIX/share/dpkg
 -DUSE_NLS=OFF
@@ -60,7 +60,7 @@ termux_step_pre_configure() {
 }
 
 termux_step_post_make_install() {
-	printf "# The main AI-Speaker repository:\ndeb [trusted=yes] https://dl.bintray.com/sviete/ais stable main\n" > $TERMUX_PREFIX/etc/apt/sources.list
+	printf "# The main AI-Speaker repository:\ndeb [trusted=yes] https://powiedz.co/apt dom stable\n" > $TERMUX_PREFIX/etc/apt/sources.list
 	cp $TERMUX_PKG_BUILDER_DIR/trusted.gpg $TERMUX_PREFIX/etc/apt/
 
 	# apt-transport-tor
