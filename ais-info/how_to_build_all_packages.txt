@@ -8,6 +8,7 @@ science-repo
 unstable-repo
 x11-repo
 - remove these packages (there are to big - not needed):
+geth
 texlive
 rust
 erlang
@@ -35,3 +36,18 @@ echo "<package-name>" >> .termux-build/_buildall-all/buildstatus.txt
 
 or remove it from buildorder:
 grep -vwE "packages/toxic" buildorder.txt > new_buildorder.txt
+
+# 20201015
+echo geth >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo texlive /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo bat >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo starship >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo ta-lib >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo twego >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo exa >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo dart >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo libtheora >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo liblua >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo nodejs >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo newsboat >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo bat >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
