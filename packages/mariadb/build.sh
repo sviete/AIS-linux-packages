@@ -3,8 +3,8 @@ TERMUX_PKG_DESCRIPTION="A drop-in replacement for mysql server"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_VERSION=2:10.5.5
 TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-${TERMUX_PKG_VERSION:2}/source/mariadb-${TERMUX_PKG_VERSION:2}.tar.gz
-TERMUX_PKG_SHA256=cf6b2c061754c07bbb1d20b29ae111bf2d098297c9b8c321b810638a179088a4
+TERMUX_PKG_SRCURL=https://downloads.mariadb.org/interstitial/mariadb-10.5.6/source/mariadb-10.5.6.tar.gz/from/https%3A//ftp.icm.edu.pl/pub/unix/database/mariadb/
+TERMUX_PKG_SHA256=ff05dd69e9f6992caf1053242db704f04eda6f9accbcc98b74edfaf6013c45c4
 TERMUX_PKG_DEPENDS="libc++, libiconv, liblzma, ncurses, libedit, openssl, pcre2, libcrypt, libandroid-support, libandroid-glob, zlib, liblz4"
 TERMUX_PKG_BREAKS="mariadb-dev"
 TERMUX_PKG_REPLACES="mariadb-dev"
@@ -110,4 +110,3 @@ termux_step_create_debscripts() {
 	echo "exit 0" >> postinst
 	chmod 0755 postinst
 }
-
