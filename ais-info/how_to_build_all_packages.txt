@@ -10,15 +10,10 @@ x11-repo
 - remove these packages (there are to big - not needed):
 geth
 texlive
-rust
 erlang
 dart
 starship
 bat
-- remove not working packages
-recutils
-restic
-fcgiwrap
 
 HOW TO:
 1. go to container:
@@ -26,7 +21,7 @@ sudo docker exec -it termux-package-builder /bin/bash
 
 2. rebuild all packages force
 in conteiner
-./build-all.sh -f -a all
+./build-all.sh -a all -i
 
 
 
@@ -37,9 +32,9 @@ echo "<package-name>" >> .termux-build/_buildall-all/buildstatus.txt
 or remove it from buildorder:
 grep -vwE "packages/toxic" buildorder.txt > new_buildorder.txt
 
-# 20201015
+# 20201020
 echo geth >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo texlive /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo texlive >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo bat >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo starship >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo ta-lib >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
@@ -51,3 +46,8 @@ echo liblua >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo nodejs >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo newsboat >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo bat >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo erlang >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo ovmf >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo tweego >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo rcs >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo ruby >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
