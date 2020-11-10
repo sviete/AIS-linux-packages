@@ -32,7 +32,7 @@ echo "<package-name>" >> .termux-build/_buildall-all/buildstatus.txt
 or remove it from buildorder:
 grep -vwE "packages/toxic" buildorder.txt > new_buildorder.txt
 
-# 20201020
+# 20201026
 echo geth >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo texlive >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo bat >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
@@ -42,12 +42,17 @@ echo twego >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo exa >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo dart >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo libtheora >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo liblua >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo nodejs >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo newsboat >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo bat >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo erlang >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo ovmf >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo tweego >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo rcs >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo ruby >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo bat >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo liblua >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo nodejs >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo libgrpc >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo newsboat >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+
+echo openssh >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo mosh >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo rsync  >> /home/builder/.termux-build/_buildall-all/buildstatus.txt

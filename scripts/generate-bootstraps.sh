@@ -5,8 +5,13 @@
 
 set -e
 
+. $(dirname "$(realpath "$0")")/properties.sh
 BOOTSTRAP_TMPDIR=$(mktemp -d "${TMPDIR:-/tmp}/bootstrap-tmp.XXXXXXXX")
 trap 'rm -rf $BOOTSTRAP_TMPDIR' EXIT
+
+# By default, bootstrap archives are compatible with Android >=7.0
+# and <10.
+BOOTSTRAP_ANDROID10_COMPATIBLE=false
 
 # By default, bootstrap archives will be built for all architectures
 # supported by Termux application.
@@ -15,9 +20,6 @@ TERMUX_ARCHITECTURES=("aarch64" "arm" "i686" "x86_64")
 
 # Can be changed by using '--repository' option.
 REPO_BASE_URL="https://dl.bintray.com/sviete/ais"
-
-# Can be changed by using '--prefix' option.
-TERMUX_PREFIX="/data/data/pl.sviete.dom/files/usr"
 
 # A list of non-essential packages. By default it is empty, but can
 # be filled with option '--add'.
@@ -134,26 +136,30 @@ pull_package() {
 
 			# Extract files.
 			tar xf "$data_archive" -C "$BOOTSTRAP_ROOTFS"
-			tar tf "$data_archive" | sed -e 's@^\./@/@' -e 's@^/$@/.@' > "${BOOTSTRAP_ROOTFS}/${TERMUX_PREFIX}/var/lib/dpkg/info/${package_name}.list"
 
-			# Generate checksums (md5).
-			tar xf "$data_archive"
-			find data -type f -print0 | xargs -0 -r md5sum | sed 's@^\.$@@g' > "${BOOTSTRAP_ROOTFS}/${TERMUX_PREFIX}/var/lib/dpkg/info/${package_name}.md5sums"
+			if ! ${BOOTSTRAP_ANDROID10_COMPATIBLE}; then
+				# Register extracted files.
+				tar tf "$data_archive" | sed -e 's@^\./@/@' -e 's@^/$@/.@' > "${BOOTSTRAP_ROOTFS}/${TERMUX_PREFIX}/var/lib/dpkg/info/${package_name}.list"
 
-			# Extract metadata.
-			tar xf "$control_archive"
-			{
-				cat control
-				echo "Status: install ok installed"
-				echo
-			} >> "${BOOTSTRAP_ROOTFS}/${TERMUX_PREFIX}/var/lib/dpkg/status"
+				# Generate checksums (md5).
+				tar xf "$data_archive"
+				find data -type f -print0 | xargs -0 -r md5sum | sed 's@^\.$@@g' > "${BOOTSTRAP_ROOTFS}/${TERMUX_PREFIX}/var/lib/dpkg/info/${package_name}.md5sums"
 
-			# Additional data: conffiles & scripts
-			for file in conffiles postinst postrm preinst prerm; do
-				if [ -f "${PWD}/${file}" ]; then
-					cp "$file" "${BOOTSTRAP_ROOTFS}/${TERMUX_PREFIX}/var/lib/dpkg/info/${package_name}.${file}"
-				fi
-			done
+				# Extract metadata.
+				tar xf "$control_archive"
+				{
+					cat control
+					echo "Status: install ok installed"
+					echo
+				} >> "${BOOTSTRAP_ROOTFS}/${TERMUX_PREFIX}/var/lib/dpkg/status"
+
+				# Additional data: conffiles & scripts
+				for file in conffiles postinst postrm preinst prerm; do
+					if [ -f "${PWD}/${file}" ]; then
+						cp "$file" "${BOOTSTRAP_ROOTFS}/${TERMUX_PREFIX}/var/lib/dpkg/info/${package_name}.${file}"
+					fi
+				done
+			fi
 		)
 	fi
 }
@@ -174,7 +180,7 @@ create_bootstrap_archive() {
 		zip -r9 "${BOOTSTRAP_TMPDIR}/bootstrap-${1}.zip" ./*
 	)
 
-	mv -f "${BOOTSTRAP_TMPDIR}/bootstrap-${1}.zip" ./ais-bootstraps
+	mv -f "${BOOTSTRAP_TMPDIR}/bootstrap-${1}.zip" ./
 	echo "[*] Finished successfully (${1})."
 }
 
@@ -188,6 +194,8 @@ show_usage() {
 	echo
 	echo " -h, --help                  Show this help."
 	echo
+	echo " --android10                 Generate bootstrap archives for Android 10."
+	echo
 	echo " -a, --add PKG_LIST          Specify one or more additional packages"
 	echo "                             to include into bootstrap archive."
 	echo "                             Multiple packages should be passed as"
@@ -198,10 +206,6 @@ show_usage() {
 	echo "                             created."
 	echo "                             Multiple architectures should be passed"
 	echo "                             as comma-separated list."
-	echo
-	echo " -p, --prefix PATH           Specify rootfs prefix absolute path."
-	echo "                             Should be exactly same as in packages"
-	echo "                             in the remote repository."
 	echo
 	echo " -r, --repository URL        Specify URL for APT repository from"
 	echo "                             which packages will be downloaded."
@@ -217,6 +221,9 @@ while (($# > 0)); do
 		-h|--help)
 			show_usage
 			exit 0
+			;;
+		--android10)
+			BOOTSTRAP_ANDROID10_COMPATIBLE=true
 			;;
 		-a|--add)
 			if [ $# -gt 1 ] && [ -n "$2" ] && [[ $2 != -* ]]; then
@@ -245,16 +252,6 @@ while (($# > 0)); do
 				exit 1
 			fi
 			;;
-		-p|--prefix)
-			if [ $# -gt 1 ] && [ -n "$2" ] && [[ $2 != -* ]]; then
-				TERMUX_PREFIX="$2"
-				shift 1
-			else
-				echo "[!] Option '--prefix' requires an argument."
-				show_usage
-				exit 1
-			fi
-			;;
 		-r|--repository)
 			if [ $# -gt 1 ] && [ -n "$2" ] && [[ $2 != -* ]]; then
 				REPO_BASE_URL="$2"
@@ -279,16 +276,17 @@ for package_arch in "${TERMUX_ARCHITECTURES[@]}"; do
 	BOOTSTRAP_PKGDIR="$BOOTSTRAP_TMPDIR/packages-${package_arch}"
 
 	# Create initial directories for $TERMUX_PREFIX
-	mkdir -p "${BOOTSTRAP_ROOTFS}/${TERMUX_PREFIX}/etc/apt/apt.conf.d"
-	mkdir -p "${BOOTSTRAP_ROOTFS}/${TERMUX_PREFIX}/etc/apt/preferences.d"
+	if ! ${BOOTSTRAP_ANDROID10_COMPATIBLE}; then
+		mkdir -p "${BOOTSTRAP_ROOTFS}/${TERMUX_PREFIX}/etc/apt/apt.conf.d"
+		mkdir -p "${BOOTSTRAP_ROOTFS}/${TERMUX_PREFIX}/etc/apt/preferences.d"
+		mkdir -p "${BOOTSTRAP_ROOTFS}/${TERMUX_PREFIX}/var/lib/dpkg/info"
+		mkdir -p "${BOOTSTRAP_ROOTFS}/${TERMUX_PREFIX}/var/lib/dpkg/triggers"
+		mkdir -p "${BOOTSTRAP_ROOTFS}/${TERMUX_PREFIX}/var/lib/dpkg/updates"
+		mkdir -p "${BOOTSTRAP_ROOTFS}/${TERMUX_PREFIX}/var/log/apt"
+		touch "${BOOTSTRAP_ROOTFS}/${TERMUX_PREFIX}/var/lib/dpkg/available"
+		touch "${BOOTSTRAP_ROOTFS}/${TERMUX_PREFIX}/var/lib/dpkg/status"
+	fi
 	mkdir -p "${BOOTSTRAP_ROOTFS}/${TERMUX_PREFIX}/tmp"
-	mkdir -p "${BOOTSTRAP_ROOTFS}/${TERMUX_PREFIX}/var/cache/apt/archives/partial"
-	mkdir -p "${BOOTSTRAP_ROOTFS}/${TERMUX_PREFIX}/var/lib/dpkg/info"
-	mkdir -p "${BOOTSTRAP_ROOTFS}/${TERMUX_PREFIX}/var/lib/dpkg/triggers"
-	mkdir -p "${BOOTSTRAP_ROOTFS}/${TERMUX_PREFIX}/var/lib/dpkg/updates"
-	mkdir -p "${BOOTSTRAP_ROOTFS}/${TERMUX_PREFIX}/var/log/apt"
-	touch "${BOOTSTRAP_ROOTFS}/${TERMUX_PREFIX}/var/lib/dpkg/available"
-	touch "${BOOTSTRAP_ROOTFS}/${TERMUX_PREFIX}/var/lib/dpkg/status"
 
 	# Read package metadata.
 	unset PACKAGE_METADATA
@@ -296,44 +294,48 @@ for package_arch in "${TERMUX_ARCHITECTURES[@]}"; do
 	read_package_list "$package_arch"
 
 	# Package manager.
-	# pull_package apt
-	# pull_package game-repo
-	# pull_package science-repo
+	if ! ${BOOTSTRAP_ANDROID10_COMPATIBLE}; then
+		pull_package apt
+		pull_package game-repo
+		pull_package science-repo
+	fi
 
 	# Core utilities.
-	# pull_package bash
-	# pull_package bzip2
-	# pull_package command-not-found
+	pull_package bash
+	pull_package bzip2
+	if ! ${BOOTSTRAP_ANDROID10_COMPATIBLE}; then
+		pull_package command-not-found
+	else
+		pull_package proot
+	fi
 	pull_package coreutils
-	# pull_package curl
-	# pull_package dash
-	# pull_package diffutils
-	# pull_package findutils
-	# pull_package gawk
-	# pull_package grep
-	# pull_package gzip
-	# pull_package less
-	# pull_package procps
-	# pull_package psmisc
-	# pull_package sed
-	# pull_package tar
-	# pull_package termux-exec
-	# pull_package termux-tools
-	# pull_package util-linux
-	# pull_package xz-utils
+	pull_package curl
+	pull_package dash
+	pull_package diffutils
+	pull_package findutils
+	pull_package gawk
+	pull_package grep
+	pull_package gzip
+	pull_package less
+	pull_package procps
+	pull_package psmisc
+	pull_package sed
+	pull_package tar
+	pull_package termux-exec
+	pull_package termux-tools
+	pull_package util-linux
+	pull_package xz-utils
 
 	# Additional.
-	# pull_package ed
-	# pull_package debianutils
-	# pull_package dos2unix
-	# pull_package inetutils
-	# pull_package lsof
-	# pull_package nano
-	# pull_package net-tools
-	# pull_package patch
-	# pull_package unzip
-	pull_package p7zip
-
+	pull_package ed
+	pull_package debianutils
+	pull_package dos2unix
+	pull_package inetutils
+	pull_package lsof
+	pull_package nano
+	pull_package net-tools
+	pull_package patch
+	pull_package unzip
 
 	# Handle additional packages.
 	for add_pkg in "${ADDITIONAL_PACKAGES[@]}"; do
