@@ -168,6 +168,9 @@ PACKAGES+=" protobuf-c-compiler"
 PACKAGES+=" python3-yaml"
 PACKAGES+=" cvs"
 
+# Needed by apt.
+PACKAGES+=" triehash"
+
 # Do not require sudo if already running as root.
 if [ "$(id -u)" = "0" ]; then
 	SUDO=""
@@ -185,5 +188,6 @@ $SUDO DEBIAN_FRONTEND=noninteractive \
 $SUDO locale-gen --purge en_US.UTF-8
 echo -e 'LANG="en_US.UTF-8"\nLANGUAGE="en_US:en"\n' | $SUDO tee -a /etc/default/locale
 
-$SUDO mkdir -p /data/data/pl.sviete.dom/files/usr
+. $(dirname "$(realpath "$0")")/properties.sh
+$SUDO mkdir -p $TERMUX_PREFIX
 $SUDO chown -R $(whoami) /data

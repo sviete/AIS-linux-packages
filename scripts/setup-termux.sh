@@ -1,4 +1,4 @@
-#!/data/data/pl.sviete.dom/files/usr/bin/bash
+#!/bin/bash
 
 # Tier 1: requirements for the core build scripts in scripts/build/.
 PACKAGES="binutils-gold"	# Part of binutils which is dependency of clang.
