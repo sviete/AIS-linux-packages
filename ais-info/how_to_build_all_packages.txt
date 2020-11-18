@@ -16,7 +16,10 @@ starship
 bat
 
 HOW TO:
-1. go to container:
+1. start container or go to running container
+- start
+sudo ./scripts/run-docker.sh
+- go to container:
 sudo docker exec -it termux-package-builder /bin/bash
 
 2. rebuild all packages force
@@ -40,18 +43,25 @@ echo starship >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo ta-lib >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo twego >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo exa >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo dart >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo libtheora >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo erlang >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo ovmf >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo tweego >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo rcs >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo erlang >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo remind >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo frogcomposband >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo  moreutils >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo dart >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo ruby >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo bat >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo libtheora >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+echo newsboat >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo liblua >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+
+libllvm
+rappel
+
+echo rcs >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo nodejs >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo libgrpc >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo newsboat >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 
 echo openssh >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 echo mosh >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
