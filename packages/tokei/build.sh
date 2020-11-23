@@ -12,4 +12,3 @@ termux_step_post_make_install() {
 		"$TERMUX_PKG_SRCDIR/target/$CARGO_TARGET_NAME"/release/tokei \
 		"$TERMUX_PREFIX"/bin/tokei
 }
-
