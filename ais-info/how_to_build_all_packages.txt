@@ -1,20 +1,3 @@
-PRE STEPS:
-1. edit new_buildorder
-- move libfuse to the end of the file
-- remove other repos
-game-repo
-root-repo
-science-repo
-unstable-repo
-x11-repo
-- remove these packages (there are to big - not needed):
-geth
-texlive
-erlang
-dart
-starship
-bat
-
 HOW TO:
 1. start container or go to running container
 - start
@@ -35,34 +18,125 @@ echo "<package-name>" >> .termux-build/_buildall-all/buildstatus.txt
 or remove it from buildorder:
 grep -vwE "packages/toxic" buildorder.txt > new_buildorder.txt
 
-# 20201026
-echo geth >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo texlive >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo bat >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo starship >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo ta-lib >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo twego >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo exa >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo ovmf >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo tweego >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo erlang >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo remind >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo frogcomposband >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo  moreutils >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo dart >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo ruby >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo bat >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo libtheora >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo newsboat >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo liblua >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
 
-libllvm
-rappel
-
-echo rcs >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo nodejs >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo libgrpc >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-
-echo openssh >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo mosh >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
-echo rsync  >> /home/builder/.termux-build/_buildall-all/buildstatus.txt
+AIS python 3.9:
+--------------
+./build-package.sh -a arm -I libacl
+./build-package.sh -a arm -I postgresql
+./build-package.sh -a arm -I attr
+./build-package.sh -a arm -I autoconf
+./build-package.sh -a arm -I bash
+./build-package.sh -a arm -I binutils
+./build-package.sh -a arm -I busybox
+./build-package.sh -a arm -I c-ares
+./build-package.sh -a arm -I ca-certificates
+./build-package.sh -a arm -I command-not-found
+./build-package.sh -a arm -I libllvm
+./build-package.sh -a arm -I libbz2
+./build-package.sh -a arm -I libcurl
+./build-package.sh -a arm -I libassuan
+./build-package.sh -a arm -I libgcrypt
+./build-package.sh -a arm -I gnupg
+./build-package.sh -a arm -I htop-legacy
+./build-package.sh -a arm -I libmosquitto
+./build-package.sh -a arm -I liblzma
+./build-package.sh -a arm -I zlib
+./build-package.sh -a arm -I coreutils
+./build-package.sh -a arm -I dash
+./build-package.sh -a arm -I diffutils
+./build-package.sh -a arm -I dos2unix
+./build-package.sh -a arm -I dpkg
+./build-package.sh -a arm -I ed
+./build-package.sh -a arm -I ffmpeg
+./build-package.sh -a arm -I figlet
+./build-package.sh -a arm -I findutils
+./build-package.sh -a arm -I fontconfig
+./build-package.sh -a arm -I freetype
+./build-package.sh -a arm -I fribidi
+./build-package.sh -a arm -I gawk
+./build-package.sh -a arm -I gdbm
+./build-package.sh -a arm -I git
+./build-package.sh -a arm -I glib
+./build-package.sh -a arm -I grep
+./build-package.sh -a arm -I gzip
+./build-package.sh -a arm -I harfbuzz
+./build-package.sh -a arm -I inetutils
+./build-package.sh -a arm -I json-c
+./build-package.sh -a arm -I krb5
+./build-package.sh -a arm -I ldns
+./build-package.sh -a arm -I less
+./build-package.sh -a arm -I libandroid-glob
+./build-package.sh -a arm -I libandroid-support
+./build-package.sh -a arm -I libass
+./build-package.sh -a arm -I libc++
+./build-package.sh -a arm -I libcap
+./build-package.sh -a arm -I libcrypt
+./build-package.sh -a arm -I libdb
+./build-package.sh -a arm -I libedit
+./build-package.sh -a arm -I libffi
+./build-package.sh -a arm -I libfuse
+./build-package.sh -a arm -I libgmp
+./build-package.sh -a arm -I libgnutls
+./build-package.sh -a arm -I libgpg-error
+./build-package.sh -a arm -I libgraphite
+./build-package.sh -a arm -I libiconv
+./build-package.sh -a arm -I libicu
+./build-package.sh -a arm -I libidn2
+./build-package.sh -a arm -I libjpeg-turbo
+./build-package.sh -a arm -I liblzo
+./build-package.sh -a arm -I libmosquitto
+./build-package.sh -a arm -I libmp3lame
+./build-package.sh -a arm -I libmpfr
+./build-package.sh -a arm -I libnettle
+./build-package.sh -a arm -I libnghttp2
+./build-package.sh -a arm -I libogg
+./build-package.sh -a arm -I libopus
+./build-package.sh -a arm -I libpng
+./build-package.sh -a arm -I libpsl
+./build-package.sh -a arm -I libsigsegv
+./build-package.sh -a arm -I libsodium
+./build-package.sh -a arm -I libsoxr
+./build-package.sh -a arm -I libsqlite
+./build-package.sh -a arm -I libunistring
+./build-package.sh -a arm -I libuuid
+./build-package.sh -a arm -I libuv
+./build-package.sh -a arm -I libvorbis
+./build-package.sh -a arm -I libvpx
+./build-package.sh -a arm -I libwebsockets
+./build-package.sh -a arm -I libx264
+./build-package.sh -a arm -I libx265
+./build-package.sh -a arm -I libxml2
+./build-package.sh -a arm -I libxslt
+./build-package.sh -a arm -I libzmq
+./build-package.sh -a arm -I m4
+./build-package.sh -a arm -I make
+./build-package.sh -a arm -I nano
+./build-package.sh -a arm -I ncurses
+./build-package.sh -a arm -I ncurses-ui-libs
+./build-package.sh -a arm -I ndk-sysroot
+./build-package.sh -a arm -I net-tools
+./build-package.sh -a arm -I nodejs-lts
+./build-package.sh -a arm -I openssh
+./build-package.sh -a arm -I openssl
+./build-package.sh -a arm -I patch
+./build-package.sh -a arm -I pcre
+./build-package.sh -a arm -I pcre2
+./build-package.sh -a arm -I perl
+./build-package.sh -a arm -I pkg-config
+./build-package.sh -a arm -I procps
+./build-package.sh -a arm -I psmisc
+./build-package.sh -a arm -I python
+./build-package.sh -a arm -I rclone
+./build-package.sh -a arm -I readline
+./build-package.sh -a arm -I sed
+./build-package.sh -a arm -I tar
+./build-package.sh -a arm -I termux-am
+./build-package.sh -a arm -I termux-api
+./build-package.sh -a arm -I termux-auth
+./build-package.sh -a arm -I termux-exec
+./build-package.sh -a arm -I termux-licenses
+./build-package.sh -a arm -I termux-tools
+./build-package.sh -a arm -I ttyd
+./build-package.sh -a arm -I unzip
+./build-package.sh -a arm -I util-linux
+./build-package.sh -a arm -I xvidcore
