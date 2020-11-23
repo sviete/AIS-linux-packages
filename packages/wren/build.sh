@@ -27,4 +27,3 @@ termux_step_make_install() {
 	install -Dm700 "$TERMUX_PKG_SRCDIR"/bin/wren_cli \
 		"$TERMUX_PREFIX"/bin/wren
 }
-
