@@ -43,7 +43,7 @@ termux_get_repo_files() {
 				sleep 30
 			done
 
-			gpg --verify "${RELEASE_FILE}.gpg" "$RELEASE_FILE"
+			# gpg --verify "${RELEASE_FILE}.gpg" "$RELEASE_FILE"
 
 			for arch in all $TERMUX_ARCH; do
 				local PACKAGES_HASH=$(./scripts/get_hash_from_file.py ${RELEASE_FILE} $arch ${TERMUX_REPO_COMPONENT[$idx-1]})
