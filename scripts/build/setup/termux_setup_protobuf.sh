@@ -12,8 +12,8 @@ termux_setup_protobuf() {
 	if [ "$TERMUX_ON_DEVICE_BUILD" = "false" ]; then
 		if [ ! -d "$_PROTOBUF_FOLDER" ]; then
 			termux_download \
-				https://github.com/protocolbuffers/protobuf/releases/download/v3.13.0/protoc-3.13.0-linux-x86_64.zip \
-				$TERMUX_PKG_TMPDIR/protoc-3.13.0.1-linux-x86_64.zip \
+				https://github.com/protocolbuffers/protobuf/releases/download/v$_PROTOBUF_VERSION/$_PROTOBUF_ZIP \
+				$TERMUX_PKG_TMPDIR/$_PROTOBUF_ZIP \
 				4a3b26d1ebb9c1d23e933694a6669295f6a39ddc64c3db2adf671f0a6026f82e
 
 			rm -Rf "$TERMUX_PKG_TMPDIR/protoc-$_PROTOBUF_VERSION-linux-x86_64"
