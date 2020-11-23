@@ -14,11 +14,10 @@ termux_step_pre_configure() {
 	# See https://github.com/nagisa/rust_libloading/issues/54
 	export CC_x86_64_unknown_linux_gnu=gcc
 	export CFLAGS_x86_64_unknown_linux_gnu=""
-	export LIBGIT2_SYS_USE_PKG_CONFIG=1 
+	export LIBGIT2_SYS_USE_PKG_CONFIG=1
 }
 
 termux_step_post_make_install() {
 	mkdir -p $TERMUX_PREFIX/share/man/man1
 	cp $(find . -name bat.1) $TERMUX_PREFIX/share/man/man1/
 }
-
