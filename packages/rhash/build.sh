@@ -23,4 +23,3 @@ termux_step_make_install() {
 
 	ln -sf $TERMUX_PREFIX/lib/librhash.so.0 $TERMUX_PREFIX/lib/librhash.so
 }
-
