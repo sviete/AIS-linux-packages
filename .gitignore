@@ -19,7 +19,6 @@ scripts/.vagrant/
 # Predownloaded packages sources.
 /packages/*/cache
 
-
 /.termux-build/
 /termux-packages/
 ais_secret.txt
