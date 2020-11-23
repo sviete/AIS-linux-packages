@@ -19,4 +19,3 @@ termux_step_pre_configure() {
 	CPPFLAGS+=" -D__USE_FORTIFY_LEVEL=0"
 	LDFLAGS+=" -landroid-glob"
 }
-
