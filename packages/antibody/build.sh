@@ -21,4 +21,3 @@ termux_step_make_install() {
 		"$GOPATH"/src/github.com/getantibody/antibody/antibody \
 		"$TERMUX_PREFIX"/bin/
 }
-
