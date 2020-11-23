@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://www.rust-lang.org/
-TERMUX_PKG_DESCRIPTION="Systems programming language focused on safety, speed and concurrency."
+TERMUX_PKG_DESCRIPTION="Systems programming language focused on safety, speed and concurrency"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="Kevin Cotugno @kcotugno"
 TERMUX_PKG_VERSION=1.46.0
@@ -46,11 +46,11 @@ termux_step_configure() {
 	# we can't use -L$PREFIX/lib since it breaks things but we need to link against libLLVM-9.so
 	ln -sf $PREFIX/lib/libLLVM-10.0.1.so $TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib/$TERMUX_HOST_PLATFORM/$TERMUX_PKG_API_LEVEL/
 
-	# rust checks libs in PREFIX/lib because both host and target are x86_64. It then can't find libc.so and libdl.so because rust program doesn't
+	# rust checks libs in PREFIX/lib because both host and target are x86_64. It then can't find libc.so and libdl.so because rust program doesn't 
 	# know where those are. Putting them temporarly in $PREFIX/lib prevents that failure
-
+	
 	if [ $TERMUX_ARCH = "x86_64" ]; then
-		mv $TERMUX_PREFIX/lib/libtinfo.so.6 $TERMUX_PREFIX/lib/libtinfo.so.6.tmp
+		mv $TERMUX_PREFIX/lib/libtinfo.so.6 $TERMUX_PREFIX/lib/libtinfo.so.6.tmp	
 	fi
 }
 
@@ -60,13 +60,13 @@ termux_step_make() {
 termux_step_make_install() {
 	 if [ $TERMUX_ARCH = "x86_64" ]; then
 		 mv $TERMUX_PREFIX ${TERMUX_PREFIX}a
-		 $TERMUX_PKG_SRCDIR/x.py build --stage 1 cargo || $TERMUX_PKG_SRCDIR/x.py build --stage 1 rls || $TERMUX_PKG_SRCDIR/x.py --stage 1 build miri || $TERMUX_PKG_SRCDIR/x.py build --stage 1 cargo-miri || $TERMUX_PKG_SRCDIR/x.py build --stage 1 rustfmt || $TERMUX_PKG_SRCDIR/x.py --stage 1 build rustdoc || $TERMUX_PKG_SRCDIR/x.py --stage 1 build error_index_generator || true
+		 $TERMUX_PKG_SRCDIR/x.py build --stage 1 cargo || $TERMUX_PKG_SRCDIR/x.py build --stage 1 rls || $TERMUX_PKG_SRCDIR/x.py --stage 1 build miri || $TERMUX_PKG_SRCDIR/x.py build --stage 1 cargo-miri || $TERMUX_PKG_SRCDIR/x.py build --stage 1 rustfmt || $TERMUX_PKG_SRCDIR/x.py --stage 1 build rustdoc || $TERMUX_PKG_SRCDIR/x.py --stage 1 build error_index_generator || true 
 		 mv ${TERMUX_PREFIX}a ${TERMUX_PREFIX}
-	 else
+	 else 
 		 $TERMUX_PKG_SRCDIR/x.py build cargo || $TERMUX_PKG_SRCDIR/x.py build rls || $TERMUX_PKG_SRCDIR/x.py build miri || $TERMUX_PKG_SRCDIR/x.py build cargo-miri || $TERMUX_PKG_SRCDIR/x.py build rustfmt || true
 	 fi
 #	$TERMUX_PKG_SRCDIR/x.py dist --stage 2 --host $CARGO_TARGET_NAME --target $CARGO_TARGET_NAME --target wasm32-unknown-unknown || bash
-	$TERMUX_PKG_SRCDIR/x.py install --stage 1 --host $CARGO_TARGET_NAME --target $CARGO_TARGET_NAME --target wasm32-unknown-unknown || bash
+	$TERMUX_PKG_SRCDIR/x.py install --stage 1 --host $CARGO_TARGET_NAME --target $CARGO_TARGET_NAME --target wasm32-unknown-unknown || bash 
 	$TERMUX_PKG_SRCDIR/x.py dist rustc-dev --host $CARGO_TARGET_NAME --target $CARGO_TARGET_NAME --target wasm32-unknown-unknown || bash
 	tar xvf build/dist/rustc-dev-$TERMUX_PKG_VERSION-$CARGO_TARGET_NAME.tar.gz
 	./rustc-dev-$TERMUX_PKG_VERSION-$CARGO_TARGET_NAME/install.sh --prefix=$TERMUX_PREFIX
@@ -76,10 +76,10 @@ termux_step_make_install() {
 	if [ $TERMUX_ARCH = "x86_64" ]; then
 		mv $TERMUX_PREFIX/lib/libtinfo.so.6.tmp $TERMUX_PREFIX/lib/libtinfo.so.6
 	fi
-
+	
 	ln -sf rustlib/$CARGO_TARGET_NAME/lib/*.so .
 	ln -sf $TERMUX_PREFIX/bin/lld $TERMUX_PREFIX/bin/rust-lld
-
+	
 	cd "$TERMUX_PREFIX/lib/rustlib"
 	rm -rf components \
 		install.log \
@@ -95,3 +95,4 @@ termux_step_post_massage() {
 		rm lib/libtinfo.so.6
 	fi
 }
+
