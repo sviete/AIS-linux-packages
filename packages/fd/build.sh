@@ -10,4 +10,3 @@ termux_step_post_make_install() {
 	mkdir -p  $TERMUX_PREFIX/share/man/man1
 	cp $TERMUX_PKG_SRCDIR/doc/fd.1 $TERMUX_PREFIX/share/man/man1/fd.1
 }
-
