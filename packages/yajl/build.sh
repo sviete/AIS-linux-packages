@@ -16,4 +16,3 @@ termux_step_post_make_install() {
 		"${TERMUX_PREFIX}"/share/pkgconfig/yajl.pc \
 		"${TERMUX_PREFIX}"/lib/pkgconfig/yajl.pc
 }
-
