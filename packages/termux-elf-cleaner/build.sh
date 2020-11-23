@@ -9,4 +9,3 @@ TERMUX_PKG_SRCURL=https://github.com/termux/termux-elf-cleaner/archive/v${TERMUX
 TERMUX_PKG_SHA256=cf74cabfcf5c22e0308074e6683ca7efa14f1a3c801d1656b96e38ff7301ae0b
 TERMUX_PKG_DEPENDS="libc++"
 TERMUX_PKG_BUILD_IN_SRC=true
-
