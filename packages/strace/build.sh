@@ -19,4 +19,3 @@ TERMUX_PKG_RM_AFTER_INSTALL="bin/strace-graph"
 termux_step_pre_configure() {
 	CPPFLAGS+=" -Dfputs_unlocked=fputs"
 }
-
