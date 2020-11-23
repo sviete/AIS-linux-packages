@@ -41,13 +41,13 @@ show_help() {
 }
 
 select_mirror() {
-	local main_repo="https://powiedz.co/apt"
+	local main_repo="https://termux.org/packages"
 
 	declare -A mirrors
-	mirrors[50]="https://powiedz.co/apt"
-	mirrors[23]="https://powiedz.co/apt"
-	mirrors[15]="https://powiedz.co/apt"
-	mirrors[12]="https://powiedz.co/apt"
+	mirrors[50]="https://dl.bintray.com/termux/termux-packages-24"
+	mirrors[23]="https://termux.mentality.rip/termux-packages-24"
+	mirrors[15]="https://main.termux-mirror.ml"
+	mirrors[12]="https://grimler.se/termux-packages-24"
 
 	local current_mirror
 	current_mirror=$(grep -P "^\s*deb\s+" @TERMUX_PREFIX@/etc/apt/sources.list | grep -oP 'https?://[a-z0-9/._-]+')
