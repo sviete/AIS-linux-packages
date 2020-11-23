@@ -14,5 +14,3 @@ termux_step_make() {
 termux_step_make_install() {
 	install -Dm700 lazyread $TERMUX_PREFIX/bin/lazyread
 }
-
-
