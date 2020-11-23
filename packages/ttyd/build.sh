@@ -2,12 +2,11 @@ TERMUX_PKG_HOMEPAGE=https://tsl0922.github.io/ttyd/
 TERMUX_PKG_DESCRIPTION="Command-line tool for sharing terminal over the web"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_VERSION=1.6.1
-TERMUX_PKG_REVISION=3
+TERMUX_PKG_REVISION=5
 TERMUX_PKG_SRCURL=https://github.com/tsl0922/ttyd/archive/$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=d72dcca3dec00cda87b80a0a25ae4fee2f8b9098c1cdb558508dcb14fbb6fafc
 TERMUX_PKG_DEPENDS="json-c, libuv, libwebsockets, zlib"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="-DCMAKE_XXD=$TERMUX_PKG_TMPDIR/xxd"
-TERMUX_PKG_BUILD_DEPENDS="libcap"
 
 termux_step_pre_configure() {
 	termux_download \
