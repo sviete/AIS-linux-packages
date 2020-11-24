@@ -15,3 +15,16 @@ for build in $builds; do
   sleep 10
   echo "done ------------------"
 done
+
+
+# remove line from files
+# builds=`ls packages/*/build.sh`
+# for build in $builds; do
+#   echo "Adding line to file: $build"
+#   sed -i '/^$/d' $build
+#   git add $build
+#   git commit -m "$build"
+#   git push
+#   sleep 10
+#   echo "done ------------------"
+# done
