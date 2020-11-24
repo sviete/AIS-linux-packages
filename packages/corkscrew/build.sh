@@ -13,3 +13,4 @@ termux_step_post_make_install() {
 	cp $TERMUX_PKG_BUILDER_DIR/corkscrew.1 $TERMUX_PREFIX/share/man/man1
 }
 
+
