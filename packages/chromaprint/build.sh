@@ -11,3 +11,4 @@ termux_step_post_make_install() {
   ln -sf "${TERMUX_PREFIX}/lib/libchromaprint.so" "${TERMUX_PREFIX}/lib/libchromaprint.so.${TERMUX_PKG_VERSION:0:1}"
   ln -sf "${TERMUX_PREFIX}/lib/libchromaprint.so" "${TERMUX_PREFIX}/lib/libchromaprint.so.${TERMUX_PKG_VERSION}"
 }
+
