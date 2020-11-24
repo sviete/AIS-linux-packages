@@ -7,3 +7,4 @@ TERMUX_PKG_SHA256=9f09230c9a0aa68ef7aa6a9e2ab709ca957020f842e52c5b2e52b801a7d9e8
 TERMUX_PKG_DEPENDS="fontconfig, fribidi, glib, harfbuzz"
 TERMUX_PKG_BREAKS="libass-dev"
 TERMUX_PKG_REPLACES="libass-dev"
+
