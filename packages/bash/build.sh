@@ -84,3 +84,4 @@ termux_step_post_make_install() {
 		$TERMUX_PKG_BUILDER_DIR/etc-bash.bashrc > $TERMUX_PREFIX/etc/bash.bashrc
 }
 
+
