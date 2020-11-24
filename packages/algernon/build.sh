@@ -4,28 +4,21 @@ TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_VERSION=1.12.8
 TERMUX_PKG_SRCURL=https://github.com/xyproto/algernon/archive/$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=562d6f1145980d5e4c8eaefc2780801b163d228720599f22165135182018d6bf
-
 termux_step_make() {
 	termux_setup_golang
-
 	export GOPATH=$TERMUX_PKG_BUILDDIR
 	mkdir -p "$GOPATH"/src/github.com/xyproto
 	ln -sf "$TERMUX_PKG_SRCDIR" "$GOPATH"/src/github.com/xyproto/algernon
-
 	cd "$GOPATH"/src/github.com/xyproto/algernon
-
 	go build
 }
-
 termux_step_make_install() {
 	install -Dm700 \
 		"$GOPATH"/src/github.com/xyproto/algernon/algernon \
 		"$TERMUX_PREFIX"/bin/
-
 	# Offline samples may be useful to get started with Algernon.
 	rm -rf "$TERMUX_PREFIX"/share/doc/algernon
 	mkdir -p "$TERMUX_PREFIX"/share/doc/algernon
 	cp -a "$GOPATH"/src/github.com/xyproto/algernon/samples \
 		"$TERMUX_PREFIX"/share/doc/algernon/
 }
-
