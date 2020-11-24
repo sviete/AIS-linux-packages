@@ -16,3 +16,4 @@ termux_step_post_make_install() {
 	cd $TERMUX_PREFIX/lib
 	ln -s -f libyaml-0.so libyaml.so
 }
+
