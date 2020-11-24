@@ -10,3 +10,4 @@ termux_step_pre_configure() {
 	export ac_cv_lib_pthread_pthread_create=yes
 }
 
+
