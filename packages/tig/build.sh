@@ -11,3 +11,4 @@ termux_step_post_make_install() {
 	make -j 1 install-doc
 }
 
+
