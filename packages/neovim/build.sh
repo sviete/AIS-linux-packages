@@ -45,3 +45,4 @@ termux_step_post_make_install() {
 	cp $TERMUX_PKG_BUILDER_DIR/sysinit.vim $_CONFIG_DIR/
 }
 
+
