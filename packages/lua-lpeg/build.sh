@@ -21,3 +21,4 @@ termux_step_make_install() {
 	install -Dm600 lpeg.so "$TERMUX_PREFIX"/lib/lua/5.3/lpeg.so
 	install -Dm600 re.lua "$TERMUX_PREFIX"/share/lua/5.3/re.lua
 }
+
