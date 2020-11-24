@@ -27,3 +27,4 @@ termux_step_make_install() {
 	cp $TERMUX_PKG_BUILDER_DIR/termux-chroot $TERMUX_PREFIX/bin/
 }
 
+
