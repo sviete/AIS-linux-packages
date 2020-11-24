@@ -17,3 +17,4 @@ termux_step_post_make_install() {
 	cp $TERMUX_PKG_SRCDIR/init.scm $TERMUX_PREFIX/share/tinyscheme/
 }
 
+
