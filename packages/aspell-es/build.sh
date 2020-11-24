@@ -20,3 +20,4 @@ datadir = $TERMUX_PREFIX/lib/aspell-0.60
 EOF
     cat $TERMUX_PKG_SRCDIR/Makefile.pre >> $TERMUX_PKG_SRCDIR/Makefile
 }
+
