@@ -12,3 +12,4 @@ termux_step_configure() {
         ./autogen.sh --prefix=$TERMUX_PREFIX \
 		     --host=$TERMUX_HOST_PLATFORM
 }
+
