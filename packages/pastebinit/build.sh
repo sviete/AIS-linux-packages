@@ -26,3 +26,4 @@ termux_step_make_install() {
 	mv pastebin.d $TERMUX_PREFIX/etc
 }
 
+
