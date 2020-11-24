@@ -15,3 +15,4 @@ termux_step_pre_configure() {
 	CPPFLAGS+=" -DUSE_TGAMMA -DBOLD_COLOR"
 }
 
+
