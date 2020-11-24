@@ -9,3 +9,4 @@ TERMUX_PKG_SHA256=fdda688155aa7e72b7c63ef6f559fca4b6c07382ea6dca0beb5f45aececaf4
 TERMUX_PKG_DEPENDS="libarchive, libc++, libcurl, libexpat, jsoncpp, libuv, rhash, make, clang, zlib"
 TERMUX_PKG_FORCE_CMAKE=true
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="-DKWSYS_LFS_WORKS=ON -DBUILD_CursesDialog=ON"
+
