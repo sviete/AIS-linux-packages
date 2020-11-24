@@ -23,3 +23,4 @@ termux_step_pre_configure() {
 	chmod a-w termux_configure.cache
 }
 
+
