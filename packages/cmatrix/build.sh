@@ -16,3 +16,4 @@ termux_step_pre_configure() {
 	export ac_cv_file__usr_X11R6_lib_X11_fonts_misc=no
 }
 
+
