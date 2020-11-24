@@ -16,3 +16,4 @@ termux_step_post_massage() {
 	perl -p -i -e "s|CONFIG_SHELL-/bin/sh|CONFIG_SHELL-$TERMUX_PREFIX/bin/sh|" bin/autoconf
 }
 
+
