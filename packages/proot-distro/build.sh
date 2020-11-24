@@ -21,3 +21,4 @@ etc/proot-distro/ubuntu-20.04.sh
 termux_step_make_install() {
 	./install.sh
 }
+
