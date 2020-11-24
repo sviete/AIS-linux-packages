@@ -16,3 +16,4 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-xattr-support
 --disable-xxhash
 "
+
