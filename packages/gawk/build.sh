@@ -26,3 +26,4 @@ termux_step_pre_configure() {
 	sed -e 's/check-recursive all-recursive: check-for-shared-lib-support/check-recursive all-recursive:/' extension/Makefile.in.orig > extension/Makefile.in
 }
 
+
