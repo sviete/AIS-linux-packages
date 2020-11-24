@@ -7,3 +7,4 @@ TERMUX_PKG_SRCURL=http://www.willus.com/k2pdfopt/src/k2pdfopt_v${TERMUX_PKG_VERS
 TERMUX_PKG_SHA256=3e6e4d7aac9c9bed4c7854888a6a91213be10121be76e17f83e080e829ac5fde
 TERMUX_PKG_DEPENDS="leptonica, libjasper, libjpeg-turbo, libpng, mupdf, netpbm, zlib"
 TERMUX_PKG_BUILD_IN_SRC=true
+
