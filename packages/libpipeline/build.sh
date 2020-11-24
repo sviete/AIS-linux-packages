@@ -6,3 +6,4 @@ TERMUX_PKG_SRCURL=http://download.savannah.gnu.org/releases/libpipeline/libpipel
 TERMUX_PKG_SHA256=5dbf08faf50fad853754293e57fd4e6c69bb8e486f176596d682c67e02a0adb0
 TERMUX_PKG_BREAKS="libpipeline-dev"
 TERMUX_PKG_REPLACES="libpipeline-dev"
+
