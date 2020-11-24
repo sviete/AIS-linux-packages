@@ -24,3 +24,4 @@ termux_step_make_install() {
 	cp git-remote-keybase $TERMUX_PREFIX/bin/git-remote-keybase
 	cp kbfsfusebin $TERMUX_PREFIX/bin/kbfsfuse
 }
+
