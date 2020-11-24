@@ -6,7 +6,7 @@ TERMUX_PKG_REVISION=2
 TERMUX_PKG_SRCURL=http://deb.debian.org/debian/pool/main/a/apt/apt_${TERMUX_PKG_VERSION}.tar.xz
 TERMUX_PKG_SHA256=f49f0652d5d2cfa157f0197d9ce03953970a108813568bb1c69553fd3d5a4be3
 # apt-key requires utilities from coreutils, findutils, gpgv, grep, sed.
-TERMUX_PKG_DEPENDS="coreutils, dpkg, findutils, gpgv, grep, libandroid-glob, libbz2, libc++, libcurl, libgnutls, liblz4, liblzma, sed, termux-licenses, zlib"
+TERMUX_PKG_DEPENDS="libgcrypt, libassuan, coreutils, dpkg, findutils, gpgv, grep, libandroid-glob, libbz2, libc++, libcurl, libgnutls, liblz4, liblzma, sed, termux-licenses, zlib"
 TERMUX_PKG_CONFLICTS="apt-transport-https, libapt-pkg"
 TERMUX_PKG_REPLACES="apt-transport-https, libapt-pkg"
 TERMUX_PKG_ESSENTIAL=true
@@ -77,4 +77,3 @@ termux_step_post_make_install() {
 	mkdir -p $TERMUX_PREFIX/share/man/
 	cp -Rf $TERMUX_PKG_BUILDER_DIR/man/* $TERMUX_PREFIX/share/man/
 }
-
