@@ -7,3 +7,4 @@ TERMUX_PKG_SRCURL=https://github.com/openzim/libzim/archive/$TERMUX_PKG_VERSION.
 TERMUX_PKG_SHA256=984d2f3881c507c9f0212dc2bc1b808d25cdeef6a62043f9211fcb78a231a986
 TERMUX_PKG_DEPENDS="zstd, libuuid, zlib, libicu, liblzma, libxapian, googletest"
 
+
