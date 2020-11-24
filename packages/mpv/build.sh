@@ -39,3 +39,4 @@ termux_step_make_install() {
 	cp $TERMUX_PKG_BUILDER_DIR/mpv.conf $TERMUX_PREFIX/etc/mpv/mpv.conf
 }
 
+
