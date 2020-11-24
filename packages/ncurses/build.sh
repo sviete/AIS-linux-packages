@@ -95,3 +95,4 @@ termux_step_post_massage() {
 	tic -x -o $TI $TERMUX_PKG_SRCDIR/termite-${TERMUX_PKG_VERSION[2]}/termite.terminfo
 }
 
+
