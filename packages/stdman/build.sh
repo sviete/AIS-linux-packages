@@ -13,3 +13,4 @@ termux_step_make() {
 	# Just install manpages without building generation utility.
 	:
 }
+
