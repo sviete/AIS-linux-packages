@@ -23,3 +23,4 @@ termux_step_make_install() {
 	# Avoid specifying -lcrypt:
 	perl -p -i -e 's/-lcrypt //' $TERMUX_PREFIX/lib/pkgconfig/serf-1.pc
 }
+
