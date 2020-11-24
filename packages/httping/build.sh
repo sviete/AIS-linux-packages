@@ -8,3 +8,4 @@ TERMUX_PKG_SHA256=3e895a0a6d7bd79de25a255a1376d4da88eb09c34efdd0476ab5a907e75bfa
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_DEPENDS="fftw, libandroid-support, ncurses, openssl"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--with-fftw3 --with-ncurses --with-openssl"
+
