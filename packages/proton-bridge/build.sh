@@ -16,3 +16,4 @@ termux_step_make_install() {
 	make build-nogui
 	install -Dm700 Desktop-Bridge "$TERMUX_PREFIX"/bin/proton-bridge
 }
+
