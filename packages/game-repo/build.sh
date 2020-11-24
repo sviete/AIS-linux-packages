@@ -19,3 +19,4 @@ termux_step_create_debscripts() {
 	echo "apt update" >> postinst
 	echo "exit 0" >> postinst
 }
+
