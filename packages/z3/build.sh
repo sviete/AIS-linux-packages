@@ -15,3 +15,4 @@ termux_step_configure() {
 	sed 's%../../../../../%%g' -i Makefile
 	sed 's/\-lpthread//g' -i config.mk
 }
+
