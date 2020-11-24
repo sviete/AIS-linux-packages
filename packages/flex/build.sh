@@ -21,3 +21,4 @@ termux_step_pre_configure() {
 	touch -d "next hour" $TERMUX_PKG_BUILDDIR/src/stage1flex
 }
 
+
