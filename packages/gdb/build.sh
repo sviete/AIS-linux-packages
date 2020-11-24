@@ -31,3 +31,4 @@ termux_step_pre_configure() {
 	export gl_cv_func_working_strerror=yes
 	export gl_cv_func_getcwd_path_max=yes
 }
+
