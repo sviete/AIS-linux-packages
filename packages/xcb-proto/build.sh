@@ -15,3 +15,4 @@ termux_step_pre_configure() {
 	python_version=$(. $TERMUX_SCRIPTDIR/packages/python/build.sh; echo $_MAJOR_VERSION)
 	TERMUX_PKG_RM_AFTER_INSTALL="lib/python${python_version}/site-packages/xcbgen/__pycache__"
 }
+
