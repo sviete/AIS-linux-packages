@@ -21,3 +21,4 @@ LIBS=-landroid-support
 termux_step_pre_configure() {
 	./autogen.sh
 }
+
