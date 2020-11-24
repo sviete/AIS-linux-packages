@@ -15,3 +15,4 @@ termux_step_pre_configure() {
 	export CRYPTOPP_CFLAGS="-I$TERMUX_PREFIX/include"
 	export CRYPTOPP_LIBS="-L$TERMUX_PREFIX/lib -lcryptopp"
 }
+
