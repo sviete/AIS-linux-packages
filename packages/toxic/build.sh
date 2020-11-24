@@ -19,3 +19,4 @@ termux_step_make() {
 termux_step_make_install() {
 	make PREFIX="${TERMUX_PREFIX}" install
 }
+
