@@ -14,3 +14,4 @@ TERMUX_PKG_REPLACES="libgd-dev"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--without-vpx --without-x"
 
 
+
