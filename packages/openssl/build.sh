@@ -60,3 +60,4 @@ termux_step_make_install() {
 	chmod 700 $TERMUX_PREFIX/bin/add-trusted-certificate
 }
 
+
