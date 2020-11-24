@@ -9,3 +9,4 @@ TERMUX_PKG_SHA256=22956606ef50c60de1fabc13a78fbc50830a0447d780467d3c519f84ad527e
 TERMUX_PKG_DEPENDS="libc++, libprotobuf, protobuf"
 TERMUX_PKG_BREAKS="libprotobuf-c-dev"
 TERMUX_PKG_REPLACES="libprotobuf-c-dev"
+
