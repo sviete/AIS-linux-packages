@@ -36,3 +36,4 @@ termux_step_make_install() {
 	install ${TERMUX_PKG_BUILDDIR}/src/github.com/twpayne/chezmoi/docs/{FAQ,HOWTO,QUICKSTART,REFERENCE}.md \
 		$TERMUX_PREFIX/share/doc/chezmoi/
 }
+
