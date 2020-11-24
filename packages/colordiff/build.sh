@@ -22,3 +22,4 @@ termux_step_post_configure() {
 	export ETC_DIR=${PREFIX}/etc
 }
 
+
