@@ -50,3 +50,4 @@ termux_step_make_install() {
 	pandoc --standalone --to man --output $TERMUX_PREFIX/share/man/man1/termux.1 \
 		$TERMUX_PKG_TMPDIR/termux.1.md
 }
+
