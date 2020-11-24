@@ -13,3 +13,4 @@ ac_cv_file__dev_random=yes
 ac_cv_file__dev_urandom=yes
 --mandir=$TERMUX_PREFIX/share/man
 "
+
