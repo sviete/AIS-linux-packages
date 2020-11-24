@@ -12,3 +12,4 @@ TERMUX_PKG_REPLACES="leptonica-dev"
 termux_step_pre_configure() {
 	./autogen.sh
 }
+
