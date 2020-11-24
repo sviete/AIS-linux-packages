@@ -10,3 +10,4 @@ termux_step_pre_configure() {
 	# rindex is an obsolete version of strrchr which is not available in Android:
 	CFLAGS+=" -Drindex=strrchr"
 }
+
