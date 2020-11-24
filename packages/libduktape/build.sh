@@ -36,3 +36,4 @@ termux_step_post_make_install() {
 		Libs: -lduktape -lm
 	HERE
 }
+
