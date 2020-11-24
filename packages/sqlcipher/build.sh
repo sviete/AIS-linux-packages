@@ -11,3 +11,4 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--enable-tempstore=yes"
 termux_step_pre_configure() {
 	CPPFLAGS+=" -DSQLITE_HAS_CODEC"
 }
+
