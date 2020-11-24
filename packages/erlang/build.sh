@@ -33,3 +33,4 @@ termux_step_pre_configure() {
 	export PATH="$TERMUX_PKG_SRCDIR/bootstrap/bin:$PATH"
 }
 
+
