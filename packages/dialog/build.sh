@@ -24,3 +24,4 @@ termux_step_post_make_install() {
 	ln -f -s dialog whiptail
 }
 
+
