@@ -29,3 +29,4 @@ termux_step_pre_configure() {
 	CPPFLAGS+=" -DMOUNTED_GETMNTENT1=1"
 }
 
+
