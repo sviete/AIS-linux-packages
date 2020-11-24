@@ -13,3 +13,4 @@ ac_cv_file__proc_self_status=yes
 "
 TERMUX_PKG_RM_AFTER_INSTALL="share/applications share/pixmaps"
 
+
