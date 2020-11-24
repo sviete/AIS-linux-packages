@@ -44,3 +44,4 @@ termux_step_make() {
 termux_step_post_make_install() {
 	cp $TERMUX_PKG_BUILDDIR/docs/man/lldb.1 $TERMUX_PREFIX/share/man/man1
 }
+
