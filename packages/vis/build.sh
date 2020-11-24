@@ -12,3 +12,4 @@ TERMUX_PKG_BUILD_IN_SRC=true
 termux_step_pre_configure() {
 	CFLAGS+=" -I$TERMUX_PREFIX/include/lua5.3"
 }
+
