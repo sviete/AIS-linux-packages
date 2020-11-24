@@ -16,3 +16,4 @@ ac_cv_lib_sodium_crypto_pwhash_scryptsalsa208sha256_str=no
 "
 TERMUX_PKG_CONFFILES="etc/pure-ftpd.conf"
 
+
