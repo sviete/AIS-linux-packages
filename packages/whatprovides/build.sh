@@ -31,3 +31,4 @@ termux_step_create_debscripts() {
 	rm -rf "${TERMUX_PREFIX}/var/lib/whatprovides"
 	EOF
 }
+
