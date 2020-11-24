@@ -26,3 +26,4 @@ termux_step_post_configure() {
 	perl -p -i -e 's|#am__objects_2|am__objects_2|' $TERMUX_PKG_SRCDIR/Makefile
 }
 
+
