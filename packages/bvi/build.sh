@@ -10,3 +10,4 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="ac_cv_lib_ncursesw6_addnwstr=yes"
 TERMUX_PKG_RM_AFTER_INSTALL="share/applications share/pixmaps"
 
 
+
