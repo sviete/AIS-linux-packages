@@ -6,8 +6,6 @@ TERMUX_PKG_SRCURL=https://miniupnp.tuxfamily.org/files/miniupnpc-$TERMUX_PKG_VER
 TERMUX_PKG_SHA256=69f72fe355f911b807915f78dcfc0af772c0f22bc7ab1157e70f334e37db7d39
 TERMUX_PKG_BREAKS="miniupnpc-dev"
 TERMUX_PKG_REPLACES="miniupnpc-dev"
-
 termux_step_post_make_install() {
 	install -Dm700 upnpc-static "$TERMUX_PREFIX/bin/upnpc"
 }
-
