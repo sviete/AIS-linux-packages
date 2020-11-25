@@ -7,15 +7,11 @@ TERMUX_PKG_DEPENDS="libandroid-support, libiconv, ncurses, pulseaudio, ffmpeg, l
 TERMUX_PKG_SRCURL=https://github.com/cmus/cmus/archive/2748d40bb670558b523d5b47b4af442e82c7ffd2.tar.gz
 TERMUX_PKG_SHA256=37b5a1889a97cdfd319880bc5925c179119330163315dc3f408145c66d352f6b
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_pre_configure() {
 	LD=$CC
 	export CUE_LIBS=" -lm"
 	export CONFIG_OSS=n
 }
-
 termux_step_configure() {
 	./configure prefix=$TERMUX_PREFIX
 }
-
-
