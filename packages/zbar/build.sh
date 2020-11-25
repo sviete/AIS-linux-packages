@@ -12,9 +12,6 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-pthread
 --disable-video --without-xshm --without-xv
 --without-x --without-gtk --without-qt
 --without-python --mandir=$TERMUX_PREFIX/share/man"
-
 termux_step_pre_configure() {
 	autoconf
 }
-
-
