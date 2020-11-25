@@ -10,7 +10,6 @@ TERMUX_PKG_BREAKS="procps-dev"
 TERMUX_PKG_REPLACES="procps-dev"
 TERMUX_PKG_ESSENTIAL=true
 TERMUX_PKG_BUILD_IN_SRC=true
-
 # error.h and stdio_ext.h in unified headers does
 # not provide any functionality prior to android-23:
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
@@ -21,7 +20,6 @@ ac_cv_header_stdio_ext_h=no
 --disable-modern-top
 --enable-watch8bit
 "
-
 # About kill: https://bugs.launchpad.net/ubuntu/+source/coreutils/+bug/141168:
 # "For compatibility between distributions, can we have /bin/kill made available from coreutils?"
 # About top: The system top works better.
@@ -31,4 +29,3 @@ bin/kill share/man/man1/kill.1
 bin/slabtop share/man/man1/slabtop.1
 bin/w share/man/man1/w.1
 "
-
