@@ -13,16 +13,12 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --with-boost-system=boost_system
 --with-boost-date-time=boost_date_time
 "
-
 termux_step_pre_configure() {
 	./autogen.sh
 }
-
 termux_step_make() {
 	rake
 }
-
 termux_step_make_install() {
 	rake install
 }
-
