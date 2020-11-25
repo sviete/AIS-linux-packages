@@ -7,12 +7,9 @@ TERMUX_PKG_SHA256=9c9ede1eb7a9e1acf49f0321915232426c234b356c6bb1f740d15d6fa45d1b
 TERMUX_PKG_DEPENDS="zlib"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--no-default-features"
-
 termux_step_pre_configure() {
 	CFLAGS+=" $CPPFLAGS"
 	if [ $TERMUX_ARCH = arm ]; then
 		CFLAGS+=" -fno-integrated-as"
 	fi
 }
-
-
