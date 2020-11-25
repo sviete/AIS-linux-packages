@@ -8,7 +8,6 @@ TERMUX_PKG_DEPENDS="libc++, libiconv, liblzma, ncurses, libedit, openssl, pcre2,
 TERMUX_PKG_BREAKS="mariadb-dev"
 TERMUX_PKG_REPLACES="mariadb-dev"
 TERMUX_PKG_SERVICE_SCRIPT=("mysqld" 'exec mysqld --basedir=$PREFIX --datadir=$PREFIX/var/lib/mysql 2>&1')
-
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DBISON_EXECUTABLE=$(which bison)
 -DGETCONF=$(which getconf)
@@ -55,19 +54,16 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 "
 TERMUX_PKG_HOSTBUILD=true
 TERMUX_PKG_CONFLICTS="mysql"
-
 TERMUX_PKG_RM_AFTER_INSTALL="
 bin/mysqltest*
 share/man/man1/mysql-test-run.pl.1
 mysql-test
 sql-bench
 "
-
 # i686 build fails due to:
 #  /home/builder/.termux-build/mariadb/src/include/my_pthread.h:822:10: error: use of undeclared identifier 'my_atomic_add32'
 #    (void) my_atomic_add32_explicit(value, 1, MY_MEMORY_ORDER_RELAXED);
 TERMUX_PKG_BLACKLISTED_ARCHES="i686"
-
 termux_step_host_build() {
 	termux_setup_cmake
 	cmake -G "Unix Makefiles" \
@@ -76,30 +72,24 @@ termux_step_host_build() {
 		-DCMAKE_BUILD_TYPE=Release
 	make -j $TERMUX_MAKE_PROCESSES import_executables
 }
-
 termux_step_pre_configure() {
 	# Certain packages are not safe to build on device because their
 	# build.sh script deletes specific files in $TERMUX_PREFIX.
 	if $TERMUX_ON_DEVICE_BUILD; then
 		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
 	fi
-
 	CPPFLAGS+=" -Dushort=u_short"
-
 	if [ $TERMUX_ARCH_BITS = 32 ]; then
 		CPPFLAGS+=" -D__off64_t_defined"
 	fi
-
 	if [ $TERMUX_ARCH = "i686" ]; then
 		# Avoid undefined reference to __atomic_load_8:
 		CFLAGS+=" -latomic"
 	fi
 }
-
 termux_step_post_massage() {
 	mkdir -p $TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX/etc/my.cnf.d
 }
-
 termux_step_create_debscripts() {
 	echo "if [ ! -e "$TERMUX_PREFIX/var/lib/mysql" ]; then" > postinst
 	echo "  echo 'Initializing mysql data directory...'" >> postinst
@@ -109,4 +99,3 @@ termux_step_create_debscripts() {
 	echo "exit 0" >> postinst
 	chmod 0755 postinst
 }
-
