@@ -9,8 +9,6 @@ TERMUX_PKG_BREAKS="speexdsp-dev"
 TERMUX_PKG_REPLACES="speexdsp-dev"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-neon"
 TERMUX_PKG_RM_AFTER_INSTALL="share/doc/speexdsp/manual.pdf"
-
 termux_step_pre_configure() {
 	./autogen.sh
 }
-
