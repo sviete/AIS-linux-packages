@@ -14,19 +14,15 @@ TERMUX_PKG_SERVICE_SCRIPT=(
 	"mpdscribble" 'if [ -f "$HOME/.mpdscribble/mpdscribble.conf" ]; then CONFIG="$HOME/.mpdscribble/mpdscribble.conf"; else CONFIG="$PREFIX/etc/mpdscribble.conf"; fi\nexec mpdscribble -D --log /proc/self/fd/1 --conf $CONFIG'
 	"mpdscribble/log" 'mkdir -p "$LOGDIR/sv/mpdscribble"\nexec svlogd "$LOGDIR/sv/mpdscribble"'
 )
-
 termux_step_pre_configure() {
 	export BOOST_ROOT=$TERMUX_PREFIX
 }
-
 termux_step_post_make_install () {
 	install $TERMUX_PKG_SRCDIR/doc/mpdscribble.conf $TERMUX_PREFIX/etc/
 }
-
 termux_step_create_debscripts () {
 	echo "#!$TERMUX_PREFIX/bin/sh" > postinst
 	echo "mkdir -p ~/.mpdscribble" >> postinst
 	echo "exit 0" >> postinst
 	chmod 0755 postinst
 }
-
