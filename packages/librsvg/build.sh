@@ -12,13 +12,9 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 ac_cv_path_GDK_PIXBUF_QUERYLOADERS=$TERMUX_PREFIX/bin/gdk-pixbuf-query-loaders
 --disable-introspection
 "
-
 termux_step_pre_configure() {
 	termux_setup_rust
-
 	LDFLAGS+=" -fuse-ld=lld"
-
 	# See https://github.com/GNOME/librsvg/blob/master/COMPILING.md
 	export RUST_TARGET=$CARGO_TARGET_NAME
 }
-
