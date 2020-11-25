@@ -7,13 +7,11 @@ TERMUX_PKG_SRCURL=https://github.com/wren-lang/wren-cli/archive/$TERMUX_PKG_VERS
 TERMUX_PKG_SHA256=a498d2ccb9a723e7163b4530efbaec389cc13e6baaf935e16cbd052a739b7265
 TERMUX_PKG_DEPENDS="libuv"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_make() {
 	local QUIET_BUILD=
 	if [ "$TERMUX_QUIET_BUILD" = true ]; then
 		QUIET_BUILD="-s"
 	fi
-
 	cd projects/make
 	if [ "$TERMUX_ARCH" = i686 ] || [ "$TERMUX_ARCH" = arm ]; then
 		RELEASE=release_32bit
@@ -22,9 +20,7 @@ termux_step_make() {
 	fi
 	make -j $TERMUX_MAKE_PROCESSES $QUIET_BUILD config=${RELEASE}
 }
-
 termux_step_make_install() {
 	install -Dm700 "$TERMUX_PKG_SRCDIR"/bin/wren_cli \
 		"$TERMUX_PREFIX"/bin/wren
 }
-
