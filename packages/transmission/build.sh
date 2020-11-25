@@ -13,14 +13,10 @@ TERMUX_PKG_SERVICE_SCRIPT=(
 	"transmission" 'exec transmission-daemon -f 2>&1'
 	"transmission/log" 'mkdir -p "$LOGDIR/sv/transmission"\nexec svlogd "$LOGDIR/sv/transmission"'
 )
-
 termux_step_pre_configure() {
 	CFLAGS+=" -D_POSIX_C_SOURCE=200809L"
 	./autogen.sh
-
 	echo "ac_cv_func_getmntent=no" >> termux_configure.cache
 	echo "ac_cv_search_getmntent=false" >> termux_configure.cache
 	chmod a-w termux_configure.cache
 }
-
-
