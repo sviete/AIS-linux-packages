@@ -8,7 +8,6 @@ TERMUX_PKG_SHA256=cbabea4ac2b410fa96b661e8fd82c6e346f1ce2bc6c77bf0e049c2a653f524
 TERMUX_PKG_DEPENDS="libarchive, libcrypt, libgmp, libjpeg-turbo, libyaml, ncurses, ncurses-ui-libs, pcre, readline, ossp-uuid, zlib"
 TERMUX_PKG_FORCE_CMAKE=true
 TERMUX_PKG_HOSTBUILD=true
-
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DINSTALL_DOCUMENTATION=OFF
 -DUSE_GMP=ON
@@ -23,7 +22,6 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DINSTALL_TESTS=OFF
 -DBUILD_TESTING=OFF
 -DSYSTEM_CACERT_FILENAME=${TERMUX_PREFIX}/etc/tls/cert.pem"
-
 # We do this to produce:
 # a native host build to produce
 # boot<nn>.prc, INDEX.pl, ssl cetificate tests,
@@ -33,7 +31,6 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 termux_step_host_build() {
 	termux_setup_cmake
 	termux_setup_ninja
-
 	if [ $TERMUX_ARCH_BITS = 32 ]; then
 		export LDFLAGS=-m32
 		export CFLAGS=-m32
@@ -42,7 +39,6 @@ termux_step_host_build() {
 	else
 		CMAKE_EXTRA_DEFS=""
 	fi
-
 	cmake "$TERMUX_PKG_SRCDIR"          \
 		-G "Ninja"                      \
 		$CMAKE_EXTRA_DEFS               \
@@ -56,15 +52,12 @@ termux_step_host_build() {
 		-DSWIPL_PACKAGES_QT=OFF         \
 		-DSWIPL_PACKAGES_X=OFF
 	ninja
-
 	unset LDFLAGS
 	unset CFLAGS
 	unset CXXFLAGS
 }
-
 termux_step_post_make_install() {
 	# Remove host build because future builds may be
 	# of a different word size (e.g. 32bit or 64bit)
 	rm -rf "$TERMUX_PKG_HOSTBUILD_DIR"
 }
-
