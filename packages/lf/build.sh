@@ -5,7 +5,6 @@ TERMUX_PKG_VERSION=17
 TERMUX_PKG_SRCURL=https://github.com/gokcehan/lf/archive/r$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=a6906f6c40de8cbd643d0dc6a7a25b83a6403f0e87a8352289189bea17123342
 TERMUX_PKG_CONFFILES="etc/lf/lfrc"
-
 termux_step_make() {
 	termux_setup_golang
 	export GOPATH="$TERMUX_PKG_BUILDDIR"
@@ -14,7 +13,6 @@ termux_step_make() {
 	cd "$GOPATH/src/github.com/gokcehan/lf"
 	go build -ldflags="-X main.gVersion=r$TERMUX_PKG_VERSION" -trimpath
 }
-
 termux_step_make_install() {
 	cd "$GOPATH/src/github.com/gokcehan/lf"
 	install -Dm755 -t "$TERMUX_PREFIX/bin" lf
@@ -35,4 +33,3 @@ termux_step_make_install() {
 	install -Dm644 -T etc/lfcd.sh "$TERMUX_PREFIX/share/zsh/site-functions/lfcd"
 	install -Dm644 -T etc/lf.zsh "$TERMUX_PREFIX/share/zsh/site-functions/_lf"
 }
-
