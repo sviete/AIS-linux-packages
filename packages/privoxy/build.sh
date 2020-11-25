@@ -15,31 +15,24 @@ ac_cv_lib_pcreposix_regcomp=no
 TERMUX_PKG_DEPENDS="pcre, libpcreposix, zlib"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_SERVICE_SCRIPT=("privoxy" 'if [ -f "$HOME/.config/privoxy/config" ]; then CONFIG="$HOME/.config/privoxy/config"; else CONFIG="$PREFIX/etc/privoxy/config"; fi\nexec privoxy --no-daemon $CONFIG 2>&1')
-
 termux_step_pre_configure() {
 	# Certain packages are not safe to build on device because their
 	# build.sh script deletes specific files in $TERMUX_PREFIX.
 	if $TERMUX_ON_DEVICE_BUILD; then
 		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
 	fi
-
     autoheader
     autoconf
-
     # avoid 'aarch64-linux-android-strip': No such file or directory
     ln -s "$TERMUX_STANDALONE_TOOLCHAIN/bin/$STRIP" .
 }
-
 termux_step_post_make_install() {
     # delete link created to avoid errors
     rm -f "$TERMUX_PREFIX/sbin/$STRIP"
 }
-
 termux_step_post_massage() {
     # copy default config files
     for f in $DEFAULT_CONFFILES; do
 	cp "$TERMUX_PKG_SRCDIR/$(basename $f)" "$TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX/$f"
     done
 }
-
-
