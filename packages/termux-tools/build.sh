@@ -8,15 +8,12 @@ TERMUX_PKG_ESSENTIAL=true
 TERMUX_PKG_CONFLICTS="procps (<< 3.3.15-2)"
 TERMUX_PKG_SUGGESTS="termux-api"
 TERMUX_PKG_CONFFILES="etc/motd"
-
 # Some of these packages are not dependencies and used only to ensure
 # that core packages are installed after upgrading (we removed busybox
 # from essentials).
 TERMUX_PKG_DEPENDS="bzip2, coreutils, curl, dash, diffutils, findutils, gawk, grep, gzip, less, procps, psmisc, sed, tar, termux-am, termux-exec, util-linux, xz-utils, dialog"
-
 # Optional packages that are distributed as part of bootstrap archives.
 TERMUX_PKG_RECOMMENDS="ed, dos2unix, inetutils, net-tools, patch, unzip"
-
 termux_step_make_install() {
 	# Remove LD_LIBRARY_PATH from environment to avoid conflicting
 	# with system libraries that system binaries may link against:
@@ -30,7 +27,6 @@ termux_step_make_install() {
 		echo "exec /system/bin/$tool \"\$@\"" >> $WRAPPER_FILE
 		chmod +x $WRAPPER_FILE
 	done
-
 	for script in chsh dalvikvm login pkg su termux-fix-shebang termux-info \
 		termux-open termux-open-url termux-reload-settings termux-reset \
 		termux-setup-storage termux-wake-lock termux-wake-unlock termux-change-repo; do
@@ -40,14 +36,11 @@ termux_step_make_install() {
 				-e "s|@TERMUX_CACHE_DIR@|${TERMUX_CACHE_DIR}|g" \
 				$TERMUX_PREFIX/bin/$script
 	done
-
 	install -Dm600 $TERMUX_PKG_BUILDER_DIR/motd $TERMUX_PREFIX/etc/motd
 	ln -sfr $TERMUX_PREFIX/bin/termux-open $TERMUX_PREFIX/bin/xdg-open
-
 	mkdir -p $TERMUX_PREFIX/share/man/man1
 	sed -e "s|@TERMUX_PREFIX@|${TERMUX_PREFIX}|g" -e "s|@TERMUX_HOME@|${TERMUX_ANDROID_HOME}|g" \
 		$TERMUX_PKG_BUILDER_DIR/termux.1.md.in > $TERMUX_PKG_TMPDIR/termux.1.md
 	pandoc --standalone --to man --output $TERMUX_PREFIX/share/man/man1/termux.1 \
 		$TERMUX_PKG_TMPDIR/termux.1.md
 }
-
