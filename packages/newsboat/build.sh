@@ -10,18 +10,12 @@ TERMUX_PKG_RM_AFTER_INSTALL="share/locale"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="ac_cv_lib_bsd_main=no"
 TERMUX_PKG_CONFLICTS=newsbeuter
 TERMUX_PKG_REPLACES=newsbeuter
-
 termux_step_pre_configure() {
 	termux_setup_rust
-
 	export CXX_FOR_BUILD=g++
 	export CXXFLAGS_FOR_BUILD="-O2"
-
 	# Used by newsboat Makefile:
 	export CARGO_BUILD_TARGET=$CARGO_TARGET_NAME
-
 	LDFLAGS+=" -liconv"
-
 	export PKG_CONFIG_ALLOW_CROSS=1
 }
-
