@@ -16,4 +16,3 @@ termux_step_pre_configure () {
 	automake --add-missing
 	autoconf
 }
-
