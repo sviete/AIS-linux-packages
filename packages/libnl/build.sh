@@ -7,8 +7,6 @@ TERMUX_PKG_SHA256=352133ec9545da76f77e70ccb48c9d7e5324d67f6474744647a7ed382b5e05
 TERMUX_PKG_BREAKS="libnl-dev"
 TERMUX_PKG_REPLACES="libnl-dev"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-pthreads --disable-cli"
-
 termux_step_pre_configure() {
 	CFLAGS+=" -Dsockaddr_storage=__kernel_sockaddr_storage"
 }
-
