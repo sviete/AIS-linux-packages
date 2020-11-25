@@ -34,36 +34,28 @@ share/vim/vim82/print
 share/vim/vim82/tools
 "
 TERMUX_PKG_CONFFILES="share/vim/vimrc"
-
 TERMUX_PKG_CONFLICTS="vim-python"
-
 termux_step_pre_configure() {
 	# Certain packages are not safe to build on device because their
 	# build.sh script deletes specific files in $TERMUX_PREFIX.
 	if $TERMUX_ON_DEVICE_BUILD; then
 		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
 	fi
-
 	make distclean
-
 	# Remove eventually existing symlinks from previous builds so that they get re-created
 	for b in rview rvim ex view vimdiff; do rm -f $TERMUX_PREFIX/bin/$b; done
 	rm -f $TERMUX_PREFIX/share/man/man1/view.1
 }
-
 termux_step_post_make_install() {
 	sed -e "s%\@TERMUX_PREFIX\@%${TERMUX_PREFIX}%g" $TERMUX_PKG_BUILDER_DIR/vimrc \
 		> $TERMUX_PREFIX/share/vim/vimrc
-
 	# Remove most tutor files:
 	cp $TERMUX_PREFIX/share/vim/vim82/tutor/{tutor,tutor.vim,tutor.utf-8} $TERMUX_PKG_TMPDIR/
 	rm -f $TERMUX_PREFIX/share/vim/vim82/tutor/*
 	cp $TERMUX_PKG_TMPDIR/{tutor,tutor.vim,tutor.utf-8} $TERMUX_PREFIX/share/vim/vim82/tutor/
-
 	cd $TERMUX_PREFIX/bin
 	ln -f -s vim vi
 }
-
 termux_step_create_debscripts() {
 	cat <<- EOF > ./postinst
 	#!$TERMUX_PREFIX/bin/sh
@@ -74,7 +66,6 @@ termux_step_create_debscripts() {
 		fi
 	fi
 	EOF
-
 	cat <<- EOF > ./prerm
 	#!$TERMUX_PREFIX/bin/sh
 	if [ "\$1" != "upgrade" ]; then
@@ -84,4 +75,3 @@ termux_step_create_debscripts() {
 	fi
 	EOF
 }
-
