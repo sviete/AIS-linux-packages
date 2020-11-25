@@ -6,8 +6,6 @@ TERMUX_PKG_SRCURL=https://github.com/libexif/libexif/archive/libexif-0_6_22-rele
 TERMUX_PKG_SHA256=46498934b7b931526fdee8fd8eb77a1dddedd529d5a6dbce88daf4384baecc54
 TERMUX_PKG_BREAKS="libexif-dev"
 TERMUX_PKG_REPLACES="libexif-dev"
-
 termux_step_pre_configure() {
 	autoreconf -fi
 }
-
