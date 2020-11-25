@@ -13,4 +13,3 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -Dgssapi=disabled
 -Dtls_check=false
 "
-
