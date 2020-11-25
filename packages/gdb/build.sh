@@ -17,7 +17,6 @@ ac_cv_func_getpwnam=no
 "
 TERMUX_PKG_RM_AFTER_INSTALL="share/gdb/syscalls share/gdb/system-gdbinit"
 TERMUX_PKG_MAKE_INSTALL_TARGET="-C gdb install"
-
 termux_step_pre_configure() {
 	# Fix "undefined reference to 'rpl_gettimeofday'" when building:
 	export gl_cv_func_gettimeofday_clobber=no
@@ -31,4 +30,3 @@ termux_step_pre_configure() {
 	export gl_cv_func_working_strerror=yes
 	export gl_cv_func_getcwd_path_max=yes
 }
-
