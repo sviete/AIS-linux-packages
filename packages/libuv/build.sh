@@ -6,11 +6,7 @@ TERMUX_PKG_SRCURL=https://dist.libuv.org/dist/v${TERMUX_PKG_VERSION}/libuv-v${TE
 TERMUX_PKG_SHA256=61a90db95bac00adec1cc5ddc767ebbcaabc70242bd1134a7a6b1fb1d498a194
 TERMUX_PKG_BREAKS="libuv-dev"
 TERMUX_PKG_REPLACES="libuv-dev"
-
 termux_step_pre_configure() {
 	export PLATFORM=android
 	sh autogen.sh
 }
-
-
-
