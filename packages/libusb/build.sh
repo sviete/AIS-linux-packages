@@ -7,8 +7,6 @@ TERMUX_PKG_SHA256=02620708c4eea7e736240a623b0b156650c39bfa93a14bcfa5f3e05270313e
 TERMUX_PKG_BREAKS="libusb-dev"
 TERMUX_PKG_REPLACES="libusb-dev"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-udev"
-
 termux_step_pre_configure() {
 	NOCONFIGURE=true ./autogen.sh
 }
-
