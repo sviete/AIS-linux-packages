@@ -9,12 +9,9 @@ TERMUX_PKG_DEPENDS="attr"
 TERMUX_PKG_BREAKS="libcap-dev"
 TERMUX_PKG_REPLACES="libcap-dev"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_make() {
 	make CC="$CC -Wl,-rpath=$TERMUX_PREFIX/lib -Wl,--enable-new-dtags" PREFIX="$TERMUX_PREFIX" PTHREADS=no
 }
-
 termux_step_make_install() {
 	make CC="$CC -Wl,-rpath=$TERMUX_PREFIX/lib -Wl,--enable-new-dtags" prefix="$TERMUX_PREFIX" RAISE_SETFCAP=no lib=/lib PTHREADS=no install
 }
-
