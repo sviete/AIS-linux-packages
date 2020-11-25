@@ -7,17 +7,14 @@ TERMUX_PKG_SKIP_SRC_EXTRACT=true
 TERMUX_PKG_BREAKS="libandroid-glob-dev"
 TERMUX_PKG_REPLACES="libandroid-glob-dev"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_make() {
 	$CC $CFLAGS $CPPFLAGS -I$TERMUX_PKG_BUILDER_DIR -c $TERMUX_PKG_BUILDER_DIR/glob.c
 	$CC $LDFLAGS -shared glob.o -o libandroid-glob.so
 	$AR rcu libandroid-glob.a glob.o
 	cp -f $TERMUX_PKG_BUILDER_DIR/LICENSE $TERMUX_PKG_SRCDIR/
 }
-
 termux_step_make_install() {
 	install -Dm600 $TERMUX_PKG_BUILDER_DIR/glob.h $TERMUX_PREFIX/include/glob.h
 	install -Dm600 libandroid-glob.a $TERMUX_PREFIX/lib/libandroid-glob.a
 	install -Dm600 libandroid-glob.so $TERMUX_PREFIX/lib/libandroid-glob.so
 }
-
