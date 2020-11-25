@@ -8,7 +8,6 @@ TERMUX_PKG_SHA256=ee1e749213c108cb60d53147f18c31a73d6717d7e3d2481c157e1b34c881ea
 TERMUX_PKG_DEPENDS="libbz2, libiconv, liblzma, libxml2, openssl, zlib"
 TERMUX_PKG_BREAKS="libarchive-dev"
 TERMUX_PKG_REPLACES="libarchive-dev"
-
 # --without-nettle to use openssl instead:
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --without-nettle
@@ -17,4 +16,3 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-acl
 --disable-xattr
 "
-
