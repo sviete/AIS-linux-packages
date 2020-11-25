@@ -23,4 +23,3 @@ termux_step_install_license() {
 	mkdir -p $TERMUX_PREFIX/share/doc/asciidoctor
 	cp $gemdir/gems/asciidoctor-${TERMUX_PKG_VERSION}/LICENSE $TERMUX_PREFIX/share/doc/asciidoctor/
 }
-
