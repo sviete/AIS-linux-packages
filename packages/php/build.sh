@@ -13,7 +13,6 @@ TERMUX_PKG_CONFLICTS="php-mysql, php-dev"
 TERMUX_PKG_REPLACES="php-mysql, php-dev"
 TERMUX_PKG_RM_AFTER_INSTALL="php/php/fpm"
 TERMUX_PKG_SERVICE_SCRIPT=("php-fpm" 'mkdir -p ~/.php\nif [ -f "$HOME/.php/php-fpm.conf" ]; then CONFIG="$HOME/.php/php-fpm.conf"; else CONFIG="$PREFIX/etc/php-fpm.conf"; fi\nexec php-fpm -F -y $CONFIG -c ~/.php/php.ini 2>&1')
-
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 ac_cv_func_res_nsearch=no
 --enable-bcmath
@@ -49,16 +48,13 @@ ac_cv_func_res_nsearch=no
 --enable-intl
 --sbindir=$TERMUX_PREFIX/bin
 "
-
 termux_step_host_build() {
 	(cd "$TERMUX_PKG_SRCDIR" && ./buildconf --force)
 	"$TERMUX_PKG_SRCDIR/configure" ${TERMUX_PKG_EXTRA_HOSTBUILD_CONFIGURE_ARGS}
 	make -j "$TERMUX_MAKE_PROCESSES"
 }
-
 termux_step_pre_configure() {
 	LDFLAGS+=" -landroid-glob -llog"
-
 	export PATH=$PATH:$TERMUX_PKG_HOSTBUILD_DIR/sapi/cli/
 	export NATIVE_PHP_EXECUTABLE=$TERMUX_PKG_HOSTBUILD_DIR/sapi/cli/php
 	if [ "$TERMUX_ARCH" = "aarch64" ]; then
@@ -67,27 +63,21 @@ termux_step_pre_configure() {
 	fi
 	# Regenerate configure again since we have patched config.m4 files.
 	./buildconf --force
-
 	export EXTENSION_DIR=$TERMUX_PREFIX/lib/php
-
 	# Use a wrapper since bin/apxs has the Termux shebang:
 	echo "perl $TERMUX_PREFIX/bin/apxs \$@" > $TERMUX_PKG_TMPDIR/apxs-wrapper.sh
 	chmod +x $TERMUX_PKG_TMPDIR/apxs-wrapper.sh
 	cat $TERMUX_PKG_TMPDIR/apxs-wrapper.sh
 }
-
 termux_step_post_configure() {
 	# Avoid src/ext/gd/gd.c trying to include <X11/xpm.h>:
 	sed -i 's/#define HAVE_GD_XPM 1//' $TERMUX_PKG_BUILDDIR/main/php_config.h
 	# Avoid src/ext/standard/dns.c trying to use struct __res_state:
 	sed -i 's/#define HAVE_RES_NSEARCH 1//' $TERMUX_PKG_BUILDDIR/main/php_config.h
 }
-
 termux_step_post_make_install() {
 	mkdir -p $TERMUX_PREFIX/etc/php-fpm.d
 	cp sapi/fpm/php-fpm.conf $TERMUX_PREFIX/etc/
 	cp sapi/fpm/www.conf $TERMUX_PREFIX/etc/php-fpm.d/
-
 	sed -i 's/SED=.*/SED=sed/' $TERMUX_PREFIX/bin/phpize
 }
-
