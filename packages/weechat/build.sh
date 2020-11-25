@@ -8,7 +8,6 @@ TERMUX_PKG_DEPENDS="libiconv, ncurses, libgcrypt, libcurl, libgnutls, libandroid
 TERMUX_PKG_BREAKS="weechat-dev"
 TERMUX_PKG_REPLACES="weechat-dev"
 TERMUX_PKG_RM_AFTER_INSTALL="bin/weechat-curses share/man/man1/weechat-headless.1 share/icons"
-
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DCA_FILE=$TERMUX_PREFIX/etc/tls/cert.pem
 -DENABLE_HEADLESS=OFF
@@ -27,8 +26,6 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DMSGMERGE_EXECUTABLE=$(which msgmerge)
 -DXGETTEXT_EXECUTABLE=$(which xgettext)
 "
-
 termux_step_pre_configure() {
 	TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" -DPKG_CONFIG_EXECUTABLE=$PKG_CONFIG"
 }
-
