@@ -52,18 +52,15 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DLLVM_ENABLE_FFI=ON
 -DANDROID_NDK_VERSION=${TERMUX_NDK_VERSION_NUM}
 "
-
 if [ $TERMUX_ARCH_BITS = 32 ]; then
 	# Do not set _FILE_OFFSET_BITS=64
 	TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" -DLLVM_FORCE_SMALLFILE_FOR_ANDROID=on"
 fi
-
 TERMUX_PKG_FORCE_CMAKE=true
 TERMUX_PKG_HAS_DEBUG=false
 # Debug build succeeds but make install with:
 # cp: cannot stat '../src/projects/openmp/runtime/exports/common.min.50.ompt.optional/include/omp.h': No such file or directory
 # common.min.50.ompt.optional should be common.deb.50.ompt.optional when doing debug build
-
 termux_step_post_get_source() {
 	if [ "$TERMUX_PKG_QUICK_REBUILD" = "false" ]; then
 		mv clang-${TERMUX_PKG_VERSION}.src tools/clang
@@ -74,22 +71,18 @@ termux_step_post_get_source() {
 		mv polly-${TERMUX_PKG_VERSION}.src tools/polly
 	fi
 }
-
 termux_step_host_build() {
 	termux_setup_cmake
 	termux_setup_ninja
-
 	cmake -G Ninja $TERMUX_PKG_SRCDIR
 	ninja -j $TERMUX_MAKE_PROCESSES clang-tblgen llvm-tblgen
 }
-
 termux_step_pre_configure() {
 	if [ "$TERMUX_PKG_QUICK_REBUILD" = "false" ]; then
 		mkdir projects/openmp/runtime/src/android
 		cp $TERMUX_PKG_BUILDER_DIR/nl_types.h projects/openmp/runtime/src/android
 		cp $TERMUX_PKG_BUILDER_DIR/nltypes_stubs.cpp projects/openmp/runtime/src/android
 	fi
-
 	export LLVM_DEFAULT_TARGET_TRIPLE=$TERMUX_HOST_PLATFORM
 	export LLVM_TARGET_ARCH
 	if [ $TERMUX_ARCH = "arm" ]; then
@@ -107,28 +100,23 @@ termux_step_pre_configure() {
 	TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" -DLLVM_TARGET_ARCH=$LLVM_TARGET_ARCH"
 	TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" -DLLVM_HOST_TRIPLE=$LLVM_DEFAULT_TARGET_TRIPLE"
 }
-
 termux_step_post_make_install() {
 	if [ $TERMUX_ARCH = "arm" ]; then
 		cp $TERMUX_PKG_SRCDIR/projects/openmp/runtime/exports/common/include/omp.h $TERMUX_PREFIX/include
 	else
 		cp $TERMUX_PKG_SRCDIR/projects/openmp/runtime/exports/common.ompt.optional/include/omp.h $TERMUX_PREFIX/include
 	fi
-
 	if [ "$TERMUX_CMAKE_BUILD" = Ninja ]; then
 		ninja docs-llvm-man
 	else
 		make docs-llvm-man
 	fi
-
 	cp docs/man/* $TERMUX_PREFIX/share/man/man1
 	cd $TERMUX_PREFIX/bin
-
 	for tool in clang clang++ cc c++ cpp gcc g++ ${TERMUX_HOST_PLATFORM}-{clang,clang++,gcc,g++,cpp}; do
 		ln -f -s clang-${TERMUX_PKG_VERSION:0:2} $tool
 	done
 }
-
 termux_step_post_massage() {
 	# Not added to the package but kept around on the host for other packages like rust,
 	# which relies on LLVM, to use for configuration.
@@ -139,4 +127,3 @@ termux_step_post_massage() {
 		-e "s|@TERMUX_PREFIX@|$TERMUX_PREFIX|g" > $TERMUX_PREFIX/bin/llvm-config
 	chmod 755 $TERMUX_PREFIX/bin/llvm-config
 }
-
