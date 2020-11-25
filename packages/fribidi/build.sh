@@ -8,4 +8,3 @@ TERMUX_PKG_DEPENDS="glib"
 TERMUX_PKG_BREAKS="fribidi-dev"
 TERMUX_PKG_REPLACES="fribidi-dev"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-docs"
-
