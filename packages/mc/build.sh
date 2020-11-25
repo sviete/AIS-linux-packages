@@ -17,7 +17,6 @@ ac_cv_path_ZIP=$TERMUX_PREFIX/bin/zip
 --with-ncurses-libs=$TERMUX_PREFIX/lib
 --with-screen=ncurses
 "
-
 termux_step_pre_configure() {
 	if $TERMUX_DEBUG; then
 		# Debug build fails with:
@@ -27,5 +26,3 @@ termux_step_pre_configure() {
 		export CFLAGS=${CFLAGS/-D_FORTIFY_SOURCE=2/}
 	fi
 }
-
-
