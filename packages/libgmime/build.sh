@@ -8,15 +8,12 @@ TERMUX_PKG_SHA256=2aea96647a468ba2160a64e17c6dc6afe674ed9ac86070624a3f584c10737d
 TERMUX_PKG_DEPENDS="glib, libffi, libiconv, libidn2, zlib"
 TERMUX_PKG_BREAKS="libgmime-dev"
 TERMUX_PKG_REPLACES="libgmime-dev"
-
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 ac_cv_have_iconv_detect_h=yes
 --with-libiconv=gnu
 --disable-glibtest
 --disable-crypto
 "
-
 termux_step_pre_configure() {
 	cp "$TERMUX_PKG_BUILDER_DIR"/iconv-detect.h ./
 }
-
