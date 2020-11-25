@@ -7,19 +7,15 @@ TERMUX_PKG_SHA256=d279c10e4b9316bf11a570ba16c3d55791e1ad6faa4404c67422eb631782c8
 TERMUX_PKG_DEPENDS="libc++"
 TERMUX_PKG_BREAKS="libvpx-dev"
 TERMUX_PKG_REPLACES="libvpx-dev"
-
 termux_step_configure() {
 	# Certain packages are not safe to build on device because their
 	# build.sh script deletes specific files in $TERMUX_PREFIX.
 	if $TERMUX_ON_DEVICE_BUILD; then
 		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
 	fi
-
 	# Force fresh install of header files:
 	rm -Rf $TERMUX_PREFIX/include/vpx
-
 	export LD=$CC
-
 	if [ $TERMUX_ARCH = "arm" ]; then
 		export AS=$TERMUX_HOST_PLATFORM-as
 		_CONFIGURE_TARGET="--target=armv7-android-gcc"
@@ -34,7 +30,6 @@ termux_step_configure() {
 	else
 		termux_error_exit "Unsupported arch: $TERMUX_ARCH"
 	fi
-
 	# For --disable-realtime-only, see
 	# https://bugs.chromium.org/p/webm/issues/detail?id=800
 	# "The issue is that on android we soft enable realtime only.
@@ -52,6 +47,3 @@ termux_step_configure() {
 		--enable-shared \
 		--enable-small
 }
-
-
-
