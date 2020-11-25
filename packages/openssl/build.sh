@@ -11,19 +11,16 @@ TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_CONFLICTS="libcurl (<< 7.61.0-1)"
 TERMUX_PKG_BREAKS="openssl-tool (<< 1.1.1b-1), openssl-dev"
 TERMUX_PKG_REPLACES="openssl-tool (<< 1.1.1b-1), openssl-dev"
-
 termux_step_configure() {
 	# Certain packages are not safe to build on device because their
 	# build.sh script deletes specific files in $TERMUX_PREFIX.
 	if $TERMUX_ON_DEVICE_BUILD; then
 		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
 	fi
-
 	CFLAGS+=" -DNO_SYSLOG"
 	if [ $TERMUX_ARCH = arm ]; then
 		CFLAGS+=" -fno-integrated-as"
 	fi
-
 	perl -p -i -e "s@TERMUX_CFLAGS@$CFLAGS@g" Configure
 	rm -Rf $TERMUX_PREFIX/lib/libcrypto.* $TERMUX_PREFIX/lib/libssl.*
 	test $TERMUX_ARCH = "arm" && TERMUX_OPENSSL_PLATFORM="android-arm"
@@ -40,24 +37,17 @@ termux_step_configure() {
 		no-srp \
 		no-tests
 }
-
 termux_step_make() {
 	make depend
 	make -j $TERMUX_MAKE_PROCESSES all
 }
-
 termux_step_make_install() {
 	# "install_sw" instead of "install" to not install man pages:
 	make -j 1 install_sw MANDIR=$TERMUX_PREFIX/share/man MANSUFFIX=.ssl
-
 	mkdir -p $TERMUX_PREFIX/etc/tls/
-
 	cp apps/openssl.cnf $TERMUX_PREFIX/etc/tls/openssl.cnf
-
 	sed "s|@TERMUX_PREFIX@|$TERMUX_PREFIX|g" \
 		$TERMUX_PKG_BUILDER_DIR/add-trusted-certificate \
 		> $TERMUX_PREFIX/bin/add-trusted-certificate
 	chmod 700 $TERMUX_PREFIX/bin/add-trusted-certificate
 }
-
-
