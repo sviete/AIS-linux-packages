@@ -9,10 +9,6 @@ TERMUX_PKG_DEPENDS="openssl,libexpat"
 TERMUX_PKG_BREAKS="libmesode-dev"
 TERMUX_PKG_REPLACES="libmesode-dev"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_pre_configure() {
 ./bootstrap.sh
 }
-
-
-
