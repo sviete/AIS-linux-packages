@@ -13,7 +13,6 @@ TERMUX_PKG_SHA256=(05da39f964643b595bfdb874e52eabfd407c02d8fbed35602040735f4af9b
 # ncurses-utils: tset/reset/clear are moved to package 'ncurses'.
 TERMUX_PKG_BREAKS="ncurses-dev, ncurses-utils (<< 6.1.20190511-4)"
 TERMUX_PKG_REPLACES="ncurses-dev, ncurses-utils (<< 6.1.20190511-4)"
-
 # --disable-stripping to disable -s argument to install which does not work when cross compiling:
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 ac_cv_header_locale_h=no
@@ -35,19 +34,15 @@ ac_cv_header_locale_h=no
 --with-shared
 --with-termpath=$TERMUX_PREFIX/etc/termcap:$TERMUX_PREFIX/share/misc/termcap
 "
-
 TERMUX_PKG_RM_AFTER_INSTALL="
 share/man/man5
 share/man/man7
 "
-
 termux_step_pre_configure() {
 	TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" --with-pkg-config-libdir=$PKG_CONFIG_LIBDIR"
 }
-
 termux_step_post_make_install() {
 	cd $TERMUX_PREFIX/lib
-
 	# Ncursesw/Ncurses compatibility symlinks.
 	for lib in form menu ncurses panel; do
 		ln -sfr lib${lib}w.so.${TERMUX_PKG_VERSION:0:3} lib${lib}.so.${TERMUX_PKG_VERSION:0:3}
@@ -56,7 +51,6 @@ termux_step_post_make_install() {
 		ln -sfr lib${lib}w.a lib${lib}.a
 		(cd pkgconfig; ln -sf ${lib}w.pc $lib.pc)
 	done
-
 	# Legacy compatibility symlinks (libcurses, libtermcap, libtic, libtinfo).
 	for lib in curses termcap tic tinfo; do
 		ln -sfr libncursesw.so.${TERMUX_PKG_VERSION:0:3} lib${lib}.so.${TERMUX_PKG_VERSION:0:3}
@@ -65,7 +59,6 @@ termux_step_post_make_install() {
 		ln -sfr libncursesw.a lib${lib}.a
 		(cd pkgconfig; ln -sfr ncursesw.pc ${lib}.pc)
 	done
-
 	# Some packages want these:
 	cd $TERMUX_PREFIX/include/
 	rm -Rf ncurses{,w}
@@ -73,7 +66,6 @@ termux_step_post_make_install() {
 	ln -s ../{ncurses.h,termcap.h,panel.h,unctrl.h,menu.h,form.h,tic.h,nc_tparm.h,term.h,eti.h,term_entry.h,ncurses_dll.h,curses.h} ncurses
 	ln -s ../{ncurses.h,termcap.h,panel.h,unctrl.h,menu.h,form.h,tic.h,nc_tparm.h,term.h,eti.h,term_entry.h,ncurses_dll.h,curses.h} ncursesw
 }
-
 termux_step_post_massage() {
 	# Strip away 30 years of cruft to decrease size.
 	local TI=$TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX/share/terminfo
@@ -90,9 +82,6 @@ termux_step_post_massage() {
 	cp $TERMUX_PKG_TMPDIR/full-terminfo/t/tmux{,-256color} $TI/t/
 	cp $TERMUX_PKG_TMPDIR/full-terminfo/v/{vt52,vt100,vt102} $TI/v/
 	cp $TERMUX_PKG_TMPDIR/full-terminfo/x/xterm{,-color,-new,-16color,-256color,+256color} $TI/x/
-
 	tic -x -o $TI $TERMUX_PKG_SRCDIR/rxvt-unicode-${TERMUX_PKG_VERSION[1]}/doc/etc/rxvt-unicode.terminfo
 	tic -x -o $TI $TERMUX_PKG_SRCDIR/termite-${TERMUX_PKG_VERSION[2]}/termite.terminfo
 }
-
-
