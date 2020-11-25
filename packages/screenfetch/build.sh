@@ -8,10 +8,7 @@ TERMUX_PKG_SHA256=aa97dcd2a8576ae18de6c16c19744aae1573a3da7541af4b98a91930a30a31
 TERMUX_PKG_DEPENDS="bash"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
-
 termux_step_make_install() {
     install screenfetch-dev ${TERMUX_PREFIX}/bin/screenfetch
     install screenfetch.1 ${TERMUX_PREFIX}/share/man/man1/
 }
-
-
