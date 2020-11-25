@@ -7,8 +7,6 @@ TERMUX_PKG_SRCURL=https://github.com/calleerlandsson/pick/releases/download/v${T
 TERMUX_PKG_SHA256=de768fd566fd4c7f7b630144c8120b779a61a8cd35898f0db42ba8af5131edca
 TERMUX_PKG_DEPENDS="ncurses"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_pre_configure() {
 	export MANDIR=$TERMUX_PREFIX/share/man
 }
-
