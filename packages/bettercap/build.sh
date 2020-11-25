@@ -7,25 +7,19 @@ TERMUX_PKG_SHA256=dd4349a43486ec300a0f777f7c53b2fff608fb82dbba720c144b8553881140
 TERMUX_PKG_DEPENDS="libpcap, libusb"
 # x86_64 seem to depend on libnetfilter_queue
 TERMUX_PKG_BLACKLISTED_ARCHES="x86_64"
-
 termux_step_configure() {
 	termux_setup_golang
 	export GOPATH=$TERMUX_PKG_BUILDDIR	
 	export CGO_CFLAGS="-I$TERMUX_PREFIX/include"
-
 	mkdir -p "$GOPATH"/src/github.com/bettercap/
 	cp -a "$TERMUX_PKG_SRCDIR" "$GOPATH"/src/github.com/bettercap/bettercap
         go get github.com/bettercap/recording
 }
-
 termux_step_make() {
 	cd src/github.com/bettercap/bettercap
 	make build
 }
-
 termux_step_make_install() {
 	cd src/github.com/bettercap/bettercap
 	make install
 }
-
-
