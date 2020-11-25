@@ -6,8 +6,6 @@ TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://github.com/vmchale/tin-summer/archive/$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=d9a6f4b41c759c291c91348914635243df0f13d38985d398bbb48a39ab4b338c
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_pre_configure() {
 	sed -i 's/linux/android/g' src/utils.rs
 }
-
