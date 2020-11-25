@@ -16,12 +16,10 @@ TERMUX_PKG_SUGGESTS="clang, make, pkg-config, python"
 TERMUX_PKG_RM_AFTER_INSTALL="lib/node_modules/npm/html lib/node_modules/npm/make.bat share/systemtap lib/dtrace"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_HOSTBUILD=true
-
 termux_step_post_get_source() {
 	# Prevent caching of host build:
 	rm -Rf $TERMUX_PKG_HOSTBUILD_DIR
 }
-
 termux_step_host_build() {
 	local ICU_VERSION=67.1
 	local ICU_TAR=icu4c-${ICU_VERSION//./_}-src.tgz
@@ -44,7 +42,6 @@ termux_step_host_build() {
 	fi
 	make -j $TERMUX_MAKE_PROCESSES install
 }
-
 termux_step_configure() {
 	local DEST_CPU
 	if [ $TERMUX_ARCH = "arm" ]; then
@@ -58,12 +55,10 @@ termux_step_configure() {
 	else
 		termux_error_exit "Unsupported arch '$TERMUX_ARCH'"
 	fi
-
 	export GYP_DEFINES="host_os=linux"
 	export CC_host=gcc
 	export CXX_host=g++
 	export LINK_host=g++
-
 	# See note above TERMUX_PKG_DEPENDS why we do not use a shared libuv.
 	./configure \
 		--prefix=$TERMUX_PREFIX \
@@ -76,7 +71,6 @@ termux_step_configure() {
 		--without-snapshot \
 		--without-node-snapshot \
 		--cross-compiling
-
 	export LD_LIBRARY_PATH=$TERMUX_PKG_HOSTBUILD_DIR/icu-installed/lib
 	perl -p -i -e "s@LIBS := \\$\\(LIBS\\)@LIBS := -L$TERMUX_PKG_HOSTBUILD_DIR/icu-installed/lib -lpthread -licui18n -licuuc -licudata@" \
 		$TERMUX_PKG_SRCDIR/out/tools/v8_gypfiles/torque.host.mk \
@@ -84,4 +78,3 @@ termux_step_configure() {
 		$TERMUX_PKG_SRCDIR/out/tools/v8_gypfiles/v8_libbase.host.mk \
 		$TERMUX_PKG_SRCDIR/out/tools/v8_gypfiles/gen-regexp-special-case.host.mk
 }
-
