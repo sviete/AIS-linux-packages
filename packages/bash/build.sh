@@ -13,7 +13,6 @@ TERMUX_PKG_BREAKS="bash-dev"
 TERMUX_PKG_REPLACES="bash-dev"
 TERMUX_PKG_ESSENTIAL=true
 TERMUX_PKG_BUILD_IN_SRC=true
-
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--enable-multibyte --without-bash-malloc --with-installed-readline"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" bash_cv_job_control_missing=present"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" bash_cv_sys_siglist=yes"
@@ -29,14 +28,10 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" bash_cv_dev_fd=whacky"
 # - http://permalink.gmane.org/gmane.linux.embedded.yocto.general/25204
 # - https://github.com/termux/termux-app/issues/200
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" bash_cv_getcwd_malloc=yes"
-
 TERMUX_PKG_CONFFILES="etc/bash.bashrc etc/profile"
-
 TERMUX_PKG_RM_AFTER_INSTALL="share/man/man1/bashbug.1 bin/bashbug"
-
 termux_step_pre_configure() {
 	declare -A PATCH_CHECKSUMS
-
 	PATCH_CHECKSUMS[001]=f2fe9e1f0faddf14ab9bfa88d450a75e5d028fedafad23b88716bd657c737289
 	PATCH_CHECKSUMS[002]=87e87d3542e598799adb3e7e01c8165bc743e136a400ed0de015845f7ff68707
 	PATCH_CHECKSUMS[003]=4eebcdc37b13793a232c5f2f498a5fcbf7da0ecb3da2059391c096db620ec85b
@@ -55,7 +50,6 @@ termux_step_pre_configure() {
 	PATCH_CHECKSUMS[016]=ffd1d7a54a99fa7f5b1825e4f7e95d8c8876bc2ca151f150e751d429c650b06d
 	PATCH_CHECKSUMS[017]=4cf3b9fafb8a66d411dd5fc9120032533a4012df1dc6ee024c7833373e2ddc31
         PATCH_CHECKSUMS[018]=7c314e375a105a6642e8ed44f3808b9def89d15f7492fe2029a21ba9c0de81d3
-
 	for PATCH_NUM in $(seq -f '%03g' ${_PATCH_VERSION}); do
 		PATCHFILE=$TERMUX_PKG_CACHEDIR/bash_patch_${PATCH_NUM}.patch
 		termux_download \
@@ -65,23 +59,18 @@ termux_step_pre_configure() {
 		patch -p0 -i $PATCHFILE
 	done
 	unset PATCH_CHECKSUMS PATCHFILE PATCH_NUM
-
 	# Prefix verification patch should be applied only for the
 	# builds with original prefix.
 	if [ "$TERMUX_PREFIX" = "/data/data/com.termux/files/usr" ]; then
 		patch -p1 -i $TERMUX_PKG_BUILDER_DIR/verify-prefix.patch.txt
 	fi
 }
-
 termux_step_post_make_install() {
 	sed -e "s|@TERMUX_PREFIX@|$TERMUX_PREFIX|" \
 		-e "s|@TERMUX_HOME@|$TERMUX_ANDROID_HOME|" \
 		$TERMUX_PKG_BUILDER_DIR/etc-profile > $TERMUX_PREFIX/etc/profile
-
 	# /etc/bash.bashrc - System-wide .bashrc file for interactive shells. (config-top.h in bash source, patched to enable):
 	sed -e "s|@TERMUX_PREFIX@|$TERMUX_PREFIX|" \
 		-e "s|@TERMUX_HOME@|$TERMUX_ANDROID_HOME|" \
 		$TERMUX_PKG_BUILDER_DIR/etc-bash.bashrc > $TERMUX_PREFIX/etc/bash.bashrc
 }
-
-
