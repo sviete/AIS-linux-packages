@@ -9,14 +9,12 @@ TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 ac_cv_header_spawn_h=no
 "
-
 termux_step_post_configure() {
 	# zile uses help2man to build the zile.1 man page, which would require
 	# a host build. To avoid that just copy a pre-built man page.
 	cp $TERMUX_PKG_BUILDER_DIR/zile.1 $TERMUX_PKG_BUILDDIR/doc/zile.1
 	touch -d "next hour" $TERMUX_PKG_BUILDDIR/doc/zile.1*
 }
-
 termux_step_create_debscripts() {
 	cat <<- EOF > ./postinst
 	#!$TERMUX_PREFIX/bin/sh
@@ -27,7 +25,6 @@ termux_step_create_debscripts() {
 		fi
 	fi
 	EOF
-
 	cat <<- EOF > ./prerm
 	#!$TERMUX_PREFIX/bin/sh
 	if [ "\$1" != "upgrade" ]; then
@@ -37,4 +34,3 @@ termux_step_create_debscripts() {
 	fi
 	EOF
 }
-
