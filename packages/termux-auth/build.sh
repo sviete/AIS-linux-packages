@@ -8,8 +8,6 @@ TERMUX_PKG_SHA256=56087e948abec2feb125fdba1d1eba079e8b501472bf201a6c5030c81b7798
 TERMUX_PKG_DEPENDS="openssl"
 TERMUX_PKG_BREAKS="termux-auth-dev"
 TERMUX_PKG_REPLACES="termux-auth-dev"
-
 termux_step_pre_configure() {
 	CPPFLAGS+=" -DTERMUX_HOME=\\\"${TERMUX_ANDROID_HOME}\\\" -DTERMUX_PREFIX=\\\"${TERMUX_PREFIX}\\\""
 }
-
