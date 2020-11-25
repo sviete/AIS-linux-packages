@@ -8,7 +8,6 @@ TERMUX_PKG_SHA256=8219b42cb56fc07b2aa660574e6211ac38eefdbf21f41b698d3348793ba5d8
 TERMUX_PKG_DEPENDS="less,libandroid-glob,zlib"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_RM_AFTER_INSTALL="share/examples"
-
 termux_step_pre_configure() {
 	LDFLAGS+=" -landroid-glob"
 	echo "PREFIX=\"$TERMUX_PREFIX\"" > configure.local
@@ -22,7 +21,6 @@ termux_step_pre_configure() {
 	echo "HAVE_MANPATH=0" >> configure.local
 	echo "HAVE_SQLITE3=1" >> configure.local
 }
-
 termux_step_create_debscripts() {
 	echo "interest-noawait $TERMUX_PREFIX/share/man" > triggers
 	
@@ -30,5 +28,3 @@ termux_step_create_debscripts() {
 	echo "makewhatis -Q" >> postinst
 	echo "exit 0" >> postinst
 }
-
-
