@@ -8,8 +8,6 @@ TERMUX_PKG_SHA256=88b1eb64c2a33a2f013f068df8b0331f42c019267401ae3fa28e3277403a5a
 TERMUX_PKG_DEPENDS="libjpeg-turbo"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS=" --mandir=$TERMUX_PREFIX/share/man"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_pre_configure() {
 	LD=$CC
 }
-
