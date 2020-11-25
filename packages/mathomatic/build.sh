@@ -9,10 +9,7 @@ TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_EXTRA_MAKE_ARGS="READLINE=1"
 TERMUX_PKG_DEPENDS="readline"
 TERMUX_PKG_RM_AFTER_INSTALL="share/applications/mathomatic.desktop share/pixmaps"
-
 termux_step_pre_configure() {
 	rm $TERMUX_PKG_SRCDIR/CMakeLists.txt
 	CPPFLAGS+=" -DUSE_TGAMMA -DBOLD_COLOR"
 }
-
-
