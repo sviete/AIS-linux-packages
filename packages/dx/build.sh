@@ -7,15 +7,12 @@ TERMUX_PKG_SRCURL=https://dl.bintray.com/xeffyr/sources/dx/dx-android-${TERMUX_P
 TERMUX_PKG_SHA256=b9b7917267876b74c8ff6707e7a576c93b6dfe8cacc4f1cc791d606bcbbb7bd5
 TERMUX_PKG_SKIP_SRC_EXTRACT=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
-
 termux_step_make_install() {
 	termux_download "$TERMUX_PKG_SRCURL" \
 		"$TERMUX_PKG_CACHEDIR/dx-${TERMUX_PKG_VERSION:2}.jar" \
 		"$TERMUX_PKG_SHA256"
-
 	install -Dm600 "$TERMUX_PKG_CACHEDIR/dx-${TERMUX_PKG_VERSION:2}.jar" \
 		"$TERMUX_PREFIX"/share/dex/dx.jar
-
 	cat <<- EOF > "$TERMUX_PREFIX"/bin/dx
 	#!${TERMUX_PREFIX}/bin/sh
 	exec dalvikvm \
@@ -25,7 +22,6 @@ termux_step_make_install() {
 		dx.dx.command.Main "\$@"
 	EOF
 	chmod 700 "$TERMUX_PREFIX"/bin/dx
-
 	cat <<- EOF > "$TERMUX_PREFIX"/bin/dx-merge
 	#!${TERMUX_PREFIX}/bin/sh
 	exec dalvikvm \
@@ -36,7 +32,6 @@ termux_step_make_install() {
 	EOF
 	chmod 700 "$TERMUX_PREFIX"/bin/dx-merge
 }
-
 termux_step_create_debscripts() {
 	cat <<- EOF > ./postinst
 	#!${TERMUX_PREFIX}/bin/bash
@@ -44,4 +39,3 @@ termux_step_create_debscripts() {
 	exit 0
 	EOF
 }
-
