@@ -10,10 +10,8 @@ TERMUX_PKG_SRCURL=https://download.qemu.org/qemu-${_PACKAGE_VERSION}.tar.xz
 TERMUX_PKG_SHA256="7e331163b72e7bcf63bd35cb85cba87b48d12fab3f264b94c23f7d3991094207"
 TERMUX_PKG_DEPENDS="attr, glib, libbz2, libc++, libcap, libcurl, libandroid-shmem, libgcrypt, libiconv, libjpeg-turbo, liblzo, libnfs, libpixman, libpng, libssh, libxml2, ncurses, qemu-common, resolv-conf, zlib"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_configure() {
 	local QEMU_TARGETS=""
-
 	# System emulation.
 	QEMU_TARGETS+="aarch64-softmmu,"
 	QEMU_TARGETS+="arm-softmmu,"
@@ -21,7 +19,6 @@ termux_step_configure() {
 	QEMU_TARGETS+="riscv32-softmmu,"
 	QEMU_TARGETS+="riscv64-softmmu,"
 	QEMU_TARGETS+="x86_64-softmmu,"
-
 	# User mode emulation.
 	QEMU_TARGETS+="aarch64-linux-user,"
 	QEMU_TARGETS+="arm-linux-user,"
@@ -29,15 +26,12 @@ termux_step_configure() {
 	QEMU_TARGETS+="riscv32-linux-user,"
 	QEMU_TARGETS+="riscv64-linux-user,"
 	QEMU_TARGETS+="x86_64-linux-user"
-
 	CFLAGS+=" $CPPFLAGS"
 	CXXFLAGS+=" $CPPFLAGS"
 	LDFLAGS+=" -landroid-shmem -llog"
-
 	cp "$TERMUX_PREFIX"/bin/libgcrypt-config \
 		"$TERMUX_PKG_TMPDIR"/libgcrypt-config
 	export PATH="$PATH:$TERMUX_PKG_TMPDIR"
-
 	# Note: using --disable-stack-protector since stack protector
 	# flags already passed by build scripts but we do not want to
 	# override them with what QEMU configure provides.
@@ -92,7 +86,6 @@ termux_step_configure() {
 		--enable-sheepdog \
 		--target-list="$QEMU_TARGETS"
 }
-
 termux_step_post_make_install() {
 	local i
 	for i in aarch64 arm i386 riscv32 riscv64 x86_64; do
@@ -101,4 +94,3 @@ termux_step_post_make_install() {
 			"${TERMUX_PREFIX}"/share/man/man1/qemu-system-${i}.1
 	done
 }
-
