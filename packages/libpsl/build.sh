@@ -7,8 +7,6 @@ TERMUX_PKG_SHA256=ac6ce1e1fbd4d0254c4ddb9d37f1fa99dec83619c1253328155206b896210d
 TERMUX_PKG_DEPENDS="libidn2, libunistring"
 TERMUX_PKG_BREAKS="libpsl-dev"
 TERMUX_PKG_REPLACES="libpsl-dev"
-
 termux_step_pre_configure() {
 	autoreconf -fiv
 }
-
