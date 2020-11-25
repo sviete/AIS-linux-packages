@@ -16,46 +16,36 @@ TERMUX_PKG_HOSTBUILD=true
 TERMUX_PKG_RM_AFTER_INSTALL="lib/*ng-test*"
 # --without-async due to that using pthread_cancel().
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--without-async --with-pcaudiolib"
-
 termux_step_post_get_source() {
 	# Certain packages are not safe to build on device because their
 	# build.sh script deletes specific files in $TERMUX_PREFIX.
 	if $TERMUX_ON_DEVICE_BUILD; then
 		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
 	fi
-
 	./autogen.sh
 }
-
 termux_step_host_build() {
 	cp -Rf $TERMUX_PKG_SRCDIR/* .
 	unset MAKEFLAGS
 	./configure --prefix=$TERMUX_PREFIX
 	make -j$TERMUX_MAKE_PROCESSES src/{e,}speak-ng
-
 	# Man pages require the ronn ruby program.
 	#make src/espeak-ng.1
 	#cp src/espeak-ng.1 $TERMUX_PREFIX/share/man/man1
 	#(cd $TERMUX_PREFIX/share/man/man1 && ln -s -f espeak-ng.1 espeak.1)
-
 	make install
 }
-
 termux_step_pre_configure() {
 	# Oz flag causes problems. See https://github.com/termux/termux-packages/issues/1680:
 	CFLAGS=${CFLAGS/Oz/Os}
 }
-
 termux_step_make() {
 	# Prevent caching of host build:
 	rm -Rf $TERMUX_PKG_HOSTBUILD_DIR
 	make -j$TERMUX_MAKE_PROCESSES src/{e,}speak-ng
 }
-
 termux_step_make_install() {
 	rm $TERMUX_PREFIX/bin/{e,}speak{,-ng}
 	cp src/.libs/espeak-ng $TERMUX_PREFIX/bin/espeak
 	cp src/.libs/libespeak-ng.so $TERMUX_PREFIX/lib/libespeak-ng.so.1.1.49
 }
-
-
