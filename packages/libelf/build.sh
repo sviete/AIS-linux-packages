@@ -12,19 +12,14 @@ TERMUX_PKG_BUILD_DEPENDS="argp"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="ac_cv_c99=yes --disable-symbol-versioning --disable-debuginfod"
 TERMUX_PKG_CONFLICTS="elfutils, libelf-dev"
 TERMUX_PKG_REPLACES="elfutils, libelf-dev"
-
 termux_step_pre_configure() {
 	CFLAGS+=" -Wno-error=unused-value -Wno-error=format-nonliteral -Wno-error"
-
 	# Exposes ACCESSPERMS in <sys/stat.h> which elfutils uses:
 	CFLAGS+=" -D__USE_BSD"
-
 	CFLAGS+=" -DFNM_EXTMATCH=0"
-
 	if [ "$TERMUX_ARCH" = "arm" ]; then
 		CFLAGS="${CFLAGS/-Oz/-O1}"
 	fi
-
 	cp $TERMUX_PKG_BUILDER_DIR/error.h .
 	cp $TERMUX_PKG_BUILDER_DIR/stdio_ext.h .
 	cp $TERMUX_PKG_BUILDER_DIR/obstack.h .
@@ -32,7 +27,6 @@ termux_step_pre_configure() {
 	cp $TERMUX_PKG_BUILDER_DIR/aligned_alloc.c libelf
 	autoreconf -if
 }
-
 termux_step_make() {
 	make -j $TERMUX_MAKE_PROCESSES -C lib
 	make -j $TERMUX_MAKE_PROCESSES -C libelf
@@ -43,7 +37,6 @@ termux_step_make() {
 	make -j $TERMUX_MAKE_PROCESSES -C libdwelf
 	make -j $TERMUX_MAKE_PROCESSES -C libdw
 }
-
 termux_step_make_install() {
 	make -j $TERMUX_MAKE_PROCESSES -C libelf install
 	make -j $TERMUX_MAKE_PROCESSES -C libdwfl install
@@ -52,4 +45,3 @@ termux_step_make_install() {
 	make install-pkgincludeHEADERS
 	make -C config install
 }
-
