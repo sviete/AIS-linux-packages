@@ -9,8 +9,6 @@ TERMUX_PKG_SHA256=18e587f5f1869f9d87edc4e77e7d5ddcacfd0966d15e5fb45ce520b0fe9ff0
 TERMUX_PKG_DEPENDS="libsqlite, ncurses"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-java"
-
 termux_step_pre_configure() {
 	./bootstrap
 }
-
