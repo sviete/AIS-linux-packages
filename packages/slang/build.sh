@@ -7,7 +7,5 @@ TERMUX_PKG_SHA256=fc9e3b0fc4f67c3c1f6d43c90c16a5c42d117b8e28457c5b46831b8b5d3ae3
 TERMUX_PKG_DEPENDS="libiconv, libpng, pcre, oniguruma, zlib"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_CONFFILES="etc/slsh.rc"
-
 # Supports only make -j1
 TERMUX_MAKE_PROCESSES=1
-
