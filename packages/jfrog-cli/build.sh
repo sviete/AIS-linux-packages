@@ -5,11 +5,9 @@ TERMUX_PKG_VERSION=1.41.1
 TERMUX_PKG_SRCURL=https://github.com/jfrog/jfrog-cli/archive/v$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=6da7aeb5ce3e28f17ae4a1d5f91cf48a44ef1b8373c5eaa2ee7bf45cd7968532
 TERMUX_PKG_DEPENDS="libc++"
-
 termux_step_make() {
 	termux_setup_golang
 	export GOPATH=$TERMUX_PKG_BUILDDIR
-
 	cd $TERMUX_PKG_SRCDIR
 	go build \
 		-o "$TERMUX_PREFIX/bin/jfrog" \
@@ -17,7 +15,6 @@ termux_step_make() {
 		main.go
 		# "linux" tag should not be necessary
 		# try removing when golang version is upgraded
-
 	# Building for host to generate manpages and completion.
 	chmod 700 -R $GOPATH/pkg && rm -rf $GOPATH/pkg
 	unset GOOS GOARCH CGO_LDFLAGS
@@ -29,11 +26,8 @@ termux_step_make() {
 		# "linux" tag should not be necessary
 		# try removing when golang version is upgraded
 }
-
 termux_step_make_install() {
 	mkdir -p $TERMUX_PREFIX/share/bash-completion/completions
 	$TERMUX_PKG_BUILDDIR/jfrog completion bash
 	cp ~/.jfrog/jfrog_bash_completion $TERMUX_PREFIX/share/bash-completion/completions/jfrog
-
 }
-
