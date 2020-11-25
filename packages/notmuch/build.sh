@@ -8,12 +8,10 @@ TERMUX_PKG_DEPENDS="glib, libc++, libgmime, libtalloc, libxapian, zlib"
 TERMUX_PKG_BREAKS="notmuch-dev"
 TERMUX_PKG_REPLACES="notmuch-dev"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_configure() {
 	# Use python3 so that the python3-sphinx package is
 	# found for man page generation.
 	export PYTHON=python3
-
 	cd $TERMUX_PKG_SRCDIR
 	XAPIAN_CONFIG=$TERMUX_PREFIX/bin/xapian-config ./configure \
 		--prefix=$TERMUX_PREFIX \
@@ -22,4 +20,3 @@ termux_step_configure() {
 		--without-emacs \
 		--without-ruby
 }
-
