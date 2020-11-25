@@ -8,17 +8,13 @@ TERMUX_PKG_SHA256=9931ad1c593096e69a1f0f7615e3857b1d422b7e74f63408385c663aeb2c12
 TERMUX_PKG_DEPENDS="zlib"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--no-default-features --features default"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_pre_configure() {
 	rm $TERMUX_PKG_SRCDIR/Makefile
 	termux_setup_rust
-
 	CFLAGS="$CFLAGS $CPPFLAGS"
 	cargo update
 }
-
 termux_step_post_make_install() {
 	mkdir -p $TERMUX_PREFIX/share/man/man1
 	cp $TERMUX_PKG_SRCDIR/contrib/man/exa.1 $TERMUX_PREFIX/share/man/man1/
 }
-
