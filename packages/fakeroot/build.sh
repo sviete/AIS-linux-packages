@@ -7,15 +7,12 @@ TERMUX_PKG_SRCURL=https://deb.debian.org/debian/pool/main/f/fakeroot/fakeroot_${
 TERMUX_PKG_SHA256=8e903683357f7f5bcc31b879fd743391ad47691d4be33d24a76be3b6c21e956c
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--with-ipc=tcp"
 TERMUX_PKG_BUILD_DEPENDS="libcap"
-
 termux_step_pre_configure() {
 	autoreconf -vfi
 }
-
 termux_step_post_make_install() {
 	ln -sfr "${TERMUX_PREFIX}/lib/libfakeroot-0.so" "${TERMUX_PREFIX}/lib/libfakeroot.so"
 }
-
 termux_step_create_debscripts() {
 	{
 		echo "#!$TERMUX_PREFIX/bin/sh"
@@ -27,4 +24,3 @@ termux_step_create_debscripts() {
 		echo "echo"
 	} > ./postinst
 }
-
