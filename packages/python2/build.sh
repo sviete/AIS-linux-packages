@@ -11,7 +11,6 @@ TERMUX_PKG_RECOMMENDS="clang, make, pkg-config"
 TERMUX_PKG_BREAKS="python2-dev"
 TERMUX_PKG_REPLACES="python2-dev"
 TERMUX_PKG_HOSTBUILD=true
-
 # The flag --with(out)-pymalloc (disable/enable specialized mallocs) is enabled by default and causes m suffix versions of python.
 # Set ac_cv_func_wcsftime=no to avoid errors such as "character U+ca0025 is not in range [U+0000; U+10ffff]"
 # when executing e.g. "from time import time, strftime, localtime; print(strftime(str('%Y-%m-%d %H:%M'), localtime()))"
@@ -40,7 +39,6 @@ lib/python${_MAJOR_VERSION}/test
 lib/python${_MAJOR_VERSION}/*/test
 lib/python${_MAJOR_VERSION}/*/tests
 "
-
 termux_step_host_build() {
 	# We need a host-built Parser/pgen binary, copied into cross-compile build in termux_step_post_configure() below
 	$TERMUX_PKG_SRCDIR/configure
@@ -50,17 +48,14 @@ termux_step_host_build() {
 	rm -f python$_MAJOR_VERSION # Remove symlink if already exists to get a newer timestamp
 	ln -s python python$_MAJOR_VERSION
 }
-
 termux_step_post_configure() {
 	cp $TERMUX_PKG_HOSTBUILD_DIR/Parser/pgen $TERMUX_PKG_BUILDDIR/Parser/pgen
 	touch -d "next hour" $TERMUX_PKG_BUILDDIR/Parser/pgen
 }
-
 termux_step_pre_configure() {
 	# Put the host-built python in path:
 	export TERMUX_ORIG_PATH=$PATH
 	export PATH=$TERMUX_PKG_HOSTBUILD_DIR:$PATH
-
 	# Needed when building with clang, as setup.py only probes
 	# gcc for include paths when finding headers for determining
 	# if extension modules should be built (specifically, the
@@ -69,7 +64,6 @@ termux_step_pre_configure() {
 	LDFLAGS+=" -L$TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib"
 	if [ $TERMUX_ARCH = x86_64 ]; then LDFLAGS+=64; fi
 }
-
 termux_step_post_make_install() {
 	# Avoid file clashes with the python (3) package:
 	(cd $TERMUX_PREFIX/bin
@@ -79,7 +73,6 @@ termux_step_post_make_install() {
 	# Restore path which termux_step_host_build messed with
 	export PATH=$TERMUX_ORIG_PATH
 }
-
 termux_step_post_massage() {
 	# Verify that desired modules have been included:
 	for module in _ssl bz2 zlib _curses _sqlite3; do
@@ -88,7 +81,6 @@ termux_step_post_massage() {
 		fi
 	done
 }
-
 termux_step_create_debscripts() {
 	## POST INSTALL:
 	echo "#!$TERMUX_PREFIX/bin/sh" > postinst
@@ -98,7 +90,6 @@ termux_step_create_debscripts() {
 	echo "if [ ! -f $TERMUX_PREFIX/bin/pip2 -a -d $TERMUX_PREFIX/lib/python${_MAJOR_VERSION}/site-packages/pip-*.dist-info ]; then rm -Rf $TERMUX_PREFIX/lib/python${_MAJOR_VERSION}/site-packages/pip-*.dist-info ; fi" >> postinst
 	# Setup bin/pip2:
 	echo "$TERMUX_PREFIX/bin/python2 -m ensurepip --upgrade --no-default-pip" >> postinst
-
 	## PRE RM:
 	# Avoid running on update
 	echo "#!$TERMUX_PREFIX/bin/sh" > prerm:
@@ -111,10 +102,7 @@ termux_step_create_debscripts() {
 	echo "rm -Rf $TERMUX_PREFIX/lib/python${_MAJOR_VERSION}/site-packages/*" >> prerm
 	# Remove pip and easy_install installed by ensurepip in postinst:
 	echo "rm -f $TERMUX_PREFIX/bin/pip2* $TERMUX_PREFIX/bin/easy_install-2*" >> prerm
-
 	echo "exit 0" >> postinst
 	echo "exit 0" >> prerm
 	chmod 0755 postinst prerm
 }
-
-
