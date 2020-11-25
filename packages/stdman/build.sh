@@ -8,9 +8,7 @@ TERMUX_PKG_SHA256=6e96634c67349e402339b1faa8f99e47f4145aa110e2ad492e00676b28bb05
 TERMUX_PKG_DEPENDS="man"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
-
 termux_step_make() {
 	# Just install manpages without building generation utility.
 	:
 }
-
