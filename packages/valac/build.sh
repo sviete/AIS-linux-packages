@@ -8,9 +8,7 @@ TERMUX_PKG_DEPENDS="clang, glib, pkg-config"
 TERMUX_PKG_BREAKS="valac-dev"
 TERMUX_PKG_REPLACES="valac-dev"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--with-cgraph=no"
-
 termux_step_post_make_install() {
 	cd ${TERMUX_PREFIX}/lib
 	ln -s -f vala-${TERMUX_PKG_VERSION:0:4}/libvalaccodegen.so libvalaccodegen.so
 }
-
