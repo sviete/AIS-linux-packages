@@ -9,12 +9,10 @@ TERMUX_PKG_SRCURL=https://www.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs
 TERMUX_PKG_SHA256=ffa7ae6954395abdc50d0f8605d8be84736465afc53b8938ef473fcf7ff44256
 TERMUX_PKG_CONFFILES="etc/mke2fs.conf"
 TERMUX_PKG_NO_STATICSPLIT=true
-
 ## util-linux provides libblkid
 TERMUX_PKG_DEPENDS="libuuid, util-linux"
 TERMUX_PKG_BREAKS="e2fsprogs-dev"
 TERMUX_PKG_REPLACES="e2fsprogs-dev"
-
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --sbindir=${TERMUX_PREFIX}/bin
 --enable-symlink-install
@@ -25,7 +23,6 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-libblkid
 --disable-uuidd
 --with-crond_dir=${TERMUX_PREFIX}/etc/cron.d"
-
 # Remove com_err.h to avoid conflicting with krb5-dev:
 TERMUX_PKG_RM_AFTER_INSTALL="
 bin/compile_et
@@ -42,11 +39,9 @@ share/man/man1/compile_et.1
 share/man/man1/mk_cmds.1
 share/man/man8/e2scrub.8.gz
 share/man/man8/e2scrub_all.8.gz"
-
 termux_step_make_install() {
 	make install install-libs
 	install -Dm600 \
 		"$TERMUX_PKG_SRCDIR"/misc/mke2fs.conf.in \
 		"$TERMUX_PREFIX"/etc/mke2fs.conf
 }
-
