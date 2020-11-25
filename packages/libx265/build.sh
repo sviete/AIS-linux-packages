@@ -7,7 +7,6 @@ TERMUX_PKG_SHA256=c6d744a87eda55560da715f56f878640554ddc06e2d0fcbd822fa330affc22
 TERMUX_PKG_DEPENDS="libc++"
 TERMUX_PKG_BREAKS="libx265-dev"
 TERMUX_PKG_REPLACES="libx265-dev"
-
 termux_step_pre_configure() {
 	if [ $TERMUX_ARCH = "i686" ]; then
 		# Avoid text relocations.
@@ -15,4 +14,3 @@ termux_step_pre_configure() {
 	fi
 	TERMUX_PKG_SRCDIR="$TERMUX_PKG_SRCDIR/source"
 }
-
