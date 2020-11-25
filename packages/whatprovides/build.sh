@@ -8,7 +8,6 @@ TERMUX_PKG_SHA256=cd2ae820713fdef04423d20451d8a54966d3b807cadd6b086c1111ee0e835e
 TERMUX_PKG_DEPENDS="bash, coreutils, curl, gawk, gzip, sqlite"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
-
 termux_step_create_debscripts() {
 	cat <<- EOF > ./postinst
 	#!${TERMUX_PREFIX}/bin/sh
@@ -22,7 +21,6 @@ termux_step_create_debscripts() {
 	}
 	fi
 	EOF
-
 	cat <<- EOF > ./prerm
 	#!${TERMUX_PREFIX}/bin/sh
 	if [ "\$1" != "remove" ]; then
@@ -31,4 +29,3 @@ termux_step_create_debscripts() {
 	rm -rf "${TERMUX_PREFIX}/var/lib/whatprovides"
 	EOF
 }
-
