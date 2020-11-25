@@ -7,12 +7,9 @@ TERMUX_PKG_SRCURL=https://mirrors.kernel.org/gnu/sed/sed-${TERMUX_PKG_VERSION}.t
 TERMUX_PKG_SHA256=f79b0cfea71b37a8eeec8490db6c5f7ae7719c35587f21edb0617f370eeff633
 TERMUX_PKG_ESSENTIAL=true
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_pre_configure() {
 	CFLAGS+=" -D__USE_FORTIFY_LEVEL=2"
 }
-
 termux_step_post_configure() {
 	touch -d "next hour" $TERMUX_PKG_SRCDIR/doc/sed.1
 }
-
