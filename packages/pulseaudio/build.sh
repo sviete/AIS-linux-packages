@@ -21,11 +21,9 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-neon-opt
 --disable-gsettings
 ax_cv_PTHREAD_PRIO_INHERIT=no"
 TERMUX_PKG_CONFFILES="etc/pulse/client.conf etc/pulse/daemon.conf etc/pulse/default.pa etc/pulse/system.pa"
-
 termux_step_post_get_source() {
 	NOCONFIGURE=1 ./bootstrap.sh
 }
-
 termux_step_pre_configure() {
 	# Our aaudio sink module needs libaaudio.so from a later android api version:
 	local _NDK_ARCHNAME=$TERMUX_ARCH
@@ -38,23 +36,19 @@ termux_step_pre_configure() {
 	cp $NDK/platforms/android-26/arch-$_NDK_ARCHNAME/usr/lib*/libaaudio.so \
 		$TERMUX_PKG_TMPDIR/libaaudio/
 	LDFLAGS+=" -L$TERMUX_PKG_TMPDIR/libaaudio/"
-
 	mkdir $TERMUX_PKG_SRCDIR/src/modules/sles
 	cp $TERMUX_PKG_BUILDER_DIR/module-sles-sink.c $TERMUX_PKG_SRCDIR/src/modules/sles
 	cp $TERMUX_PKG_BUILDER_DIR/module-sles-source.c $TERMUX_PKG_SRCDIR/src/modules/sles
 	mkdir $TERMUX_PKG_SRCDIR/src/modules/aaudio
 	cp $TERMUX_PKG_BUILDER_DIR/module-aaudio-sink.c $TERMUX_PKG_SRCDIR/src/modules/aaudio
-
 	export LIBS="-landroid-glob"
 }
-
 termux_step_post_make_install() {
 	# Some binaries link against these:
 	cd $TERMUX_PREFIX/lib
 	for lib in pulseaudio/lib*.so* pulse-${TERMUX_PKG_VERSION}/modules/lib*.so*; do
 		ln -s -f $lib $(basename $lib)
 	done
-
 	# Pulseaudio fails to start when it cannot detect any sound hardware
 	# so disable hardware detection.
 	sed -i $TERMUX_PREFIX/etc/pulse/default.pa \
@@ -62,4 +56,3 @@ termux_step_post_make_install() {
 	echo "load-module module-sles-sink" >> $TERMUX_PREFIX/etc/pulse/default.pa
 	echo "#load-module module-aaudio-sink" >> $TERMUX_PREFIX/etc/pulse/default.pa
 }
-
