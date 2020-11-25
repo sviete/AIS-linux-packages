@@ -9,7 +9,6 @@ TERMUX_PKG_SHA256=32a9745277bfdda80e77ac9ca2f5990897418e9416880f3c31553ca673e805
 TERMUX_PKG_DEPENDS="json-c, libandroid-support, libbz2, libc++, libcurl, libltdl, liblzma, libxml2, openssl, pcre2, zlib"
 TERMUX_PKG_BREAKS="clamav-dev"
 TERMUX_PKG_REPLACES="clamav-dev"
-
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --sysconfdir=$TERMUX_PREFIX/etc/clamav
 --with-libcurl=$TERMUX_PREFIX
@@ -21,19 +20,15 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-clamonacc
 --disable-llvm
 --disable-dns"
-
 TERMUX_PKG_RM_AFTER_INSTALL="
 share/man/man5/clamav-milter.conf.5
 share/man/man8/clamav-milter.8"
-
 TERMUX_PKG_CONFFILES="
 etc/clamav/clamd.conf
 etc/clamav/freshclam.conf"
-
 termux_step_pre_configure() {
        export OBJC=$CC
 }
-
 termux_step_post_make_install() {
 	for conf in clamd.conf freshclam.conf; do
 		sed "s|@TERMUX_PREFIX@|$TERMUX_PREFIX|" \
@@ -42,9 +37,7 @@ termux_step_post_make_install() {
 	done
 	unset conf
 }
-
 termux_step_post_massage() {
 	mkdir -p "$TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX"/var/lib/clamav
 	mkdir -p "$TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX"/var/log/clamav
 }
-
