@@ -7,11 +7,9 @@ TERMUX_PKG_SRCURL=https://downloads.sourceforge.net/infozip/unzip60.tar.gz
 TERMUX_PKG_SHA256=036d96991646d0449ed0aa952e4fbe21b476ce994abc276e49d30e686708bd37
 TERMUX_PKG_DEPENDS="libbz2"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_configure() {
 	cp unix/Makefile Makefile
 }
-
 termux_step_make() {
 	CFLAGS+=" $CPPFLAGS"
 	CFLAGS+=" -DACORN_FTYPE_NFS"
@@ -26,13 +24,9 @@ termux_step_make() {
 	CFLAGS+=" -DNOMEMCPY"
 	CFLAGS+=" -DNO_WORKING_ISPRINT"
 	CFLAGS+=" -I."
-
 	make -f unix/Makefile prefix=$TERMUX_PREFIX D_USE_BZ2=-DUSE_BZIP2 \
 		L_BZ2=-lbz2 LF2="$LDFLAGS" CC="$CC" CF="$CFLAGS" LD="$CC" unzips
 }
-
 termux_step_make_install() {
 	make -f unix/Makefile prefix=$TERMUX_PREFIX install
 }
-
-
