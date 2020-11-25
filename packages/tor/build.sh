@@ -8,9 +8,7 @@ TERMUX_PKG_DEPENDS="libevent, openssl, liblzma, zlib"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-zstd --disable-unittests"
 TERMUX_PKG_CONFFILES="etc/tor/torrc"
 TERMUX_PKG_SERVICE_SCRIPT=("tor" 'exec tor 2>&1')
-
 termux_step_post_make_install() {
 	# use default config
 	mv "$TERMUX_PREFIX/etc/tor/torrc.sample" "$TERMUX_PREFIX/etc/tor/torrc"
 }
-
