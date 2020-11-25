@@ -9,8 +9,6 @@ TERMUX_PKG_BREAKS="harfbuzz-dev"
 TERMUX_PKG_REPLACES="harfbuzz-dev"
 TERMUX_PKG_BUILD_DEPENDS="libicu"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="-Dgraphite=enabled"
-
 termux_step_post_get_source() {
 	mv CMakeLists.txt CMakeLists.txt.unused
 }
-
