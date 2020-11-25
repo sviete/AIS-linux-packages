@@ -7,15 +7,12 @@ TERMUX_PKG_SRCURL=https://github.com/hboetes/mg/archive/$TERMUX_PKG_VERSION.tar.
 TERMUX_PKG_SHA256=fbb09729ea00fe42dcdbc96ac7fc1d2b89eac651dec49e4e7af52fad4f5788f6
 TERMUX_PKG_DEPENDS="libbsd, ncurses"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_pre_configure() {
 	CFLAGS+=" $CPPFLAGS"
 }
-
 termux_step_make_install() {
 	make prefix=$PREFIX install
 }
-
 termux_step_create_debscripts() {
 	cat <<- EOF > ./postinst
 	#!$TERMUX_PREFIX/bin/sh
@@ -26,7 +23,6 @@ termux_step_create_debscripts() {
 		fi
 	fi
 	EOF
-
 	cat <<- EOF > ./prerm
 	#!$TERMUX_PREFIX/bin/sh
 	if [ "\$1" != "upgrade" ]; then
@@ -36,4 +32,3 @@ termux_step_create_debscripts() {
 	fi
 	EOF
 }
-
