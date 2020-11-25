@@ -7,11 +7,9 @@ TERMUX_PKG_SRCURL=https://github.com/rdiff-backup/rdiff-backup/releases/download
 TERMUX_PKG_SHA256=2bb7837b4a9712b6efaebfa7da8ed6348ffcb02fcecff0e19d8fff732e933b87
 TERMUX_PKG_DEPENDS="librsync, python"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_make() {
 	continue
 }
-
 termux_step_make_install() {
 	local _PYTHON_VERSION=3.9
 	export PYTHONPATH=$TERMUX_PREFIX/lib/python${_PYTHON_VERSION}/site-packages
@@ -20,4 +18,3 @@ termux_step_make_install() {
 	export LDSHARED="$CC -shared"
 	python${_PYTHON_VERSION} setup.py install --prefix=$TERMUX_PREFIX --force
 }
-
