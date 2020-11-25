@@ -8,7 +8,6 @@ TERMUX_PKG_SHA256=30850b9dc6b3e9105321cee159d491891b3d3c03180440edffa296c7e1ac0c
 TERMUX_PKG_DEPENDS="python"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
-
 termux_step_pre_configure() {
 	# Certain packages are not safe to build on device because their
 	# build.sh script deletes specific files in $TERMUX_PREFIX.
@@ -16,14 +15,10 @@ termux_step_pre_configure() {
 		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
 	fi
 }
-
 termux_step_make_install() {
 	cp pastebinit $TERMUX_PREFIX/bin/
 	xsltproc -''-nonet /usr/share/sgml/docbook/stylesheet/xsl/nwalsh/manpages/docbook.xsl pastebinit.xml
 	cp pastebinit.1 $TERMUX_PREFIX/share/man/man1/
-
 	rm -Rf $TERMUX_PREFIX/etc/pastebin.d
 	mv pastebin.d $TERMUX_PREFIX/etc
 }
-
-
