@@ -16,7 +16,6 @@ TERMUX_PKG_PLATFORM_INDEPENDENT=true
 TERMUX_PKG_BUILD_IN_SRC=true
 # Problems with changing permissions of non-built files
 TERMUX_MAKE_PROCESSSES=1
-
 # man.7 and mdoc.7 is included with mandoc:
 # getconf man page included with the getconf package:
 # iconv-related manpages included with libiconv package:
@@ -29,13 +28,9 @@ share/man/man8
 share/man/man7/man.7
 share/man/man7/mdoc.7
 share/man/man1p/getconf.1p"
-
-
 termux_step_pre_configure() {
 	export TERMUX_MAKE_PROCESSES=1
-
 	# Bundle posix man pages in same package:
 	cd man-pages-posix-2013-a
 	make install
 }
-
