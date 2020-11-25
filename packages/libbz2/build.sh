@@ -10,27 +10,22 @@ TERMUX_PKG_REPLACES="libbz2-dev"
 TERMUX_PKG_ESSENTIAL=true
 TERMUX_PKG_EXTRA_MAKE_ARGS="PREFIX=$TERMUX_PREFIX"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_configure() {
 	# Certain packages are not safe to build on device because their
 	# build.sh script deletes specific files in $TERMUX_PREFIX.
 	if $TERMUX_ON_DEVICE_BUILD; then
 		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
 	fi
-
 	# bzip2 does not use configure. But place man pages at correct path:
 	sed -i "s@(PREFIX)/man@(PREFIX)/share/man@g" $TERMUX_PKG_SRCDIR/Makefile
 }
-
 termux_step_make() {
 	# bzip2 uses a separate makefile for the shared library
 	make -f Makefile-libbz2_so
 }
-
 termux_step_make_install() {
 	# The shared library makefile contains no install makefile, so issue a normal install to get scripts
 	make $TERMUX_PKG_EXTRA_MAKE_ARGS install
-
 	# Clean out statically linked binaries and libs and replace them with shared ones:
 	rm -Rf $TERMUX_PREFIX/lib/libbz2*
 	rm -Rf $TERMUX_PREFIX/bin/{bzcat,bunzip2}
@@ -43,6 +38,3 @@ termux_step_make_install() {
 	# bzgrep should be enough so remove bz{e,f}grep
 	rm $TERMUX_PREFIX/bin/bz{e,f}grep $TERMUX_PREFIX/share/man/man1/bz{e,f}grep.1
 }
-
-
-
