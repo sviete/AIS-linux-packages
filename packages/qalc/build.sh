@@ -9,4 +9,3 @@ TERMUX_PKG_DEPENDS="libc++, libiconv, libcurl, libmpfr, libxml2, readline, libgm
 TERMUX_PKG_BREAKS="qalc-dev"
 TERMUX_PKG_REPLACES="qalc-dev"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--without-icu"
-
