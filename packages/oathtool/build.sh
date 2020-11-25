@@ -8,7 +8,6 @@ TERMUX_PKG_DEPENDS="xmlsec, zlib"
 TERMUX_PKG_BREAKS="oathtool-dev"
 TERMUX_PKG_REPLACES="oathtool-dev"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-pam"
-
 termux_step_pre_configure() {
 	if $TERMUX_DEBUG; then
 		# When doing debug build, -D_FORTIFY_SOURCE=2 gives this error:
@@ -17,4 +16,3 @@ termux_step_pre_configure() {
 		export CFLAGS=${CFLAGS/-D_FORTIFY_SOURCE=2/}
 	fi
 }
-
