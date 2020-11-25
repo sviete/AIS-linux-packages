@@ -11,14 +11,11 @@ TERMUX_PKG_SRCURL=https://dl.bintray.com/termux/upstream/net-tools-code-${commit
 TERMUX_PKG_SHA256=7e9f8e8dcbabed0c8eeb976100496567abae7ac9d92c72cebd1a9d965473e943
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_EXTRA_MAKE_ARGS="BINDIR=$TERMUX_PREFIX/bin SBINDIR=$TERMUX_PREFIX/bin HAVE_HOSTNAME_TOOLS=0"
-
 termux_step_configure() {
 	CFLAGS="$CFLAGS -D_LINUX_IN6_H -Dindex=strchr -Drindex=strrchr"
 	sed -i "s#/usr#$TERMUX_PREFIX#" $TERMUX_PKG_SRCDIR/man/Makefile
 	yes "" | make config || true
 }
-
 termux_step_make_install() {
 	make $TERMUX_PKG_EXTRA_MAKE_ARGS update
 }
-
