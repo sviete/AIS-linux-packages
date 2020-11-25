@@ -8,8 +8,6 @@ TERMUX_PKG_PLATFORM_INDEPENDENT=true
 TERMUX_PKG_CONFFILES="etc/mime.types"
 # etc/mime.types was previously in mutt:
 TERMUX_PKG_CONFLICTS="mutt (<< 1.8.3-1)"
-
 termux_step_make_install() {
 	install -Dm600 $TERMUX_PKG_SRCDIR/mime.types $TERMUX_PREFIX/etc/mime.types
 }
-
