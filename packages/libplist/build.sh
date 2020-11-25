@@ -6,12 +6,9 @@ TERMUX_PKG_VERSION=2.2.0
 TERMUX_PKG_SRCURL=https://github.com/libimobiledevice/libplist/archive/$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=7e654bdd5d8b96f03240227ed09057377f06ebad08e1c37d0cfa2abe6ba0cee2
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_configure() {
         PKG_CONFIG_PATH=$TERMUX_PREFIX/lib/pkgconfig
         ./autogen.sh --prefix=$TERMUX_PREFIX \
 		     --without-cython \
                      --host=$TERMUX_HOST_PLATFORM
 }
-
-
