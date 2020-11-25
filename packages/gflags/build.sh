@@ -16,10 +16,8 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DBUILD_gflags_LIBS=ON
 -DINSTALL_HEADERS=ON
 "
-
 termux_step_post_make_install() {
 	#Any old packages using the library name of libgflags
 	ln -sfr "$TERMUX_PREFIX"/lib/pkgconfig/gflags.pc \
 		"$TERMUX_PREFIX"/lib/pkgconfig/libgflags.pc
 }
-
