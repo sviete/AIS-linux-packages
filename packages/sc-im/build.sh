@@ -8,10 +8,8 @@ TERMUX_PKG_SHA256=87225918cb6f52bbc068ee6b12eaf176c7c55ba9739b29ca08cb9b6699141c
 TERMUX_PKG_DEPENDS="libandroid-support, libzip, ncurses"
 TERMUX_PKG_SUGGESTS="gnuplot"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_post_configure() {
 	CFLAGS+=" $CPPFLAGS -I$TERMUX_PREFIX/include/libandroid-support -I$TERMUX_PKG_BUILDER_DIR -DGNUPLOT"
 	sed -e "s%\@TERMUX_PREFIX\@%${TERMUX_PREFIX}%g" $TERMUX_PKG_BUILDER_DIR/wordexp.c > ./wordexp.c
 	cp -rf src/* .
 }
-
