@@ -8,17 +8,12 @@ TERMUX_PKG_SHA256=ce088a04c91c25263a9675dc5c43514b7ec1b38c8ea43d9a9d00923ff6cdd2
 TERMUX_PKG_DEPENDS="python, file"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
-
 termux_step_make() {
 	echo Skipping make step...
 }
-
 termux_step_make_install() {
 	python3.9 setup.py install --prefix=$TERMUX_PREFIX --force
 }
-
 termux_step_post_massage() {
 	find . -path '*/__pycache__*' -delete
 }
-
-
