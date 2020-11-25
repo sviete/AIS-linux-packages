@@ -9,7 +9,6 @@ TERMUX_PKG_DEPENDS="libandroid-support, libgmp, libiconv"
 TERMUX_PKG_BREAKS="chroot, busybox (<< 1.30.1-4)"
 TERMUX_PKG_REPLACES="chroot, busybox (<< 1.30.1-4)"
 TERMUX_PKG_ESSENTIAL=true
-
 # pinky has no usage on Android.
 # df does not work either, let system binary prevail.
 # $PREFIX/bin/env is provided by busybox for shebangs to work directly.
@@ -23,21 +22,16 @@ ac_cv_func_getpass=yes
 --enable-single-binary=symlinks
 --with-gmp
 "
-
 termux_step_pre_configure() {
 	CPPFLAGS+=" -D__USE_FORTIFY_LEVEL=0"
-
 	# On device build is unsupported as it removes utility 'ln' (and maybe
 	# something else) in the installation process.
 	if $TERMUX_ON_DEVICE_BUILD; then
 		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
 	fi
-
 	# Prefix verification patch should be applied only for the
 	# builds with original prefix.
 	if [ "$TERMUX_PREFIX" = "/data/data/com.termux/files/usr" ]; then
 		patch -p1 -i $TERMUX_PKG_BUILDER_DIR/verify-prefix.patch.txt
 	fi
 }
-
-
