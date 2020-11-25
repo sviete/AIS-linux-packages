@@ -5,10 +5,8 @@ TERMUX_PKG_MAINTAINER="Krishna kanhaiya @kcubeterm"
 TERMUX_PKG_VERSION=1.2.1
 TERMUX_PKG_SRCURL=https://github.com/cli/cli/archive/v${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_SHA256=ae7f03426b9d9ebf40be3cdbd4ce8cec7aeeda8e51acd34d8d0aaf0b3c4ea550
-
 termux_step_make() {
 	termux_setup_golang
-
 	cd "$TERMUX_PKG_SRCDIR"
 	(
 		unset GOOS GOARCH CGO_LDFLAGS
@@ -23,9 +21,7 @@ termux_step_make() {
 	go get -d -v
 	go build
 }
-
 termux_step_make_install() {
 	install -Dm700 -t "$TERMUX_PREFIX"/bin "$GOPATH"/src/github.com/cli/cli/cmd/gh/gh
 	install -Dm600 -t "$TERMUX_PREFIX"/share/doc/gh/ "$TERMUX_PKG_SRCDIR"/docs/*
 }
-
