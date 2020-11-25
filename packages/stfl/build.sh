@@ -9,10 +9,7 @@ TERMUX_PKG_DEPENDS="libandroid-support, libiconv, ncurses"
 TERMUX_PKG_BREAKS="stfl-dev"
 TERMUX_PKG_REPLACES="stfl-dev"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_configure() {
 	CC+=" $CPPFLAGS"
 	export LDLIBS="-liconv"
 }
-
-
