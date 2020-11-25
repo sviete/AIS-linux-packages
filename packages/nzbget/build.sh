@@ -8,7 +8,6 @@ TERMUX_PKG_SHA256=65a5d58eb8f301e62cf086b72212cbf91de72316ffc19182ae45119ddd058d
 TERMUX_PKG_DEPENDS="libc++, libxml2, ncurses, openssl, p7zip, zlib"
 TERMUX_PKG_RECOMMENDS="unrar"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_create_debscripts() {
 	echo "#!$TERMUX_PREFIX/bin/sh" > postinst
 	echo "if [ -z \"\$2\" ]; then" >> postinst # Run only on fresh install, not on upgrade
@@ -18,4 +17,3 @@ termux_step_create_debscripts() {
 	echo "exit 0" >> postinst
 	chmod 0755 postinst
 }
-
