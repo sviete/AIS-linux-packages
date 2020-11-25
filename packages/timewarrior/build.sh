@@ -8,14 +8,10 @@ TERMUX_PKG_SRCURL=(https://github.com/GothenburgBitFactory/timewarrior/archive/v
 TERMUX_PKG_SHA256=(bedfa22af67fd382ea2d5d470b40079122474ba86482fb11ff06cec98bb1433c
 		   c37f52fc39c62b3391a0eae061cef2c4079dfd4af0e3bdabac1be98316f9c451)
 TERMUX_PKG_DEPENDS="libandroid-glob, libc++"
-
 termux_step_post_get_source() {
 	rmdir src/libshared
 	mv libshared-${_LIBSHARED_COMMIT}/ src/libshared
 }
-
 termux_step_pre_configure() {
 	LDFLAGS+=" -landroid-glob"
 }
-
-
