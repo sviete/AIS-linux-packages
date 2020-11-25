@@ -9,14 +9,11 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--with-bzip2 --with-openssl --with-pcre --with-
 TERMUX_PKG_DEPENDS="libbz2, openssl, pcre, libcrypt, libandroid-glob, zlib"
 TERMUX_PKG_RM_AFTER_INSTALL="bin/lighttpd-angel"
 TERMUX_PKG_SERVICE_SCRIPT=("lighttpd" 'if [ -f "$HOME/.lighttpd/lighttpd.conf" ]; then CONFIG="$HOME/.lighttpd/lighttpd.conf"; else CONFIG="$PREFIX/etc/lighttpd/lighttpd.conf"; fi\nexec lighttpd -D -f $CONFIG 2>&1')
-
 termux_step_pre_configure() {
 	LDFLAGS="$LDFLAGS -landroid-glob"
 }
-
 termux_step_post_make_install() {
 	# Install example config file
 	mkdir -p $TERMUX_PREFIX/etc/lighttpd
 	install -Dm600 $TERMUX_PKG_SRCDIR/doc/config/lighttpd.conf $TERMUX_PREFIX/etc/lighttpd/
 }
-
