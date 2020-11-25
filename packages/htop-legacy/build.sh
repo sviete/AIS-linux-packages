@@ -12,13 +12,10 @@ TERMUX_PKG_REPLACES="htop"
 TERMUX_PKG_PROVIDES="htop"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_RM_AFTER_INSTALL="share/applications share/pixmaps"
-
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 ac_cv_lib_ncursesw6_addnwstr=yes
 LIBS=-landroid-support
 "
-
 termux_step_pre_configure() {
 	./autogen.sh
 }
-
