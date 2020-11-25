@@ -30,12 +30,10 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --with-x=no
 "
 TERMUX_PKG_RM_AFTER_INSTALL="bin/*-config share/man/man1/*-config.1"
-
 termux_step_pre_configure() {
 	./autogen.sh NOCONFIG
 	export HOSTCC="gcc"
 }
-
 termux_step_post_make_install() {
 	# Some binaries (dot_builtins, gvpack) links against these:
 	cd $TERMUX_PREFIX/lib
@@ -43,11 +41,9 @@ termux_step_post_make_install() {
 		ln -s -f $lib $(basename $lib)
 	done
 }
-
 termux_step_create_debscripts() {
 	echo "#!$TERMUX_PREFIX/bin/sh" > postinst
 	echo "dot -c" >> postinst
 	echo "exit 0" >> postinst
 	chmod 0755 postinst
 }
-
