@@ -6,7 +6,6 @@ TERMUX_PKG_VERSION=2.6.0
 TERMUX_PKG_REPLACES="duktape (<< 2.3.0-1), libduktape-dev"
 TERMUX_PKG_BREAKS="duktape (<< 2.3.0-1), libduktape-dev"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_pre_configure() {
 	if $TERMUX_ON_DEVICE_BUILD; then
 		# configure.py requires 'yaml' python2 module.
@@ -15,17 +14,14 @@ termux_step_pre_configure() {
 		fi
 	fi
 }
-
 termux_step_make() {
 	make libduktape.so.1.0.0 duk CC=${CC} GXX=${CXX}
 }
-
 termux_step_make_install() {
 	install libduktape.so.1.0.0 ${TERMUX_PREFIX}/lib/libduktape.so
 	install duk ${TERMUX_PREFIX}/bin
 	install prep/nondebug/*.h ${TERMUX_PREFIX}/include
 }
-
 termux_step_post_make_install() {
 	# Add a pkg-config file for the duktape lib
 	cat > "$PKG_CONFIG_LIBDIR/duktape.pc" <<-HERE
@@ -36,4 +32,3 @@ termux_step_post_make_install() {
 		Libs: -lduktape -lm
 	HERE
 }
-
