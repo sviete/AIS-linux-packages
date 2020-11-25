@@ -7,7 +7,6 @@ TERMUX_PKG_SHA256=54a220c6905f685d25697d37a089d3a821cc4ea2e9099bdac13e7e93661a02
 TERMUX_PKG_DEPENDS="fftw, fontconfig, freetype, fribidi, glib, harfbuzz, libandroid-support, libbz2, libcairo, libffi, libgraphite, libjpeg-turbo, liblzma, libpixman, libpng, librsvg, libtiff, libuuid, libwebp, libx11, libxau, libxcb, libxdmcp, libxext, libxml2, littlecms, openjpeg, pango, pcre, zlib"
 TERMUX_PKG_BREAKS="imagemagick-dev, imagemagick-x"
 TERMUX_PKG_REPLACES="imagemagick-dev, imagemagick-x"
-
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --with-x
 --without-gvc
@@ -19,15 +18,12 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-openmp
 ac_cv_func_ftime=no
 "
-
 TERMUX_PKG_RM_AFTER_INSTALL="
 share/ImageMagick-7/francais.xml
 "
-
 termux_step_pre_configure() {
 	if [ $TERMUX_ARCH = "i686" ]; then
 		#Avoid "libMagickCore-7.Q16HDRI.so: error: undefined reference to '__atomic_load'"
 		LDFLAGS+=" -latomic"
 	fi
 }
-
