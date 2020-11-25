@@ -9,8 +9,6 @@ TERMUX_PKG_DEPENDS="openssl"
 TERMUX_PKG_BREAKS="libcoap-dev"
 TERMUX_PKG_REPLACES="libcoap-dev"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--with-openssl --disable-doxygen"
-
 termux_step_pre_configure() {
 	NOCONFIGURE=1 ./autogen.sh
 }
-
