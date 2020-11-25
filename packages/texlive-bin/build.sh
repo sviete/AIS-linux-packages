@@ -15,10 +15,8 @@ TERMUX_PKG_BREAKS="texlive (<< 20180414), texlive-bin-dev"
 TERMUX_PKG_REPLACES="texlive (<< 20170524-3), texlive-bin-dev"
 TERMUX_PKG_RECOMMENDS="texlive"
 TERMUX_PKG_HOSTBUILD=true
-
 TL_ROOT=$TERMUX_PREFIX/share/texlive
 TL_BINDIR=$TERMUX_PREFIX/bin/texlive
-
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 RANLIB=ranlib
 --mandir=$TERMUX_PREFIX/share/man
@@ -65,7 +63,6 @@ RANLIB=ranlib
 --with-system-zziplib
 --without-x
 --with-banner-add=/Termux"
-
 # These files are provided by texlive:
 TERMUX_PKG_RM_AFTER_INSTALL="
 bin/a2ping
@@ -91,19 +88,15 @@ share/texlive/texmf-dist/source
 share/texlive/texmf-dist/chktex
 share/texlive/texmf-dist/hbf2gf
 "
-
 termux_step_host_build() {
 	mkdir -p auxdir/auxsub
 	mkdir -p texk/kpathsea
 	mkdir -p texk/web2c
-
 	cd $TERMUX_PKG_HOSTBUILD_DIR/auxdir/auxsub
 	$TERMUX_PKG_SRCDIR/auxdir/auxsub/configure
 	make
-
 	cd $TERMUX_PKG_HOSTBUILD_DIR/texk/kpathsea
 	$TERMUX_PKG_SRCDIR/texk/kpathsea/configure
-
 	cd $TERMUX_PKG_HOSTBUILD_DIR/texk/web2c
 	$TERMUX_PKG_SRCDIR/texk/web2c/configure --without-x
 	make tangle
@@ -111,7 +104,6 @@ termux_step_host_build() {
 	make tie
 	make otangle
 }
-
 termux_step_pre_configure() {
 	# When building against libicu 59.1 or later we need c++11:
 	CXXFLAGS+=" -std=c++11"
@@ -121,7 +113,6 @@ termux_step_pre_configure() {
 	export CTANGLEBOOT=$TERMUX_PKG_HOSTBUILD_DIR/texk/web2c/ctangleboot
 	export TIE=$TERMUX_PKG_HOSTBUILD_DIR/texk/web2c/tie
 	export OTANGLE=$TERMUX_PKG_HOSTBUILD_DIR/texk/web2c/otangle
-
 	find "$TERMUX_PKG_SRCDIR"/texk/web2c/luatexdir -type f -exec sed -i \
 	     -e 's|gTrue|true|g' \
 	     -e 's|gFalse|false|g' \
@@ -130,9 +121,7 @@ termux_step_pre_configure() {
 	     -e 's|Guint|unsigned int|g' \
 	     -e 's|Guchar|unsigned char|g' \
 	     {} +
-
 	# These files are from upstream master:
 	cp "$TERMUX_PKG_BUILDER_DIR"/pdftoepdf-poppler0.86.0.cc "$TERMUX_PKG_SRCDIR"/texk/web2c/pdftexdir/pdftoepdf.cc # commit 7cabe29
 	cp "$TERMUX_PKG_BUILDER_DIR"/pdftosrc-poppler0.83.0.cc "$TERMUX_PKG_SRCDIR"/texk/web2c/pdftexdir/pdftosrc.cc # commit f0d0598b
 }
-
