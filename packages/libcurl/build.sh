@@ -8,7 +8,6 @@ TERMUX_PKG_DEPENDS="libnghttp2, libssh2, openssl (>= 1.1.1), zlib"
 TERMUX_PKG_BREAKS="libcurl-dev"
 TERMUX_PKG_REPLACES="libcurl-dev"
 TERMUX_PKG_ESSENTIAL=true
-
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --enable-ntlm-wb=$TERMUX_PREFIX/bin/ntlm_auth
 --with-ca-bundle=$TERMUX_PREFIX/etc/tls/cert.pem
@@ -21,10 +20,7 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --with-ssl
 --with-libssh2
 "
-
-
 # Starting with version 7.62 curl started enabling http/2 by default.
 # Support for http/2 as added in version 1.4.8-8 of the apt package, so we
 # conflict with previous versions to avoid broken installations.
 TERMUX_PKG_CONFLICTS="apt (<< 1.4.8-8)"
-
