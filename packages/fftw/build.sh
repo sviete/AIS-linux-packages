@@ -12,7 +12,6 @@ TERMUX_PKG_REPLACES="fftw-dev"
 # does not check the return value so gets bogus values.
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--enable-threads ac_cv_func_clock_gettime=no"
 TERMUX_PKG_RM_AFTER_INSTALL="include/fftw*.f*"
-
 termux_step_post_make_install() {
 	local COMMON_ARGS="$TERMUX_PKG_EXTRA_CONFIGURE_ARGS"
 	local feature
@@ -24,5 +23,3 @@ termux_step_post_make_install() {
 		make -j $TERMUX_MAKE_PROCESSES install
 	done
 }
-
-
