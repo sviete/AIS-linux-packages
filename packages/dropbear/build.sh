@@ -8,21 +8,17 @@ TERMUX_PKG_SHA256=48235d10b37775dbda59341ac0c4b239b82ad6318c31568b985730c788aac5
 TERMUX_PKG_DEPENDS="termux-auth, zlib"
 TERMUX_PKG_CONFLICTS="openssh"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-syslog --disable-utmp --disable-utmpx --disable-wtmp --disable-static"
 # Avoid linking to libcrypt for server password authentication:
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" ac_cv_lib_crypt_crypt=no"
 # build a multi-call binary & enable progress info in 'scp'
 TERMUX_PKG_EXTRA_MAKE_ARGS="MULTI=1 SCPPROGRESS=1"
-
 termux_step_pre_configure() {
 	export LIBS="-ltermux-auth"
 }
-
 termux_step_post_make_install() {
 	ln -sf "dropbearmulti" "${TERMUX_PREFIX}/bin/ssh"
 }
-
 termux_step_create_debscripts() {
 	{
 	echo "#!$TERMUX_PREFIX/bin/sh"
@@ -35,4 +31,3 @@ termux_step_create_debscripts() {
 	} > postinst
 	chmod 0755 postinst
 }
-
