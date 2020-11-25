@@ -13,8 +13,6 @@ TERMUX_PKG_REPLACES="libicu-dev"
 TERMUX_PKG_HOSTBUILD=true
 TERMUX_PKG_EXTRA_HOSTBUILD_CONFIGURE_ARGS="--disable-samples --disable-tests"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-samples --disable-tests --with-cross-build=$TERMUX_PKG_HOSTBUILD_DIR"
-
 termux_step_post_get_source() {
 	TERMUX_PKG_SRCDIR+="/source"
 }
-
