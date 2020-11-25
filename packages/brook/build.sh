@@ -5,12 +5,9 @@ TERMUX_PKG_MAINTAINER="Krishna kanhaiya @kcubeterm"
 TERMUX_PKG_VERSION="20200909"
 TERMUX_PKG_SRCURL=https://github.com/txthinking/brook/archive/v${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_SHA256=410c1a64921f79b1a5db384e981cc54b8188b58e8ddcabc466d6828316c6bfeb
-
 termux_step_make() {
 	termux_setup_golang
-
 	cd "$TERMUX_PKG_SRCDIR"
-
 	export GOPATH=$TERMUX_PKG_BUILDDIR
 	mkdir -p "$GOPATH"/src/github.com/txthinking
 	mkdir -p "$TERMUX_PREFIX"/share/doc/brook
@@ -19,9 +16,7 @@ termux_step_make() {
 	go get -d -v
 	go build -o brook 
 }
-
 termux_step_make_install() {
 	install -Dm700 -t "$TERMUX_PREFIX"/bin "$GOPATH"/src/github.com/txthinking/brook/cli/brook/brook
 	cp -r "$TERMUX_PKG_SRCDIR"/docs/* "$TERMUX_PREFIX"/share/doc/brook
 }
-
