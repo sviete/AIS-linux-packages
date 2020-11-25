@@ -10,7 +10,6 @@ TERMUX_PKG_REPLACES="libluajit-dev"
 TERMUX_PKG_EXTRA_MAKE_ARGS="amalg PREFIX=$TERMUX_PREFIX"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_LUAJIT_JIT_FOLDER_RELATIVE=share/luajit-$TERMUX_PKG_VERSION/jit
-
 termux_step_pre_configure() {
 	# luajit wants same pointer size for host and target build
 	export HOST_CC="gcc"
@@ -28,19 +27,15 @@ termux_step_pre_configure() {
 	export TARGET_SYS=Linux
 	unset CFLAGS LDFLAGS
 }
-
 termux_step_make_install () {
 	mkdir -p $TERMUX_PREFIX/include/luajit-${TERMUX_PKG_VERSION:0:3}/
 	cp -f $TERMUX_PKG_SRCDIR/src/{lauxlib.h,lua.h,lua.hpp,luaconf.h,luajit.h,lualib.h} $TERMUX_PREFIX/include/luajit-${TERMUX_PKG_VERSION:0:3}/
 	rm -f $TERMUX_PREFIX/lib/libluajit*
-
 	install -Dm600 $TERMUX_PKG_SRCDIR/src/libluajit.so $TERMUX_PREFIX/lib/libluajit-5.1.so
 	(cd $TERMUX_PREFIX/lib; ln -s -f libluajit-5.1.so libluajit.so)
-
 	install -Dm600 $TERMUX_PKG_SRCDIR/etc/luajit.1 $TERMUX_PREFIX/share/man/man1/luajit.1
 	install -Dm600 $TERMUX_PKG_SRCDIR/etc/luajit.pc $TERMUX_PREFIX/lib/pkgconfig/luajit.pc
 	install -Dm700 $TERMUX_PKG_SRCDIR/src/luajit $TERMUX_PREFIX/bin/luajit
-
 	# Files needed for the -b option (http://luajit.org/running.html) to work.
 	# Note that they end up in the 'luajit' subpackage, not the 'libluajit' one.
 	local TERMUX_LUAJIT_JIT_FOLDER=$TERMUX_PREFIX/$TERMUX_LUAJIT_JIT_FOLDER_RELATIVE
@@ -48,4 +43,3 @@ termux_step_make_install () {
 	mkdir -p $TERMUX_LUAJIT_JIT_FOLDER
 	cp $TERMUX_PKG_SRCDIR/src/jit/*lua $TERMUX_LUAJIT_JIT_FOLDER
 }
-
