@@ -13,17 +13,13 @@ TERMUX_PKG_REPLACES="profanity-dev"
 TERMUX_PKG_BUILD_DEPENDS="openssl, libexpat, pcre, libgcrypt, libcrypt"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS=" --disable-python-plugins --without-xscreensaver"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_pre_configure() {
 	CPPFLAGS+=" -I$TERMUX_PREFIX/include/python3.9"
 	LDFLAGS+=" -lpython3.9"
 }
-
 termux_step_post_configure() {
 	# Enable python support manually, as trying to go using --enable-python-plugins
 	# causes configure trying to execute python:
 	echo '#define HAVE_PYTHON 1' >> $TERMUX_PKG_SRCDIR/src/config.h
 	perl -p -i -e 's|#am__objects_2|am__objects_2|' $TERMUX_PKG_SRCDIR/Makefile
 }
-
-
