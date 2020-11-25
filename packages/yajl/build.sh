@@ -8,7 +8,6 @@ TERMUX_PKG_SHA256=3fb73364a5a30efe615046d07e6db9d09fd2b41c763c5f7d3bfb121cd5c5ac
 TERMUX_PKG_BREAKS="yajl-dev"
 TERMUX_PKG_REPLACES="yajl-dev"
 TERMUX_PKG_FORCE_CMAKE=true
-
 termux_step_post_make_install() {
 	# Fix location of 'yajl.pc'.
 	mkdir -p "${TERMUX_PREFIX}"/lib/pkgconfig
@@ -16,4 +15,3 @@ termux_step_post_make_install() {
 		"${TERMUX_PREFIX}"/share/pkgconfig/yajl.pc \
 		"${TERMUX_PREFIX}"/lib/pkgconfig/yajl.pc
 }
-
