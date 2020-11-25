@@ -8,8 +8,6 @@ TERMUX_PKG_SHA256=f22901582138e3203959c9257cf83eba9929ac41d7be4a42557213a22ebcc7
 TERMUX_PKG_BREAKS="libjansson-dev"
 TERMUX_PKG_REPLACES="libjansson-dev"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_pre_configure() {
 	autoreconf -fi
 }
-
