@@ -17,10 +17,6 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 db_cv_atomic=gcc-builtin
 --enable-cxx
 "
-
 termux_step_pre_configure() {
 	TERMUX_PKG_SRCDIR=$TERMUX_PKG_SRCDIR/dist
 }
-
-
-
