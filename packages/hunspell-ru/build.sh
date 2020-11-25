@@ -4,7 +4,6 @@ TERMUX_PKG_LICENSE="LGPL-3.0"
 TERMUX_PKG_VERSION=20200604
 TERMUX_PKG_SKIP_SRC_EXTRACT=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
-
 termux_step_make_install() {
 	mkdir -p $TERMUX_PREFIX/share/hunspell/
 	# On checksum mismatch the files may have been updated:
@@ -19,6 +18,3 @@ termux_step_make_install() {
 			3280afe7829128ff589b2c5d8f46810ed9b0eddcc85e9b1cc3d12dc08d4c1a0b
 	touch $TERMUX_PREFIX/share/hunspell/ru_RU.{aff,dic}
 }
-
-
-
