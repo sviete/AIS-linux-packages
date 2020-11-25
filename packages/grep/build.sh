@@ -6,7 +6,6 @@ TERMUX_PKG_SRCURL=https://mirrors.kernel.org/gnu/grep/grep-${TERMUX_PKG_VERSION}
 TERMUX_PKG_SHA256=667e15e8afe189e93f9f21a7cd3a7b3f776202f417330b248c2ad4f997d9373e
 TERMUX_PKG_DEPENDS="libandroid-support, pcre"
 TERMUX_PKG_ESSENTIAL=true
-
 termux_step_pre_configure() {
 	if $TERMUX_DEBUG; then
 		# When doing debug build, -D_FORTIFY_SOURCE=2 gives this error:
@@ -19,4 +18,3 @@ termux_step_pre_configure() {
 		export CFLAGS=${CFLAGS/-D_FORTIFY_SOURCE=2/}
 	fi
 }
-
