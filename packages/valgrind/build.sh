@@ -8,7 +8,6 @@ TERMUX_PKG_SHA256=c91f3a2f7b02db0f3bc99479861656154d241d2fdb265614ba918cc6720a33
 TERMUX_PKG_BREAKS="valgrind-dev"
 TERMUX_PKG_REPLACES="valgrind-dev"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--with-tmpdir=$TERMUX_PREFIX/tmp"
-
 termux_step_pre_configure() {
 	if [ "$TERMUX_ARCH" == "aarch64" ]; then
 		cp $TERMUX_PKG_BUILDER_DIR/aarch64-setjmp.S $TERMUX_PKG_SRCDIR
@@ -21,8 +20,5 @@ termux_step_pre_configure() {
 		# "valgrind uses inline assembly that is not Thumb compatible":
 		CFLAGS=${CFLAGS/-mthumb/}
 	fi
-
 	CFLAGS=${CFLAGS/-fstack-protector-strong/}
 }
-
-
