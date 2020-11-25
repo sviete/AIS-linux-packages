@@ -8,9 +8,7 @@ TERMUX_PKG_SHA256=650ba3e8089624b7ad9e4cc19bc1ac6028edb7523cc111fa1686ea44c09215
 TERMUX_PKG_DEPENDS="fftw, boost, readline, libandroid-support, libc++, libcurl, libmpdclient, ncurses, zlib"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--enable-visualizer --enable-outputs --enable-clock"
-
 termux_step_pre_configure() {
 	./autogen.sh
 	CXXFLAGS+=" -DNCURSES_WIDECHAR -U_XOPEN_SOURCE"
 }
-
