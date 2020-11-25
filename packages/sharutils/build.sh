@@ -9,4 +9,3 @@ TERMUX_PKG_DEPENDS="libandroid-support"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 ac_cv_header_spawn_h=no
 "
-
