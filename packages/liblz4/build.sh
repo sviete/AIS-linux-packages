@@ -7,14 +7,11 @@ TERMUX_PKG_SHA256=030644df4611007ff7dc962d981f390361e6c97a34e5cbc393ddfbe019ffe2
 TERMUX_PKG_BREAKS="liblz4-dev"
 TERMUX_PKG_REPLACES="liblz4-dev"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_pre_configure() {
 	TERMUX_PKG_SRCDIR+=lib
 }
-
 # Do not execute this step since on `make install` it will
 # recompile libraries & tools again.
 termux_step_make() {
 	:
 }
-
