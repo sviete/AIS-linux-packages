@@ -7,16 +7,13 @@ TERMUX_PKG_SHA256=cffbb432396ea4abf551bdda17adee9be3543486bc398c5c6838908e299210
 TERMUX_PKG_DEPENDS="less"
 TERMUX_PKG_SUGGESTS="imagemagick, p7zip, unrar, unzip"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_configure() {
 	./configure \
 		--prefix="$TERMUX_PREFIX" \
 		--yes
 }
-
 termux_step_post_make_install() {
 	mkdir -p "$TERMUX_PREFIX"/etc/profile.d
 	echo "export LESSOPEN='|$TERMUX_PREFIX/bin/lesspipe.sh %s'" \
 		> "$TERMUX_PREFIX"/etc/profile.d/lesspipe.sh
 }
-
