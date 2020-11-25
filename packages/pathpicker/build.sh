@@ -8,7 +8,6 @@ TERMUX_PKG_SHA256=4b3deac0100fb9405adca17a1c75e133359a6cbb1351c392276a55ef8ef408
 TERMUX_PKG_DEPENDS="bash,python"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
-
 termux_step_make_install() {
 	_PKG_DIR=$TERMUX_PREFIX/share/pathpicker
 	rm -Rf $_PKG_DIR
@@ -19,5 +18,3 @@ termux_step_make_install() {
 	ln -f -s ../share/pathpicker/fpp fpp
 	chmod +x fpp
 }
-
-
