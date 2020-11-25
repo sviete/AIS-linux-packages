@@ -7,8 +7,6 @@ TERMUX_PKG_SHA256=5a5bda0e66475a4bb25f5a4f6f16a715eea98991bdb9471e84fb6d27488358
 TERMUX_PKG_DEPENDS="python"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
-
 termux_step_make_install() {
 	install -Dm700 -t $TERMUX_PREFIX/bin termux-create-package
 }
-
