@@ -20,28 +20,21 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DLLVM_DIR=$TERMUX_PREFIX/lib/cmake/llvm
 -DLLVM_TABLEGEN=$TERMUX_PKG_HOSTBUILD_DIR/llvm/bin/llvm-tblgen
 "
-
 termux_step_host_build() {
 	termux_setup_cmake
 	termux_setup_ninja
-
 	mkdir llvm
 	cd llvm
-
 	cmake -G Ninja $TERMUX_PKG_SRCDIR/llvm-${TERMUX_PKG_VERSION}.src
 	ninja -j $TERMUX_MAKE_PROCESSES llvm-tblgen
-
 	cd ..
 	cmake -G Ninja $TERMUX_PKG_SRCDIR -DLLDB_INCLUDE_TESTS=OFF \
 	-DLLVM_DIR=$TERMUX_PKG_HOSTBUILD_DIR/llvm/lib/cmake/llvm
 	ninja -j $TERMUX_MAKE_PROCESSES lldb-tblgen
 }
-
 termux_step_make() {
 	ninja -w dupbuild=warn -j $TERMUX_MAKE_PROCESSES all docs-lldb-man
 }
-
 termux_step_post_make_install() {
 	cp $TERMUX_PKG_BUILDDIR/docs/man/lldb.1 $TERMUX_PREFIX/share/man/man1
 }
-
