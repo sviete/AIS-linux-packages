@@ -13,9 +13,7 @@ TERMUX_PKG_CONFLICTS="x11-proto"
 TERMUX_PKG_REPLACES="x11-proto"
 TERMUX_PKG_NO_DEVELSPLIT=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
-
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="-Dlegacy=true"
-
 TERMUX_PKG_RM_AFTER_INSTALL="
 include/X11/extensions/apple*
 include/X11/extensions/windows*
@@ -23,9 +21,7 @@ include/X11/extensions/XKBgeom.h
 lib/pkgconfig/applewmproto.pc
 lib/pkgconfig/windowswmproto.pc
 "
-
 termux_step_pre_configure() {
 	# Use meson instead of autotools.
 	rm -f "$TERMUX_PKG_SRCDIR"/configure
 }
-
