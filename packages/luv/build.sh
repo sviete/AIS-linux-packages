@@ -15,8 +15,6 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DWITH_LUA_ENGINE=Lua
 -DWITH_SHARED_LIBUV=ON
 "
-
 termux_step_pre_configure() {
 	export LDFLAGS+=" -L$TERMUX_PREFIX/lib/lua/5.3"
 }
-
