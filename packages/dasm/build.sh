@@ -5,8 +5,6 @@ TERMUX_PKG_VERSION=2.20.14.1
 TERMUX_PKG_SRCURL=https://github.com/dasm-assembler/dasm/archive/${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_SHA256=ec71ffd10eeaa70bf7587ee0d79a92cd3f0a017c0d6d793e37d10359ceea663a
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_make_install() {
   cp $TERMUX_PKG_SRCDIR/bin/* $TERMUX_PREFIX/bin/
 }
-
