@@ -7,9 +7,7 @@ TERMUX_PKG_SHA256=7e433d4a77e2c79e6a7ae4866782608a8e8bcad3ec6783580577c59538381a
 TERMUX_PKG_DEPENDS="nodejs | nodejs-lts"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
-
 termux_step_make_install() {
 	cp -r . ${TERMUX_PREFIX}/share/yarn/
 	ln -f -s ../share/yarn/bin/yarn ${TERMUX_PREFIX}/bin/yarn
 }
-
