@@ -9,10 +9,8 @@ TERMUX_PKG_EXTRA_MAKE_ARGS="prefix=$TERMUX_PREFIX build=release libs"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_NO_DEVELSPLIT=true
 TERMUX_PKG_KEEP_STATIC_LIBRARIES=true
-
 termux_step_pre_configure() {
 	rm -rf thirdparty/{freeglut,freetype,harfbuzz,jbig2dec,libjpeg,openjpeg,zlib}
 	export USE_SYSTEM_LIBS=yes
 	LDFLAGS+=" -llog"
 }
-
