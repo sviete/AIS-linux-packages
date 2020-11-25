@@ -23,19 +23,15 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DRUN_HAVE_STEADY_CLOCK=0
 -DProtobuf_PROTOC_LIBRARY=$TERMUX_PREFIX/lib/libprotoc.so
 "
-
 termux_step_post_get_source() {
 	termux_setup_protobuf
 }
-
 termux_step_host_build() {
 	termux_setup_cmake
 	termux_setup_ninja
-
 	cd $TERMUX_PKG_SRCDIR
 	export LD=gcc
 	export LDXX=g++
-
 	# -Wno-error=class-memaccess is used to avoid
 	# src/core/lib/security/credentials/oauth2/oauth2_credentials.cc:336:61: error: ‘void* memset(void*, int, size_t)’ clearing an object of non-trivial type ‘struct grpc_oauth2_token_fetcher_credentials’; use assignment or value-initialization instead [-Werror=class-memaccess]
 	# memset(c, 0, sizeof(grpc_oauth2_token_fetcher_credentials));
@@ -47,11 +43,9 @@ termux_step_host_build() {
 	ninja -t clean
 	rm -rf CMakeCache.txt CMakeFiles
 }
-
 termux_step_pre_configure() {
 	sed "s|@PATH_TO_PLUGIN@|$TERMUX_PKG_HOSTBUILD_DIR/bin/grpc_cpp_plugin|g" \
 		$TERMUX_PKG_BUILDER_DIR/CMakeLists.txt.diff \
 		| patch -p1
 	export GRPC_CROSS_COMPILE=true
 }
-
