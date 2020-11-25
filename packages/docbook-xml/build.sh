@@ -7,7 +7,6 @@ TERMUX_PKG_DEPENDS="libxml2-utils"
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_SKIP_SRC_EXTRACT=true
-
 termux_step_get_source() {
 	termux_download "https://docbook.org/xml/4.1.2/docbkx412.zip" \
 		$TERMUX_PKG_CACHEDIR/docbkx412.zip \
@@ -26,21 +25,17 @@ termux_step_get_source() {
 		4e4e037a2b83c98c6c94818390d4bdd3f6e10f6ec62dd79188594e26190dc7b4
 	mkdir -p $TERMUX_PKG_SRCDIR
 }
-
 termux_step_post_get_source() {
 	cd $TERMUX_PKG_SRCDIR
 	unzip -d docbook-xml-4.1.2 $TERMUX_PKG_CACHEDIR/docbkx412.zip
-
 	local ver
 	for ver in 4.{2..5}; do
 		unzip -d docbook-xml-${ver} $TERMUX_PKG_CACHEDIR/docbook-xml-${ver}.zip
 	done
 }
-
 termux_step_make_install() {
 	mkdir -p $TERMUX_PREFIX/etc/xml
 	xmlcatalog --noout --create "$TERMUX_PREFIX/etc/xml/docbook-xml"
-
 	local ver
 	for ver in 4.1.2 4.{2..5}; do
 		pushd docbook-xml-$ver
@@ -48,7 +43,6 @@ termux_step_make_install() {
 		cp -dr docbook.cat *.dtd ent/ *.mod \
 			"$TERMUX_PREFIX/share/xml/docbook/xml-dtd-$ver"
 		popd
-
 		xml=
 		case $ver in
 			4.1.2) xml=' XML' ;;&
@@ -105,7 +99,6 @@ termux_step_make_install() {
 		esac
 	done
 }
-
 termux_step_create_debscripts() {
 	cat <<- EOF > ./postinst
 	#!$TERMUX_PREFIX/bin/sh
@@ -134,7 +127,6 @@ termux_step_create_debscripts() {
 			$TERMUX_PREFIX/etc/xml/catalog
 	fi
 	EOF
-
 	cat <<- EOF > ./prerm
 	#!$TERMUX_PREFIX/bin/sh
 	if [ "\$1" = "remove" ]; then
@@ -143,4 +135,3 @@ termux_step_create_debscripts() {
 	fi
 	EOF
 }
-
