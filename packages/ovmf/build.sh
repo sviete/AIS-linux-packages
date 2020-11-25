@@ -13,7 +13,6 @@ TERMUX_PKG_SHA256=(4e465593b4d6c3a5e5243243b1eb08d813c469a017498074853e87aa9b685
 		   e11cfa89df7459c7cac0a066e8e340fae3ebe36b2ed6201d67092779eee4092e)
 TERMUX_PKG_SKIP_SRC_EXTRACT=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
-
 termux_step_make_install() {
 	termux_download \
 		${TERMUX_PKG_SRCURL[0]} \
@@ -31,19 +30,15 @@ termux_step_make_install() {
 		${TERMUX_PKG_SRCURL[3]} \
 		${TERMUX_PKG_CACHEDIR}/edk2-x86_64.rpm \
 		${TERMUX_PKG_SHA256[3]}
-
 	local i
 	for i in aarch64 arm ia32 x86_64; do
 		bsdtar xf ${TERMUX_PKG_CACHEDIR}/edk2-${i}.rpm -C $TERMUX_PREFIX/../
 	done
-
 	for i in $TERMUX_PREFIX/share/qemu/firmware/*.json; do
 		sed -i "s@/usr@$TERMUX_PREFIX@g" $i
 	done
 }
-
 termux_step_install_license() {
 	install -Dm600 $TERMUX_PKG_BUILDER_DIR/License.txt \
 		$TERMUX_PREFIX/share/doc/ovmf/LICENSE.txt
 }
-
