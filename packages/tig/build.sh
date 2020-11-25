@@ -6,9 +6,6 @@ TERMUX_PKG_SRCURL=https://github.com/jonas/tig/releases/download/tig-$TERMUX_PKG
 TERMUX_PKG_SHA256=500d5d34524f6b856edd5cae01f1404d14f3b51a9a53fd7357f4cebb3d4c9e64
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_DEPENDS="libiconv, ncurses, git, libandroid-support"
-
 termux_step_post_make_install() {
 	make -j 1 install-doc
 }
-
-
