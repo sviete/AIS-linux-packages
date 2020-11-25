@@ -8,4 +8,3 @@ TERMUX_PKG_REVISION=12
 TERMUX_PKG_SRCURL=https://xorg.freedesktop.org/releases/individual/lib/libXft-${TERMUX_PKG_VERSION}.tar.bz2
 TERMUX_PKG_SHA256=225c68e616dd29dbb27809e45e9eadf18e4d74c50be43020ef20015274529216
 TERMUX_PKG_DEPENDS="fontconfig, freetype, libbz2, liblzma, libpng, libuuid, libx11, libxau, libxcb, libxdmcp, libxml2, libxrender"
-
