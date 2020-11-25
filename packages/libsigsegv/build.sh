@@ -7,4 +7,3 @@ TERMUX_PKG_SRCURL=https://ftp.gnu.org/gnu/libsigsegv/libsigsegv-$TERMUX_PKG_VERS
 TERMUX_PKG_SHA256=3ae1af359eebaa4ffc5896a1aee3568c052c99879316a1ab57f8fe1789c390b6
 TERMUX_PKG_BREAKS="libsigsegv-dev"
 TERMUX_PKG_REPLACES="libsigsegv-dev"
-
