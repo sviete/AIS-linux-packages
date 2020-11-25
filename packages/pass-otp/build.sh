@@ -10,8 +10,6 @@ TERMUX_PKG_DEPENDS="debianutils, oathtool, pass"
 TERMUX_PKG_SUGGESTS="libqrencode"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
-
 termux_step_pre_configure() {
 	export BASHCOMPDIR=$TERMUX_PREFIX/etc/bash_completion.d
 }
-
