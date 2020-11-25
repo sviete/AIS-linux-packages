@@ -9,14 +9,11 @@ TERMUX_PKG_DEPENDS="libuuid, libevent, libsearpc, libsqlite, openssl"
 TERMUX_PKG_BREAKS="ccnet-dev"
 TERMUX_PKG_REPLACES="ccnet-dev"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_pre_configure() {
 	./autogen.sh
 }
-
 termux_step_post_configure() {
 	# the package has trouble to prepare some headers
 	cd $TERMUX_PKG_SRCDIR/lib
 	python $TERMUX_PREFIX/bin/searpc-codegen.py ../lib/rpc_table.py
 }
-
