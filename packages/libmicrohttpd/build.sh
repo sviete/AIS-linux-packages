@@ -8,11 +8,9 @@ TERMUX_PKG_SHA256=e8f445e85faf727b89e9f9590daea4473ae00ead38b237cf1eda55172b89b1
 TERMUX_PKG_DEPENDS="libgnutls"
 TERMUX_PKG_BREAKS="libmicrohttpd-dev"
 TERMUX_PKG_REPLACES="libmicrohttpd-dev"
-
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-examples
 --enable-curl
 --enable-https
 --enable-largefile
 --enable-messages"
-
