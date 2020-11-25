@@ -8,8 +8,6 @@ TERMUX_PKG_SHA256=f67ac44099916ae260a6c9e290a90809e7d782d96cdd462cac656ebc5b6857
 TERMUX_PKG_DEPENDS="libc++"
 TERMUX_PKG_BREAKS="libconfig-dev"
 TERMUX_PKG_REPLACES="libconfig-dev"
-
 termux_step_pre_configure() {
 	autoreconf -fi
 }
-
