@@ -8,13 +8,11 @@ TERMUX_PKG_SHA256=0b59cf0ced3f693fb19396a986326963f3763e6bf65d3e56af0a03d206d694
 TERMUX_PKG_DEPENDS="termux-api"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_BLACKLISTED_ARCHES="arm, i686"
-
 termux_step_make_install() {
 	termux_setup_rust
 	cargo build --jobs $TERMUX_MAKE_PROCESSES --target $CARGO_TARGET_NAME --release
 	install -Dm600 -t $TERMUX_PREFIX/lib target/${CARGO_TARGET_NAME}/release/libtergent.so
 }
-
 termux_step_create_debscripts() {
 	cat <<- EOF > ./postinst
 	#!${TERMUX_PREFIX}/bin/bash
@@ -30,4 +28,3 @@ termux_step_create_debscripts() {
 	esac
 	EOF
 }
-
