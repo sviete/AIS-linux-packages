@@ -12,7 +12,6 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -Dgir=false
 -Dx11=false
 "
-
 termux_step_create_debscripts() {
 	for i in postinst postrm triggers; do
 		sed \
@@ -23,4 +22,3 @@ termux_step_create_debscripts() {
 	unset i
 	chmod 644 ./triggers
 }
-
