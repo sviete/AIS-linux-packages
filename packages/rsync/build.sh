@@ -6,7 +6,6 @@ TERMUX_PKG_SRCURL=https://rsync.samba.org/ftp/rsync/src/rsync-${TERMUX_PKG_VERSI
 TERMUX_PKG_SHA256=becc3c504ceea499f4167a260040ccf4d9f2ef9499ad5683c179a697146ce50e
 TERMUX_PKG_DEPENDS="libiconv, liblz4, libpopt, openssh | dropbear, openssl-tool, zlib, zstd"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --with-rsyncd-conf=$TERMUX_PREFIX/etc/rsyncd.conf
 --with-included-popt=no
@@ -16,4 +15,3 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-xattr-support
 --disable-xxhash
 "
-
