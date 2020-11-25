@@ -9,12 +9,9 @@ TERMUX_PKG_DEPENDS="libass, libbz2, libdav1d, libiconv, libsoxr, libx264, libx26
 TERMUX_PKG_CONFLICTS="libav"
 TERMUX_PKG_BREAKS="ffmpeg-dev"
 TERMUX_PKG_REPLACES="ffmpeg-dev"
-
 termux_step_configure() {
 	cd $TERMUX_PKG_BUILDDIR
-
 	export ASFLAGS="-no-integrated-as"
-
 	local _EXTRA_CONFIGURE_FLAGS=""
 	if [ $TERMUX_ARCH = "arm" ]; then
 		_ARCH="armeabi-v7a"
@@ -32,7 +29,6 @@ termux_step_configure() {
 	else
 		termux_error_exit "Unsupported arch: $TERMUX_ARCH"
 	fi
-
 	$TERMUX_PKG_SRCDIR/configure \
 		--arch=${_ARCH} \
 		--as=$AS \
@@ -66,6 +62,3 @@ termux_step_configure() {
 		--extra-libs="-landroid-glob" \
 		$_EXTRA_CONFIGURE_FLAGS
 }
-
-
-
