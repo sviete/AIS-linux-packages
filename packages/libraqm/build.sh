@@ -6,4 +6,3 @@ TERMUX_PKG_SRCURL=https://github.com/HOST-Oman/libraqm/releases/download/v$TERMU
 TERMUX_PKG_SHA256=86488cf0b8ac736943fa748bd812000db63cc5ab6ad69c942e68e5187f4b9828
 TERMUX_PKG_DEPENDS="freetype, harfbuzz, fribidi"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-gtk-doc"
-
