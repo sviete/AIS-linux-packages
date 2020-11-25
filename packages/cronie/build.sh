@@ -9,15 +9,12 @@ TERMUX_PKG_DEPENDS="dash"
 TERMUX_PKG_RECOMMENDS="nano"
 TERMUX_PKG_SUGGESTS="termux-services"
 TERMUX_PKG_CONFLICTS="busybox (<< 1.31.1-11)"
-
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-anacron
 --disable-pam
 --with-editor=$TERMUX_PREFIX/bin/nano
 "
-
 TERMUX_PKG_SERVICE_SCRIPT=("crond" 'exec crond -n -s')
-
 termux_step_create_debscripts() {
 	cat <<- EOF > ./postinst
 	#!$TERMUX_PREFIX/bin/sh
@@ -25,4 +22,3 @@ termux_step_create_debscripts() {
 	mkdir -p $TERMUX_PREFIX/var/spool/cron
 	EOF
 }
-
