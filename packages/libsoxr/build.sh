@@ -8,13 +8,10 @@ TERMUX_PKG_SHA256=b111c15fdc8c029989330ff559184198c161100a59312f5dc19ddeb9b5a158
 TERMUX_PKG_BREAKS="libsoxr-dev"
 TERMUX_PKG_REPLACES="libsoxr-dev"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_configure() {
 	return 0
 }
-
 termux_step_make() {
 	termux_setup_cmake
 	./go
 }
-
