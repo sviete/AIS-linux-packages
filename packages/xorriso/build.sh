@@ -7,8 +7,6 @@ TERMUX_PKG_SHA256=aff90c36f779c6f16b714171ff88550a5c9336e789808fd80cffbc2df283ed
 TERMUX_PKG_DEPENDS="libiconv, libandroid-support, readline, libbz2, zlib"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-jtethreads"
-
 termux_step_pre_configure() {
 	./bootstrap
 }
-
