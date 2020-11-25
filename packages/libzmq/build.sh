@@ -8,9 +8,6 @@ TERMUX_PKG_DEPENDS="libc++, libsodium"
 TERMUX_PKG_BREAKS="libzmq-dev"
 TERMUX_PKG_REPLACES="libzmq-dev"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--with-libsodium --disable-libunwind --disable-Werror"
-
 termux_step_post_get_source() {
 	./autogen.sh
 }
-
-
