@@ -8,8 +8,6 @@ TERMUX_PKG_SHA256=fb0a3b7d487a15b124ba6690f7b01a56617f1af2aa54233fd69013982de95a
 TERMUX_PKG_DEPENDS="perl"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
-
 termux_step_make_install() {
 	install -Dm700 swaks "$TERMUX_PREFIX"/bin/swaks
 }
-
