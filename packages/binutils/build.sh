@@ -23,20 +23,16 @@ TERMUX_PKG_HAS_DEBUG=false
 # ~/termux-build/_cache/19b-aarch64-24-v5/bin/../sysroot/usr/include/sys/cdefs.h:163:52: note: expanded from macro '__clang_error_if'
 # #define __clang_error_if(cond, msg) __attribute__((diagnose_if(cond, msg, "error")))
 #                                                    ^           ~~~~
-
 # Avoid linking against libfl.so from flex if available:
 export LEXLIB=
-
 termux_step_pre_configure() {
 	export CPPFLAGS="$CPPFLAGS -Wno-c++11-narrowing"
-
 	if [ $TERMUX_ARCH_BITS = 32 ]; then
 		export LIB_PATH="${TERMUX_PREFIX}/lib:/system/lib"
 	else
 		export LIB_PATH="${TERMUX_PREFIX}/lib:/system/lib64"
 	fi
 }
-
 termux_step_post_make_install() {
 	cp $TERMUX_PKG_BUILDER_DIR/ldd $TERMUX_PREFIX/bin/ldd
 	cd $TERMUX_PREFIX/bin
@@ -47,5 +43,3 @@ termux_step_post_make_install() {
 	done
 	ln -sf ld.gold gold
 }
-
-
