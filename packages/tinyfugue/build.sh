@@ -11,10 +11,8 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --enable-termcap=ncurses
 --disable-mailcheck
 "
-
 termux_step_pre_configure() {
 	# CFLAGS are passed utilities built for host, but GCC
 	# can't understand "-Oz".
 	CFLAGS="${CFLAGS/-Oz/-Os}"
 }
-
