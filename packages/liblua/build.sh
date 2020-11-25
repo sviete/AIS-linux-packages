@@ -10,13 +10,11 @@ TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_BREAKS="liblua-dev"
 TERMUX_PKG_REPLACES="liblua-dev"
 TERMUX_PKG_BUILD_DEPENDS="readline"
-
 termux_step_pre_configure() {
 	AR+=" rcu"
 	CFLAGS+=" -fPIC -DLUA_COMPAT_5_2 -DLUA_COMPAT_UNPACK"
 	export MYLDFLAGS=$LDFLAGS
 }
-
 termux_step_post_make_install() {
 	# Add a pkg-config file for the system zlib
 	cat > "$PKG_CONFIG_LIBDIR/lua.pc" <<-HERE
@@ -27,6 +25,3 @@ termux_step_post_make_install() {
 		Libs: -llua -lm
 	HERE
 }
-
-
-
