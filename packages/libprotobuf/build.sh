@@ -14,8 +14,6 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -Dprotobuf_BUILD_TESTS=OFF
 -DBUILD_SHARED_LIBS=ON
 "
-
 termux_step_pre_configure() {
 	TERMUX_PKG_SRCDIR+="/cmake/"
 }
-
