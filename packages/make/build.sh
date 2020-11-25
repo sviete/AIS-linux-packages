@@ -9,7 +9,6 @@ TERMUX_PKG_BREAKS="make-dev"
 TERMUX_PKG_REPLACES="make-dev"
 # Prevent linking against libelf:
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="ac_cv_lib_elf_elf_begin=no"
-
 termux_step_pre_configure() {
     if [ "$TERMUX_ARCH" = arm ]; then
 	# Fix issue with make on arm hanging at least under cmake:
@@ -17,7 +16,6 @@ termux_step_pre_configure() {
 	TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" ac_cv_func_pselect=no"
     fi
 }
-
 termux_step_make() {
 	# Allow to bootstrap make if building on device without make installed.
 	if $TERMUX_ON_DEVICE_BUILD && [ -z "$(command -v make)" ]; then
@@ -26,7 +24,6 @@ termux_step_make() {
 		make -j $TERMUX_MAKE_PROCESSES
 	fi
 }
-
 termux_step_make_install() {
 	if $TERMUX_ON_DEVICE_BUILD && [ -z "$(command -v make)" ]; then
 		./make -j 1 install
@@ -34,4 +31,3 @@ termux_step_make_install() {
 		make -j 1 install
 	fi
 }
-
