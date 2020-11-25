@@ -16,10 +16,8 @@ ac_cv_path_perlpath=$TERMUX_PREFIX/bin/perl
 --with-otr=static
 --with-perl=static
 "
-
 termux_step_pre_configure() {
 	local perl_version=$(. $TERMUX_SCRIPTDIR/packages/perl/build.sh; echo $TERMUX_PKG_VERSION)
-
 	# Irssi has no support for cross-compiling perl module,
 	# so we add it ourselves.
 	sed -e "s|@TERMUX_PREFIX@|$TERMUX_PREFIX|g" \
@@ -29,20 +27,15 @@ termux_step_pre_configure() {
 		patch -p1
 	autoconf
 	TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" --with-perl-lib=$TERMUX_PREFIX/lib/perl5/site_perl/$perl_version/${TERMUX_ARCH}-android"
-
 	LDFLAGS+=" -landroid-glob"
-
 	# Make build log less noisy.
 	CFLAGS+=" -Wno-deprecated-declarations"
-
 	# Make sure that perl stuff is reinstalled.
 	rm -rf $TERMUX_PREFIX/lib/perl5/site_perl/$perl_version/${TERMUX_ARCH}-android/x86_64-linux-gnu-thread-multi
 }
-
 termux_step_post_massage() {
 	local perl_version=$(. $TERMUX_SCRIPTDIR/packages/perl/build.sh; echo $TERMUX_PKG_VERSION)
 	mv $TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX/lib/perl5/site_perl/$perl_version/${TERMUX_ARCH}-android/x86_64-linux-gnu-thread-multi/* \
 		$TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX/lib/perl5/site_perl/$perl_version/${TERMUX_ARCH}-android/
 	rm -rf $TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX/lib/perl5/site_perl/$perl_version/${TERMUX_ARCH}-android/x86_64-linux-gnu-thread-multi
 }
-
