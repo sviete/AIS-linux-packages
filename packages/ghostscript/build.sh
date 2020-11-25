@@ -14,14 +14,11 @@ CCAUX=gcc
 --without-x
 --with-system-libtiff
 "
-
 termux_step_post_get_source() {
 	rm -rdf $TERMUX_PKG_SRCDIR/{jpeg,libpng,expat,jasper,freetype,lcms2,tiff,openjpeg}
 }
-
 termux_step_pre_configure() {
 	# Use `make -j1` otherwise build may fail with error
 	# about missing 'arch.h'.
 	TERMUX_MAKE_PROCESSES=1
 }
-
