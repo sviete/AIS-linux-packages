@@ -12,7 +12,6 @@ TERMUX_PKG_DEPENDS="libc++, libpcap, pcre, openssl, resolv-conf, netcat, liblua5
 # --without-ndiff to avoid python2-using ndiff utility:
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--enable-static --with-liblua=$TERMUX_PREFIX --without-nmap-update --without-zenmap --without-ndiff"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_post_make_install() {
 	# Setup 'netcat' and 'nc' as symlink to 'ncat', since the other netcat implementations
 	# are outdated (gnu-netcat) or non-portable (openbsd-netcat).
@@ -23,5 +22,3 @@ termux_step_post_make_install() {
 		ln -s -f ncat.1 ${prog}.1
 	done
 }
-
-
