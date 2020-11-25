@@ -5,8 +5,6 @@ TERMUX_PKG_VERSION=5.3.1
 TERMUX_PKG_SRCURL=https://github.com/phpredis/phpredis/archive/${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_SHA256=930dc88ef126509b8991c52757fdc68908c753b476ad6f25dae0ce6925870f14
 TERMUX_PKG_DEPENDS=php
-
 termux_step_pre_configure() {
 	$TERMUX_PREFIX/bin/phpize
 }
-
