@@ -9,19 +9,16 @@ TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_BREAKS="liblua-dev"
 TERMUX_PKG_REPLACES="liblua-dev"
 TERMUX_PKG_BUILD_DEPENDS="readline"
-
 termux_step_configure() {
 	sed -e "s/%VER%/${TERMUX_PKG_VERSION%.*}/g;s/%REL%/${TERMUX_PKG_VERSION}/g" \
 		-e "s|@TERMUX_PREFIX@|$TERMUX_PREFIX|" \
 		"$TERMUX_PKG_BUILDER_DIR"/lua.pc.in > lua.pc
 }
-
 termux_step_pre_configure() {
 	AR+=" rcu"
 	CFLAGS+=" -fPIC -DLUA_COMPAT_5_2 -DLUA_COMPAT_UNPACK"
 	export MYLDFLAGS=$LDFLAGS
 }
-
 termux_step_make_install() {
 	make \
 		TO_BIN="lua5.4 luac5.4" \
@@ -32,8 +29,6 @@ termux_step_make_install() {
 		INSTALL_MAN="$TERMUX_PREFIX/share/man/man1" \
 		install
 	install -Dm600 lua.pc "$TERMUX_PREFIX"/lib/pkgconfig/lua54.pc
-
 	mv -f "$TERMUX_PREFIX"/share/man/man1/lua.1 "$TERMUX_PREFIX"/share/man/man1/lua5.4.1
 	mv -f "$TERMUX_PREFIX"/share/man/man1/luac.1 "$TERMUX_PREFIX"/share/man/man1/luac5.4.1
 }
-
