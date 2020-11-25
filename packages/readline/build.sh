@@ -13,7 +13,6 @@ TERMUX_PKG_SHA256=e339f51971478d369f8a053a330a190781acb9864cf4c541060f12078948e4
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--with-curses --enable-multibyte bash_cv_wcwidth_broken=no"
 TERMUX_PKG_EXTRA_MAKE_ARGS="SHLIB_LIBS=-lncursesw"
 TERMUX_PKG_CONFFILES="etc/inputrc"
-
 termux_step_pre_configure() {
 	declare -A PATCH_CHECKSUMS
 	PATCH_CHECKSUMS[001]=d8e5e98933cf5756f862243c0601cb69d3667bb33f2c7b751fe4e40b2c3fd069
@@ -28,15 +27,11 @@ termux_step_pre_configure() {
 			${PATCH_CHECKSUMS[$PATCH_NUM]}
 		patch -p0 -i $PATCHFILE
 	done
-
 	CFLAGS+=" -fexceptions"
 }
-
 termux_step_post_make_install() {
 	mkdir -p $TERMUX_PREFIX/lib/pkgconfig
 	cp readline.pc $TERMUX_PREFIX/lib/pkgconfig/
-
 	mkdir -p $TERMUX_PREFIX/etc
 	cp $TERMUX_PKG_BUILDER_DIR/inputrc $TERMUX_PREFIX/etc/
 }
-
