@@ -7,9 +7,7 @@ TERMUX_PKG_SHA256=fd4829912cddd12f84181c3451cc752be224643e87fac497b69edddadc49b4
 TERMUX_PKG_BREAKS="libgmp-dev"
 TERMUX_PKG_REPLACES="libgmp-dev"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--enable-cxx"
-
 termux_step_pre_configure() {
 # the cxx tests fail because it won't link properly without this
     CXXFLAGS+=" -L$TERMUX_PREFIX/lib"
 }
-
