@@ -7,7 +7,6 @@ TERMUX_PKG_SRCURL=http://gondor.apana.org.au/~herbert/dash/files/dash-${TERMUX_P
 TERMUX_PKG_SHA256=00fb7d68b7599cc41ab151051c06c01e9500540183d8aa72116cb9c742bd6d5f
 TERMUX_PKG_ESSENTIAL=true
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-static"
-
 termux_step_pre_configure() {
 	# Prefix verification patch should be applied only for the
 	# builds with original prefix.
@@ -15,11 +14,8 @@ termux_step_pre_configure() {
 		patch -p1 -i $TERMUX_PKG_BUILDER_DIR/verify-prefix.patch.txt
 	fi
 }
-
 termux_step_post_make_install() {
 	# Symlink sh -> dash
 	ln -sfr $TERMUX_PREFIX/bin/{dash,sh}
 	ln -sfr $TERMUX_PREFIX/share/man/man1/{dash,sh}.1
 }
-
-
