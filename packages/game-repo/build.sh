@@ -7,16 +7,13 @@ TERMUX_PKG_DEPENDS="termux-keyring"
 TERMUX_PKG_SKIP_SRC_EXTRACT=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
 TERMUX_PKG_CONFFILES="etc/apt/sources.list.d/game.list"
-
 termux_step_make_install() {
 	mkdir -p $TERMUX_PREFIX/etc/apt/sources.list.d
 	echo "deb https://dl.bintray.com/grimler/game-packages-24 games stable" > $TERMUX_PREFIX/etc/apt/sources.list.d/game.list
 }
-
 termux_step_create_debscripts() {
 	echo "#!$TERMUX_PREFIX/bin/sh" > postinst
 	echo "echo Downloading updated package list ..." >> postinst
 	echo "apt update" >> postinst
 	echo "exit 0" >> postinst
 }
-
