@@ -7,10 +7,8 @@ TERMUX_PKG_SHA256=4b884261645a73b37467242d6ae69264fdde2e7c4c15b245d902531efaaeb2
 TERMUX_PKG_DEPENDS="libbz2, libc++, readline, zlib"
 TERMUX_PKG_BREAKS="iverilog-dev"
 TERMUX_PKG_REPLACES="iverilog-dev"
-
 termux_step_pre_configure() {
 	LDFLAGS+=" -lm"
 	aclocal
 	autoconf
 }
-
