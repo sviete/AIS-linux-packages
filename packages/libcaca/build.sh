@@ -15,13 +15,9 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-ruby
 --enable-imlib2
 "
-
 termux_step_post_configure() {
 	if [ $TERMUX_ARCH = x86_64 ]; then
 		# Remove troublesome asm usage:
 		perl -p -i -e 's/#define HAVE_FLDLN2 1//' $TERMUX_PKG_BUILDDIR/config.h
 	fi
 }
-
-
-
