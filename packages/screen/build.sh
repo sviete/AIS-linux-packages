@@ -10,16 +10,13 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --enable-colors256
 --with-ssl=openssl
 "
-
 termux_step_pre_configure() {
 	# Run autoreconf since we have patched configure.ac
 	autoconf
 	CFLAGS+=" -DGETUTENT"
 	export LIBS="-lcrypt"
 }
-
 termux_step_post_configure() {
 	echo '#define HAVE_SVR4_PTYS 1' >> $TERMUX_PKG_BUILDDIR/config.h
 	echo 'mousetrack on' > "$TERMUX_PREFIX/etc/screenrc"
 }
-
