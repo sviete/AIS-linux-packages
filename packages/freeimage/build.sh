@@ -1,6 +1,6 @@
 TERMUX_PKG_HOMEPAGE=https://freeimage.sourceforge.io
 TERMUX_PKG_DESCRIPTION="The library project for developers who would like to support popular graphics image formats."
-TERMUX_PKG_LICENSE="custom"
+TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_LICENSE_FILE="license-fi.txt, license-gplv2.txt, license-gplv3.txt, license-bsd-2-clause.txt"
 TERMUX_PKG_VERSION=3.18.0
 TERMUX_PKG_SRCURL=https://downloads.sourceforge.net/project/freeimage/Source%20Distribution/${TERMUX_PKG_VERSION}/FreeImage${TERMUX_PKG_VERSION//./}.zip
