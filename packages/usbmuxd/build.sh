@@ -1,6 +1,6 @@
 TERMUX_PKG_HOMEPAGE=https://libimobiledevice.org
 TERMUX_PKG_DESCRIPTION="A socket daemon to multiplex connections from and to iOS devices."
-TERMUX_PKG_LICENSE="custom"
+TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_LICENSE_FILE="COPYING.GPLv2, COPYING.GPLv3"
 TERMUX_PKG_VERSION=1.1.1
 TERMUX_PKG_SRCURL=https://github.com/libimobiledevice/usbmuxd/archive/$TERMUX_PKG_VERSION.tar.gz
