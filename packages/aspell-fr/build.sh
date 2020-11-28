@@ -1,6 +1,6 @@
 TERMUX_PKG_HOMEPAGE=http://aspell.net
 TERMUX_PKG_DESCRIPTION="French dictionary for GNU Aspell"
-TERMUX_PKG_LICENSE="custom"
+TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_LICENSE_FILE="Copyright"
 TERMUX_PKG_VERSION=0.50-3
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
@@ -11,7 +11,7 @@ termux_step_configure () {
     # we can easily replace it.
     cat > $TERMUX_PKG_SRCDIR/Makefile <<EOF
 ASPELL = `which aspell`
-ASPELL_FLAGS = 
+ASPELL_FLAGS =
 PREZIP = `which prezip`
 DESTDIR =
 dictdir = $TERMUX_PREFIX/lib/aspell-0.60
