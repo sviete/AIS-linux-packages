@@ -1,6 +1,6 @@
 TERMUX_PKG_HOMEPAGE=http://www.fastcgi.com/
 TERMUX_PKG_DESCRIPTION="A language independent, high performant extension to CGI"
-TERMUX_PKG_LICENSE="custom"
+TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_LICENSE_FILE="LICENSE.TERMS"
 TERMUX_PKG_VERSION=2.4.2
 TERMUX_PKG_SRCURL=https://github.com/FastCGI-Archives/fcgi2/archive/${TERMUX_PKG_VERSION}.tar.gz
