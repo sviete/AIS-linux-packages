@@ -1,6 +1,6 @@
 TERMUX_PKG_HOMEPAGE=https://sleuthkit.org/
 TERMUX_PKG_DESCRIPTION="The Sleuth Kit® (TSK) is a library for digital forensics tools. "
-TERMUX_PKG_LICENSE="custom"
+TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_LICENSE_FILE="licenses/mit.txt, licenses/GNU-COPYING, licenses/bsd.txt, licenses/cpl1.0.txt, licenses/IBM-LICENSE"
 TERMUX_PKG_VERSION=4.10.1
 TERMUX_PKG_REVISION=1
