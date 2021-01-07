@@ -52,6 +52,8 @@ PACKAGES+=" python3-recommonmark"
 PACKAGES+=" python3-sphinx"
 PACKAGES+=" texinfo"
 PACKAGES+=" xmlto"
+PACKAGES+=" xmltoman"
+PACKAGES+=" scdoc"
 
 # Needed by python modules (e.g. asciinema) and some build systems.
 PACKAGES+=" python3.7"
@@ -91,6 +93,10 @@ PACKAGES+=" libicu-dev"
 
 # Needed by php.
 PACKAGES+=" re2c"
+
+# Needed by composer.
+PACKAGES+=" php"
+PACKAGES+=" composer"
 
 # Needed by package rust.
 PACKAGES+=" libssl-dev" # Needed to build Rust
@@ -170,6 +176,9 @@ PACKAGES+=" cvs"
 
 # Needed by apt.
 PACKAGES+=" triehash"
+
+# Needed by aspell dictionaries.
+PACKAGES+=" aspell"
 
 # Do not require sudo if already running as root.
 if [ "$(id -u)" = "0" ]; then
