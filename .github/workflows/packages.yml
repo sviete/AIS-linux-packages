@@ -148,7 +148,7 @@ jobs:
         path: ./
     - name: Update Whatprovides database
       env:
-        BINTRAY_USERNAME: xeffyr
+        BINTRAY_USERNAME: asystentka-jolka
         BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
       run: |
         for i in debs-*.tar; do
