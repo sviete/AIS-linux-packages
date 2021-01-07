@@ -134,15 +134,3 @@ jobs:
         if [ -n "$TO_UPLOAD" ]; then
           ./scripts/package_uploader.sh -p ./debs $TO_UPLOAD
         fi
-  update-whatprovides-db:
-    if: github.event_name != 'pull_request'
-    needs: upload
-    runs-on: ubuntu-latest
-    steps:
-    - name: Clone repository
-      uses: actions/checkout@v2
-    - name: Get *.deb files
-      uses: actions/download-artifact@v1
-      with:
-        name: termux-packages
-        path: ./
