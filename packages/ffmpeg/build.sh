@@ -1,6 +1,7 @@
 TERMUX_PKG_HOMEPAGE=https://ffmpeg.org
 TERMUX_PKG_DESCRIPTION="Tools and libraries to manipulate a wide range of multimedia formats and protocols"
 TERMUX_PKG_LICENSE="GPL-3.0"
+TERMUX_PKG_MAINTAINER="@termux"
 # NOTE: mpv has to be rebuilt and version bumped after updating ffmpeg.
 TERMUX_PKG_VERSION=4.3.1
 TERMUX_PKG_SRCURL=https://www.ffmpeg.org/releases/ffmpeg-${TERMUX_PKG_VERSION}.tar.xz
@@ -9,9 +10,12 @@ TERMUX_PKG_DEPENDS="libass, libbz2, libdav1d, libiconv, libsoxr, libx264, libx26
 TERMUX_PKG_CONFLICTS="libav"
 TERMUX_PKG_BREAKS="ffmpeg-dev"
 TERMUX_PKG_REPLACES="ffmpeg-dev"
+
 termux_step_configure() {
 	cd $TERMUX_PKG_BUILDDIR
+
 	export ASFLAGS="-no-integrated-as"
+
 	local _EXTRA_CONFIGURE_FLAGS=""
 	if [ $TERMUX_ARCH = "arm" ]; then
 		_ARCH="armeabi-v7a"
@@ -29,6 +33,7 @@ termux_step_configure() {
 	else
 		termux_error_exit "Unsupported arch: $TERMUX_ARCH"
 	fi
+
 	$TERMUX_PKG_SRCDIR/configure \
 		--arch=${_ARCH} \
 		--as=$AS \
