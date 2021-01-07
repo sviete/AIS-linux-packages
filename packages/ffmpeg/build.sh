@@ -45,6 +45,7 @@ termux_step_configure() {
 		--enable-indev=lavfi \
 		--disable-static \
 		--disable-symver \
+		--disable-openmp \
 		--enable-cross-compile \
 		--enable-gnutls \
 		--enable-gpl \
