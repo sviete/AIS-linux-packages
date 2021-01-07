@@ -9,6 +9,9 @@
 This project contains scripts and patches to build packages for the Android terminal and Linux environment system used in the [AI-Speaker](https://www.ai-speaker.com) project.
 
 
+**@termux is looking for help with fixing issues, adding new packages and maintaining
+existing ones. It would be very helpful if you submit a pull request with new packages
+or bug fixes.**
 
 This project is a fork off the Termux master branch - [Termux master](https://github.com/termux/termux-packages/tree/master) - the packages are build for for Android 7.0 or higher.
 
