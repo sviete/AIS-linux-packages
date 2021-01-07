@@ -4,7 +4,7 @@ diff -u -r ../postgresql-10.1/src/timezone/zic.c ./src/timezone/zic.c
 @@ -17,6 +17,12 @@
  #include "private.h"
  #include "tzfile.h"
- 
+
 +/*
 + * Avoid the qsort->pg_qsort define to more easily build
 + * a native patched zic tool.
@@ -13,7 +13,7 @@ diff -u -r ../postgresql-10.1/src/timezone/zic.c ./src/timezone/zic.c
 +
  #define	ZIC_VERSION_PRE_2013 '2'
  #define	ZIC_VERSION	'3'
- 
+
 @@ -889,8 +895,16 @@
  				progname, directory, fromfield, strerror(EPERM));
  		exit(EXIT_FAILURE);
