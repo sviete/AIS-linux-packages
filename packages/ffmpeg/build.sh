@@ -45,7 +45,6 @@ termux_step_configure() {
 		--enable-indev=lavfi \
 		--disable-static \
 		--disable-symver \
-		--disable-openmp \
 		--enable-cross-compile \
 		--enable-gnutls \
 		--enable-gpl \
@@ -67,4 +66,8 @@ termux_step_configure() {
 		--target-os=android \
 		--extra-libs="-landroid-glob" \
 		$_EXTRA_CONFIGURE_FLAGS
+}
+
+termux_step_pre_configure() {
+    LDFLAGS+=" --disable-openmp"
 }
