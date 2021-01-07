@@ -1,10 +1,11 @@
 TERMUX_PKG_HOMEPAGE=http://w3m.sourceforge.net/
 TERMUX_PKG_DESCRIPTION="Text based Web browser and pager"
 TERMUX_PKG_LICENSE="BSD"
+TERMUX_PKG_MAINTAINER="@termux"
 _MAJOR_VERSION=0.5.3
 _MINOR_VERSION=20190105
 TERMUX_PKG_VERSION=${_MAJOR_VERSION}.${_MINOR_VERSION}
-TERMUX_PKG_REVISION=4
+TERMUX_PKG_REVISION=5
 # The upstream w3m project is dead, but every linux distribution uses
 # this maintained fork in debian:
 TERMUX_PKG_SRCURL=https://github.com/tats/w3m/archive/v${_MAJOR_VERSION}+git${_MINOR_VERSION}.tar.gz

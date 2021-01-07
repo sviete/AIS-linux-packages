@@ -1,12 +1,12 @@
 TERMUX_PKG_HOMEPAGE=https://packages.debian.org/apt
 TERMUX_PKG_DESCRIPTION="Front-end for the dpkg package manager"
 TERMUX_PKG_LICENSE="GPL-2.0"
-TERMUX_PKG_VERSION=2.1.11
-TERMUX_PKG_REVISION=2
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION=2.1.15
 TERMUX_PKG_SRCURL=http://deb.debian.org/debian/pool/main/a/apt/apt_${TERMUX_PKG_VERSION}.tar.xz
-TERMUX_PKG_SHA256=f49f0652d5d2cfa157f0197d9ce03953970a108813568bb1c69553fd3d5a4be3
+TERMUX_PKG_SHA256=dc42ca351d156c37202c775808b5e220d6bd695fa9dad651e2c635586d58c2b3
 # apt-key requires utilities from coreutils, findutils, gpgv, grep, sed.
-TERMUX_PKG_DEPENDS="libgcrypt, libassuan, coreutils, dpkg, findutils, gpgv, grep, libandroid-glob, libbz2, libc++, libcurl, libgnutls, liblz4, liblzma, sed, termux-licenses, zlib"
+TERMUX_PKG_DEPENDS="coreutils, dpkg, findutils, gpgv, grep, libandroid-glob, libbz2, libc++, libcurl, libgnutls, liblz4, liblzma, sed, termux-licenses, xxhash, zlib"
 TERMUX_PKG_CONFLICTS="apt-transport-https, libapt-pkg"
 TERMUX_PKG_REPLACES="apt-transport-https, libapt-pkg"
 TERMUX_PKG_ESSENTIAL=true
@@ -46,11 +46,7 @@ termux_step_pre_configure() {
 	if $TERMUX_ON_DEVICE_BUILD; then
 		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
 	fi
-	# Prefix verification patch should be applied only for the
-	# builds with original prefix.
-	if [ "$TERMUX_PREFIX" = "/data/data/com.termux/files/usr" ]; then
-		patch -p1 -i $TERMUX_PKG_BUILDER_DIR/0012-verify-prefix.patch.txt
-	fi
+
 	# Fix i686 builds.
 	CXXFLAGS+=" -Wno-c++11-narrowing"
 	# Fix glob() on Android 7.

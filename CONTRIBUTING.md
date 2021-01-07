@@ -28,7 +28,7 @@ containing incomplete work or disruptive changes will NOT be merged.
 
 ### A note about package requests
 
-We have more than 1000 packages in our repository. That is quite many, considering
+Termux keeps more than 1000 packages in its repositories. That is quite many, considering
 that Termux maintainers team is small and we prefer to use free hosting for packages
 repository. In order to be able to provide services at reasonable quality, we have
 to put restrictions on acceptable package requests.
@@ -48,6 +48,9 @@ our repositories:
   installable through `cpan`, `gem`, `npm`, `pip` and similar.
 
 - Packages must NOT duplicate functionality of the already present ones.
+
+- Packages must NOT be phishing or pentesting tools. This does not apply for tools with
+  double purpose like Nmap.
 
 Also we will reject any requests for low-quality packages, simple utilities consisting
 of one-file scripts and scripts which automate use of existing packages.
