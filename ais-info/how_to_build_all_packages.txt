@@ -21,6 +21,9 @@ grep -vwE "packages/toxic" buildorder.txt > new_buildorder.txt
 
 AIS python 3.9:
 --------------
+./build-package.sh -a arm -I leptonica
+./build-package.sh -a arm -I sox
+./build-package.sh -a arm -I libwebp
 ./build-package.sh -a arm -I libacl
 ./build-package.sh -a arm -I postgresql
 ./build-package.sh -a arm -I attr

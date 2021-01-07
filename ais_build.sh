@@ -1,3 +1,7 @@
+./build-package.sh -a arm -I leptonica
+./build-package.sh -a arm -I libwebp
+./build-package.sh -a arm -I sox
+
 ./build-package.sh -a arm -I libacl
 ./build-package.sh -a arm -I libssh
 ./build-package.sh -a arm -I libssh2
