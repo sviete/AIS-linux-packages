@@ -10,7 +10,7 @@ for file in $files; do
   git add $file
   git commit -m "build $file"
   git push
-  echo "sleep 20 minutes"
-  sleep 1200
+  echo "sleep 15 minutes"
+  sleep 900
   echo "done ------------------"
 done
