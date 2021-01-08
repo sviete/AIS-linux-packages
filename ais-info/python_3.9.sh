@@ -1,6 +1,8 @@
-# AIS python 3.9:
+# AIS python 3.9.1:
 # --------------
 ./build-package.sh -a arm -I leptonica && echo SUCCESS >> status.txt || echo FAIL >> status.txt
+./build-package.sh -a arm -I sox && echo SUCCESS >> status.txt || echo FAIL >> status.txt
+./build-package.sh -a arm -I libwebp && echo SUCCESS >> status.txt || echo FAIL >> status.txt
 ./build-package.sh -a arm -I libacl && echo SUCCESS >> status.txt || echo FAIL >> status.txt
 ./build-package.sh -a arm -I postgresql && echo SUCCESS >> status.txt || echo FAIL >> status.txt
 ./build-package.sh -a arm -I attr  && echo SUCCESS >> status.txt || echo FAIL >> status.txt
