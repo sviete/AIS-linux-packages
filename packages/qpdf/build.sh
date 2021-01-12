@@ -13,3 +13,4 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--with-random=/dev/urandom"
 termux_step_pre_configure() {
 	./autogen.sh
 }
+
