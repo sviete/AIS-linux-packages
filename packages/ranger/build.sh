@@ -18,3 +18,4 @@ termux_step_make_install() {
 termux_step_post_massage() {
 	find . -path '*/__pycache__*' -delete
 }
+
