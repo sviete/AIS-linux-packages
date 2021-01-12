@@ -42,4 +42,3 @@ termux_step_make_install() {
 	make -j 1 package pkgdir=/tmp/netpbm
 	./installnetpbm
 }
-
