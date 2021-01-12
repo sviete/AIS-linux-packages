@@ -7,3 +7,4 @@ TERMUX_PKG_SRCURL=https://github.com/Xfennec/progress/archive/v$TERMUX_PKG_VERSI
 TERMUX_PKG_SHA256=1ed0ac65a912ef1aa605d524eaddaacae92079cf71182096a7c65cbc61687d1b
 TERMUX_PKG_DEPENDS="ncurses"
 TERMUX_PKG_BUILD_IN_SRC=true
+
