@@ -69,3 +69,4 @@ termux_step_make_install() {
 	# Man pages:
 	cp $TERMUX_PKG_SRCDIR/../man/man1/{pil,picolisp}.1 $TERMUX_PREFIX/share/man/man1/
 }
+
