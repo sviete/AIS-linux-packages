@@ -20,7 +20,7 @@ TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_HOSTBUILD=true
 # Build fails on x86_64 with:
 # g++ -rdynamic -m64 -pthread -m64 -fPIC  -o /home/builder/.termux-build/nodejs/src/out/Release/mksnapshot ...
-# /usr/bin/ld: /home/builder/.termux-build/nodejs/src/out/Release/obj.host/v8_base_without_compiler/deps/v8/src/api/api.o: 
+# /usr/bin/ld: /home/builder/.termux-build/nodejs/src/out/Release/obj.host/v8_base_without_compiler/deps/v8/src/api/api.o:
 # in function `v8::TryHandleWebAssemblyTrapPosix(int, siginfo_t*, void*)':
 # api.cc:(.text._ZN2v829TryHandleWebAssemblyTrapPosixEiP9siginfo_tPv+0x5):
 # undefined reference to `v8::internal::trap_handler::TryHandleSignal(int, siginfo_t*, void*)'
@@ -91,4 +91,3 @@ termux_step_configure() {
 		$TERMUX_PKG_SRCDIR/out/tools/v8_gypfiles/v8_libbase.host.mk \
 		$TERMUX_PKG_SRCDIR/out/tools/v8_gypfiles/gen-regexp-special-case.host.mk
 }
-
