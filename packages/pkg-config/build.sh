@@ -15,3 +15,4 @@ termux_step_pre_configure() {
 	fi
 	rm -Rf $TERMUX_PREFIX/bin/*pkg-config
 }
+
