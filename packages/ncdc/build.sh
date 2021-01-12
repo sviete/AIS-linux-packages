@@ -14,3 +14,4 @@ termux_step_post_configure() {
 	gcc -I. $TERMUX_PKG_SRCDIR/doc/gendoc.c -o gendoc
 	touch -d "next hour" makeheaders gendoc
 }
+
