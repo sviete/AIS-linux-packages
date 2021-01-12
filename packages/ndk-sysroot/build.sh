@@ -43,4 +43,3 @@ termux_step_extract_into_massagedir() {
 	done
 	unset lib
 }
-
