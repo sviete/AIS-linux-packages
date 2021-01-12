@@ -34,3 +34,4 @@ termux_step_pre_configure() {
 termux_step_make_install() {
 	cp $TERMUX_PKG_BUILDDIR/pforth_standalone $TERMUX_PREFIX/bin/pforth
 }
+
