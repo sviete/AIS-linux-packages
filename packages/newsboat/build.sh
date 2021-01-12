@@ -20,4 +20,3 @@ termux_step_pre_configure() {
 	LDFLAGS+=" -liconv"
 	export PKG_CONFIG_ALLOW_CROSS=1
 }
-
