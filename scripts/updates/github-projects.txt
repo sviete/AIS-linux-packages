@@ -478,6 +478,7 @@ oniguruma|kkos/oniguruma
 ## Returns 'null' in latest tag.
 #openal-soft|kcat/openal-soft
 
+openethereum|openethereum/openethereum
 openjpeg|uclouvain/openjpeg
 opusfile|xiph/opusfile
 
@@ -576,6 +577,7 @@ shc|neurobin/shc
 shell2http|msoap/shell2http
 shellharden|anordal/shellharden
 shellinabox|shellinabox/shellinabox
+shiori|go-shiori/shiori
 shfmt|mvdan/sh
 sl|mtoyoda/sl
 sleuthkit|sleuthkit/sleuthkit|\d+\.\d+\.\d+
