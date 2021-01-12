@@ -13,4 +13,3 @@ termux_step_pre_configure() {
 	./autogen.sh
 	CXXFLAGS+=" -DNCURSES_WIDECHAR -U_XOPEN_SOURCE"
 }
-
