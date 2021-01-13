@@ -14,3 +14,4 @@ termux_step_pre_configure() {
 termux_step_post_configure() {
 	touch -d "next hour" $TERMUX_PKG_SRCDIR/doc/sed.1
 }
+
