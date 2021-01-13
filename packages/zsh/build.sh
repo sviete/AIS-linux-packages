@@ -52,3 +52,4 @@ termux_step_post_make_install() {
 	# Remove zsh.new/zsh.old/zsh-$version if any exists:
 	rm -f $TERMUX_PREFIX/{zsh-*,zsh.*}
 }
+
