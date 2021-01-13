@@ -21,3 +21,4 @@ termux_step_make_install() {
 	make -C librhash install-lib-headers
 	ln -sf $TERMUX_PREFIX/lib/librhash.so.0 $TERMUX_PREFIX/lib/librhash.so
 }
+
