@@ -17,3 +17,4 @@ TCLLIBDIR=${TERMUX_PREFIX}/lib/tcl8.6/sqlite
 termux_step_pre_configure() {
 	CPPFLAGS+=" -DSQLITE_HAS_CODEC"
 }
+
