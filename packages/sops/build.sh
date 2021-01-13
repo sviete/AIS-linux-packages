@@ -15,3 +15,4 @@ termux_step_make_install() {
 	make install
 	install -Dm700 "${GOPATH}/bin/"*/sops "${TERMUX_PREFIX}/bin/sops"
 }
+
