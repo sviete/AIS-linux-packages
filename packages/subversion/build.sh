@@ -18,3 +18,4 @@ svn_cv_pycfmt_apr_int64_t=UNUSED_REMOVE_AFTER_NEXT_UPDATE
 termux_step_pre_configure() {
 	CFLAGS+=" -std=c11"
 }
+
