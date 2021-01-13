@@ -10,3 +10,4 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="ac_header_resolv_h=no ac_cv_c_compiler_gnu=yes 
 TERMUX_PKG_BUILD_IN_SRC=true
 # Broken 32bit support.
 TERMUX_PKG_BLACKLISTED_ARCHES="arm, i686"
+
