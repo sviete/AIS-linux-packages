@@ -14,3 +14,4 @@ termux_step_pre_configure() {
 		021b38e02cd31951a80ef5185271d71f2def727eb8ff65b7a07aecfbd688b8e1
 	gcc $TERMUX_PKG_CACHEDIR/xxd.c -o $TERMUX_PKG_TMPDIR/xxd
 }
+
