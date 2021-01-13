@@ -10,3 +10,4 @@ TERMUX_PKG_DEPENDS="libc++, readline, taskwarrior, libandroid-glob"
 termux_step_pre_configure() {
 	LDFLAGS+=" -landroid-glob"
 }
+
