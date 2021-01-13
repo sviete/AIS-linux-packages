@@ -18,3 +18,4 @@ termux_step_make_install() {
 	make install BINDIR="$TERMUX_PREFIX/bin" \
 		MAN1DIR="$TERMUX_PREFIX/share/man/man1"
 }
+
