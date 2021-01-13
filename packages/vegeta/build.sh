@@ -19,3 +19,4 @@ termux_step_make_install() {
 		"$GOPATH"/src/github.com/tsenart/vegeta/vegeta \
 		"$TERMUX_PREFIX"/bin/vegeta
 }
+
