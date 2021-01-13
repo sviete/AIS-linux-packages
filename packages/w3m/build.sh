@@ -25,3 +25,4 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" --with-editor=nano"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" --enable-image=x11 --with-imagelib=imlib2"
 # For Makefile.in.patch:
 export TERMUX_PKG_BUILDER_DIR
+
