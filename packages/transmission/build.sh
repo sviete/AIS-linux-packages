@@ -21,3 +21,4 @@ termux_step_pre_configure() {
 	echo "ac_cv_search_getmntent=false" >> termux_configure.cache
 	chmod a-w termux_configure.cache
 }
+
