@@ -11,3 +11,4 @@ TERMUX_PKG_DEPENDS="libiconv, libvorbis, libflac, libogg"
 termux_step_pre_configure() {
 	LDFLAGS+=" -lm"
 }
+
