@@ -25,3 +25,4 @@ TERMUX_PKG_RM_AFTER_INSTALL="lib/apr.exp"
 termux_step_post_make_install() {
 	sed -i "s%NM=\".*%NM=\"${TERMUX_HOST_PLATFORM}-nm -B\"%g" $TERMUX_PREFIX/share/apr-1/build/libtool
 }
+
