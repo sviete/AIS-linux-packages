@@ -11,3 +11,4 @@ termux_step_pre_configure() {
 	CFLAGS+=" $CPPFLAGS"
 	CFLAGS+=" $LDFLAGS"
 }
+
