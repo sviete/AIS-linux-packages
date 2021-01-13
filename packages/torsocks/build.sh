@@ -9,3 +9,4 @@ TERMUX_PKG_DEPENDS="tor"
 termux_step_pre_configure() {
 	./autogen.sh
 }
+
