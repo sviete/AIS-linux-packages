@@ -19,3 +19,4 @@ termux_step_pre_configure() {
 	cp $TERMUX_PKG_HOSTBUILD_DIR/src/stage1flex $TERMUX_PKG_BUILDDIR/src/stage1flex
 	touch -d "next hour" $TERMUX_PKG_BUILDDIR/src/stage1flex
 }
+
