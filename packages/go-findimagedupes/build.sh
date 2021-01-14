@@ -26,3 +26,4 @@ termux_step_make_install() {
 		"$GOPATH"/src/gitlab.com/opennota/findimagedupes/findimagedupes \
 		"$TERMUX_PREFIX"/bin/findimagedupes
 }
+
