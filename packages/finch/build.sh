@@ -44,3 +44,4 @@ termux_step_post_make_install() {
 		ln -f -s purple-2/lib${lib}.so .
 	done
 }
+
