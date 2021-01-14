@@ -22,3 +22,4 @@ termux_step_make_install() {
         cp -a ${TERMUX_PKG_BUILDDIR}/src/github.com/jesseduffield/lazygit/docs/* \
                 $TERMUX_PREFIX/share/doc/lazygit/
 }
+
