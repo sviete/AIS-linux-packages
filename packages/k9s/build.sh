@@ -19,3 +19,4 @@ termux_step_make_install() {
         install -Dm700 ${TERMUX_PKG_BUILDDIR}/src/github.com/derailed/k9s/k9s \
                  $TERMUX_PREFIX/bin/k9s
 }
+
