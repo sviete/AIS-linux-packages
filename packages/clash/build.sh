@@ -22,3 +22,4 @@ termux_step_make() {
 termux_step_make_install() {
 	mv ./clash.bin "${TERMUX_PREFIX}/bin/clash"
 }
+
