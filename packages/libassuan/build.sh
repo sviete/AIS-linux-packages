@@ -8,3 +8,4 @@ TERMUX_PKG_SHA256=c080ee96b3bd519edd696cfcebdecf19a3952189178db9887be713ccbcb5fb
 TERMUX_PKG_DEPENDS="libgpg-error"
 TERMUX_PKG_BREAKS="libassuan-dev"
 TERMUX_PKG_REPLACES="libassuan-dev"
+
