@@ -19,3 +19,4 @@ termux_step_post_make_install() {
 	pandoc --standalone --to man $TERMUX_PKG_SRCDIR/man/exa.1.md --output $TERMUX_PREFIX/share/man/man1/exa.1
   	pandoc --standalone --to man $TERMUX_PKG_SRCDIR/man/exa_colors.5.md --output $TERMUX_PREFIX/share/man/man5/exa_colors.5
 }
+
