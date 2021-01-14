@@ -14,3 +14,4 @@ termux_step_make_install() {
 	chmod +w dcraw.1 # Add missing write permission
 	cp dcraw.1 $TERMUX_PREFIX/share/man/man1/
 }
+
