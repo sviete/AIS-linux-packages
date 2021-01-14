@@ -23,3 +23,4 @@ termux_step_pre_configure() {
 	# about missing 'arch.h'.
 	TERMUX_MAKE_PROCESSES=1
 }
+
