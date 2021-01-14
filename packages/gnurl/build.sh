@@ -37,3 +37,4 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --with-ca-bundle=$TERMUX_PREFIX/etc/tls/cert.pem
 --with-ca-path=$TERMUX_PREFIX/etc/tls/certs
 "
+
