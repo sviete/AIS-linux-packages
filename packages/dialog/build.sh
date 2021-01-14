@@ -21,3 +21,4 @@ termux_step_post_make_install() {
 	cd $TERMUX_PREFIX/bin
 	ln -f -s dialog whiptail
 }
+
