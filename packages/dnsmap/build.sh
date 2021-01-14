@@ -8,3 +8,4 @@ TERMUX_PKG_SHA256=6c8d28e461530721ed19314a6788f756a46c98356b5d66fa8b54294778c1f1
 termux_step_pre_configure() {
 	./autogen.sh
 }
+
