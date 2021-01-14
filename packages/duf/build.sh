@@ -21,3 +21,4 @@ termux_step_make_install() {
         install ${TERMUX_PKG_BUILDDIR}/src/github.com/muesli/duf/README.md \
                         $TERMUX_PREFIX/share/doc/duf
 }
+
