@@ -22,3 +22,4 @@ termux_step_configure() {
 		--with-openssl=$TERMUX_PREFIX \
 		--with-zlib=$TERMUX_PREFIX
 }
+
