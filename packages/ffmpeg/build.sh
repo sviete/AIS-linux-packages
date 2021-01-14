@@ -67,3 +67,4 @@ termux_step_configure() {
 		--extra-libs="-landroid-glob" \
 		$_EXTRA_CONFIGURE_FLAGS
 }
+
