@@ -26,3 +26,4 @@ termux_step_pre_configure() {
 	# -fstype parameter by parsing /proc/self/mountinfo:
 	CPPFLAGS+=" -DMOUNTED_GETMNTENT1=1"
 }
+
