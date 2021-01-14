@@ -18,3 +18,4 @@ termux_step_pre_configure() {
 	cp $TERMUX_PKG_HOSTBUILD_DIR/packcc $TERMUX_PKG_BUILDDIR/
 	touch -d "next hour" $TERMUX_PKG_BUILDDIR/packcc
 }
+
