@@ -23,3 +23,4 @@ termux_step_post_make_install() {
 	# just as the man package does with the man database.
 	rm -f $TERMUX_PREFIX/share/info/dir
 }
+
