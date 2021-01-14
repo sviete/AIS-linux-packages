@@ -28,3 +28,4 @@ termux_step_post_configure() {
 	sed -i -e 's% examples%%' Makefile
 	sed -i -e 's% benchmarks%%' Makefile
 }
+
