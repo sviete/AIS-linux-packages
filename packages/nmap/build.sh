@@ -23,3 +23,4 @@ termux_step_post_make_install() {
 		ln -s -f ncat.1 ${prog}.1
 	done
 }
+
