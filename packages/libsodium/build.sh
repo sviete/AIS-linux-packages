@@ -8,3 +8,4 @@ TERMUX_PKG_SRCURL=https://github.com/jedisct1/libsodium/archive/${TERMUX_PKG_VER
 TERMUX_PKG_SHA256=b7292dd1da67a049c8e78415cd498ec138d194cfdb302e716b08d26b80fecc10
 TERMUX_PKG_BREAKS="libsodium-dev"
 TERMUX_PKG_REPLACES="libsodium-dev"
+
