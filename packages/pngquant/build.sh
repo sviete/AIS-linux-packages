@@ -16,3 +16,4 @@ termux_step_post_get_source() {
 	mv $TERMUX_PKG_SRCDIR/libimagequant-$TERMUX_PKG_VERSION/* $TERMUX_PKG_SRCDIR/lib/
 }
 
+
