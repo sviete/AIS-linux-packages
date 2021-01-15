@@ -18,3 +18,4 @@ termux_step_pre_configure() {
 	# Force symlinks to be overwritten:
 	rm -Rf $TERMUX_PREFIX/lib/libopenjp2.so*
 }
+
