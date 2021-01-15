@@ -25,3 +25,4 @@ termux_step_post_massage() {
 	sed -i "1 s|$|lua|" bin/luarocks
 	sed -i "1 s|$|lua|" bin/luarocks-admin
 }
+
