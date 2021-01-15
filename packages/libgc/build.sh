@@ -16,3 +16,4 @@ termux_step_post_get_source() {
 	mv libatomic_ops-${TERMUX_PKG_VERSION[1]} libatomic_ops
 	./autogen.sh
 }
+
