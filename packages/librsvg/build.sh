@@ -19,3 +19,4 @@ termux_step_pre_configure() {
 	# See https://github.com/GNOME/librsvg/blob/master/COMPILING.md
 	export RUST_TARGET=$CARGO_TARGET_NAME
 }
+
