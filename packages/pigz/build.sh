@@ -14,3 +14,4 @@ termux_step_make_install() {
 	install -Dm600 pigz.1 $TERMUX_PREFIX/share/man/man1/pigz.1
 }
 
+
