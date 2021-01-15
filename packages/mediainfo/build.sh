@@ -13,3 +13,4 @@ termux_step_pre_configure() {
 	cd "${TERMUX_PKG_SRCDIR}"
 	./autogen.sh
 }
+
