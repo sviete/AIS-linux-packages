@@ -15,3 +15,4 @@ termux_step_pre_configure() {
     sed -i -e 's/-V -qversion//' configure
     sed -i -e 's/GOBJECT_INTROSPECTION_CHECK/#GOBJECT_INTROSPECTION_CHECK/' configure
 }
+
