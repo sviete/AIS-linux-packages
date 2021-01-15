@@ -8,3 +8,4 @@ TERMUX_PKG_SRCURL=https://github.com/db9052/pdf2svg/archive/v$TERMUX_PKG_VERSION
 TERMUX_PKG_SHA256=4fb186070b3e7d33a51821e3307dce57300a062570d028feccd4e628d50dea8a
 TERMUX_PKG_DEPENDS="glib, libcairo, poppler"
 
+
