@@ -18,3 +18,4 @@ termux_post_configure() {
 	cd $TERMUX_PKG_SRCDIR
 	sed -i -e 's/-force-mem//g' Makefile
 }
+
