@@ -10,3 +10,4 @@ TERMUX_PKG_DEPENDS="libandroid-support, libassuan, libiconv, ncurses"
 TERMUX_PKG_BUILD_DEPENDS="libgpg-error"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-pinentry-fltk --without-libcap"
 
+
