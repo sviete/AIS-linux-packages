@@ -12,3 +12,4 @@ TERMUX_PKG_KEEP_INFOPAGES=true
 TERMUX_PKG_RM_AFTER_INSTALL="
 Oleo/*
 share/oleo/oleo.html"
+
