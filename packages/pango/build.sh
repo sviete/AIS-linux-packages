@@ -14,3 +14,4 @@ termux_step_post_make_install() {
 		$TERMUX_PREFIX/share/man/man1/pango-view.1
 }
 
+
