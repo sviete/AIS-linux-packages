@@ -12,3 +12,4 @@ termux_step_pre_configure() {
 	export MANDIR=$TERMUX_PREFIX/share/man
 }
 
+
