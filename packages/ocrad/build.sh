@@ -10,3 +10,4 @@ TERMUX_PKG_DEPENDS="libc++"
 TERMUX_PKG_BREAKS="ocrad-dev"
 TERMUX_PKG_REPLACES="ocrad-dev"
 
+
