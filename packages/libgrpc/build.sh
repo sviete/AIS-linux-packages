@@ -51,3 +51,4 @@ termux_step_pre_configure() {
 		| patch -p1
 	export GRPC_CROSS_COMPILE=true
 }
+
