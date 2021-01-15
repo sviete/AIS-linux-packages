@@ -36,3 +36,4 @@ termux_step_extract_into_massagedir() {
 	prepare_libs "x86" "i686-linux-android"
 	prepare_libs "x86_64" "x86_64-linux-android"
 }
+
