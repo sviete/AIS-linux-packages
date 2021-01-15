@@ -20,3 +20,4 @@ termux_step_make_install() {
 		> $TERMUX_PREFIX/etc/apache2/conf.d/phpmyadmin.conf
 }
 
+
