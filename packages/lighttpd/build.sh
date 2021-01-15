@@ -17,3 +17,4 @@ termux_step_post_make_install() {
 	mkdir -p $TERMUX_PREFIX/etc/lighttpd
 	install -Dm600 $TERMUX_PKG_SRCDIR/doc/config/lighttpd.conf $TERMUX_PREFIX/etc/lighttpd/
 }
+
