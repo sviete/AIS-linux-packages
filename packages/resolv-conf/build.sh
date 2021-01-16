@@ -13,3 +13,4 @@ termux_step_make_install() {
 	printf "nameserver 8.8.8.8\nnameserver 8.8.4.4\n" > $TERMUX_PREFIX/etc/resolv.conf
 }
 
+
