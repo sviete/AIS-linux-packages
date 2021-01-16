@@ -13,3 +13,4 @@ termux_step_post_make_install() {
 	install -Dm0700 wg-quick $TERMUX_PREFIX/bin/wg-quick
 }
 
+
