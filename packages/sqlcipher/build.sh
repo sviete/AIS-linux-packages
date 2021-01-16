@@ -18,3 +18,4 @@ termux_step_pre_configure() {
 	CPPFLAGS+=" -DSQLITE_HAS_CODEC"
 }
 
+
