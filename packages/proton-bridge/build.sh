@@ -15,3 +15,4 @@ termux_step_make_install() {
 	install -Dm700 proton-bridge "$TERMUX_PREFIX"/bin/proton-bridge
 }
 
+
