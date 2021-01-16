@@ -16,3 +16,4 @@ termux_step_post_massage() {
 	rmdir "$TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX"/share/psutils
 }
 
+
