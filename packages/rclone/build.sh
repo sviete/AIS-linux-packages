@@ -19,3 +19,4 @@ termux_step_make_install() {
 	cp rclone.1 $TERMUX_PREFIX/share/man/man1/
 }
 
+
