@@ -11,3 +11,4 @@ TERMUX_PKG_CONFFILES="etc/slsh.rc"
 # Supports only make -j1
 TERMUX_MAKE_PROCESSES=1
 
+
