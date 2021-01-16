@@ -7,3 +7,4 @@ TERMUX_PKG_SRCURL=https://github.com/tcsh-org/tcsh/archive/TCSH${TERMUX_PKG_VERS
 TERMUX_PKG_SHA256=dd6f3ef7a88d4a1c34636b65d2dc0502ea2e620567e6af4eba93c463bcea4e64
 TERMUX_PKG_DEPENDS="ncurses, libcrypt"
 
+
