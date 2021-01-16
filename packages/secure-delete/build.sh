@@ -15,3 +15,4 @@ termux_step_make_install() {
 	install -Dm600 -t "$TERMUX_PREFIX"/share/man/man1 sfill.1 smem.1 srm.1 sswap.1
 }
 
+
