@@ -126,3 +126,4 @@ termux_step_pre_configure() {
 	cp "$TERMUX_PKG_BUILDER_DIR"/pdftosrc-poppler0.83.0.cc "$TERMUX_PKG_SRCDIR"/texk/web2c/pdftexdir/pdftosrc.cc # commit f0d0598b
 }
 
+
