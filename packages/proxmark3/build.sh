@@ -17,3 +17,4 @@ termux_step_make_install() {
 		"$TERMUX_PREFIX"/bin/proxmark3
 }
 
+
