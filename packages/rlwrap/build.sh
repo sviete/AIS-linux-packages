@@ -14,3 +14,4 @@ ptyttylib_cv_ptys=STREAMS
 "
 TERMUX_PKG_DEPENDS="ncurses, readline"
 
+
