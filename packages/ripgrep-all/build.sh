@@ -19,3 +19,4 @@ termux_step_make_install() {
 	install -m755 $TERMUX_PKG_BUILDER_DIR/rga-fzf  $TERMUX_PREFIX/bin/rga-fzf
 }
 
+
