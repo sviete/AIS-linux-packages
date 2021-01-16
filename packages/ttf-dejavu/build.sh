@@ -25,3 +25,4 @@ termux_step_make_install() {
 	cp -f fontconfig/*.conf "${TERMUX_PREFIX}/etc/fonts/conf.d/"
 }
 
+
