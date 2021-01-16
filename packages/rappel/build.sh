@@ -31,3 +31,4 @@ termux_step_make_install() {
 	install -Dm755 -t "$TERMUX_PREFIX/bin" rappel
 }
 
+
