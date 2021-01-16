@@ -20,3 +20,4 @@ termux_step_make_install() {
 	ln -sf "$TERMUX_PREFIX/bin/tsu" "$TERMUX_PREFIX/bin/sudo"
 }
 
+
