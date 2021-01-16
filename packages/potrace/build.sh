@@ -7,3 +7,4 @@ TERMUX_PKG_SRCURL=https://distfiles.macports.org/potrace/potrace-$TERMUX_PKG_VER
 TERMUX_PKG_SHA256=be8248a17dedd6ccbaab2fcc45835bb0502d062e40fbded3bc56028ce5eb7acc
 TERMUX_PKG_DEPENDS="zlib"
 
+
