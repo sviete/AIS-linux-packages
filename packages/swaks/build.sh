@@ -13,3 +13,4 @@ termux_step_make_install() {
 	install -Dm700 swaks "$TERMUX_PREFIX"/bin/swaks
 }
 
+
