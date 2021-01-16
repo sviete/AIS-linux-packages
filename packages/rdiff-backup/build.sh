@@ -20,3 +20,4 @@ termux_step_make_install() {
 	python${_PYTHON_VERSION} setup.py install --prefix=$TERMUX_PREFIX --force
 }
 
+
