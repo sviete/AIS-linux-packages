@@ -13,3 +13,4 @@ ac_cv_path_DIFF=$TERMUX_PREFIX/bin/diff
 ac_cv_path_DIFF3=$TERMUX_PREFIX/bin/diff3
 "
 
+
