@@ -11,3 +11,4 @@ TERMUX_PKG_BUILD_IN_SRC=true
 # Broken 32bit support.
 TERMUX_PKG_BLACKLISTED_ARCHES="arm, i686"
 
+
