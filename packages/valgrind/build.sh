@@ -24,3 +24,4 @@ termux_step_pre_configure() {
 	CFLAGS=${CFLAGS/-fstack-protector-strong/}
 }
 
+
