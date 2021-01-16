@@ -13,3 +13,4 @@ termux_step_post_massage() {
 	find $TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX/var -exec chmod -f u+w,g-rwx,o-rwx \{\} \;
 }
 
+
