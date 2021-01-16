@@ -14,3 +14,4 @@ termux_step_pre_configure() {
 	export ac_cv_func_alloca_works=yes
 }
 
+
