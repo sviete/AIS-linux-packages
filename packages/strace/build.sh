@@ -18,3 +18,4 @@ termux_step_pre_configure() {
 	CPPFLAGS+=" -Dfputs_unlocked=fputs"
 }
 
+
