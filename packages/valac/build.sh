@@ -14,3 +14,4 @@ termux_step_post_make_install() {
 	ln -s -f vala-${TERMUX_PKG_VERSION:0:4}/libvalaccodegen.so libvalaccodegen.so
 }
 
+
