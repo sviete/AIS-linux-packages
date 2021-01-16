@@ -18,3 +18,4 @@ termux_step_create_debscripts() {
 	echo "exit 0" >> postinst
 }
 
+
