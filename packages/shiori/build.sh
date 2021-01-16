@@ -25,3 +25,4 @@ termux_step_make_install() {
 	cp -a "$TERMUX_PKG_SRCDIR"/docs/ "$TERMUX_PREFIX"/share/doc/shiori
 }
 
+
