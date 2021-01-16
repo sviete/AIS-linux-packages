@@ -38,3 +38,4 @@ termux_step_post_make_install() {
 	cp $TERMUX_PKG_CACHEDIR/tessdata/eng.traineddata .
 }
 
+
