@@ -27,3 +27,4 @@ termux_step_pre_configure() {
 	rm -f $TERMUX_PREFIX/lib/libr_*
 }
 
+
