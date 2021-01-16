@@ -63,3 +63,4 @@ termux_step_post_make_install() {
 	rm -rf "$TERMUX_PKG_HOSTBUILD_DIR"
 }
 
+
