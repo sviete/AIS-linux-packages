@@ -29,3 +29,4 @@ termux_step_make_install() {
 	install -Dm600 -t "$TERMUX_PREFIX/share/man/man1/" doc/man/*.1
 }
 
+
