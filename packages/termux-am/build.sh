@@ -34,3 +34,4 @@ termux_step_make_install() {
 	cp $TERMUX_PKG_SRCDIR/app/build/outputs/apk/release/app-release-unsigned.apk $TERMUX_PREFIX/libexec/termux-am/am.apk
 }
 
+
