@@ -20,3 +20,4 @@ termux_step_make_install() {
 		"$TERMUX_PREFIX"/share/man/man1/ssss-split.1
 }
 
+
