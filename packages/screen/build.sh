@@ -22,3 +22,4 @@ termux_step_post_configure() {
 	echo 'mousetrack on' > "$TERMUX_PREFIX/etc/screenrc"
 }
 
+
