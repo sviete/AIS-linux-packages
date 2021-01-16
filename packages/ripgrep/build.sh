@@ -22,3 +22,4 @@ termux_step_post_make_install() {
 	cp complete/_rg $TERMUX_PREFIX/share/zsh/site-functions/
 }
 
+
