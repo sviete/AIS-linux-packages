@@ -68,3 +68,4 @@ termux_step_post_massage() {
 	rm $TERMUX_PREFIX/bin/pg_config
 }
 
+
