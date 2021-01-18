@@ -13,4 +13,3 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--with-openssl --disable-doxygen"
 termux_step_pre_configure() {
 	NOCONFIGURE=1 ./autogen.sh
 }
-

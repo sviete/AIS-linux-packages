@@ -11,4 +11,3 @@ TERMUX_PKG_BREAKS="libotr-dev"
 TERMUX_PKG_REPLACES="libotr-dev"
 TERMUX_PKG_BUILD_DEPENDS="libgpg-error"
 TERMUX_PKG_BUILD_IN_SRC=true
-

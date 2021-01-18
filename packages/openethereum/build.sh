@@ -7,10 +7,8 @@ TERMUX_PKG_SRCURL=https://github.com/openethereum/openethereum/archive/v${TERMUX
 TERMUX_PKG_SHA256=62e577abbeddaeb38071e396847a4fcaa4117709aa2689f0d53005bd4c7d7690
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_RUST_VERSION=1.45
-
 termux_step_configure() {
 	termux_setup_cmake
-
 	CXXFLAGS+=" --target=$CCTERMUX_HOST_PLATFORM"
 	CFLAGS+=" --target=$CCTERMUX_HOST_PLATFORM"
 	if [ $TERMUX_ARCH = "arm" ]; then
@@ -19,7 +17,6 @@ termux_step_configure() {
 	else
 		CMAKE_SYSTEM_PROCESSOR=$TERMUX_ARCH
 	fi
-
 	cat <<- EOF > $TERMUX_COMMON_CACHEDIR/defaultcache.cmake
 		CMAKE_CROSSCOMPILING=ON
 		CMAKE_LINKER="$TERMUX_STANDALONE_TOOLCHAIN/bin/$LD $LDFLAGS"
@@ -27,7 +24,6 @@ termux_step_configure() {
 		CMAKE_SYSTEM_VERSION=$TERMUX_PKG_API_LEVEL
 		CMAKE_SYSTEM_PROCESSOR=$CMAKE_SYSTEM_PROCESSOR
 		CMAKE_ANDROID_STANDALONE_TOOLCHAIN=$TERMUX_STANDALONE_TOOLCHAIN
-
 		CMAKE_AR="$(command -v $AR)"
 		CMAKE_UNAME="$(command -v uname)"
 		CMAKE_RANLIB="$(command -v $RANLIB)"
@@ -40,29 +36,23 @@ termux_step_configure() {
 		CMAKE_SKIP_INSTALL_RPATH=ON
 		CMAKE_USE_SYSTEM_LIBRARIES=ON
 		BUILD_TESTING=OFF
-
 		WITH_GFLAGS=OFF
 	EOF
-
 	export CMAKE=$TERMUX_PKG_BUILDER_DIR/cmake_mod.sh
 	export TERMUX_COMMON_CACHEDIR
-
 	termux_setup_rust
 	cargo clean
 	export NDK_HOME=$NDK
 	RUSTFLAGS+=" -C link-args=-lc++"
 }
-
 termux_step_make() {
 	cargo build --jobs $TERMUX_MAKE_PROCESSES --target $CARGO_TARGET_NAME --release --features final
 	for applet in evmbin ethstore-cli ethkey-cli; do
 		cargo build --jobs $TERMUX_MAKE_PROCESSES --target $CARGO_TARGET_NAME --release -p $applet
 	done
 }
-
 termux_step_make_install() {
 	for applet in openethereum openethereum-evm ethstore ethkey; do
 		install -Dm755 -t $TERMUX_PREFIX/bin target/${CARGO_TARGET_NAME}/release/$applet
 	done
 }
-

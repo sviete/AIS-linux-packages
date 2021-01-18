@@ -14,4 +14,3 @@ termux_step_pre_configure() {
 		CFLAGS+=" -fno-integrated-as"
 	fi
 }
-

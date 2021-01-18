@@ -5,7 +5,6 @@ TERMUX_PKG_MAINTAINER="Leonid Pliushch <leonid.pliushch@gmail.com>"
 TERMUX_PKG_VERSION=1.9.25
 TERMUX_PKG_SRCURL=https://github.com/ethereum/go-ethereum/archive/v$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=d7b733aeef4eba97f5351ba435001fa7365f55adabffdfdda909700335e98b0e
-
 termux_step_make() {
 	termux_setup_golang
 	export GOPATH=$TERMUX_PKG_BUILDDIR
@@ -25,4 +24,3 @@ termux_step_make_install() {
 	done
 	unset applet
 }
-

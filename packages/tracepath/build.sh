@@ -32,5 +32,3 @@ termux_step_make_install() {
 	(cd $TERMUX_PREFIX/bin && ln -f -s tracepath traceroute)
 	(cd $MANDIR && ln -f -s tracepath.8 traceroute.8)
 }
-
-

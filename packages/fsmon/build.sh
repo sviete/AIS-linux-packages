@@ -9,4 +9,3 @@ TERMUX_PKG_BUILD_IN_SRC=true
 termux_step_make() {
 	make FANOTIFY_CFLAGS="-DHAVE_FANOTIFY=1 -DHAVE_SYS_FANOTIFY=0"
 }
-

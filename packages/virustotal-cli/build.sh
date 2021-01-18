@@ -25,5 +25,3 @@ termux_step_make() {
 termux_step_make_install() {
 	ln -sfr "$TERMUX_PREFIX"/bin/vt-cli "$TERMUX_PREFIX"/bin/vt
 }
-
-

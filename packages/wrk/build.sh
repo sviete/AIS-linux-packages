@@ -26,5 +26,3 @@ termux_step_make_install() {
 	install -Dm600 -t "$TERMUX_PREFIX"/share/doc/wrk/examples/ scripts/*.lua
 	install -Dm600 -t "$TERMUX_PREFIX"/share/lua/5.1/ src/wrk.lua
 }
-
-

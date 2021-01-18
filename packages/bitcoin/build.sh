@@ -30,4 +30,3 @@ termux_step_post_make_install() {
 	touch bitcoind/down
 	ln -sf $TERMUX_PREFIX/share/termux-services/svlogger bitcoind/log/run
 }
-

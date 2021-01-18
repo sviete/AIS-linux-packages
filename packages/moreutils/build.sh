@@ -13,4 +13,3 @@ bin/chronic
 share/man/man1/chronic.1
 share/man/man1/parallel.1
 "
-

@@ -35,7 +35,6 @@ termux_step_post_get_source() {
 		library_checksums[swift-corelibs-xctest]=1f7771c0bc14ce1c6efdc9533c31d063e47af555e1ee6fc5cef42677f96a4131
 		library_checksums[swift-llbuild]=296cee1a19c17375877d88084e20e5d98bcc7a87950f3ade143c0222439f1c9d
 		library_checksums[swift-package-manager]=e62bbe51d90a93ad52b668e7a882c6a6488782b7e2a5cd74737c177882ebd681
-
 		for library in "${!library_checksums[@]}"; do \
 			termux_download \
 				https://github.com/apple/$library/archive/swift-$TERMUX_PKG_VERSION-$SWIFT_RELEASE.tar.gz \
@@ -82,7 +81,6 @@ termux_step_pre_configure() {
 		patch -p1 < $TERMUX_PKG_BUILDER_DIR/../libllvm/clang-lib-Driver-ToolChain.cpp.patch
 		patch -p1 < $TERMUX_PKG_BUILDER_DIR/../libllvm/clang-lib-Driver-ToolChains-Linux.cpp.patch
 		cd ..
-
 		sed "s%\@TERMUX_PREFIX\@%${TERMUX_PREFIX}%g" \
 		$TERMUX_PKG_BUILDER_DIR/swiftpm-Utilities-bootstrap | \
 		sed "s%\@TERMUX_PKG_BUILDDIR\@%${TERMUX_PKG_BUILDDIR}%g" | \
@@ -132,5 +130,3 @@ termux_step_make_install() {
 			$TERMUX_PREFIX/lib/swift/android/$SWIFT_ARCH/glibc.modulemap
 	fi
 }
-
-

@@ -13,4 +13,3 @@ ac_cv_lib_bsd_main=no
 termux_step_pre_configure() {
 	export LIBS="-liconv"
 }
-

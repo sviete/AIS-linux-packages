@@ -13,5 +13,3 @@ termux_step_post_make_install() {
 	install -Dm600 $TERMUX_PKG_BUILDER_DIR/pango-view.1 \
 		$TERMUX_PREFIX/share/man/man1/pango-view.1
 }
-
-

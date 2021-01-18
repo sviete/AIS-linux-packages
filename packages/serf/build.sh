@@ -10,7 +10,6 @@ TERMUX_PKG_DEPENDS="apr, apr-util, openssl, libuuid, libexpat, zlib"
 TERMUX_PKG_BREAKS="serf-dev"
 TERMUX_PKG_REPLACES="serf-dev"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_make_install() {
 	scons APR=$TERMUX_PREFIX \
 	      APU=$TERMUX_PREFIX \
@@ -24,5 +23,3 @@ termux_step_make_install() {
 	# Avoid specifying -lcrypt:
 	perl -p -i -e 's/-lcrypt //' $TERMUX_PREFIX/lib/pkgconfig/serf-1.pc
 }
-
-

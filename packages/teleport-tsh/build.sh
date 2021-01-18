@@ -15,5 +15,3 @@ termux_step_make_install() {
 	git checkout "v$TERMUX_PKG_VERSION"
 	make $BUILDDIR/tsh
 }
-
-

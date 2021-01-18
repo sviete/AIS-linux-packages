@@ -44,4 +44,3 @@ termux_step_create_debscripts() {
 	echo "touch \$HOME/.pine-passfile" >> postinst
 	echo "fi" >> postinst
 }
-

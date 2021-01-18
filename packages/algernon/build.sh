@@ -5,7 +5,6 @@ TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=1.12.11
 TERMUX_PKG_SRCURL=https://github.com/xyproto/algernon/archive/$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=0ecedfe86cf2016d8da281ca64d76b9383f76b0d58acee0d80e08c61df5035cc
-
 termux_step_make() {
 	termux_setup_golang
 	export GOPATH=$TERMUX_PKG_BUILDDIR
@@ -24,4 +23,3 @@ termux_step_make_install() {
 	cp -a "$GOPATH"/src/github.com/xyproto/algernon/samples \
 		"$TERMUX_PREFIX"/share/doc/algernon/
 }
-

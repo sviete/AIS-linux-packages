@@ -10,5 +10,3 @@ TERMUX_PKG_DEPENDS="libiconv, openssh, zlib"
 termux_step_pre_configure() {
 	LDFLAGS+=" -liconv"
 }
-
-

@@ -8,4 +8,3 @@ TERMUX_PKG_SHA256=ae4af129216b2d7fdea0b5bf2a788cd458a79c983bb09a43f4d525cc87aba0
 TERMUX_PKG_DEPENDS="libgpg-error"
 TERMUX_PKG_BREAKS="libksba-dev"
 TERMUX_PKG_REPLACES="libksba-dev"
-

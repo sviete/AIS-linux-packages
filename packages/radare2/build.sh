@@ -26,5 +26,3 @@ termux_step_pre_configure() {
 	# Remove old libs which may mess with new build:
 	rm -f $TERMUX_PREFIX/lib/libr_*
 }
-
-

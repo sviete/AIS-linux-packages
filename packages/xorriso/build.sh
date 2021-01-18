@@ -11,4 +11,3 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-jtethreads"
 termux_step_pre_configure() {
 	./bootstrap
 }
-

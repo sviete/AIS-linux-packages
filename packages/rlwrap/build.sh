@@ -13,5 +13,3 @@ ac_cv_lib_util_openpty=no
 ptyttylib_cv_ptys=STREAMS
 "
 TERMUX_PKG_DEPENDS="ncurses, readline"
-
-

@@ -10,4 +10,3 @@ TERMUX_PKG_DEPENDS="libandroid-glob"
 termux_step_pre_configure() {
        export LIBS="-landroid-glob"
 }
-

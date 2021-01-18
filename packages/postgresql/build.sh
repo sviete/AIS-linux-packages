@@ -67,5 +67,3 @@ termux_step_post_massage() {
 	# work as it's a cross-compiled binary:
 	rm $TERMUX_PREFIX/bin/pg_config
 }
-
-

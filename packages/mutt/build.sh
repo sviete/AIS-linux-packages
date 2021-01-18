@@ -45,4 +45,3 @@ termux_step_post_make_install() {
 	mkdir -p $TERMUX_PREFIX/share/examples/mutt/
 	cp $TERMUX_PKG_SRCDIR/contrib/gpg.rc $TERMUX_PREFIX/share/examples/mutt/gpg.rc
 }
-

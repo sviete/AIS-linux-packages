@@ -18,4 +18,3 @@ TERMUX_PKG_RM_AFTER_INSTALL="include/GL"
 termux_step_pre_configure() {
 	LDFLAGS+=" -landroid-shmem"
 }
-

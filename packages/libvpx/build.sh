@@ -48,4 +48,3 @@ termux_step_configure() {
 		--enable-shared \
 		--enable-small
 }
-

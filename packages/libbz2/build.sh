@@ -39,4 +39,3 @@ termux_step_make_install() {
 	# bzgrep should be enough so remove bz{e,f}grep
 	rm $TERMUX_PREFIX/bin/bz{e,f}grep $TERMUX_PREFIX/share/man/man1/bz{e,f}grep.1
 }
-

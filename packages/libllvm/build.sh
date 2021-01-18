@@ -53,11 +53,9 @@ TERMUX_PKG_HAS_DEBUG=false
 # Debug build succeeds but make install with:
 # cp: cannot stat '../src/projects/openmp/runtime/exports/common.min.50.ompt.optional/include/omp.h': No such file or directory
 # common.min.50.ompt.optional should be common.deb.50.ompt.optional when doing debug build
-
 termux_step_host_build() {
 	termux_setup_cmake
 	termux_setup_ninja
-
 	cmake -G Ninja -DLLVM_ENABLE_PROJECTS='clang;lldb' $TERMUX_PKG_SRCDIR/llvm
 	ninja -j $TERMUX_MAKE_PROCESSES clang-tblgen lldb-tblgen llvm-tblgen
 }
@@ -67,7 +65,6 @@ termux_step_pre_configure() {
 		cp $TERMUX_PKG_BUILDER_DIR/nl_types.h openmp/runtime/src/android
 		cp $TERMUX_PKG_BUILDER_DIR/nltypes_stubs.cpp openmp/runtime/src/android
 	fi
-
 	# Add unknown vendor, otherwise it screws with the default LLVM triple
 	# detection.
 	export LLVM_DEFAULT_TARGET_TRIPLE=${CCTERMUX_HOST_PLATFORM/-/-unknown-}
@@ -87,7 +84,6 @@ termux_step_pre_configure() {
 	export TERMUX_SRCDIR_SAVE=$TERMUX_PKG_SRCDIR
 	TERMUX_PKG_SRCDIR=$TERMUX_PKG_SRCDIR/llvm
 }
-
 termux_step_post_configure() {
 	TERMUX_PKG_SRCDIR=$TERMUX_SRCDIR_SAVE
 }
@@ -120,4 +116,3 @@ termux_step_post_massage() {
 		-e "s|@TERMUX_PREFIX@|$TERMUX_PREFIX|g" > $TERMUX_PREFIX/bin/llvm-config
 	chmod 755 $TERMUX_PREFIX/bin/llvm-config
 }
-

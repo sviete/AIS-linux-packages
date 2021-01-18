@@ -8,4 +8,3 @@ TERMUX_PKG_SRCURL=https://git.zx2c4.com/music-file-organizer/snapshot/music-file
 TERMUX_PKG_SHA256=042c33f6db7da8889125359db02054fa1fcbfad339e8841e7e26474bf6aed3ad
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_DEPENDS="libicu, taglib"
-

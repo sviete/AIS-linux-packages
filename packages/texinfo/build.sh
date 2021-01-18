@@ -8,5 +8,3 @@ TERMUX_PKG_SHA256=988403c1542d15ad044600b909997ba3079b10e03224c61188117f3676b02c
 # gawk is used by texindex:
 TERMUX_PKG_DEPENDS="libiconv, ncurses, perl, gawk"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-perl-xs"
-
-

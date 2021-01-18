@@ -19,4 +19,3 @@ termux_step_make_install() {
 	make T="$TERMUX_PREFIX" BINDIR="/bin" LIBDIR="/lib" INCDIR="/include" \
 		SCRIPTDIR="/share/calc/cscript" CALC_SHAREDIR="/share/calc" install
 }
-

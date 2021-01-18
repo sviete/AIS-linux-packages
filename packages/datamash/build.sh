@@ -18,4 +18,3 @@ termux_step_pre_configure() {
 		export CFLAGS=${CFLAGS/-D_FORTIFY_SOURCE=2/}
 	fi
 }
-

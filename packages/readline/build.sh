@@ -15,9 +15,7 @@ TERMUX_PKG_EXTRA_MAKE_ARGS="SHLIB_LIBS=-lncursesw"
 TERMUX_PKG_CONFFILES="etc/inputrc"
 termux_step_pre_configure() {
 	declare -A PATCH_CHECKSUMS
-
 	#PATCH_CHECKSUMS[001]=
-
 	for PATCH_NUM in $(seq -f '%03g' ${_PATCH_VERSION}); do
 		PATCHFILE=$TERMUX_PKG_CACHEDIR/readline_patch_${PATCH_NUM}.patch
 		termux_download \
@@ -34,5 +32,3 @@ termux_step_post_make_install() {
 	mkdir -p $TERMUX_PREFIX/etc
 	cp $TERMUX_PKG_BUILDER_DIR/inputrc $TERMUX_PREFIX/etc/
 }
-
-

@@ -12,4 +12,3 @@ termux_step_pre_configure() {
 	CXX="$CXX $CXXFLAGS $CPPFLAGS $LDFLAGS"
 	mkdir -p $TERMUX_PREFIX/share/man/man1
 }
-

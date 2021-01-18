@@ -14,5 +14,3 @@ termux_step_configure() {
 		     --without-systemd \
 		     --host=$TERMUX_HOST_PLATFORM
 }
-
-

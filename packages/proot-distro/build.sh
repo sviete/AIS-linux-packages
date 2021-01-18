@@ -8,7 +8,6 @@ TERMUX_PKG_SHA256=8717ede13894121f022cd987b822edcb731a2afc9c25d831a36cb53bc496e7
 TERMUX_PKG_DEPENDS="bash, bzip2, coreutils, curl, findutils, gzip, ncurses-utils, proot (>= 5.1.107-32), sed, tar, xz-utils"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
-
 # Allow to edit distribution plug-ins.
 TERMUX_PKG_CONFFILES="
 etc/proot-distro/alpine.sh
@@ -20,9 +19,6 @@ etc/proot-distro/parrot-lts.sh
 etc/proot-distro/ubuntu-18.04.sh
 etc/proot-distro/ubuntu-20.04.sh
 "
-
 termux_step_make_install() {
 	./install.sh
 }
-
-

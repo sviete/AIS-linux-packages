@@ -31,4 +31,3 @@ termux_step_make_install() {
 	make uninstall
 	make install
 }
-

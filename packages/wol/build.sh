@@ -13,5 +13,3 @@ termux_step_pre_configure() {
 	export jm_cv_func_working_malloc=yes
 	export ac_cv_func_alloca_works=yes
 }
-
-

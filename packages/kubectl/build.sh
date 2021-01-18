@@ -5,7 +5,6 @@ TERMUX_PKG_MAINTAINER="Leonid Pliushch <leonid.pliushch@gmail.com>"
 TERMUX_PKG_VERSION=1.20.1
 TERMUX_PKG_SRCURL=https://dl.k8s.io/v$TERMUX_PKG_VERSION/kubernetes-src.tar.gz
 TERMUX_PKG_SHA256=5f8ddd1e8397c77be77705e38fb9fad4073aa2945ed5718f885bcb598ed158aa
-
 termux_step_get_source() {
 	mkdir -p "$TERMUX_PKG_CACHEDIR"
 	mkdir -p "$TERMUX_PKG_SRCDIR"
@@ -37,4 +36,3 @@ termux_step_make_install() {
 	#cp -f "$TERMUX_PKG_SRCDIR"/docs/man/man1/kubectl-*.1 \
 	#	"$TERMUX_PREFIX"/share/man/man1/
 }
-

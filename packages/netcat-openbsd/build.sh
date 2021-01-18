@@ -34,4 +34,3 @@ termux_step_install_license() {
 	mkdir -p $TERMUX_PREFIX/share/doc/netcat-openbsd
 	head -n28 netcat.c | tail -n+2 > $TERMUX_PREFIX/share/doc/netcat-openbsd/LICENSE
 }
-

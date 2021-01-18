@@ -32,4 +32,3 @@ termux_step_create_debscripts() {
 	} > postinst
 	chmod 0755 postinst
 }
-

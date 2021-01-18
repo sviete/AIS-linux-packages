@@ -32,4 +32,3 @@ termux_step_make_install() {
 	$TERMUX_PKG_BUILDDIR/jfrog completion bash
 	cp ~/.jfrog/jfrog_bash_completion $TERMUX_PREFIX/share/bash-completion/completions/jfrog
 }
-

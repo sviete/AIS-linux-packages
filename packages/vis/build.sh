@@ -11,7 +11,6 @@ TERMUX_PKG_BUILD_IN_SRC=true
 termux_step_pre_configure() {
 	CFLAGS+=" -I$TERMUX_PREFIX/include/lua5.3"
 }
-
 termux_step_create_debscripts() {
 	cat <<- EOF > ./postinst
 	#!$TERMUX_PREFIX/bin/sh
@@ -24,7 +23,6 @@ termux_step_create_debscripts() {
 		fi
 	fi
 	EOF
-
 	cat <<- EOF > ./prerm
 	#!$TERMUX_PREFIX/bin/sh
 	if [ "\$1" != "upgrade" ]; then
@@ -35,5 +33,3 @@ termux_step_create_debscripts() {
 	fi
 	EOF
 }
-
-

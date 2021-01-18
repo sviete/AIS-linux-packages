@@ -20,4 +20,3 @@ termux_step_pre_configure() {
 	cp $TERMUX_PKG_BUILDER_DIR/getsubopt.h $TERMUX_PKG_SRCDIR
 	autoreconf -vfi
 }
-

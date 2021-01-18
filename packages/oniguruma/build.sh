@@ -5,4 +5,3 @@ TERMUX_PKG_SRCURL=https://github.com/kkos/oniguruma/releases/download/v$TERMUX_P
 TERMUX_PKG_SHA256=bd0faeb887f748193282848d01ec2dad8943b5dfcb8dc03ed52dcc963549e819
 TERMUX_PKG_LICENSE="BSD"
 TERMUX_PKG_MAINTAINER="@termux"
-

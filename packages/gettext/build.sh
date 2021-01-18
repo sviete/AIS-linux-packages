@@ -14,4 +14,3 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-openmp"
 termux_step_pre_configure() {
 	autoreconf
 }
-

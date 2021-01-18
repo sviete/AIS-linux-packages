@@ -5,7 +5,6 @@ TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=3.2.1
 TERMUX_PKG_SRCURL=https://github.com/mvdan/sh/archive/v${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_SHA256=a1470285e04b69ee7a2bb3948b64e1da9cabe59658997b50aac7c64465f330bd
-
 termux_step_make_install() {
 	cd "$TERMUX_PKG_SRCDIR"
 	termux_setup_golang
@@ -17,5 +16,3 @@ termux_step_make_install() {
 		-o "$TERMUX_PREFIX/bin/shfmt" \
 		./cmd/shfmt
 }
-
-

@@ -13,4 +13,3 @@ termux_step_configure() {
 		     --without-cython \
                      --host=$TERMUX_HOST_PLATFORM
 }
-

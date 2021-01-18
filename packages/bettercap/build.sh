@@ -23,4 +23,3 @@ termux_step_make_install() {
 	cd src/github.com/bettercap/bettercap
 	make install
 }
-

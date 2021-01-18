@@ -16,4 +16,3 @@ termux_step_make() {
 termux_step_make_install() {
 	make install prefix=$TERMUX_PREFIX MANDIR=$TERMUX_PREFIX/share/man
 }
-

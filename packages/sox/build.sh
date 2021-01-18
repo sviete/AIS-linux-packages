@@ -9,10 +9,7 @@ TERMUX_PKG_SHA256=81a6956d4330e75b5827316e44ae381e6f1e8928003c6aa45896da9041ea14
 TERMUX_PKG_DEPENDS="file, libao, libpng, libmp3lame, libvorbis, libandroid-glob, libflac, libid3tag, libmad, pulseaudio, opusfile, libsndfile, zlib"
 TERMUX_PKG_BREAKS="sox-dev"
 TERMUX_PKG_REPLACES="sox-dev"
-
 termux_step_pre_configure() {
 	LDFLAGS+=" -landroid-glob"
 	CPPFLAGS+=" -D_FSTDIO"
 }
-
-

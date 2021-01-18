@@ -21,4 +21,3 @@ buffer_time=50
 quiet
 EOF
 }
-

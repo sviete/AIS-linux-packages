@@ -12,5 +12,3 @@ TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_DEPENDS="openssl, zlib"
 TERMUX_PKG_BREAKS="rtmpdump-dev"
 TERMUX_PKG_REPLACES="rtmpdump-dev"
-
-

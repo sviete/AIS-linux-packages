@@ -7,4 +7,3 @@ TERMUX_PKG_SRCURL=https://github.com/include-what-you-use/include-what-you-use/a
 TERMUX_PKG_SHA256=259332899a02cf6092947f3dd93ced054fa7650958369cf573985e75b6a543da
 TERMUX_PKG_DEPENDS='clang, python'
 TERMUX_PKG_BUILD_DEPENDS=libllvm-static
-

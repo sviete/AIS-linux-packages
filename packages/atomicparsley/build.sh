@@ -9,4 +9,3 @@ TERMUX_PKG_DEPENDS="libc++, zlib"
 termux_step_make_install() {
 	install -Dm700 -t $TERMUX_PREFIX/bin AtomicParsley
 }
-

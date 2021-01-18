@@ -35,4 +35,3 @@ termux_step_pre_configure() {
 	cd man-pages-posix-2013-a
 	make install
 }
-

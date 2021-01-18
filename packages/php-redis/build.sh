@@ -9,5 +9,3 @@ TERMUX_PKG_DEPENDS=php
 termux_step_pre_configure() {
 	$TERMUX_PREFIX/bin/phpize
 }
-
-

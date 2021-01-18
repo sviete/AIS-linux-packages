@@ -11,4 +11,3 @@ termux_step_post_make_install() {
 		"$TERMUX_PKG_SRCDIR/target/$CARGO_TARGET_NAME"/release/fselect \
 		"$TERMUX_PREFIX"/bin/fselect
 }
-

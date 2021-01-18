@@ -14,4 +14,3 @@ termux_step_pre_configure() {
 	rm $TERMUX_PKG_SRCDIR/CMakeLists.txt
 	CPPFLAGS+=" -DUSE_TGAMMA -DBOLD_COLOR"
 }
-

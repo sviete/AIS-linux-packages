@@ -8,7 +8,6 @@ TERMUX_PKG_SHA256=f9421047519d2af9a7a466e4336f6e6ea55206b356cd33c8bd18cb626bf2ce
 TERMUX_PKG_DEPENDS="aspell"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
-
 termux_step_configure() {
 	cat > $TERMUX_PKG_SRCDIR/Makefile <<- EOF
 	ASPELL = `which aspell`
@@ -20,4 +19,3 @@ termux_step_configure() {
 	EOF
 	cat $TERMUX_PKG_SRCDIR/Makefile.pre >> $TERMUX_PKG_SRCDIR/Makefile
 }
-

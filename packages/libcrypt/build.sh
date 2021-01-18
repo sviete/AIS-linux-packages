@@ -14,4 +14,3 @@ termux_step_make_install() {
 	cp $TERMUX_PKG_BUILDER_DIR/crypt.h $TERMUX_PREFIX/include/
 	cp $TERMUX_PKG_BUILDER_DIR/LICENSE $TERMUX_PKG_SRCDIR/
 }
-

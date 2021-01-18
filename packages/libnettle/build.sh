@@ -8,4 +8,3 @@ TERMUX_PKG_SHA256=f001f64eb444bf13dd91bceccbc20acbc60c4311d6e2b20878452eb9a9cec7
 TERMUX_PKG_DEPENDS="libgmp"
 TERMUX_PKG_BREAKS="libnettle-dev"
 TERMUX_PKG_REPLACES="libnettle-dev"
-

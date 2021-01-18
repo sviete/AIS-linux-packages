@@ -18,5 +18,3 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --enable-pcre2-16
 --enable-pcre2-32
 "
-
-

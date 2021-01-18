@@ -11,5 +11,3 @@ TERMUX_PKG_REPLACES="termux-auth-dev"
 termux_step_pre_configure() {
 	CPPFLAGS+=" -DTERMUX_HOME=\\\"${TERMUX_ANDROID_HOME}\\\" -DTERMUX_PREFIX=\\\"${TERMUX_PREFIX}\\\""
 }
-
-

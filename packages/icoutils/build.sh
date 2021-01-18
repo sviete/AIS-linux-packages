@@ -9,4 +9,3 @@ TERMUX_PKG_DEPENDS="libpng, perl"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --mandir=$TERMUX_PREFIX/share/man
 "
-

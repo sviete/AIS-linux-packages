@@ -10,4 +10,3 @@ TERMUX_PKG_SHA256=b5eb8556dea1b0cad4167a66223522e66d670ec1eba16c7fdc844ed6b65257
 TERMUX_PKG_DEPENDS="libc++, libuuid, zlib"
 TERMUX_PKG_BREAKS="libxapian-dev"
 TERMUX_PKG_REPLACES="libxapian-dev"
-

@@ -10,4 +10,3 @@ TERMUX_PKG_BUILD_DEPENDS="gettext"
 termux_step_pre_configure() {
 	CPPFLAGS+=" -I$TERMUX_PREFIX/share/gettext"
 }
-

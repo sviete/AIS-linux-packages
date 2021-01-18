@@ -29,4 +29,3 @@ termux_step_pre_configure() {
 	cp bin/*/* $TERMUX_PKG_SRCDIR/bootstrap/bin
 	export PATH="$TERMUX_PKG_SRCDIR/bootstrap/bin:$PATH"
 }
-

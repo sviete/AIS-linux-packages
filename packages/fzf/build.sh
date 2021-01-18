@@ -5,7 +5,6 @@ TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=0.25.0
 TERMUX_PKG_SRCURL=https://github.com/junegunn/fzf/archive/${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_SHA256=ccbe13733d692dbc4f0e4c0d40c053cba8d22f309955803692569fb129e42eb0
-
 # Depend on findutils as fzf uses the -fstype option, which busybox
 # find does not support, when invoking find:
 TERMUX_PKG_DEPENDS="bash, findutils"
@@ -44,4 +43,3 @@ termux_step_make_install() {
 	mkdir -p $TERMUX_PREFIX/share/nvim/runtime/plugin
 	cp $TERMUX_PKG_SRCDIR/plugin/fzf.vim $TERMUX_PREFIX/share/nvim/runtime/plugin/
 }
-

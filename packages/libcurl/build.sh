@@ -25,4 +25,3 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 # Support for http/2 as added in version 1.4.8-8 of the apt package, so we
 # conflict with previous versions to avoid broken installations.
 TERMUX_PKG_CONFLICTS="apt (<< 1.4.8-8)"
-

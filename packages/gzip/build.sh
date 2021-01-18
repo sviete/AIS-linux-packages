@@ -14,4 +14,3 @@ termux_step_pre_configure() {
 		export DEFS="NO_ASM"
 	fi
 }
-

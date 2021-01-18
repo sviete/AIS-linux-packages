@@ -10,7 +10,6 @@ TERMUX_PKG_BUILD_IN_SRC=true
 termux_step_make_install() {
 	install -Dm700 ssss-split "$TERMUX_PREFIX"/bin/
 	ln -sfr "$TERMUX_PREFIX"/bin/ssss-split $TERMUX_PREFIX/bin/ssss-combine
-
 	install -Dm600 ssss.1 "$TERMUX_PREFIX"/share/man/man1/ssss.1
 	ln -sfr \
 		"$TERMUX_PREFIX"/share/man/man1/ssss.1 \
@@ -19,5 +18,3 @@ termux_step_make_install() {
 		"$TERMUX_PREFIX"/share/man/man1/ssss.1 \
 		"$TERMUX_PREFIX"/share/man/man1/ssss-split.1
 }
-
-

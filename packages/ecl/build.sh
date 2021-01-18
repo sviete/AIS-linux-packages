@@ -10,10 +10,8 @@ TERMUX_PKG_HOSTBUILD=true
 TERMUX_PKG_NO_STATICSPLIT=true
 TERMUX_PKG_BLACKLISTED_ARCHES="i686, x86_64"
 TERMUX_PKG_HAS_DEBUG=false
-
 # See https://gitlab.com/embeddable-common-lisp/ecl/-/blob/develop/INSTALL
 # for upstream cross build guide.
-
 # ECL needs itself during build, so we need to build it for the host first.
 termux_step_host_build() {
 	srcdir=$TERMUX_PKG_SRCDIR/src
@@ -23,7 +21,6 @@ termux_step_host_build() {
 	make
 	make install
 }
-
 termux_step_configure() {
 	# Copy cross_config for target architecture.
 	case $TERMUX_ARCH in
@@ -33,7 +30,6 @@ termux_step_configure() {
 	esac
 	crossconfig="$TERMUX_PKG_SRCDIR/src/util/$crossconfig.cross_config"
 	export ECL_TO_RUN=$TERMUX_PKG_HOSTBUILD_DIR/prefix/bin/ecl
-
 	srcdir=$TERMUX_PKG_SRCDIR/src
 	$srcdir/configure \
 		--srcdir=$srcdir \
@@ -45,4 +41,3 @@ termux_step_configure() {
 		--enable-gmp=system \
 		--enable-boehm=system
 }
-

@@ -47,11 +47,9 @@ termux_step_make_install() {
 		$TERMUX_PKG_BUILDER_DIR/termux.1.md.in > $TERMUX_PKG_TMPDIR/termux.1.md
 	pandoc --standalone --to man --output $TERMUX_PREFIX/share/man/man1/termux.1 \
 		$TERMUX_PKG_TMPDIR/termux.1.md
-
 	mkdir -p $TERMUX_PREFIX/share/examples/termux
 	install -Dm600 $TERMUX_PKG_BUILDER_DIR/termux.properties $TERMUX_PREFIX/share/examples/termux/
 }
-
 termux_step_create_debscripts() {
 	cat <<- EOF > ./postinst
 	#!${TERMUX_PREFIX}/bin/bash
@@ -64,5 +62,3 @@ termux_step_create_debscripts() {
 	exit 0
 	EOF
 }
-
-

@@ -10,7 +10,6 @@ TERMUX_PKG_DEPENDS="zlib, libgit2"
 TERMUX_PKG_BUILD_IN_SRC=true
 termux_step_pre_configure() {
 	termux_setup_rust
-
 	CFLAGS="$CPPFLAGS"
 }
 termux_step_post_make_install() {
@@ -19,4 +18,3 @@ termux_step_post_make_install() {
 	pandoc --standalone --to man $TERMUX_PKG_SRCDIR/man/exa.1.md --output $TERMUX_PREFIX/share/man/man1/exa.1
   	pandoc --standalone --to man $TERMUX_PKG_SRCDIR/man/exa_colors.5.md --output $TERMUX_PREFIX/share/man/man5/exa_colors.5
 }
-

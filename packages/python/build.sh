@@ -97,5 +97,3 @@ termux_step_create_debscripts() {
 	PRERM_EOF
 	chmod 0755 postinst prerm
 }
-
-

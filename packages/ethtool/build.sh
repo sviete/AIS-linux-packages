@@ -7,4 +7,3 @@ TERMUX_PKG_SRCURL=https://mirrors.edge.kernel.org/pub/software/network/ethtool/e
 TERMUX_PKG_SHA256=22f81e4927d6eb6a13a259d705248a96005fce2005e15257f639f5a1c8c52b6b
 TERMUX_PKG_DEPENDS="libnl"
 TERMUX_PKG_BUILD_IN_SRC=true
-

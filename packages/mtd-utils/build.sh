@@ -9,4 +9,3 @@ TERMUX_PKG_DEPENDS="openssl, liblzo, libuuid, zlib, zstd"
 TERMUX_PKG_BUILD_IN_SRC=true
 # only removed because it calls getrandom, which comes in API 28
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--without-ubifs"
-

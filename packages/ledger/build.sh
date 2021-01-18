@@ -12,4 +12,3 @@ TERMUX_PKG_REPLACES="ledger-dev"
 TERMUX_PKG_BUILD_DEPENDS="utf8cpp"
 # See https://gitlab.kitware.com/cmake/cmake/issues/18865:
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="-DBoost_NO_BOOST_CMAKE=ON"
-

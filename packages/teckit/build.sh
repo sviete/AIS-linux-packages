@@ -13,5 +13,3 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="ac_cv_lib_expat_XML_ExpatVersion=no"
 termux_step_pre_configure() {
 	./autogen.sh
 }
-
-

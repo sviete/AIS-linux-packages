@@ -12,4 +12,3 @@ termux_step_configure() {
 	sed -i "s#/usr#$TERMUX_PREFIX#" $TERMUX_PKG_SRCDIR/man/Makefile
 	yes "" | make config || true
 }
-

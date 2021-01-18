@@ -13,5 +13,3 @@ termux_step_make_install() {
 		cp -f $LICENSE $TERMUX_PREFIX/share/LICENSES/
 	done
 }
-
-

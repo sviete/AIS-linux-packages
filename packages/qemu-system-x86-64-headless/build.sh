@@ -13,11 +13,9 @@ TERMUX_PKG_PROVIDES="qemu-system-x86_64-headless"
 TERMUX_PKG_BUILD_IN_SRC=true
 termux_step_configure() {
 	termux_setup_ninja
-
 	if [ "$TERMUX_ARCH" = "i686" ]; then
 		LDFLAGS+=" -latomic"
 	fi
-
 	local QEMU_TARGETS=""
 	# System emulation.
 	QEMU_TARGETS+="aarch64-softmmu,"
@@ -101,5 +99,3 @@ termux_step_post_make_install() {
 			"${TERMUX_PREFIX}"/share/man/man1/qemu-system-${i}.1
 	done
 }
-
-

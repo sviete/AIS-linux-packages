@@ -15,4 +15,3 @@ termux_step_pre_configure() {
 	install -Dm600 -t "$TERMUX_PREFIX"/share/hiptext/ \
 		"$TERMUX_PKG_SRCDIR"/DejaVuSansMono.ttf
 }
-

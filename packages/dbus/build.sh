@@ -10,7 +10,6 @@ TERMUX_PKG_DEPENDS="libexpat, libx11"
 TERMUX_PKG_BREAKS="dbus-dev"
 TERMUX_PKG_REPLACES="dbus-dev"
 TERMUX_PKG_BUILD_IN_SRC=true
-
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-libaudit
 --disable-systemd
@@ -20,12 +19,10 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --with-session-socket-dir=$TERMUX_PREFIX/tmp
 --with-x
 "
-
 termux_step_pre_configure() {
 	export LIBS="-llog"
 	autoreconf -fi
 }
-
 termux_step_create_debscripts() {
 	{
 		echo "#!${TERMUX_PREFIX}/bin/sh"
@@ -36,4 +33,3 @@ termux_step_create_debscripts() {
 		echo "exit 0"
 	} > postinst
 }
-

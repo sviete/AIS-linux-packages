@@ -15,4 +15,3 @@ termux_step_pre_configure() {
 	export USE_SYSTEM_LIBS=yes
 	LDFLAGS+=" -llog"
 }
-

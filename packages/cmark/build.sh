@@ -15,4 +15,3 @@ termux_step_post_make_install() {
     cd $TERMUX_PREFIX/share/man/man1
     ln -f -s cmark-gfm.1 cmark.1
 }
-

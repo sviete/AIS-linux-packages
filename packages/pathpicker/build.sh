@@ -19,5 +19,3 @@ termux_step_make_install() {
 	ln -f -s ../share/pathpicker/fpp fpp
 	chmod +x fpp
 }
-
-

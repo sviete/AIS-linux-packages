@@ -46,7 +46,6 @@ termux_step_pre_configure() {
 	if $TERMUX_ON_DEVICE_BUILD; then
 		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
 	fi
-
 	# Fix i686 builds.
 	CXXFLAGS+=" -Wno-c++11-narrowing"
 	# Fix glob() on Android 7.
@@ -63,4 +62,3 @@ termux_step_post_make_install() {
 	mkdir -p $TERMUX_PREFIX/share/man/
 	cp -Rf $TERMUX_PKG_BUILDER_DIR/man/* $TERMUX_PREFIX/share/man/
 }
-

@@ -10,4 +10,3 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--without-python"
 TERMUX_PKG_DEPENDS="libxml2, libgcrypt, libgpg-error, zlib"
 TERMUX_PKG_BREAKS="libxslt-dev"
 TERMUX_PKG_REPLACES="libxslt-dev"
-

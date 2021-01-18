@@ -9,7 +9,6 @@ TERMUX_PKG_RECOMMENDS="ffmpeg, poppler, sqlite"
 TERMUX_PKG_SRCURL=https://github.com/phiresky/ripgrep-all/archive/v${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_SHA256=8cd7c5d13bd90ef0582168cd2bef73ca13ca6e0b1ecf24b9a5cd7cb886259023
 TERMUX_PKG_BUILD_IN_SRC=true
-
 termux_step_make_install() {
 	termux_setup_rust
 	
@@ -18,5 +17,3 @@ termux_step_make_install() {
 	install -Dm755 -t $TERMUX_PREFIX/bin target/${CARGO_TARGET_NAME}/release/rga-preproc
 	install -m755 $TERMUX_PKG_BUILDER_DIR/rga-fzf  $TERMUX_PREFIX/bin/rga-fzf
 }
-
-

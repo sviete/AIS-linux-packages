@@ -14,4 +14,3 @@ termux_step_configure() {
 		--prefix=$TERMUX_PREFIX --with-mailpath=$PREFIX/var/mail \
 		--disable-gpgme --disable-idn --zstd --sasl --ssl --gdbm --gss
 }
-

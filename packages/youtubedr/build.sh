@@ -5,7 +5,6 @@ TERMUX_PKG_MAINTAINER="Krishna kanhaiya @kcubeterm"
 TERMUX_PKG_VERSION=2.3.0
 TERMUX_PKG_SRCURL=https://github.com/kkdai/youtube/archive/v${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_SHA256=359c271b641675e20842e5e5146708b477869e55988927dd9610c2a03311f55f
-
 termux_step_make() {
 	termux_setup_golang
 	cd "$TERMUX_PKG_SRCDIR"
@@ -20,4 +19,3 @@ termux_step_make() {
 termux_step_make_install() {
 	install -Dm700 -t "$TERMUX_PREFIX"/bin "$GOPATH"/src/github.com/kkdai/youtube/cmd/youtubedr/youtubedr
 }
-

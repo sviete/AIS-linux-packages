@@ -8,4 +8,3 @@ TERMUX_PKG_SRCURL=https://github.com/xiph/ogg/releases/download/v${TERMUX_PKG_VE
 TERMUX_PKG_SHA256=c163bc12bc300c401b6aa35907ac682671ea376f13ae0969a220f7ddf71893fe
 TERMUX_PKG_BREAKS="libogg-dev"
 TERMUX_PKG_REPLACES="libogg-dev"
-
