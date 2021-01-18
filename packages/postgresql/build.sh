@@ -31,12 +31,14 @@ TERMUX_PKG_HOSTBUILD=true
 TERMUX_PKG_BREAKS="postgresql-contrib (<= 10.3-1), postgresql-dev"
 TERMUX_PKG_REPLACES="postgresql-contrib (<= 10.3-1), postgresql-dev"
 TERMUX_PKG_SERVICE_SCRIPT=("postgres" 'mkdir -p ~/.postgres\nexec postgres -D ~/.postgres/ 2>&1')
+
 termux_step_host_build() {
 	# Build a native zic binary which we have patched to
 	# use symlinks instead of hard links.
 	$TERMUX_PKG_SRCDIR/configure --without-readline
 	make
 }
+
 termux_step_pre_configure() {
 	# Certain packages are not safe to build on device because their
 	# build.sh script deletes specific files in $TERMUX_PREFIX.
@@ -44,9 +46,11 @@ termux_step_pre_configure() {
 		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
 	fi
 }
+
 termux_step_post_make_install() {
 	# Man pages are not installed by default:
 	make -C doc/src/sgml install-man
+
 	for contrib in \
 		hstore \
 		citext \
@@ -65,6 +69,7 @@ termux_step_post_make_install() {
 		(cd contrib/$contrib && make -s -j $TERMUX_MAKE_PROCESSES install)
 	done
 }
+
 termux_step_post_massage() {
 	# Remove bin/pg_config so e.g. php doesn't try to use it, which won't
 	# work as it's a cross-compiled binary:
