@@ -6,17 +6,18 @@ from subprocess import Popen, PIPE
 version_map = {}
 any_error = False
 
-pipe = Popen('./scripts/list-versions.sh', stdout=PIPE)
+pipe = Popen("./scripts/list-versions.sh", stdout=PIPE)
 for line in pipe.stdout:
-    (name, version) = line.decode().strip().split('=')
+    (name, version) = line.decode().strip().split("=")
     version_map[name] = version
+
 
 def check_manifest(arch, manifest):
     current_package = {}
     for line in manifest:
         if line.isspace():
-            package_name = current_package['Package']
-            package_version = current_package['Version']
+            package_name = current_package["Package"]
+            package_version = current_package["Version"]
             if not package_name in version_map:
                 # Skip sub-package
                 continue

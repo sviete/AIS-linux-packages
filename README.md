@@ -10,8 +10,11 @@ This project contains scripts and patches to build packages for the Android term
 
 
 **@termux is looking for help with fixing issues, adding new packages and maintaining
-existing ones. It would be very helpful if you submit a pull request with new packages
-or bug fixes.**
+existing ones. It would be very helpful if you submit a pull request with bug fixes.**
+
+Processing of new package requests is limited. Repository is already big and recently
+we got the [new problems with hosting](https://github.com/termux/termux-packages/issues/6348).
+Submit requests only for things that can be important for most users.
 
 This project is a fork off the Termux master branch - [Termux master](https://github.com/termux/termux-packages/tree/master) - the packages are build for for Android 7.0 or higher.
 
