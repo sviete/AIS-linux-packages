@@ -4,9 +4,10 @@ TERMUX_PKG_LICENSE="MPL-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
 # NOTE: as of 1.12.0 compilation fails when package zstd is
 # present in TERMUX_PREFIX.
-TERMUX_PKG_VERSION=1.12.1
+TERMUX_PKG_VERSION=1.13.1
 TERMUX_PKG_SRCURL=https://github.com/syncthing/syncthing/releases/download/v${TERMUX_PKG_VERSION}/syncthing-source-v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=f636441137650316b83809c177efb4df73be024547e056ea03dcf0ed627d81c7
+TERMUX_PKG_SHA256=bc5c431f28fb5bd219dcbeb68534e0da2b118a5ea6ed27edd17317aa84e08e5d
+
 termux_step_make(){
 	termux_setup_golang
 	# The build.sh script doesn't with our compiler
