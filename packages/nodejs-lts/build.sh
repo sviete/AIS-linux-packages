@@ -3,7 +3,7 @@ TERMUX_PKG_DESCRIPTION="Platform built on Chrome's JavaScript runtime for easily
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=12.18.3
-TERMUX_PKG_REVISION=1
+TERMUX_PKG_REVISION=2
 TERMUX_PKG_SRCURL=https://nodejs.org/dist/v${TERMUX_PKG_VERSION}/node-v${TERMUX_PKG_VERSION}.tar.xz
 TERMUX_PKG_SHA256=71158026579487422fd13cc2553b34cddb76519098aa6030faab52f88c6e0d0e
 # Note that we do not use a shared libuv to avoid an issue with the Android
@@ -22,13 +22,13 @@ termux_step_post_get_source() {
 	rm -Rf $TERMUX_PKG_HOSTBUILD_DIR
 }
 termux_step_host_build() {
-	local ICU_VERSION=67.1
+	local ICU_VERSION=68.2
 	local ICU_TAR=icu4c-${ICU_VERSION//./_}-src.tgz
 	local ICU_DOWNLOAD=https://github.com/unicode-org/icu/releases/download/release-${ICU_VERSION//./-}/$ICU_TAR
 	termux_download \
 		$ICU_DOWNLOAD\
 		$TERMUX_PKG_CACHEDIR/$ICU_TAR \
-		94a80cd6f251a53bd2a997f6f1b5ac6653fe791dfab66e1eb0227740fb86d5dc
+		c79193dee3907a2199b8296a93b52c5cb74332c26f3d167269487680d479d625
 	tar xf $TERMUX_PKG_CACHEDIR/$ICU_TAR
 	cd icu/source
 	if [ "$TERMUX_ARCH_BITS" = 32 ]; then
