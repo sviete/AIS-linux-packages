@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://ninja-build.org
-TERMUX_PKG_DESCRIPTION="A small build system with a focus on speed"
+TERMUX_PKG_DESCRIPTION="A small build system with a focus on speed."
 TERMUX_PKG_LICENSE="Apache-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=1.10.2
