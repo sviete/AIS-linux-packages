@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://www.qemu.org
-TERMUX_PKG_DESCRIPTION="A generic and open source machine emulator and virtualizer (headless)"
+TERMUX_PKG_DESCRIPTION="A generic and open source machine emulator and virtualizer (headless)."
 TERMUX_PKG_LICENSE="LGPL-2.1"
 TERMUX_PKG_MAINTAINER="Leonid Pliushch <leonid.pliushch@gmail.com>"
 TERMUX_PKG_VERSION=1:5.2.0
