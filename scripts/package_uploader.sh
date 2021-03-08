@@ -48,12 +48,12 @@ if [ -z "$(command -v jq)" ]; then
 fi
 if [ -z "$(command -v sshpass)" ]; then
 	echo "[!] Package 'sshpass' is not installed... installing"
-	apt install -y sshpass
+	sudo apt-get install -y sshpass
 fi
 
 if [ -z "$(command -v rsync)" ]; then
 	echo "[!] Package 'rsync' is not installed... installing"
-	apt install -y rsync
+	sudo apt-get install -y rsync
 fi
 ###################################################################
 
