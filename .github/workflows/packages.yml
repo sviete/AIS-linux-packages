@@ -144,7 +144,7 @@ jobs:
     - name: AIS install debs
       run: |
         sudo apt install -y rsync
-        sudo apt install -y sshpass 
+        sudo apt install -y sshpass
     - name: Clone repository
       uses: actions/checkout@v2
     - name: Get *.deb files
@@ -158,10 +158,11 @@ jobs:
         BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
         BINTRAY_GPG_SUBJECT: sviete
         BINTRAY_GPG_PASSPHRASE: ${{ secrets.BINTRAY_GPG_PASSWORD }}
+        AIS_SERVER_IP: ${{ secrets.AIS_SERVER_IP }}
         AIS_PORT: ${{ secrets.AIS_PORT }}
         AIS_USER: ${{ secrets.AIS_USER }}
-        AIS_PASSWORD: ${{ secrets.AIS_PASSWORD }}
-        AIS_SERVER_IP: ${{ secrets.AIS_SERVER_IP }}
+        AIS_SSH_PRIVATE_KEY: ${{ secrets.AIS_SSH_PRIVATE_KEY }}
+        AIS_SSH_KNOWN_HOSTS: ${{ secrets.AIS_SSH_KNOWN_HOSTS }}
       run: |
         for i in debs-*.tar; do
           tar xf $i

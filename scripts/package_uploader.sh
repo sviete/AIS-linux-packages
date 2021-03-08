@@ -46,10 +46,6 @@ if [ -z "$(command -v jq)" ]; then
 	echo "[!] Package 'jq' is not installed."
 	exit 1
 fi
-if [ -z "$(command -v sshpass)" ]; then
-	echo "[!] Package 'sshpass' is not installed... installing"
-	sudo apt-get install -y sshpass
-fi
 
 if [ -z "$(command -v rsync)" ]; then
 	echo "[!] Package 'rsync' is not installed... installing"
@@ -69,7 +65,12 @@ SCRIPT_EMERG_EXIT=false
 
 
 echo "Upload to AIS: " $DEBFILES_DIR_PATH
-sshpass -p "${AIS_PASSWORD}" rsync -e "ssh -p ${AIS_PORT}" --progress --stats -ravzh "$DEBFILES_DIR_PATH" "${AIS_USER}"@"${AIS_SERVER_IP}":/var/www/ais-debs-staging
+mkdir -p ~/.ssh/
+echo "$AIS_SSH_PRIVATE_KEY" > ~/.ssh/private.key
+sudo chmod 600 ../private.key
+echo "$AIS_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+
+rsync -i ~/.ssh/private.key -e "ssh -p ${AIS_PORT}" --progress --stats -ravzh "$DEBFILES_DIR_PATH" "${AIS_USER}"@"${AIS_SERVER_IP}":/var/www/ais-debs-staging
 
 
 # Special variable to force script to exit with error status
