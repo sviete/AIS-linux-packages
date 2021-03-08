@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 ##
-##  Package uploader for Bintray.
+##  Package uploader for Bintray and AI-Speaker
 ##
 ##  Copyright 2019-2020 Leonid Pliushch <leonid.pliushch@gmail.com>
 ##
@@ -46,8 +46,19 @@ if [ -z "$(command -v jq)" ]; then
 	echo "[!] Package 'jq' is not installed."
 	exit 1
 fi
+if [ -z "$(command -v sshpass)" ]; then
+	echo "[!] Package 'sshpass' is not installed... installing"
+	apt install -y sshpass
+fi
 
+if [ -z "$(command -v rsync)" ]; then
+	echo "[!] Package 'rsync' is not installed... installing"
+	apt install -y rsync
+fi
 ###################################################################
+
+echo "Upload to AIS: " $DEBFILES_DIR_PATH
+sshpass -p "${AIS_PASSWORD}" rsync -e "ssh -p ${AIS_PORT}" --progress --stats -ravzh "$DEBFILES_DIR_PATH" "${AIS_USER}"@"${AIS_SERVER_IP}":/var/www/ais-debs-staging
 
 # In this variable a package metadata will be stored.
 declare -gA PACKAGE_METADATA
