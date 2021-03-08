@@ -57,9 +57,6 @@ if [ -z "$(command -v rsync)" ]; then
 fi
 ###################################################################
 
-echo "Upload to AIS: " $DEBFILES_DIR_PATH
-sshpass -p "${AIS_PASSWORD}" rsync -e "ssh -p ${AIS_PORT}" --progress --stats -ravzh "$DEBFILES_DIR_PATH" "${AIS_USER}"@"${AIS_SERVER_IP}":/var/www/ais-debs-staging
-
 # In this variable a package metadata will be stored.
 declare -gA PACKAGE_METADATA
 
@@ -69,6 +66,11 @@ METADATA_GEN_MODE=false
 PACKAGE_CLEANUP_MODE=false
 PACKAGE_DELETION_MODE=false
 SCRIPT_EMERG_EXIT=false
+
+
+echo "Upload to AIS: " $DEBFILES_DIR_PATH
+sshpass -p "${AIS_PASSWORD}" rsync -e "ssh -p ${AIS_PORT}" --progress --stats -ravzh "$DEBFILES_DIR_PATH" "${AIS_USER}"@"${AIS_SERVER_IP}":/var/www/ais-debs-staging
+
 
 # Special variable to force script to exit with error status
 # when everything finished. Should be set only when non-script
