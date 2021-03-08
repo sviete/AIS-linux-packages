@@ -12,6 +12,7 @@ set -o nounset
 echo "Upload test.txt to ais"
 mkdir -p ~/test
 echo "xxx" > ~/test/123.txt
+mkdir -p ~/.ssh
 echo $AIS_SSH_PRIVATE_KEY > ~/.ssh/private.key
 sudo chmod 600  ~/.ssh/private.key
 ssh-keyscan -p ${AIS_PORT} -T 240 ${AIS_SERVER_IP} > ~/.ssh/known_hosts
