@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://cli.github.com/
-TERMUX_PKG_DESCRIPTION="GitHub’s official command line tool."
+TERMUX_PKG_DESCRIPTION="GitHub’s official command line tool"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="Krishna kanhaiya @kcubeterm"
 TERMUX_PKG_VERSION=1.7.0
