@@ -19,16 +19,13 @@ jobs:
     - name: AIS install debs
       run: |
         sudo apt install -y rsync
-    - name: Setup ssh key and known_hosts
-      env:
-        BINTRAY_USERNAME: asystentka-jolka
-        BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
-        BINTRAY_GPG_SUBJECT: sviete
-        BINTRAY_GPG_PASSPHRASE: ${{ secrets.BINTRAY_GPG_PASSWORD }}
-        AIS_SERVER_IP: ${{ secrets.AIS_SERVER_IP }}
-        AIS_PORT: ${{ secrets.AIS_PORT }}
-        AIS_USER: ${{ secrets.AIS_USER }}
-        AIS_SSH_PRIVATE_KEY: ${{ secrets.AIS_SSH_PRIVATE_KEY }}
-        AIS_SSH_KNOWN_HOSTS: ${{ secrets.AIS_SSH_KNOWN_HOSTS }}
+    - name: Install SSH key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.AIS_SSH_PRIVATE_KEY }}
+        known_hosts: ${{ secrets.AIS_SSH_KNOWN_HOSTS }}
+    - name: rsync over ssh
       run: |
-        ./scripts/ais_package_uploader.sh
+        mkdir -p ~/test
+        echo "xxx" > ~/test/123.txt
+        rsync -e 'ssh -p ${{ secrets.AIS_PORT }}' ~/test/  ${{ secrets.AIS_USER }}@${{ secrets.AIS_SERVER_IP }}:/var/www/ais-debs-staging
