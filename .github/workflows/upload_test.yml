@@ -1,0 +1,32 @@
+name: Upload package test
+
+on:
+  push:
+    branches:
+    - master
+    paths:
+    - 'packages/**'
+  pull_request:
+    paths:
+    - 'packages/**'
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+    - name: AIS install debs
+      run: |
+        sudo apt install -y rsync
+    - name: Setup ssh key and known_hosts
+      env:
+        BINTRAY_USERNAME: asystentka-jolka
+        BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
+        BINTRAY_GPG_SUBJECT: sviete
+        BINTRAY_GPG_PASSPHRASE: ${{ secrets.BINTRAY_GPG_PASSWORD }}
+        AIS_SERVER_IP: ${{ secrets.AIS_SERVER_IP }}
+        AIS_PORT: ${{ secrets.AIS_PORT }}
+        AIS_USER: ${{ secrets.AIS_USER }}
+        AIS_SSH_PRIVATE_KEY: ${{ secrets.AIS_SSH_PRIVATE_KEY }}
+        AIS_SSH_KNOWN_HOSTS: ${{ secrets.AIS_SSH_KNOWN_HOSTS }}
+      run: |
+        ./scripts/ais_package_uploader.sh
