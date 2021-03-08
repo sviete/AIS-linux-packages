@@ -19,6 +19,7 @@ jobs:
     - name: AIS install debs
       run: |
         sudo apt install -y rsync
+        sudo apt install -y sshpass
     - name: Configure SSH
       run: |
         mkdir -p ~/.ssh/
@@ -41,4 +42,4 @@ jobs:
       run: |
         mkdir -p ~/test
         echo "xxx" > ~/test/123.txt
-        scp -i ~/.ssh/staging.key -P ${{ secrets.AIS_PORT }} -r ~/test ${{ secrets.AIS_USER }}@${{ secrets.AIS_SERVER_IP }}:/var/www/ais-debs-staging
+        sshpass -p ${{ secrets.AIS_SSH_PASSWORD }}  scp -i ~/.ssh/staging.key -P ${{ secrets.AIS_PORT }} -r ~/test ${{ secrets.AIS_USER }}@${{ secrets.AIS_SERVER_IP }}:/var/www/ais-debs-staging
