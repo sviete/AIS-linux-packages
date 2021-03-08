@@ -67,7 +67,7 @@ SCRIPT_EMERG_EXIT=false
 echo "Upload to AIS: " $DEBFILES_DIR_PATH
 mkdir -p ~/.ssh/
 echo "$AIS_SSH_PRIVATE_KEY" > ~/.ssh/private.key
-sudo chmod 600 ../private.key
+sudo chmod 600  ~/.ssh/private.key
 echo "$AIS_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
 
 rsync -i ~/.ssh/private.key -e "ssh -p ${AIS_PORT}" --progress --stats -ravzh "$DEBFILES_DIR_PATH" "${AIS_USER}"@"${AIS_SERVER_IP}":/var/www/ais-debs-staging
