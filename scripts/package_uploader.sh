@@ -70,8 +70,9 @@ echo $AIS_SSH_PRIVATE_KEY > ~/.ssh/private.key
 sudo chmod 600  ~/.ssh/private.key
 ssh-keyscan -p ${AIS_PORT} -T 240 ${AIS_SERVER_IP} > ~/.ssh/known_hosts
 
-rsync -i ~/.ssh/private.key -e ssh -p ${AIS_PORT} --progress --stats -ravzh $DEBFILES_DIR_PATH ${AIS_USER}@${AIS_SERVER_IP}:/var/www/ais-debs-staging
+# rsync -i ~/.ssh/private.key -e ssh -p ${AIS_PORT} --progress --stats -ravzh $DEBFILES_DIR_PATH ${AIS_USER}@${AIS_SERVER_IP}:/var/www/ais-debs-staging
 
+scp -P ${AIS_PORT} -r $DEBFILES_DIR_PATH ${AIS_USER}@${AIS_SERVER_IP}:/var/www/ais-debs-staging
 
 # Special variable to force script to exit with error status
 # when everything finished. Should be set only when non-script
