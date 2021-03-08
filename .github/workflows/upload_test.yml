@@ -41,4 +41,4 @@ jobs:
       run: |
         mkdir -p ~/test
         echo "xxx" > ~/test/123.txt
-        rsync -e 'ssh -p ${{ secrets.AIS_PORT }}' ~/test/  ${{ secrets.AIS_USER }}@${{ secrets.AIS_SERVER_IP }}:/var/www/ais-debs-staging
+        scp -i ~/.ssh/staging.key -P ${{ secrets.AIS_PORT }} -r ~/test ${{ secrets.AIS_USER }}@${{ secrets.AIS_SERVER_IP }}:/var/www/ais-debs-staging
