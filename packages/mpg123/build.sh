@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=http://mpg123.org/
-TERMUX_PKG_DESCRIPTION="Fast console MPEG Audio Player and decoder library."
+TERMUX_PKG_DESCRIPTION="Fast console MPEG Audio Player and decoder library"
 TERMUX_PKG_LICENSE="LGPL-2.1"
 TERMUX_PKG_MAINTAINER="Thibault Meyer <meyer.thibault@gmail.com>"
 TERMUX_PKG_VERSION=1.26.4
