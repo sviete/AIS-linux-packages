@@ -25,6 +25,7 @@ termux_step_pre_configure() {
     autoheader
     autoconf
 }
+
 termux_step_post_massage() {
     # copy default config files
     for f in $DEFAULT_CONFFILES; do
