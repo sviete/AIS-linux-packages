@@ -29,9 +29,11 @@ jobs:
         cat >>~/.ssh/config <<END
         Host staging
           HostName $SSH_HOST
+          Port $SSH_PORT
           User $SSH_USER
           IdentityFile ~/.ssh/staging.key
           StrictHostKeyChecking no
+          AddKeysToAgent yes
         END
       env:
         SSH_USER: ${{ secrets.AIS_USER }}
@@ -42,4 +44,4 @@ jobs:
       run: |
         mkdir -p ~/test
         echo "xxx" > ~/test/123.txt
-        sshpass -p ${{ secrets.AIS_SSH_PASSWORD }}  scp -i ~/.ssh/staging.key -P ${{ secrets.AIS_PORT }} -r ~/test ${{ secrets.AIS_USER }}@${{ secrets.AIS_SERVER_IP }}:/var/www/ais-debs-staging
+        scp -pr -vvv ~/test staging:/var/www/ais-debs-staging
