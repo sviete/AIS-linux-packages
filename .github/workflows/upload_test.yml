@@ -19,7 +19,7 @@ jobs:
     - name: AIS install debs
       run: |
         sudo apt install -y rsync
-    - name: Aid stage upload
+    - name: Ais stage upload
       run: |
         ./scripts/ais_package_uploader.sh
       env:

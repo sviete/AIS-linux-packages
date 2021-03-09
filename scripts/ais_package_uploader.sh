@@ -23,7 +23,22 @@ Host staging
   AddKeysToAgent yes
 END
 
+for i in debs-*.tar; do
+  tar xf $i
+done
+# Purging debfiles of removed packages.
+TO_DELETE=$(test -f ./debs/deleted_packages.txt && cat ./debs/deleted_packages.txt || true)
+if [ -n "$TO_DELETE" ]; then
+  echo "TO_DELETE"
+  echo $TO_DELETE
+fi
+# Uploading modified packages.
+TO_UPLOAD=$(test -f ./debs/built_packages.txt && cat ./debs/built_packages.txt || true)
+if [ -n "$TO_UPLOAD" ]; then
+  echo "TO_UPLOAD"
+  echo $TO_UPLOAD
+fi
+
 echo "Upload test.txt to ais"
-mkdir -p ~/test
-echo "xxx" > ~/test/123.txt
-scp -v -pr ~/test/* staging:/var/www/ais-debs-staging
+DEBFILES_DIR_PATH="$TERMUX_PACKAGES_BASEDIR/debs/*"
+scp -v -pr $DEBFILES_DIR_PATH staging:/var/www/ais-debs-staging

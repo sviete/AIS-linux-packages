@@ -154,26 +154,9 @@ jobs:
         path: ./
     - name: Setup ssh key and known_hosts
       env:
-        BINTRAY_USERNAME: asystentka-jolka
-        BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
-        BINTRAY_GPG_SUBJECT: sviete
-        BINTRAY_GPG_PASSPHRASE: ${{ secrets.BINTRAY_GPG_PASSWORD }}
         AIS_SERVER_IP: ${{ secrets.AIS_SERVER_IP }}
         AIS_PORT: ${{ secrets.AIS_PORT }}
         AIS_USER: ${{ secrets.AIS_USER }}
         AIS_SSH_PRIVATE_KEY: ${{ secrets.AIS_SSH_PRIVATE_KEY }}
-        AIS_SSH_KNOWN_HOSTS: ${{ secrets.AIS_SSH_KNOWN_HOSTS }}
       run: |
-        for i in debs-*.tar; do
-          tar xf $i
-        done
-        # Purging debfiles of removed packages.
-        TO_DELETE=$(test -f ./debs/deleted_packages.txt && cat ./debs/deleted_packages.txt || true)
-        if [ -n "$TO_DELETE" ]; then
-          ./scripts/package_uploader.sh -d $TO_DELETE
-        fi
-        # Uploading modified packages.
-        TO_UPLOAD=$(test -f ./debs/built_packages.txt && cat ./debs/built_packages.txt || true)
-        if [ -n "$TO_UPLOAD" ]; then
-          ./scripts/package_uploader.sh -p ./debs $TO_UPLOAD
-        fi
+        ./scripts/ais_package_uploader.sh
