@@ -26,4 +26,4 @@ END
 echo "Upload test.txt to ais"
 mkdir -p ~/test
 echo "xxx" > ~/test/123.txt
-scp -pr -v ~/test staging:/var/www/ais-debs-staging
+scp -v -pr ~/test/* staging:/var/www/ais-debs-staging
