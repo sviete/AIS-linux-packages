@@ -144,7 +144,6 @@ jobs:
     - name: AIS install debs
       run: |
         sudo apt install -y rsync
-        sudo apt install -y sshpass
     - name: Clone repository
       uses: actions/checkout@v2
     - name: Get *.deb files
