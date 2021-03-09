@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://gitlab.com/gnuwget/wget2
-TERMUX_PKG_DESCRIPTION="The successor of GNU Wget, a file and recursive website downloader."
+TERMUX_PKG_DESCRIPTION="The successor of GNU Wget, a file and recursive website downloader"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="Rabby Sheikh @shoya0x00"
 TERMUX_PKG_VERSION=1.99.2
