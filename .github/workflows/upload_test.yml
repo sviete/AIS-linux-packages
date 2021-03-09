@@ -19,29 +19,11 @@ jobs:
     - name: AIS install debs
       run: |
         sudo apt install -y rsync
-        sudo apt install -y sshpass
-    - name: Configure SSH
+    - name: Aid stage upload
       run: |
-        mkdir -p ~/.ssh/
-        ssh-keyscan -p ${SSH_PORT} -T 240 ${SSH_HOST} > ~/.ssh/known_hosts
-        echo "$SSH_KEY" > ~/.ssh/staging.key
-        chmod 600 ~/.ssh/staging.key
-        cat >>~/.ssh/config <<END
-        Host staging
-          HostName $SSH_HOST
-          Port $SSH_PORT
-          User $SSH_USER
-          IdentityFile ~/.ssh/staging.key
-          StrictHostKeyChecking no
-          AddKeysToAgent yes
-        END
+        ./scripts/ais_package_uploader.sh
       env:
-        SSH_USER: ${{ secrets.AIS_USER }}
-        SSH_KEY: ${{ secrets.AIS_SSH_PRIVATE_KEY }}
-        SSH_HOST: ${{ secrets.AIS_SERVER_IP }}
-        SSH_PORT: ${{ secrets.AIS_PORT }}
-    - name: rsync over ssh
-      run: |
-        mkdir -p ~/test
-        echo "xxx" > ~/test/123.txt
-        scp -pr -vvv ~/test staging:/var/www/ais-debs-staging
+        AIS_USER: ${{ secrets.AIS_USER }}
+        AIS_SSH_PRIVATE_KEY: ${{ secrets.AIS_SSH_PRIVATE_KEY }}
+        AIS_SERVER_IP: ${{ secrets.AIS_SERVER_IP }}
+        AIS_PORT: ${{ secrets.AIS_PORT }}
