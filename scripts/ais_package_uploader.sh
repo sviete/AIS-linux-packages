@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 ##
-##  Package uploader for Bintray and AI-Speaker
+##  Package uploader for AI-Speaker
 ##
 ##  Copyright 2021 AI-Speaker <info@ai-speaker.com>
 ##
