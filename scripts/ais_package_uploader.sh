@@ -50,4 +50,4 @@ fi
 
 echo "Upload test.txt to ais"
 DEBFILES_DIR_PATH="$AIS_PACKAGES_BASEDIR/debs/*"
-scp -v -pr $DEBFILES_DIR_PATH staging:/var/www/ais-debs-staging
+scp -pr $DEBFILES_DIR_PATH staging:/var/www/ais-debs-staging
