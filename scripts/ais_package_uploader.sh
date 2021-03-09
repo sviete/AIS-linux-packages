@@ -8,6 +8,15 @@
 set -o errexit
 set -o nounset
 
+AIS_PACKAGES_BASEDIR=$(realpath "$(dirname "$0")/../")
+
+# Verify that script is correctly installed to Termux repository.
+if [ ! -d "$AIS_PACKAGES_BASEDIR/packages" ]; then
+	echo "[!] Cannot find ais directory 'packages'."
+	exit 1
+fi
+
+
 echo "Prepare ssh connection to ais"
 mkdir -p ~/.ssh/
 ssh-keyscan -p ${AIS_PORT} -T 240 ${AIS_SERVER_IP} > ~/.ssh/known_hosts
@@ -40,5 +49,5 @@ if [ -n "$TO_UPLOAD" ]; then
 fi
 
 echo "Upload test.txt to ais"
-DEBFILES_DIR_PATH="$TERMUX_PACKAGES_BASEDIR/debs/*"
+DEBFILES_DIR_PATH="$AIS_PACKAGES_BASEDIR/debs/*"
 scp -v -pr $DEBFILES_DIR_PATH staging:/var/www/ais-debs-staging
