@@ -8,7 +8,6 @@
 
 This project contains scripts and patches to build packages for the Android terminal and Linux environment system used in the [AI-Speaker](https://www.ai-speaker.com) project.
 
-
 **@termux is looking for help with fixing issues, adding new packages and maintaining
 existing ones. It would be very helpful if you submit a pull request with bug fixes.**
 
