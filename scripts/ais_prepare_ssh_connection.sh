@@ -19,3 +19,6 @@ Host staging
   StrictHostKeyChecking no
   AddKeysToAgent yes
 END
+
+echo "Publish cross-compiled packages to http://powiedz.co/apt/dists/dom-dev/test/..."
+ssh staging:/var/www/ais-debs-staging "./var/www/github_action_hooks/publish_test_repo.sh"
