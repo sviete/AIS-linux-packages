@@ -159,3 +159,16 @@ jobs:
         AIS_SSH_PRIVATE_KEY: ${{ secrets.AIS_SSH_PRIVATE_KEY }}
       run: |
         ./scripts/ais_package_uploader.sh
+  publish_to_repo:
+    if: github.event_name != 'pull_request'
+    needs: upload
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup ssh key and known_hosts
+      env:
+        AIS_SERVER_IP: ${{ secrets.AIS_SERVER_IP }}
+        AIS_PORT: ${{ secrets.AIS_PORT }}
+        AIS_USER: ${{ secrets.AIS_USER }}
+        AIS_SSH_PRIVATE_KEY: ${{ secrets.AIS_SSH_PRIVATE_KEY }}
+      run: |
+        ./scripts/ais_publish_to_apt_rrepo.sh
