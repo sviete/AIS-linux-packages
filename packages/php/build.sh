@@ -84,3 +84,4 @@ termux_step_post_make_install() {
 	cp sapi/fpm/www.conf $TERMUX_PREFIX/etc/php-fpm.d/
 	sed -i 's/SED=.*/SED=sed/' $TERMUX_PREFIX/bin/phpize
 }
+
