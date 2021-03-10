@@ -13,3 +13,4 @@ TERMUX_PKG_PLATFORM_INDEPENDENT=true
 termux_step_pre_configure() {
 	export BASHCOMPDIR=$TERMUX_PREFIX/etc/bash_completion.d
 }
+
