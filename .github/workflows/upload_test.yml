@@ -14,19 +14,6 @@ jobs:
     - name: AIS install debs
       run: |
         sudo apt install -y rsync
-    # - name: Ais stage upload
-    #   run: |
-    #     ./scripts/ais_package_uploader.sh
-    #   env:
-    #     AIS_USER: ${{ secrets.AIS_USER }}
-    #     AIS_SSH_PRIVATE_KEY: ${{ secrets.AIS_SSH_PRIVATE_KEY }}
-    #     AIS_SERVER_IP: ${{ secrets.AIS_SERVER_IP }}
-    #     AIS_PORT: ${{ secrets.AIS_PORT }}
-
-  publish_to_repo:
-    needs: upload
-    runs-on: ubuntu-latest
-    steps:
     - name: Setup ssh key and known_hosts
       env:
         AIS_SERVER_IP: ${{ secrets.AIS_SERVER_IP }}
@@ -34,4 +21,7 @@ jobs:
         AIS_USER: ${{ secrets.AIS_USER }}
         AIS_SSH_PRIVATE_KEY: ${{ secrets.AIS_SSH_PRIVATE_KEY }}
       run: |
-        ./scripts/ais_publish_to_apt_rrepo.sh
+        ./scripts/ais_prepare_ssh_connection.sh
+    - name: Run apt repo puslish
+      run: |
+        ./scripts/ais_publish_to_apt_repo.sh
