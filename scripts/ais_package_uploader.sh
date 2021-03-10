@@ -48,6 +48,6 @@ if [ -n "$TO_UPLOAD" ]; then
   echo $TO_UPLOAD
 fi
 
-echo "Upload test.txt to ais"
+echo "Upload to ais"
 DEBFILES_DIR_PATH="$AIS_PACKAGES_BASEDIR/debs/*"
 scp -pr $DEBFILES_DIR_PATH staging:/var/www/ais-debs-staging

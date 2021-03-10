@@ -4,11 +4,6 @@ on:
   push:
     branches:
     - master
-    paths:
-    - 'packages/**'
-  pull_request:
-    paths:
-    - 'packages/**'
 
 jobs:
   upload:
@@ -19,17 +14,16 @@ jobs:
     - name: AIS install debs
       run: |
         sudo apt install -y rsync
-    - name: Ais stage upload
-      run: |
-        ./scripts/ais_package_uploader.sh
-      env:
-        AIS_USER: ${{ secrets.AIS_USER }}
-        AIS_SSH_PRIVATE_KEY: ${{ secrets.AIS_SSH_PRIVATE_KEY }}
-        AIS_SERVER_IP: ${{ secrets.AIS_SERVER_IP }}
-        AIS_PORT: ${{ secrets.AIS_PORT }}
+    # - name: Ais stage upload
+    #   run: |
+    #     ./scripts/ais_package_uploader.sh
+    #   env:
+    #     AIS_USER: ${{ secrets.AIS_USER }}
+    #     AIS_SSH_PRIVATE_KEY: ${{ secrets.AIS_SSH_PRIVATE_KEY }}
+    #     AIS_SERVER_IP: ${{ secrets.AIS_SERVER_IP }}
+    #     AIS_PORT: ${{ secrets.AIS_PORT }}
 
   publish_to_repo:
-    if: github.event_name != 'pull_request'
     needs: upload
     runs-on: ubuntu-latest
     steps:
