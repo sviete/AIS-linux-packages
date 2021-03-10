@@ -12,3 +12,4 @@ termux_step_post_make_install(){
     #install useful script
     install -Dm755 "$TERMUX_PKG_SRCDIR"/contrib/headless_pianobar "$TERMUX_PREFIX"/bin/pianoctl
 }
+
