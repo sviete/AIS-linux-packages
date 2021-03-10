@@ -22,5 +22,5 @@ END
 
 echo "Publish cross-compiled packages to http://powiedz.co/apt/dists/dom-dev/test/..."
 ssh staging
-bash /var/www/github_action_hooks/publish_test_repo.sh
+/var/www/github_action_hooks/publish_test_repo.sh
 exit
