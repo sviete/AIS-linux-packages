@@ -22,6 +22,3 @@ jobs:
         AIS_SSH_PRIVATE_KEY: ${{ secrets.AIS_SSH_PRIVATE_KEY }}
       run: |
         ./scripts/ais_prepare_ssh_connection.sh
-    - name: Run apt repo puslish
-      run: |
-        ./scripts/ais_publish_to_apt_repo.sh

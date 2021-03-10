@@ -159,6 +159,3 @@ jobs:
         AIS_SSH_PRIVATE_KEY: ${{ secrets.AIS_SSH_PRIVATE_KEY }}
       run: |
         ./scripts/ais_package_uploader.sh
-    - name: Publish
-      run: |
-        ./scripts/ais_publish_to_apt_rrepo.sh
