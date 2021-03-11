@@ -8,6 +8,7 @@ TERMUX_PKG_SRCURL=http://www.brain-dump.org/projects/abduco/abduco-${TERMUX_PKG_
 TERMUX_PKG_SHA256=c90909e13fa95770b5afc3b59f311b3d3d2fdfae23f9569fa4f96a3e192a35f4
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_DEPENDS="dvtm"
+
 termux_step_pre_configure() {
 	CFLAGS+=" $CPPFLAGS"
 }
