@@ -9,6 +9,7 @@ TERMUX_PKG_REVISION=11
 TERMUX_PKG_SKIP_SRC_EXTRACT=true
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_DEPENDS="libc++, libexpat, libpng, libzopfli, zlib"
+
 termux_step_pre_configure() {
 	# Certain packages are not safe to build on device because their
 	# build.sh script deletes specific files in $TERMUX_PREFIX.
@@ -16,26 +17,32 @@ termux_step_pre_configure() {
 		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
 	fi
 }
+
 termux_step_make_install() {
 	# FIXME: We would like to enable checksums when downloading
 	# tar files, but they change each time as the tar metadata
 	# differs: https://github.com/google/gitiles/issues/84
+
 	local _TAGNAME=${_TAG_VERSION}_r${_TAG_REVISION}
+
 	SYSTEM_CORE_INCLUDE_TARFILE=$TERMUX_PKG_CACHEDIR/system_core_include_${_TAGNAME}.tar.gz
 	test ! -f $SYSTEM_CORE_INCLUDE_TARFILE && termux_download \
 		"https://android.googlesource.com/platform/system/core/+archive/android-$_TAGNAME/include.tar.gz" \
 		$SYSTEM_CORE_INCLUDE_TARFILE \
 		SKIP_CHECKSUM
+
 	ANDROIDFW_INCLUDE_TARFILE=$TERMUX_PKG_CACHEDIR/androidfw_include_${_TAGNAME}.tar.gz
 	test ! -f $ANDROIDFW_INCLUDE_TARFILE && termux_download \
 		"https://android.googlesource.com/platform/frameworks/base/+archive/android-$_TAGNAME/include/androidfw.tar.gz" \
 		$ANDROIDFW_INCLUDE_TARFILE \
 		SKIP_CHECKSUM
+
 	ANDROID_BASE_INCLUDE_TARFILE=$TERMUX_PKG_CACHEDIR/android_base_include_${_TAGNAME}.tar.gz
 	test ! -f $ANDROID_BASE_INCLUDE_TARFILE && termux_download \
 		"https://android.googlesource.com/platform/system/core/+archive/android-$_TAGNAME/base/include/android-base.tar.gz" \
 		$ANDROID_BASE_INCLUDE_TARFILE \
 		SKIP_CHECKSUM
+
 	local AOSP_INCLUDE_DIR=$TERMUX_PREFIX/include/aosp
 	mkdir -p $AOSP_INCLUDE_DIR
 	cd $AOSP_INCLUDE_DIR
@@ -50,7 +57,9 @@ termux_step_make_install() {
 	tar xf $ANDROID_BASE_INCLUDE_TARFILE
 	cd ../log
 	patch -p0 < $TERMUX_PKG_BUILDER_DIR/log.h.patch.txt
+
 	CXXFLAGS+=" -fPIC"
+
 	# Build libcutils:
 	mkdir -p $TERMUX_PKG_SRCDIR/{libcutils,androidfw}
 	cd $TERMUX_PKG_SRCDIR/libcutils
@@ -104,12 +113,16 @@ termux_step_make_install() {
 		-llog \
 		-shared \
 		-o $TERMUX_PREFIX/lib/libandroid-cutils.so
+
+
+
 	# Build libutil:
 	local LIBUTILS_TARFILE=$TERMUX_PKG_CACHEDIR/libutils_${_TAGNAME}.tar.gz
 	test ! -f $LIBUTILS_TARFILE && termux_download \
 		"https://android.googlesource.com/platform/system/core/+archive/android-$_TAGNAME/libutils.tar.gz" \
 		$LIBUTILS_TARFILE \
 		SKIP_CHECKSUM
+
 	local SAFE_IOP_TARFILE=$TERMUX_PKG_CACHEDIR/safe_iop.tar.gz
 	test ! -f $SAFE_IOP_TARFILE && termux_download \
 		https://android.googlesource.com/platform/external/safe-iop/+archive/cd76f998688d145235de78ecd5b340d0eac9239d.tar.gz \
@@ -120,6 +133,7 @@ termux_step_make_install() {
 	cd $SAFE_IOP_DIR
 	tar xf $SAFE_IOP_TARFILE
 	mv src/safe_iop.c src/safe_iop.cpp
+
 	mkdir $TERMUX_PKG_SRCDIR/libutils
 	cd $TERMUX_PKG_SRCDIR/libutils
 	tar xf $LIBUTILS_TARFILE
@@ -158,6 +172,9 @@ termux_step_make_install() {
 		-llog \
 		-shared \
 		-o $TERMUX_PREFIX/lib/libandroid-utils.so
+
+
+
 	# Build libbase:
 	local LIBBASE_TARFILE=$TERMUX_PKG_CACHEDIR/libbase_${_TAGNAME}.tar.gz
 	test ! -f $LIBBASE_TARFILE && termux_download \
@@ -190,6 +207,8 @@ termux_step_make_install() {
 		-llog \
 		-shared \
 		-o $TERMUX_PREFIX/lib/libandroid-base.so
+
+
 	# Build libziparchive:
 	LIBZIPARCHIVE_TARFILE=$TERMUX_PKG_CACHEDIR/libziparchive_${_TAGNAME}.tar.gz
 	test ! -f $LIBZIPARCHIVE_TARFILE && termux_download \
@@ -214,6 +233,9 @@ termux_step_make_install() {
 		-llog \
 		-shared \
 		-o $TERMUX_PREFIX/lib/libandroid-ziparchive.so
+
+
+
 	# Build libandroidfw:
 	ANDROIDFW_TARFILE=$TERMUX_PKG_CACHEDIR/androidfw_${_TAGNAME}.tar.gz
 	test ! -f $ANDROIDFW_TARFILE && termux_download \
@@ -247,6 +269,7 @@ termux_step_make_install() {
 		-lz \
 		-shared \
 		-o $TERMUX_PREFIX/lib/libandroid-fw.so
+
 	# Build aapt:
 	AAPT_TARFILE=$TERMUX_PKG_CACHEDIR/aapt_${_TAGNAME}.tar.gz
 	test ! -f $AAPT_TARFILE && termux_download \
@@ -270,6 +293,9 @@ termux_step_make_install() {
 		-lm -lz -lpng -lexpat \
 		-pie \
 		-o $TERMUX_PREFIX/bin/aapt
+
+
+
 	# Build zipalign:
 	ZIPALIGN_TARFILE=$TERMUX_PKG_CACHEDIR/zipalign_${_TAGNAME}.tar.gz
 	ZOPFLI_VER=$(bash -c ". $TERMUX_SCRIPTDIR/packages/libzopfli/build.sh; echo \$TERMUX_PKG_VERSION")
@@ -288,6 +314,7 @@ termux_step_make_install() {
 	tar xf $ZIPALIGN_TARFILE
 	tar xf $ZOPFLI_TARFILE
 	mv zopfli-zopfli-$ZOPFLI_VER zopfli
+
 	$CXX $CXXFLAGS $CPPFLAGS -Izopfli/src $LDFLAGS \
 		-isystem $AOSP_INCLUDE_DIR \
 		-std=c++11 \
@@ -297,8 +324,11 @@ termux_step_make_install() {
 		-lzopfli \
 		-pie \
 		-o $TERMUX_PREFIX/bin/zipalign
+
+
 	# Remove this one for now:
 	rm -Rf $AOSP_INCLUDE_DIR
+
 	# Create an android.jar with AndroidManifest.xml and resources.arsc:
 	cd $TERMUX_PKG_TMPDIR
 	rm -rf android-jar
