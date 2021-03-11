@@ -7,5 +7,5 @@
 -#define PATH_HOSTS              "/etc/hosts"
 +#define PATH_HOSTS              "@TERMUX_PREFIX@/etc/hosts"
  #endif
-
+ 
  #endif

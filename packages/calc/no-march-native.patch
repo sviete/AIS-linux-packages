@@ -8,6 +8,6 @@
 -#ARCH_CFLAGS=
 +#ARCH_CFLAGS= -march=native
 +ARCH_CFLAGS=
-
+ 
  # COMMON_CFLAGS are the common ${CC} flags used for all programs, both
  #	    intermediate and final calc and calc related programs

@@ -4,9 +4,9 @@ diff -u -r ../postgresql-9.6.1/src/backend/Makefile ./src/backend/Makefile
 @@ -49,6 +49,8 @@
  LIBS += -lsystemd
  endif
-
+ 
 +LIBS += -landroid-shmem -llog
 +
  ##########################################################################
-
+ 
  all: submake-libpgport submake-schemapg postgres $(POSTGRES_IMP)
