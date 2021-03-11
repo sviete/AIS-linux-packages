@@ -7,6 +7,7 @@ TERMUX_PKG_SRCURL=http://abook.sourceforge.net/devel/abook-$TERMUX_PKG_VERSION.t
 TERMUX_PKG_SHA256=f0a90df8694fb34685ecdd45d97db28b88046c15c95e7b0700596028bd8bc0f9
 TERMUX_PKG_DEPENDS="libandroid-support, ncurses, readline"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--mandir=$TERMUX_PREFIX/share/man"
+
 termux_step_pre_configure() {
 	aclocal
 	automake --add-missing
