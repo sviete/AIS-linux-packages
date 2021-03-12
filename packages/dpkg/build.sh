@@ -11,6 +11,7 @@ TERMUX_PKG_DEPENDS="bzip2, coreutils, diffutils, gzip, less, libbz2, liblzma, ta
 TERMUX_PKG_BREAKS="dpkg-dev"
 TERMUX_PKG_REPLACES="dpkg-dev"
 TERMUX_PKG_ESSENTIAL=true
+
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 ac_cv_lib_selinux_setexecfilecon=no
 --disable-dselect
@@ -21,6 +22,7 @@ HAVE_SETEXECFILECON_FALSE=#
 --host=${TERMUX_ARCH}-linux
 --without-selinux
 "
+
 TERMUX_PKG_RM_AFTER_INSTALL="
 bin/dpkg-architecture
 bin/dpkg-buildflags
@@ -68,10 +70,12 @@ share/man/man5
 share/perl5
 share/polkit-1
 "
+
 termux_step_pre_configure() {
 	export TAR=tar # To make sure dpkg tries to use "tar" instead of e.g. "gnutar" (which happens when building on OS X)
 	perl -p -i -e "s/TERMUX_ARCH/$TERMUX_ARCH/" $TERMUX_PKG_SRCDIR/configure
 }
+
 termux_step_post_massage() {
 	mkdir -p "${TERMUX_PKG_MASSAGEDIR}/${TERMUX_PREFIX}/var/lib/dpkg/alternatives"
 	mkdir -p "${TERMUX_PKG_MASSAGEDIR}/${TERMUX_PREFIX}/var/lib/dpkg/info"
