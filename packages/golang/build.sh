@@ -9,10 +9,13 @@ TERMUX_PKG_SRCURL=https://storage.googleapis.com/golang/go${_MAJOR_VERSION}.src.
 TERMUX_PKG_SHA256=7688063d55656105898f323d90a79a39c378d86fe89ae192eb3b7fc46347c95a
 TERMUX_PKG_DEPENDS="clang"
 TERMUX_PKG_NO_STATICSPLIT=true
+
 termux_step_make_install() {
 	termux_setup_golang
+
 	TERMUX_GOLANG_DIRNAME=${GOOS}_$GOARCH
 	TERMUX_GODIR=$TERMUX_PREFIX/lib/go
+
 	cd $TERMUX_PKG_SRCDIR/src
 	# Unset PKG_CONFIG to avoid the path being hardcoded into src/cmd/cgo/zdefaultcc.go,
 	# see https://github.com/termux/termux-packages/issues/3505.
@@ -24,6 +27,7 @@ termux_step_make_install() {
 	    GOROOT_FINAL=$TERMUX_GODIR \
 	    PKG_CONFIG= \
 	    ./make.bash
+
 	cd ..
 	rm -Rf $TERMUX_GODIR
 	mkdir -p $TERMUX_GODIR/{bin,src,doc,lib,pkg/tool/$TERMUX_GOLANG_DIRNAME,pkg/include,pkg/${TERMUX_GOLANG_DIRNAME}}
@@ -39,6 +43,7 @@ termux_step_make_install() {
 	cp -Rf pkg/${TERMUX_GOLANG_DIRNAME}/* $TERMUX_GODIR/pkg/${TERMUX_GOLANG_DIRNAME}/
 	cp -Rf misc/ $TERMUX_GODIR/
 }
+
 termux_step_post_massage() {
 	find . -path '*/testdata*' -delete
 }
