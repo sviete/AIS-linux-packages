@@ -26,6 +26,7 @@ etc/apache2/extra/proxy-html.conf
 etc/apache2/mime.types
 etc/apache2/magic
 "
+
 # providing manual paths to libs because it picks up host libs on some systems
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --with-apr=$TERMUX_PREFIX
@@ -72,29 +73,36 @@ TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_RM_AFTER_INSTALL="share/apache2/manual etc/apache2/original share/man/man8/suexec.8 libexec/httpd.exp"
 TERMUX_PKG_EXTRA_MAKE_ARGS="-s"
 TERMUX_PKG_SERVICE_SCRIPT=("httpd" 'exec httpd -DNO_DETACH 2>&1')
+
 termux_step_pre_configure() {
 	# Certain packages are not safe to build on device because their
 	# build.sh script deletes specific files in $TERMUX_PREFIX.
 	if $TERMUX_ON_DEVICE_BUILD; then
 		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
 	fi
+
 	# remove old files
 	rm -rf "$TERMUX_PREFIX"/{libexec,share,etc}/apache2
 	rm -rf "$TERMUX_PREFIX"/lib/cgi-bin
+
 	if [ $TERMUX_ARCH_BITS -eq 32 ]; then
 		export ap_cv_void_ptr_lt_long=4
 	else
 		export ap_cv_void_ptr_lt_long=8
 	fi
+
 	LDFLAGS="$LDFLAGS -lapr-1 -laprutil-1"
+
 	# use custom layout
 	cat $TERMUX_PKG_BUILDER_DIR/Termux.layout > $TERMUX_PKG_SRCDIR/config.layout
 }
+
 termux_step_post_configure() {
 	# thanks to @JetBalsa
 	gcc -O2 -DCROSS_COMPILE $TERMUX_PKG_SRCDIR/server/gen_test_char.c -o $TERMUX_PKG_BUILDDIR/server/gen_test_char
 	touch -d "1 hour" $TERMUX_PKG_BUILDDIR/server/gen_test_char
 }
+
 termux_step_post_make_install() {
 	sed -e "s#/$TERMUX_PREFIX/libexec/apache2/#modules/#" \
 		-e 's|#\(LoadModule negotiation_module \)|\1|' \
@@ -112,9 +120,11 @@ termux_step_post_make_install() {
 		-i "$TERMUX_PREFIX/etc/apache2/httpd.conf"
 	echo -e "#\n#  Load config files from the config directory 'conf.d'.\n#\nInclude etc/apache2/conf.d/*.conf" >> $TERMUX_PREFIX/etc/apache2/httpd.conf
 }
+
 termux_step_post_massage() {
 	# sometimes it creates a $TERMUX_PREFIX/bin/sh -> /bin/sh
 	rm -f ${TERMUX_PKG_MASSAGEDIR}${TERMUX_PREFIX}/bin/sh
+
 	mkdir -p ${TERMUX_PKG_MASSAGEDIR}${TERMUX_PREFIX}/etc/apache2/conf.d
 	touch ${TERMUX_PKG_MASSAGEDIR}${TERMUX_PREFIX}/etc/apache2/conf.d/placeholder.conf
 	mkdir -p ${TERMUX_PKG_MASSAGEDIR}${TERMUX_PREFIX}/var/run/apache2
