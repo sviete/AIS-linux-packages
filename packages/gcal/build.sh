@@ -10,6 +10,7 @@ TERMUX_PKG_DEPENDS="ncurses"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 ac_cv_header_spawn_h=no
 "
+
 termux_step_pre_configure() {
 	# Certain packages are not safe to build on device because their
 	# build.sh script deletes specific files in $TERMUX_PREFIX.
@@ -17,6 +18,7 @@ termux_step_pre_configure() {
 		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
 	fi
 }
+
 termux_step_post_make_install() {
 	# XXX: share/info/dir is currently included in emacs.
 	# We should probably make texinfo regenerate that file
