@@ -11,4 +11,5 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 M4=m4
 ac_cv_header_spawn_h=no
 "
+
 TERMUX_PKG_RM_AFTER_INSTALL="share/info/dir"
