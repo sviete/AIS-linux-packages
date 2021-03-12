@@ -7,6 +7,7 @@ TERMUX_PKG_SRCURL=http://gondor.apana.org.au/~herbert/dash/files/dash-${TERMUX_P
 TERMUX_PKG_SHA256=62b9f1676ba6a7e8eaec541a39ea037b325253240d1f378c72360baa1cbcbc2a
 TERMUX_PKG_ESSENTIAL=true
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-static"
+
 termux_step_post_make_install() {
 	# Symlink sh -> dash
 	ln -sfr $TERMUX_PREFIX/bin/{dash,sh}
