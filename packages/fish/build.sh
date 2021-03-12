@@ -14,11 +14,14 @@ TERMUX_PKG_RM_AFTER_INSTALL="share/fish/completions/rg.fish"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DBUILD_DOCS=OFF
 "
+
 termux_step_pre_configure() {
 	CXXFLAGS+=" $CPPFLAGS"
 }
+
 termux_step_post_make_install() {
 	cat >> $TERMUX_PREFIX/etc/fish/config.fish <<HERE
+
 function __fish_command_not_found_handler --on-event fish_command_not_found
 	$TERMUX_PREFIX/libexec/termux/command-not-found \$argv[1]
 end
