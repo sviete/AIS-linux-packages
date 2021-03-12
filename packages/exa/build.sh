@@ -8,10 +8,13 @@ TERMUX_PKG_SRCURL=https://github.com/ogham/exa/archive/39c8c67bf6237076b24915851
 TERMUX_PKG_SHA256=e3fba517f0017e6a7435421d63e73c4e695f2844433d8245debb0f51b89a5a9e
 TERMUX_PKG_DEPENDS="zlib, libgit2"
 TERMUX_PKG_BUILD_IN_SRC=true
+
 termux_step_pre_configure() {
 	termux_setup_rust
+
 	CFLAGS="$CPPFLAGS"
 }
+
 termux_step_post_make_install() {
 	mkdir -p $TERMUX_PREFIX/share/man/man1
 	mkdir -p $TERMUX_PREFIX/share/man/man5
