@@ -9,6 +9,7 @@ TERMUX_PKG_SHA256=6363347ef4c74770767d9aa2fb5d65ad4c2aedf1d23bdaac50fc8e8e4e3c70
 TERMUX_PKG_DEPENDS="ncurses,fftw,pulseaudio"
 TERMUX_PKG_BUILD_DEPENDS="libtool"
 TERMUX_PKG_BUILD_IN_SRC=true
+
 termux_step_pre_configure() {
 	./autogen.sh
 }
