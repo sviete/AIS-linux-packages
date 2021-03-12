@@ -24,6 +24,7 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-uucpd
 ac_cv_lib_crypt_crypt=no
 "
+
 termux_step_pre_configure() {
 	CPPFLAGS+=" -DLOGIN_PROCESS=6 -DDEAD_PROCESS=8 -DLOG_NFACILITIES=24"
 }
