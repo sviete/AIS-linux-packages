@@ -6,8 +6,10 @@ TERMUX_PKG_VERSION=12.18
 TERMUX_PKG_SRCURL="http://www.sno.phy.queensu.ca/~phil/exiftool/Image-ExifTool-$TERMUX_PKG_VERSION.tar.gz"
 TERMUX_PKG_SHA256=56814e537652d2d0f84bd891a8f3ab5f9f5a47743ef58cd0a18a1f9a02fc3404
 TERMUX_PKG_DEPENDS="perl"
+
 termux_step_make_install() {
 	local current_perl_version=$(. $TERMUX_SCRIPTDIR/packages/perl/build.sh; echo $TERMUX_PKG_VERSION)
+
 	install -Dm700 "$TERMUX_PKG_SRCDIR"/exiftool "$TERMUX_PREFIX"/bin/exiftool
 	find "$TERMUX_PKG_SRCDIR"/lib -name "*.pod" -delete
 	mkdir -p "$TERMUX_PREFIX/lib/perl5/site_perl/$current_perl_version"
