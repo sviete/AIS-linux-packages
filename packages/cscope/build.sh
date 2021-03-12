@@ -12,6 +12,7 @@ hw_cv_func_snprintf_c99=yes
 hw_cv_func_vsnprintf_c99=yes
 --with-ncurses=$TERMUX_PREFIX
 "
+
 termux_step_pre_configure() {
 	export LEXLIB=""
 }
