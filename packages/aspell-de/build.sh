@@ -9,14 +9,17 @@ TERMUX_PKG_SHA256=17296f03c5fea62d76ecc530ebe80f6adc430278f58d472dc1842d71612960
 TERMUX_PKG_DEPENDS="aspell"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
+
 termux_step_make() {
 	local LANGS="de_DE de_AT de_CH"
 	for l in ${LANGS}; do
 		make aspell/${l}.rws
 	done
 }
+
 termux_step_make_install() {
 	cd aspell
+
 	local LANGS="de_DE de_AT de_CH"
 	for l in ${LANGS}; do
 		install -Dm644 -t "${TERMUX_PREFIX}/lib/aspell-0.60/" \
