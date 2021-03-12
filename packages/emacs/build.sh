@@ -55,6 +55,7 @@ if [ "$TERMUX_ARCH" == "arm" ] || [ "$TERMUX_ARCH" == "i686" ]; then
 	TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" emacs_cv_func_sigsetjmp=no"
 fi
 TERMUX_PKG_HOSTBUILD=true
+
 # Remove some irrelevant files:
 TERMUX_PKG_RM_AFTER_INSTALL="
 bin/grep-changelog
@@ -67,23 +68,28 @@ share/emacs/${TERMUX_PKG_VERSION}/etc/tutorials/TUTORIAL.*
 share/icons
 share/man/man1/grep-changelog.1.gz
 "
+
 # Remove ctags from the emacs package to prevent conflicting with
 # the Universal Ctags from the 'ctags' package (the bin/etags
 # program still remain in the emacs package):
 TERMUX_PKG_RM_AFTER_INSTALL+=" bin/ctags share/man/man1/ctags.1 share/man/man1/ctags.1.gz"
+
 termux_step_post_get_source() {
 	# Certain packages are not safe to build on device because their
 	# build.sh script deletes specific files in $TERMUX_PREFIX.
 	if $TERMUX_ON_DEVICE_BUILD; then
 		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
 	fi
+
 	# XXX: We have to start with new host build each time
 	#      to avoid build error when cross compiling.
 	rm -Rf $TERMUX_PKG_HOSTBUILD_DIR
+
 	# Termux only use info pages for emacs. Remove the info directory
 	# to get a clean Info directory file dir.
 	rm -Rf $TERMUX_PREFIX/share/info
 }
+
 termux_step_host_build() {
 	# Build a bootstrap-emacs binary to be used in termux_step_post_configure.
 	local NATIVE_PREFIX=$TERMUX_PKG_TMPDIR/emacs-native
@@ -93,6 +99,7 @@ termux_step_host_build() {
 	$TERMUX_PKG_SRCDIR/configure --prefix=$NATIVE_PREFIX --without-all --without-x
 	make -j $TERMUX_MAKE_PROCESSES
 }
+
 termux_step_post_configure() {
 	cp $TERMUX_PKG_HOSTBUILD_DIR/src/bootstrap-emacs $TERMUX_PKG_BUILDDIR/src/bootstrap-emacs
 	cp $TERMUX_PKG_HOSTBUILD_DIR/lib-src/make-docfile $TERMUX_PKG_BUILDDIR/lib-src/make-docfile
@@ -102,9 +109,11 @@ termux_step_post_configure() {
 		$TERMUX_PKG_BUILDDIR/lib-src/make-docfile \
 		$TERMUX_PKG_BUILDDIR/lib-src/make-fingerprint
 }
+
 termux_step_post_make_install() {
 	cp $TERMUX_PKG_BUILDER_DIR/site-init.el $TERMUX_PREFIX/share/emacs/${TERMUX_PKG_VERSION}/lisp/emacs-lisp/
 }
+
 termux_step_create_debscripts() {
 	cat <<- EOF > ./postinst
 	#!$TERMUX_PREFIX/bin/sh
@@ -114,10 +123,12 @@ termux_step_create_debscripts() {
 				$TERMUX_PREFIX/bin/editor editor $TERMUX_PREFIX/bin/emacs 40
 		fi
 	fi
+
 	cd $TERMUX_PREFIX/share/emacs/$TERMUX_PKG_VERSION/lisp
 	LC_ALL=C $TERMUX_PREFIX/bin/emacs -batch -l loadup --temacs=pdump
 	mv $TERMUX_PREFIX/bin/emacs*.pdmp $TERMUX_PREFIX/libexec/emacs/$TERMUX_PKG_VERSION/${TERMUX_ARCH}-linux-android*/
 	EOF
+
 	cat <<- EOF > ./prerm
 	#!$TERMUX_PREFIX/bin/sh
 	if [ "\$1" != "upgrade" ]; then
