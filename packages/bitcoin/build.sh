@@ -7,6 +7,7 @@ TERMUX_PKG_SRCURL=https://github.com/bitcoin/bitcoin/archive/v$TERMUX_PKG_VERSIO
 TERMUX_PKG_SHA256=1a91202c62ee49fb64d57a52b8d6d01cd392fffcbef257b573800f9289655f37
 TERMUX_PKG_CONFFILES="var/service/bitcoind/run var/service/bitcoind/log/run"
 TERMUX_PKG_BUILD_IN_SRC=true
+
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-tests
 --with-daemon
@@ -15,11 +16,13 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --prefix=${TERMUX_PKG_SRCDIR}/depends/$TERMUX_HOST_PLATFORM
 --bindir=$TERMUX_PREFIX/bin
 "
+
 termux_step_pre_configure() {
 	export ANDROID_TOOLCHAIN_BIN="$TERMUX_STANDALONE_TOOLCHAIN/bin"
 	(cd depends && make HOST=$TERMUX_HOST_PLATFORM NO_QT=1 -j $TERMUX_MAKE_PROCESSES)
 	./autogen.sh
 }
+
 termux_step_post_make_install() {
 	mkdir -p $TERMUX_PREFIX/var/service
 	cd $TERMUX_PREFIX/var/service
