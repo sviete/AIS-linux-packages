@@ -8,11 +8,14 @@ TERMUX_PKG_SHA256=0d5656a9f8ed1048936a5764270848b892d63f27bdb863d0ace447f1eaae60
 TERMUX_PKG_DEPENDS="libandroid-shmem, libc++, libcurl, openssl, zlib"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_NO_STATICSPLIT=true
+
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-server
 --disable-manager
 "
+
 TERMUX_PKG_CONFFILES="etc/boinc-client.conf"
+
 termux_step_pre_configure() {
 	CFLAGS="${CFLAGS/-Oz/-O2}"
 	CXXFLAGS="${CXXFLAGS/-Oz/-O2}"
