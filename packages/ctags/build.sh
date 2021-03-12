@@ -9,10 +9,12 @@ TERMUX_PKG_DEPENDS="libiconv, libjansson, liblzma, libxml2, libyaml"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--enable-tmpdir=$TERMUX_PREFIX/tmp --disable-static"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_HOSTBUILD=true
+
 termux_step_post_get_source() {
 	export regcomp_works=yes
 	./autogen.sh
 }
+
 termux_step_pre_configure() {
 	./autogen.sh
 	cp $TERMUX_PKG_HOSTBUILD_DIR/packcc $TERMUX_PKG_BUILDDIR/
