@@ -8,6 +8,7 @@ TERMUX_PKG_SHA256=5056c20157349f8dc74f005b6e88ccbf1078c4e26068876f13ca3d1d7d045f
 TERMUX_PKG_DEPENDS="docbook-xsl, libxml2-utils, python, xsltproc"
 TERMUX_PKG_SUGGESTS="w3m"
 TERMUX_PKG_BUILD_IN_SRC=true
+
 termux_step_pre_configure() {
 	autoreconf -vfi
 }
