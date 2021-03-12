@@ -13,6 +13,7 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --mandir=$TERMUX_PREFIX/share/man
 --with-readline
 "
+
 termux_step_pre_configure() {
 	cp $TERMUX_PKG_HOSTBUILD_DIR/bc/libmath.h \
 	   $TERMUX_PKG_SRCDIR/bc/libmath.h
