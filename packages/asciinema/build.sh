@@ -11,15 +11,19 @@ TERMUX_PKG_DEPENDS="python, ncurses-utils"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
 TERMUX_PKG_HAS_DEBUG=false
+
 _PYTHON_VERSION=3.9
+
 TERMUX_PKG_RM_AFTER_INSTALL="
 lib/python${_PYTHON_VERSION}/site-packages/easy-install.pth
 lib/python${_PYTHON_VERSION}/site-packages/site.py
 lib/python${_PYTHON_VERSION}/site-packages/__pycache__
 "
+
 termux_step_make() {
 	return
 }
+
 termux_step_make_install() {
 	export PYTHONPATH=$TERMUX_PREFIX/lib/python${_PYTHON_VERSION}/site-packages/
 	python${_PYTHON_VERSION} setup.py install --prefix=$TERMUX_PREFIX --force
