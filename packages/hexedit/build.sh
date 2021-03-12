@@ -7,6 +7,7 @@ TERMUX_PKG_SRCURL=https://github.com/pixel/hexedit/archive/$TERMUX_PKG_VERSION.t
 TERMUX_PKG_SHA256=27a2349f659e995d7731ad672450f61a2e950330049a6fb59b77490c5e0015ac
 TERMUX_PKG_DEPENDS="ncurses"
 TERMUX_PKG_BUILD_IN_SRC=true
+
 termux_step_pre_configure() {
 	./autogen.sh
 }
