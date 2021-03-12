@@ -9,10 +9,11 @@ TERMUX_PKG_SHA256=ad367fa1e7069c72eb7ae37e4d39c30a44d32a6aa73cedccbd0d06a69018af
 TERMUX_PKG_DEPENDS="aspell"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
+
 termux_step_configure() {
 	cat > $TERMUX_PKG_SRCDIR/Makefile <<- EOF
 	ASPELL = `which aspell`
-	ASPELL_FLAGS =
+	ASPELL_FLAGS = 
 	PREZIP = `which prezip`
 	DESTDIR =
 	dictdir = $TERMUX_PREFIX/lib/aspell-0.60
