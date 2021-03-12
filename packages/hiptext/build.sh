@@ -9,6 +9,7 @@ TERMUX_PKG_SHA256=7f2217dec8775b445be6745f7bd439c24ce99c4316a9faf657bee7b42bc72e
 TERMUX_PKG_DEPENDS="ffmpeg, freetype, gflags, google-glog, libjpeg-turbo, libpng, ncurses"
 TERMUX_PKG_BUILD_DEPENDS="ragel"
 TERMUX_PKG_BUILD_IN_SRC=true
+
 termux_step_pre_configure() {
 	#Font reference on file font.cc --> Patch by font.cc.patch
 	#Because of ttf-dejavu is x11 package, the hiptext is not a x11 package.
