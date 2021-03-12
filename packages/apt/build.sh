@@ -9,11 +9,15 @@ TERMUX_PKG_SHA256=b25c9e6cb89e2e3c812584b38dfba333ff8be75e8e907a27a0394914abc36c
 TERMUX_PKG_DEPENDS="coreutils, dpkg, findutils, gpgv, grep, libandroid-glob, libbz2, libc++, libcurl, libgnutls, liblz4, liblzma, sed, termux-licenses, xxhash, zlib"
 TERMUX_PKG_CONFLICTS="apt-transport-https, libapt-pkg"
 TERMUX_PKG_REPLACES="apt-transport-https, libapt-pkg"
+TERMUX_PKG_RECOMMENDS="game-repo, science-repo"
+TERMUX_PKG_SUGGESTS="gnupg, unstable-repo, x11-repo"
 TERMUX_PKG_ESSENTIAL=true
+
 TERMUX_PKG_CONFFILES="
 etc/apt/sources.list
 etc/apt/trusted.gpg
 "
+
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DPERL_EXECUTABLE=$(command -v perl)
 -DCMAKE_INSTALL_FULL_LOCALSTATEDIR=$TERMUX_PREFIX
@@ -23,11 +27,13 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DUSE_NLS=OFF
 -DWITH_DOC=OFF
 "
+
 # ubuntu uses instead $PREFIX/lib instead of $PREFIX/libexec to
 # "Work around bug in GNUInstallDirs" (from apt 1.4.8 CMakeLists.txt).
 # Archlinux uses $PREFIX/libexec though, so let's force libexec->lib to
 # get same build result on ubuntu and archlinux.
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS+="-DCMAKE_INSTALL_LIBEXECDIR=lib"
+
 TERMUX_PKG_RM_AFTER_INSTALL="
 bin/apt-cdrom
 bin/apt-extracttemplates
@@ -40,24 +46,29 @@ lib/apt/planners/
 lib/apt/solvers/
 lib/dpkg/
 "
+
 termux_step_pre_configure() {
 	# Certain packages are not safe to build on device because their
 	# build.sh script deletes specific files in $TERMUX_PREFIX.
 	if $TERMUX_ON_DEVICE_BUILD; then
 		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
 	fi
+
 	# Fix i686 builds.
 	CXXFLAGS+=" -Wno-c++11-narrowing"
 	# Fix glob() on Android 7.
 	LDFLAGS+=" -Wl,--no-as-needed -landroid-glob"
 }
+
 termux_step_post_make_install() {
-	printf "# The main AI-Speaker repository:\ndeb [trusted=yes] https://powiedz.co/apt dom stable\ndeb [trusted=yes] https://powiedz.co/apt python 3.9\n" > $TERMUX_PREFIX/etc/apt/sources.list
+	printf "# The main termux repository:\ndeb https://termux.org/packages/ stable main\n" > $TERMUX_PREFIX/etc/apt/sources.list
 	cp $TERMUX_PKG_BUILDER_DIR/trusted.gpg $TERMUX_PREFIX/etc/apt/
+
 	# apt-transport-tor
 	ln -sfr $TERMUX_PREFIX/lib/apt/methods/http $TERMUX_PREFIX/lib/apt/methods/tor
 	ln -sfr $TERMUX_PREFIX/lib/apt/methods/http $TERMUX_PREFIX/lib/apt/methods/tor+http
 	ln -sfr $TERMUX_PREFIX/lib/apt/methods/https $TERMUX_PREFIX/lib/apt/methods/tor+https
+
 	# man pages
 	mkdir -p $TERMUX_PREFIX/share/man/
 	cp -Rf $TERMUX_PKG_BUILDER_DIR/man/* $TERMUX_PREFIX/share/man/
