@@ -8,6 +8,7 @@ TERMUX_PKG_SHA256=8d737d4e4a2943ca6e08c030c0992468162de0fc1366862d101b8e1389bdc3
 
 termux_step_make() {
 	termux_setup_golang
+
 	cd "$TERMUX_PKG_SRCDIR"
 	(
 		unset GOOS GOARCH CGO_LDFLAGS
@@ -22,6 +23,7 @@ termux_step_make() {
 	go get -d -v
 	go build
 }
+
 termux_step_make_install() {
 	install -Dm700 -t "$TERMUX_PREFIX"/bin "$GOPATH"/src/github.com/cli/cli/cmd/gh/gh
 	install -Dm600 -t "$TERMUX_PREFIX"/share/doc/gh/ "$TERMUX_PKG_SRCDIR"/docs/*
