@@ -11,6 +11,7 @@ termux_step_make_install() {
 	mkdir -p $TERMUX_PREFIX/etc/apt/sources.list.d
 	echo "deb https://grimler.se/game-packages-24 games stable" > $TERMUX_PREFIX/etc/apt/sources.list.d/game.list
 }
+
 termux_step_create_debscripts() {
 	echo "#!$TERMUX_PREFIX/bin/sh" > postinst
 	echo "echo Downloading updated package list ..." >> postinst
