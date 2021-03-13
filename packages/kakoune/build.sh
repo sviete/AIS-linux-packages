@@ -8,6 +8,7 @@ TERMUX_PKG_SHA256=861a89c56b5d0ae39628cb706c37a8b55bc289bfbe3c72466ad0e2757ccf01
 TERMUX_PKG_DEPENDS="libc++, ncurses"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_EXTRA_MAKE_ARGS=" -C src debug=no "
+
 termux_step_create_debscripts() {
 	cat <<- EOF > ./postinst
 	#!$TERMUX_PREFIX/bin/sh
@@ -18,6 +19,7 @@ termux_step_create_debscripts() {
 		fi
 	fi
 	EOF
+
 	cat <<- EOF > ./prerm
 	#!$TERMUX_PREFIX/bin/sh
 	if [ "\$1" != "upgrade" ]; then
