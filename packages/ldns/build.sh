@@ -10,11 +10,13 @@ TERMUX_PKG_DEPENDS="openssl"
 TERMUX_PKG_BREAKS="ldns-dev"
 TERMUX_PKG_REPLACES="ldns-dev"
 TERMUX_PKG_BUILD_IN_SRC=true
+
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --with-ssl=$TERMUX_PREFIX
 --disable-gost
 --with-drill
 "
+
 termux_step_post_make_install() {
 	# The ldns build doesn't install its pkg-config:
 	mkdir -p $TERMUX_PREFIX/lib/pkgconfig
