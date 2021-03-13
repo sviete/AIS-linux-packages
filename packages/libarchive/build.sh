@@ -8,6 +8,7 @@ TERMUX_PKG_SHA256=9015d109ec00bb9ae1a384b172bf2fc1dff41e2c66e5a9eeddf933af9db37f
 TERMUX_PKG_DEPENDS="libbz2, libiconv, liblzma, libxml2, openssl, zlib"
 TERMUX_PKG_BREAKS="libarchive-dev"
 TERMUX_PKG_REPLACES="libarchive-dev"
+
 # --without-nettle to use openssl instead:
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --without-nettle
