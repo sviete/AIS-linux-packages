@@ -8,17 +8,22 @@ TERMUX_PKG_SHA256=27a03ef99e384d779124df755deb229cd1761f945eca6d200e8cfd9bf5297b
 TERMUX_PKG_BREAKS="libtalloc-dev"
 TERMUX_PKG_REPLACES="libtalloc-dev"
 TERMUX_PKG_BUILD_IN_SRC=true
+
 termux_step_configure() {
 	# Certain packages are not safe to build on device because their
 	# build.sh script deletes specific files in $TERMUX_PREFIX.
 	if $TERMUX_ON_DEVICE_BUILD; then
 		termux_error_exit "Package '$TERMUX_PKG_NAME' is not safe for on-device builds."
 	fi
+
 	# Force fresh install:
 	rm -f $TERMUX_PREFIX/include/talloc.h
+
 	# Make sure symlinks are installed:
 	rm $TERMUX_PREFIX/lib/libtalloc* || true
+
 	cd $TERMUX_PKG_SRCDIR
+
 	cat <<EOF > cross-answers.txt
 Checking uname sysname type: "Linux"
 Checking uname machine type: "dontcare"
@@ -46,12 +51,14 @@ Checking for HAVE_MREMAP: OK
 Checking for HAVE_INCOHERENT_MMAP: OK
 Checking getconf large file support flags work: OK
 EOF
+
 	./configure --prefix=$TERMUX_PREFIX \
 		--disable-rpath \
 		--disable-python \
 		--cross-compile \
 		--cross-answers=cross-answers.txt
 }
+
 termux_step_post_make_install() {
 	cd $TERMUX_PKG_SRCDIR/bin/default
 	$AR rcu libtalloc.a talloc*.o
