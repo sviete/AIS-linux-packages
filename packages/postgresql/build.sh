@@ -1,10 +1,10 @@
 TERMUX_PKG_HOMEPAGE=https://www.postgresql.org
-TERMUX_PKG_DESCRIPTION="Object-relational SQL database."
+TERMUX_PKG_DESCRIPTION="Object-relational SQL database"
 TERMUX_PKG_LICENSE="BSD"
 TERMUX_PKG_LICENSE_FILE="COPYRIGHT"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=13.1
-TERMUX_PKG_REVISION=5
+TERMUX_PKG_REVISION=4
 TERMUX_PKG_SRCURL=https://ftp.postgresql.org/pub/source/v$TERMUX_PKG_VERSION/postgresql-$TERMUX_PKG_VERSION.tar.bz2
 TERMUX_PKG_SHA256=12345c83b89aa29808568977f5200d6da00f88a035517f925293355432ffe61f
 TERMUX_PKG_DEPENDS="openssl, libcrypt, readline, libandroid-shmem, libuuid, libxml2, libicu, zlib"
@@ -76,4 +76,3 @@ termux_step_post_massage() {
 	# work as it's a cross-compiled binary:
 	rm $TERMUX_PREFIX/bin/pg_config
 }
-
