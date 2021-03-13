@@ -8,6 +8,7 @@ TERMUX_PKG_SHA256=61ed17d86bde93fa7268d57118a2fbef739626f0b823a1799c4b11420cd66e
 TERMUX_PKG_DEPENDS="libandroid-glob"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_RM_AFTER_INSTALL="bin/tkremind share/man/man1/tkremind.1 bin/cm2rem.tcl share/man/man1/cm2rem.1"
+
 termux_step_pre_configure() {
 	LDFLAGS+=" -landroid-glob"
 }
