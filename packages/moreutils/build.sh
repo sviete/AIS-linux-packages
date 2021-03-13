@@ -7,6 +7,7 @@ TERMUX_PKG_SRCURL=http://ftp.debian.org/debian/pool/main/m/moreutils/moreutils_$
 TERMUX_PKG_SHA256=ba0cfaa1ff6ead2b15c62a67292de66a366f9b815a09697b54677f7e15f5a2b2
 TERMUX_PKG_DEPENDS="perl"
 TERMUX_PKG_BUILD_IN_SRC=true
+
 # chronic requires set of external perl modules.
 TERMUX_PKG_RM_AFTER_INSTALL="
 bin/chronic
