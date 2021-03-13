@@ -7,17 +7,19 @@ TERMUX_PKG_SRCURL=https://github.com/jinfeihan57/p7zip/archive/v${TERMUX_PKG_VER
 TERMUX_PKG_SHA256=bb4b9b21584c0e076e0b4b2705af0dbe7ac19d378aa7f09a79da33a5b3293187
 TERMUX_PKG_DEPENDS="libc++, libiconv"
 TERMUX_PKG_BUILD_IN_SRC=true
+
 termux_step_configure() {
 	export CXXFLAGS="$CXXFLAGS $CPPFLAGS -Wno-c++11-narrowing"
 	export LDFLAGS="$LDFLAGS -liconv"
 	cp makefile.android_arm makefile.machine
 }
+
 termux_step_make() {
 	LD="$CC $LDFLAGS" CC="$CC $CFLAGS $CPPFLAGS $LDFLAGS" \
 		make -j $TERMUX_MAKE_PROCESSES 7z 7za OPTFLAGS="${CXXFLAGS}" DEST_HOME=$TERMUX_PREFIX
 }
+
 termux_step_make_install() {
 	chmod +x install.sh
 	make install DEST_HOME=$TERMUX_PREFIX DEST_MAN=$TERMUX_PREFIX/share/man
 }
-
