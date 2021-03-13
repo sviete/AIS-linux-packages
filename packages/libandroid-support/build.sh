@@ -12,20 +12,25 @@ TERMUX_PKG_SHA256=(ef35260994ffa3bd054be66068dfc28934c823ac8de2394796d94d1cd5de3
 TERMUX_PKG_PRE_DEPENDS="dpkg (>= 1.19.4-3)"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_ESSENTIAL=true
+
 termux_step_post_get_source() {
 	cp wcwidth-${TERMUX_PKG_VERSION[1]}/wcwidth.c src/
 }
+
 termux_step_make() {
 	local c_file
+
 	mkdir objects
 	for c_file in $(find src -type f -iname \*.c); do
 		$CC $CPPFLAGS $CFLAGS -std=c99 -DNULL=0 -fPIC -Iinclude \
 			-c $c_file -o ./objects/$(basename "$c_file").o
 	done
+
 	cd objects
 	ar rcu ../libandroid-support.a *.o
 	$CC $LDFLAGS -shared -o ../libandroid-support.so *.o
 }
+
 termux_step_make_install() {
 	install -Dm600 libandroid-support.a $TERMUX_PREFIX/lib/libandroid-support.a
 	install -Dm600 libandroid-support.so $TERMUX_PREFIX/lib/libandroid-support.so
