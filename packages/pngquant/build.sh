@@ -12,7 +12,7 @@ TERMUX_PKG_SHA256=(6e43c7125b3ffd1dc52d1da3a352009e98a617c70c024b23ad38f0be7e3f6
 TERMUX_PKG_DEPENDS="libpng, littlecms, zlib"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-sse"
+
 termux_step_post_get_source() {
 	mv $TERMUX_PKG_SRCDIR/libimagequant-$TERMUX_PKG_VERSION/* $TERMUX_PKG_SRCDIR/lib/
 }
-
