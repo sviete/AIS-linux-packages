@@ -14,14 +14,17 @@ ac_cv_header_pwd_h=no
 "
 TERMUX_PKG_CONFFILES="etc/nanorc"
 TERMUX_PKG_RM_AFTER_INSTALL="bin/rnano share/man/man1/rnano.1 share/nano/man-html"
+
 termux_step_pre_configure() {
 	LDFLAGS+=" -landroid-glob"
 }
+
 termux_step_post_make_install() {
 	# Configure nano to use syntax highlighting:
 	NANORC=$TERMUX_PREFIX/etc/nanorc
 	echo include \"$TERMUX_PREFIX/share/nano/\*nanorc\" > $NANORC
 }
+
 termux_step_create_debscripts() {
 	cat <<- EOF > ./postinst
 	#!$TERMUX_PREFIX/bin/sh
@@ -32,6 +35,7 @@ termux_step_create_debscripts() {
 		fi
 	fi
 	EOF
+
 	cat <<- EOF > ./prerm
 	#!$TERMUX_PREFIX/bin/sh
 	if [ "\$1" != "upgrade" ]; then
