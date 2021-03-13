@@ -9,6 +9,7 @@ TERMUX_PKG_DEPENDS="libc++, libgmp"
 TERMUX_PKG_BREAKS="libcln-dev"
 TERMUX_PKG_REPLACES="libcln-dev"
 TERMUX_PKG_BUILD_IN_SRC=true
+
 termux_step_pre_configure() {
 	if [ $TERMUX_ARCH = arm ]; then
 		# See the following section in INSTALL:
@@ -17,11 +18,14 @@ termux_step_pre_configure() {
 		CPPFLAGS+=" -DNO_ASM"
 		CXXFLAGS+=" -fintegrated-as"
 	fi
+
 	sed -i -e 's%tests/Makefile %%' configure.ac
 	sed -i -e 's%examples/Makefile %%' configure.ac
 	sed -i -e 's%benchmarks/Makefile %%' configure.ac
+
 	autoreconf
 }
+
 termux_step_post_configure() {
 	cd $TERMUX_PKG_SRCDIR
 	sed -i -e 's% tests%%' Makefile
