@@ -8,9 +8,11 @@ TERMUX_PKG_SRCURL=https://github.com/vigna/ne/archive/${TERMUX_PKG_VERSION}.tar.
 TERMUX_PKG_SHA256=77a0c8e8564a29cd18069eebf04cee4855fae183f1e8f25d5fbb0c2651f07e6c
 TERMUX_PKG_DEPENDS="libandroid-support, ncurses"
 TERMUX_PKG_BUILD_IN_SRC=true
+
 termux_step_pre_configure() {
 	export OPTS="$CFLAGS $CPPFLAGS"
 }
+
 termux_step_create_debscripts() {
 	cat <<- EOF > ./postinst
 	#!$TERMUX_PREFIX/bin/sh
@@ -21,6 +23,7 @@ termux_step_create_debscripts() {
 		fi
 	fi
 	EOF
+
 	cat <<- EOF > ./prerm
 	#!$TERMUX_PREFIX/bin/sh
 	if [ "\$1" != "upgrade" ]; then
