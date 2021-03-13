@@ -9,6 +9,7 @@ TERMUX_PKG_SRCURL=http://smarden.org/runit/runit-${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_SHA256=6fd0160cb0cf1207de4e66754b6d39750cff14bb0aa66ab49490992c0c47ba18
 TERMUX_PKG_EXTRA_MAKE_ARGS="-C runit-${TERMUX_PKG_VERSION}/src"
 TERMUX_PKG_BUILD_IN_SRC=true
+
 termux_step_make_install() {
 	install -Dm755 runit-${TERMUX_PKG_VERSION}/src/{chpst,runit,runsv,runsvchdir,runsvdir,sv,svlogd,utmpset} $TERMUX_PREFIX/bin/
 	mkdir -p $TERMUX_PREFIX/share/man/man8
