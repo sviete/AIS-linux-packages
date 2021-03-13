@@ -11,6 +11,7 @@ termux_step_make_install() {
 	mkdir -p $TERMUX_PREFIX/etc/apt/sources.list.d
 	echo "deb https://grimler.se/science-packages-24 science stable" > $TERMUX_PREFIX/etc/apt/sources.list.d/science.list
 }
+
 termux_step_create_debscripts() {
 	echo "#!$TERMUX_PREFIX/bin/sh" > postinst
 	echo "echo Downloading updated package list ..." >> postinst
