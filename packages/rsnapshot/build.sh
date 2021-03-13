@@ -14,10 +14,13 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --with-ssh=$TERMUX_PREFIX/bin/ssh
 --with-du=$TERMUX_PREFIX/bin/du
 "
+
 TERMUX_PKG_CONFFILES="etc/rsnapshot.conf"
+
 termux_step_pre_configure() {
 	./autogen.sh
 }
+
 termux_step_post_make_install() {
 	mkdir -p $TERMUX_PREFIX/etc
 	sed -e "s%\@TERMUX_BASE_DIR\@%${TERMUX_BASE_DIR}%g" \
