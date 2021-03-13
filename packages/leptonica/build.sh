@@ -9,6 +9,7 @@ TERMUX_PKG_SHA256=3952b974ec057d24267aae48c54bca68ead8275604bf084a73a4b953ff7919
 TERMUX_PKG_DEPENDS="giflib, libjpeg-turbo, libpng, libtiff, libwebp, openjpeg, zlib"
 TERMUX_PKG_BREAKS="leptonica-dev"
 TERMUX_PKG_REPLACES="leptonica-dev"
+
 termux_step_pre_configure() {
 	./autogen.sh
 }
