@@ -30,7 +30,7 @@ termux_step_setup_variables() {
 	: "${TERMUX_PKG_MAINTAINER:="default"}"
 
 	TERMUX_REPO_URL=(
-		http://powiedz.co/apt
+		 http://powiedz.co/apt
 	)
 
 	TERMUX_REPO_DISTRIBUTION=(
