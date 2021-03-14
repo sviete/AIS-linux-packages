@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://git-scm.com/
-TERMUX_PKG_DESCRIPTION="Fast, scalable, distributed revision control system."
+TERMUX_PKG_DESCRIPTION="Fast, scalable, distributed revision control system"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=2.30.2
