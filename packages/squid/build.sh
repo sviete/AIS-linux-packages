@@ -6,6 +6,7 @@ TERMUX_PKG_VERSION=4.14
 TERMUX_PKG_SRCURL=http://squid.mirror.globo.tech/archive/4/squid-$TERMUX_PKG_VERSION.tar.xz
 TERMUX_PKG_SHA256=f1097daa6434897c159bc100978b51347c0339041610845d0afa128151729ffc
 TERMUX_PKG_DEPENDS="libc++, libcrypt, libxml2, libltdl, libgnutls, resolv-conf"
+
 #disk-io uses XSI message queue which are not available on Android.
 # Option 'cache_dir' will be unusable.
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
@@ -44,17 +45,20 @@ squid_cv_gnu_atomics=yes
 --without-mit-krb5
 --with-maxfd=256
 "
+
 termux_step_pre_configure() {
 	# needed for building cf_gen
 	export BUILDCXX=g++
 	# else it picks up our cross CXXFLAGS
 	export BUILDCXXFLAGS=' '
 }
+
 termux_step_post_make_install() {
 	local _SQUID_LOGDIR=$TERMUX_PREFIX/var/logs
 	mkdir -p $_SQUID_LOGDIR
 	echo "Squid logs here by default" > $_SQUID_LOGDIR/README.squid
 }
+
 termux_step_post_massage() {
 	# Ensure that necessary directories exist, otherwise squid fill fail.
 	mkdir -p "$TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX/var/cache/squid"
