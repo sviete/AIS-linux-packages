@@ -30,15 +30,15 @@ termux_step_setup_variables() {
 	: "${TERMUX_PKG_MAINTAINER:="default"}"
 
 	TERMUX_REPO_URL=(
-		 http://powiedz.co/apt
+		http://powiedz.co/apt
 	)
 
 	TERMUX_REPO_DISTRIBUTION=(
-		stable
+		next
 	)
 
 	TERMUX_REPO_COMPONENT=(
-		main
+		test
 	)
 
 	if [ "x86_64" = "$TERMUX_ARCH" ] || [ "aarch64" = "$TERMUX_ARCH" ]; then
