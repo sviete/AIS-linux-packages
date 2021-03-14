@@ -8,6 +8,7 @@ TERMUX_PKG_SRCURL=http://mama.indstate.edu/users/ice/tree/src/tree-${TERMUX_PKG_
 TERMUX_PKG_SHA256=715d5d4b434321ce74706d0dd067505bb60c5ea83b5f0b3655dae40aa6f9b7c2
 TERMUX_PKG_DEPENDS="libandroid-support"
 TERMUX_PKG_BUILD_IN_SRC=true
+
 termux_step_make() {
 	make \
 		CC="$CC" \
@@ -15,6 +16,7 @@ termux_step_make() {
 		LDFLAGS="$LDFLAGS" \
 		OBJS="file.o tree.o unix.o html.o xml.o json.o hash.o color.o strverscmp.o"
 }
+
 termux_step_make_install() {
 	make install \
 		prefix="$TERMUX_PREFIX" \
