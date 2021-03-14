@@ -7,11 +7,14 @@ TERMUX_PKG_SRCURL=https://github.com/VirusTotal/vt-cli/archive/$TERMUX_PKG_VERSI
 TERMUX_PKG_SHA256=ec418c60697d03fd859bbf3a36abe4f30d59111651e3065de6cd581040a19027
 TERMUX_PKG_BREAKS="vt-cli"
 TERMUX_PKG_REPLACES="vt-cli"
+
 termux_step_make() {
 	termux_setup_golang
+
 	export GOPATH=$TERMUX_PKG_BUILDDIR
 	mkdir -p "$GOPATH"/src/github.com/VirusTotal
 	ln -sf "$TERMUX_PKG_SRCDIR" "$GOPATH"/src/github.com/VirusTotal/vt-cli
+
 	cd "$GOPATH"/src/github.com/VirusTotal/vt-cli
 
 	go build \
@@ -19,6 +22,7 @@ termux_step_make() {
 		-o "$TERMUX_PREFIX"/bin/vt-cli \
 		./vt/main.go
 }
+
 termux_step_make_install() {
 	ln -sfr "$TERMUX_PREFIX"/bin/vt-cli "$TERMUX_PREFIX"/bin/vt
 }
