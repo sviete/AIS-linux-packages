@@ -34,11 +34,11 @@ termux_step_setup_variables() {
 	)
 
 	TERMUX_REPO_DISTRIBUTION=(
-		next
+		dom-dev
 	)
 
 	TERMUX_REPO_COMPONENT=(
-		test
+		beta
 	)
 
 	if [ "x86_64" = "$TERMUX_ARCH" ] || [ "aarch64" = "$TERMUX_ARCH" ]; then
