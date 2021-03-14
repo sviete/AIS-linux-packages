@@ -8,9 +8,11 @@ TERMUX_PKG_SRCURL=https://github.com/martanne/vis/archive/v$TERMUX_PKG_VERSION.t
 TERMUX_PKG_SHA256=9ab4a3f1c5953475130b3c286af272fe5cfdf7cbb7f9fbebd31e9ea4f34e487d
 TERMUX_PKG_DEPENDS="liblua53, libtermkey, lua-lpeg, ncurses"
 TERMUX_PKG_BUILD_IN_SRC=true
+
 termux_step_pre_configure() {
 	CFLAGS+=" -I$TERMUX_PREFIX/include/lua5.3"
 }
+
 termux_step_create_debscripts() {
 	cat <<- EOF > ./postinst
 	#!$TERMUX_PREFIX/bin/sh
@@ -23,6 +25,7 @@ termux_step_create_debscripts() {
 		fi
 	fi
 	EOF
+
 	cat <<- EOF > ./prerm
 	#!$TERMUX_PREFIX/bin/sh
 	if [ "\$1" != "upgrade" ]; then
