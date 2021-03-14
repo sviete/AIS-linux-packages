@@ -11,6 +11,7 @@ termux_step_make_install() {
 	mkdir -p $TERMUX_PREFIX/etc/apt/sources.list.d
 	echo "deb https://ipfs.io/ipns/k51qzi5uqu5dgu3homski160l4t4bmp52vb6dbgxb5bda90rewnwg64wnkwxj4 x11 main" > $TERMUX_PREFIX/etc/apt/sources.list.d/x11.list
 }
+
 termux_step_create_debscripts() {
 	echo "#!$TERMUX_PREFIX/bin/sh" > postinst
 	echo "echo Downloading updated package list ..." >> postinst
