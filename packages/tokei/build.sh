@@ -7,6 +7,7 @@ TERMUX_PKG_SRCURL=https://github.com/XAMPPRocky/tokei/archive/v$TERMUX_PKG_VERSI
 TERMUX_PKG_SHA256=81ef14ab8eaa70a68249a299f26f26eba22f342fb8e22fca463b08080f436e50
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--features all"
+
 termux_step_post_make_install() {
 	install -Dm700 \
 		"$TERMUX_PKG_SRCDIR/target/$CARGO_TARGET_NAME"/release/tokei \
