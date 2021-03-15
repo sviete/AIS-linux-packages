@@ -11,3 +11,4 @@ termux_step_install_license() {
 		"$TERMUX_PKG_SRCDIR"/LICENSE-Boost-1.0 \
 		"$TERMUX_PKG_SRCDIR"/LICENSE-MIT
 }
+
