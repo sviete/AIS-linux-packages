@@ -38,3 +38,4 @@ termux_step_create_debscripts() {
 	sed -i "/\.\/borgbackup-${TERMUX_PKG_VERSION}-py${_PYTHON_VERSION}-linux-x86_64\.egg/d" $TERMUX_PREFIX/lib/python${_PYTHON_VERSION}/site-packages/easy-install.pth
 	EOF
 }
+
