@@ -9,3 +9,4 @@ TERMUX_PKG_DEPENDS="libandroid-support, libc++, ffmpeg, babl, json-glib, libjpeg
 TERMUX_PKG_BREAKS="gegl-dev"
 TERMUX_PKG_REPLACES="gegl-dev"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="-Dintrospection=false"
+
