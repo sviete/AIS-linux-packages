@@ -13,3 +13,4 @@ termux_step_post_make_install() {
 	ln -sfr $TERMUX_PREFIX/bin/{dash,sh}
 	ln -sfr $TERMUX_PREFIX/share/man/man1/{dash,sh}.1
 }
+
