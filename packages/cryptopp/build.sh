@@ -35,3 +35,4 @@ termux_step_make() {
 termux_step_make_install() {
 	make install-lib PREFIX=$TERMUX_PREFIX
 }
+
