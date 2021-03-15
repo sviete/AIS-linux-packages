@@ -15,3 +15,4 @@ termux_step_pre_configure() {
 termux_step_post_make_install() {
 	install -Dm600 $TERMUX_PKG_SRCDIR/etc/et.cfg $TERMUX_PREFIX/etc/
 }
+
