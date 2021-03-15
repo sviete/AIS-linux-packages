@@ -11,3 +11,4 @@ TERMUX_PKG_DEPENDS=libcurl
 termux_step_pre_configure() {
   autoreconf --install
 }
+
