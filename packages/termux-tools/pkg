@@ -112,12 +112,8 @@ select_mirror() {
 		done
 	fi
 
-	if [ -n "${selected_mirror}" ]; then
-		echo "deb [trusted=yes] ${selected_mirror}/ dom stable" > @TERMUX_PREFIX@/etc/apt/sources.list
-	else
-		echo "Using fallback mirror: ${main_repo}"
-		echo "deb [trusted=yes] ${main_repo}/ dom stable" > @TERMUX_PREFIX@/etc/apt/sources.list
-	fi
+	echo "deb [trusted=yes] https://powiedz.co/apt dom stable"  > @TERMUX_PREFIX@/etc/apt/sources.list
+	echo "deb [trusted=yes] https://powiedz.co/apt python 3.9"  > @TERMUX_PREFIX@/etc/apt/sources.list
 }
 
 update_apt_cache() {
