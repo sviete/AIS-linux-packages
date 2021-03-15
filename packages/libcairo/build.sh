@@ -24,3 +24,4 @@ TERMUX_PKG_RM_AFTER_INSTALL="share/gtk-doc/html"
 termux_step_pre_configure() {
 	autoreconf -fi
 }
+
