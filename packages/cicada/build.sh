@@ -12,3 +12,4 @@ TERMUX_PKG_BLACKLISTED_ARCHES="arm, i686"
 termux_step_pre_configure() {
     rm -f Makefile
 }
+
