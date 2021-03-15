@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://github.com/termux/proot-distro
-TERMUX_PKG_DESCRIPTION="Termux official utility for managing proot'ed Linux distributions."
+TERMUX_PKG_DESCRIPTION="Termux official utility for managing proot'ed Linux distributions"
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="Leonid Pliushch <leonid.pliushch@gmail.com>"
 TERMUX_PKG_VERSION=1.6.1

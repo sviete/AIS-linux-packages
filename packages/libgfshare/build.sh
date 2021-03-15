@@ -8,6 +8,7 @@ TERMUX_PKG_SRCURL=http://www.digital-scurf.org/files/libgfshare/libgfshare-$TERM
 TERMUX_PKG_SHA256=86f602860133c828356b7cf7b8c319ba9b27adf70a624fe32275ba1ed268331f
 TERMUX_PKG_BREAKS="libgfshare-dev"
 TERMUX_PKG_REPLACES="libgfshare-dev"
+
 termux_step_post_configure() {
 	gcc -DHAVE_CONFIG_H \
 		-I. \

@@ -21,8 +21,10 @@ ac_cv_func_sleep=yes
 ac_cv_func_usleep=yes
 ac_cv_search_getaddrinfo=no
 "
+
 termux_step_pre_configure() {
 	if [ "$TERMUX_ARCH" = "arm" ]; then
 		CXXFLAGS="${CFLAGS/-Oz/-Os}"
 	fi
 }
+

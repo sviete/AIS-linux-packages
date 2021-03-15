@@ -9,6 +9,7 @@ TERMUX_PKG_DEPENDS="libgmp, libnettle, ca-certificates, libidn2, libunistring"
 TERMUX_PKG_BREAKS="libgnutls-dev"
 TERMUX_PKG_REPLACES="libgnutls-dev"
 TERMUX_PKG_BUILD_IN_SRC=true
+
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --enable-cxx
 --disable-hardware-acceleration
@@ -19,6 +20,7 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --without-p11-kit
 --disable-guile
 "
+
 termux_step_pre_configure() {
 	CFLAGS+=" -DNO_INLINE_GETPASS=1"
 }

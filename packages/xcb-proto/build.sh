@@ -9,6 +9,7 @@ TERMUX_PKG_SHA256=f04add9a972ac334ea11d9d7eb4fc7f8883835da3e4859c9afa971efdf57fc
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
 TERMUX_PKG_CONFLICTS="xcbproto"
 TERMUX_PKG_REPLACES="xcbproto"
+
 termux_step_pre_configure() {
 	python_version=$(. $TERMUX_SCRIPTDIR/packages/python/build.sh; echo $_MAJOR_VERSION)
 	TERMUX_PKG_RM_AFTER_INSTALL="lib/python${python_version}/site-packages/xcbgen/__pycache__"

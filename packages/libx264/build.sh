@@ -12,6 +12,7 @@ TERMUX_PKG_REPLACES="libx264-dev"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-swscale
 --disable-lavf"
+
 termux_step_pre_configure() {
 	#if [ $TERMUX_ARCH = "i686" -o $TERMUX_ARCH = "x86_64" ]; then
 	if [ $TERMUX_ARCH = "i686" ]; then

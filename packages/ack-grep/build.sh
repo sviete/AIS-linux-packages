@@ -8,6 +8,7 @@ TERMUX_PKG_SHA256=e048c5e6144f5932d8672c2fade81d9073d5b3ca1517b84df006de3d25414f
 TERMUX_PKG_DEPENDS="perl"
 TERMUX_PKG_SKIP_SRC_EXTRACT=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
+
 termux_step_make_install() {
 	termux_download \
 		$TERMUX_PKG_SRCURL \
@@ -16,3 +17,4 @@ termux_step_make_install() {
 	touch $TERMUX_PREFIX/bin/ack
 	chmod +x $TERMUX_PREFIX/bin/ack
 }
+

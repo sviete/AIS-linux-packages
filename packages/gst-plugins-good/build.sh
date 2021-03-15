@@ -19,6 +19,7 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -Dv4l2=disabled
 -Daalib=disabled
 "
+
 termux_step_pre_configure() {
 	LDFLAGS+=" -landroid-shmem"
 }

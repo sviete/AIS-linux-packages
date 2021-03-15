@@ -5,7 +5,7 @@ git pull
 
 # changes
 # builds=`ls packages/z*/build.sh`
-builds=`ls packages/[p-z]*/build.sh`
+builds=`ls packages/[d-z]*/build.sh`
 for build in $builds; do
   echo "Adding line to file: $build"
   echo "" >> $build

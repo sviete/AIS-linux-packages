@@ -8,6 +8,7 @@ TERMUX_PKG_SHA256=ae6387c097c9359d71d0e8dec864d6553e47e7edfb93ddbfe017062a05f4b3
 
 termux_step_make() {
 	termux_setup_golang
+
 	cd "$TERMUX_PKG_SRCDIR"
 	export GOPATH="${TERMUX_PKG_BUILDDIR}"
 	mkdir -p "${GOPATH}/src/github.com/kkdai/"
@@ -17,6 +18,7 @@ termux_step_make() {
 	cd cmd/youtubedr
 	go build .
 }
+
 termux_step_make_install() {
 	install -Dm700 -t "$TERMUX_PREFIX"/bin "$GOPATH"/src/github.com/kkdai/youtube/cmd/youtubedr/youtubedr
 }

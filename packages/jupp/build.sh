@@ -14,9 +14,11 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-termidx
 --enable-sysconfjoesubdir=/jupp
 "
+
 termux_step_post_get_source() {
 	chmod +x $TERMUX_PKG_SRCDIR/configure
 }
+
 termux_step_create_debscripts() {
 	cat <<- EOF > ./postinst
 	#!$TERMUX_PREFIX/bin/sh
@@ -27,6 +29,7 @@ termux_step_create_debscripts() {
 		fi
 	fi
 	EOF
+
 	cat <<- EOF > ./prerm
 	#!$TERMUX_PREFIX/bin/sh
 	if [ "\$1" != "upgrade" ]; then

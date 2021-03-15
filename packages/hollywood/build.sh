@@ -10,6 +10,7 @@ TERMUX_PKG_DEPENDS="bmon, byobu, cmatrix, coreutils, dash, gawk, htop-legacy, ma
 TERMUX_PKG_RECOMMENDS="apg"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
+
 termux_step_make_install() {
 	install -dm0700 "$TERMUX_PREFIX"/{bin,lib/hollywood,share/{man/man1,hollywood}}
 	install -m 0700 "$TERMUX_PKG_SRCDIR"/bin/hollywood  "$TERMUX_PREFIX"/bin/

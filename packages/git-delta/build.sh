@@ -7,11 +7,13 @@ TERMUX_PKG_SRCURL=https://github.com/dandavison/delta/archive/${TERMUX_PKG_VERSI
 TERMUX_PKG_SHA256=27259c3d305edee5f49a3a992e7d739cab400f478a675b7388fef85a2724217c
 TERMUX_PKG_DEPENDS="git"
 TERMUX_PKG_BUILD_IN_SRC=true
+
 termux_step_pre_configure() {
 	rm -f Makefile release.Makefile
 	export CC_x86_64_unknown_linux_gnu=gcc
 	export CFLAGS_x86_64_unknown_linux_gnu="-O2"
 }
+
 termux_step_post_make_install() {
 	install -Dm700 -t "$TERMUX_PREFIX"/bin \
 		"$TERMUX_PKG_SRCDIR/target/$CARGO_TARGET_NAME"/release/delta

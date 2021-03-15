@@ -10,14 +10,17 @@ TERMUX_PKG_SHA256=(321e55d49b0e4badbc555a10b968a94711a7b23e494cd4e64731147ee69f6
 TERMUX_PKG_DEPENDS="bitcoin"
 TERMUX_PKG_CONFFILES="var/service/lnd/run var/service/lnd/log/run"
 TERMUX_PKG_BUILD_IN_SRC=true
+
 termux_step_make() {
 	termux_setup_golang
 	GO111MODULE=on go build -tags linux -v -mod=vendor -ldflags "-X github.com/lightningnetwork/lnd/build.Commit=v$TERMUX_PKG_VERSION" ./cmd/lnd
 	GO111MODULE=on go build -tags linux -v -mod=vendor -ldflags "-X github.com/lightningnetwork/lnd/build.Commit=v$TERMUX_PKG_VERSION" ./cmd/lncli
 }
+
 termux_step_make_install() {
 	install -Dm700 lnd lncli "$TERMUX_PREFIX"/bin/
 }
+
 termux_step_post_make_install() {
 	mkdir -p $TERMUX_PREFIX/var/service
 	cd $TERMUX_PREFIX/var/service
@@ -26,5 +29,6 @@ termux_step_post_make_install() {
 	echo 'exec lnd 2>&1' >> lnd/run
 	chmod +x lnd/run
 	touch lnd/down
+
 	ln -sf $TERMUX_PREFIX/share/termux-services/svlogger lnd/log/run
 }

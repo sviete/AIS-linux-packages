@@ -8,12 +8,15 @@ TERMUX_PKG_SHA256=761739307c68fcbc51fd46c052c0a20ae848a30dba1ce3fbb6d27f99672f58
 
 termux_step_make() {
 	termux_setup_golang
+
 	export GOPATH=$TERMUX_PKG_BUILDDIR
 	mkdir -p "$GOPATH"/src/github.com/elves
 	ln -sf "$TERMUX_PKG_SRCDIR" "$GOPATH"/src/github.com/elves/elvish
+
 	cd "$GOPATH"/src/github.com/elves/elvish
 	go build
 }
+
 termux_step_make_install() {
 	install -Dm700 \
 		"$GOPATH"/src/github.com/elves/elvish/elvish \

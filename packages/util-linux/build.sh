@@ -34,6 +34,7 @@ ac_cv_func_unshare=yes
 --disable-rfkill
 --disable-hwclock-cmos
 "
+
 termux_step_pre_configure() {
 	if [ $TERMUX_ARCH_BITS = 64 ]; then
 		#prlimit() is only available in 64-bit bionic.

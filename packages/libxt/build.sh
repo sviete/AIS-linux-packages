@@ -9,6 +9,7 @@ TERMUX_PKG_SHA256=679cc08f1646dbd27f5e48ffe8dd49406102937109130caab02ca32c083a3d
 TERMUX_PKG_DEPENDS="libice, libsm, libuuid, libx11, libxau, libxcb, libxdmcp"
 TERMUX_PKG_BUILD_DEPENDS="xorg-util-macros"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--enable-malloc0returnsnull"
+
 termux_step_pre_configure() {
 	export CFLAGS_FOR_BUILD=" "
 	export LDFLAGS_FOR_BUILD=" "

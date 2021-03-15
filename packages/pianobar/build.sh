@@ -8,8 +8,8 @@ TERMUX_PKG_SHA256=f8cdd564e2a12ee0740c54e8bc4028b328e9afb041d9ea40bcb762e08034b9
 TERMUX_PKG_DEPENDS="libao, ffmpeg, libgcrypt, libcurl, json-c"
 TERMUX_PKG_BUILD_DEPENDS="libao, ffmpeg, libgcrypt, libcurl, json-c"
 TERMUX_PKG_BUILD_IN_SRC=true
+
 termux_step_post_make_install(){
     #install useful script
     install -Dm755 "$TERMUX_PKG_SRCDIR"/contrib/headless_pianobar "$TERMUX_PREFIX"/bin/pianoctl
 }
-

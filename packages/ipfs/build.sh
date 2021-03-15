@@ -10,8 +10,10 @@ TERMUX_PKG_SERVICE_SCRIPT=("ipfs" '[ ! -d "${HOME}/.ipfs" ] && ipfs init --empty
 
 termux_step_make() {
 	termux_setup_golang
+
 	export GOPATH=${TERMUX_PKG_BUILDDIR}
 	export GOARCH=${TERMUX_ARCH}
+
 	if [ "${TERMUX_ARCH}" = "aarch64" ]; then
 		GOARCH="arm64"
 	elif [ "${TERMUX_ARCH}" = "i686" ]; then
@@ -19,14 +21,18 @@ termux_step_make() {
 	elif [ "${TERMUX_ARCH}" = "x86_64" ]; then
 		GOARCH="amd64"
 	fi
+
 	mkdir -p "${GOPATH}/src/github.com/ipfs"
 	cp -a "${TERMUX_PKG_SRCDIR}" "${GOPATH}/src/github.com/ipfs/go-ipfs"
 	cd "${GOPATH}/src/github.com/ipfs/go-ipfs"
+
 	make build
+
 	# Fix folders without write permissions preventing which fails repeating builds:
 	cd $TERMUX_PKG_BUILDDIR
 	find . -type d -exec chmod u+w {} \;
 }
+
 termux_step_make_install() {
 	install -Dm700 -t "$TERMUX_PREFIX"/bin "${TERMUX_PKG_BUILDDIR}/src/github.com/ipfs/go-ipfs/cmd/ipfs/ipfs"
 }

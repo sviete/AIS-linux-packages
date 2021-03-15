@@ -30,15 +30,15 @@ termux_step_setup_variables() {
 	: "${TERMUX_PKG_MAINTAINER:="default"}"
 
 	TERMUX_REPO_URL=(
-		https://dl.bintray.com/sviete/ais
+		http://powiedz.co/apt
 	)
 
 	TERMUX_REPO_DISTRIBUTION=(
-		stable
+		dom-dev
 	)
 
 	TERMUX_REPO_COMPONENT=(
-		main
+		beta
 	)
 
 	if [ "x86_64" = "$TERMUX_ARCH" ] || [ "aarch64" = "$TERMUX_ARCH" ]; then

@@ -16,9 +16,11 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 "
 # Remove non-english help files and man pages shipped with the gnupg (1) package:
 TERMUX_PKG_RM_AFTER_INSTALL="share/gnupg/help.*.txt share/man/man1/gpg-zip.1 share/man/man7/gnupg.7"
+
 termux_step_pre_configure() {
 	CPPFLAGS+=" -Ddn_skipname=__dn_skipname"
 }
+
 termux_step_post_make_install() {
 	cd $TERMUX_PREFIX/bin
 	ln -sf gpg gpg2

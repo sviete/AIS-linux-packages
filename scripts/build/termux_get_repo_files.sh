@@ -28,9 +28,7 @@ termux_get_repo_files() {
 			local download_attempts=6
 			while ((download_attempts > 0)); do
 				if termux_download "${TERMUX_REPO_URL[$idx-1]}/dists/${TERMUX_REPO_DISTRIBUTION[$idx-1]}/Release" \
-					"$RELEASE_FILE" SKIP_CHECKSUM && \
-					termux_download "${TERMUX_REPO_URL[$idx-1]}/dists/${TERMUX_REPO_DISTRIBUTION[$idx-1]}/Release.gpg" \
-					"${RELEASE_FILE}.gpg" SKIP_CHECKSUM; then
+					"$RELEASE_FILE" SKIP_CHECKSUM; then
 					break
 				fi
 

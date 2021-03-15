@@ -46,7 +46,6 @@ select_mirror() {
 	declare -A mirrors
 	mirrors[30]="$main_repo"
 
-
 	local current_mirror
 	current_mirror=$(grep -P "^\s*deb\s+" @TERMUX_PREFIX@/etc/apt/sources.list | grep -oP 'https?://[a-z0-9/._-]+')
 
@@ -67,7 +66,7 @@ select_mirror() {
 				--connect-timeout 5 \
 				--location \
 				--user-agent 'Termux-PKG/1.0 mirror-checker (termux-tools @PACKAGE_VERSION@) Termux (@TERMUX_APP_PACKAGE@; install-prefix:@TERMUX_PREFIX@)' \
-				"${current_mirror%/}/dists/stable/Release" >/dev/null 2>&1; then
+				"${current_mirror%/}/dom/stable/Release" >/dev/null 2>&1; then
 					echo "ok"
 					return
 			else
@@ -87,7 +86,7 @@ select_mirror() {
 			--connect-timeout 5 \
 			--location \
 			--user-agent 'Termux-PKG/1.0 mirror-checker (termux-tools @PACKAGE_VERSION@) Termux (@TERMUX_APP_PACKAGE@; install-prefix:@TERMUX_PREFIX@)' \
-			"${mirrors[$w]%/}/dists/stable/Release" >/dev/null 2>&1; then
+			"${mirrors[$w]%/}/dom/stable/Release" >/dev/null 2>&1; then
 				echo "ok"
 				total_mirror_weight=$((total_mirror_weight + w))
 		else
@@ -114,10 +113,10 @@ select_mirror() {
 	fi
 
 	if [ -n "${selected_mirror}" ]; then
-		echo "deb ${selected_mirror}/ stable main" > @TERMUX_PREFIX@/etc/apt/sources.list
+		echo "deb [trusted=yes] ${selected_mirror}/ dom stable" > @TERMUX_PREFIX@/etc/apt/sources.list
 	else
 		echo "Using fallback mirror: ${main_repo}"
-		echo "deb ${main_repo}/ stable main" > @TERMUX_PREFIX@/etc/apt/sources.list
+		echo "deb [trusted=yes] ${main_repo}/ dom stable" > @TERMUX_PREFIX@/etc/apt/sources.list
 	fi
 }
 
@@ -137,6 +136,7 @@ shift 1
 case "$CMD" in
 	f*) dpkg -L "$@";;
 	h*) show_help;;
+	sh*|inf*) apt show "$@";;
 	add|i*)
 		select_mirror
 		update_apt_cache
@@ -152,7 +152,6 @@ case "$CMD" in
 		update_apt_cache
 		apt search "$@"
 		;;
-	sh*) apt show "$@";;
 	un*|rem*|rm|del*) apt remove "$@";;
 	up*)
 		select_mirror

@@ -8,6 +8,7 @@ TERMUX_PKG_SHA256=4c06a9dc4017e8a2438ef80ee371d45868bda2237a98b26554de7a95406b28
 TERMUX_PKG_BREAKS="utf8proc-dev"
 TERMUX_PKG_REPLACES="utf8proc-dev"
 TERMUX_PKG_BUILD_IN_SRC=true
+
 termux_step_pre_configure() {
 	rm $TERMUX_PKG_SRCDIR/CMakeLists.txt
 }

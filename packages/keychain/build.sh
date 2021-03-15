@@ -9,6 +9,7 @@ TERMUX_PKG_SHA256=dcce703e5001211c8ebc0528f45b523f84d2bceeb240600795b4d80cb8475a
 TERMUX_PKG_DEPENDS="dash, gnupg"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
+
 termux_step_make_install() {
 	sed -iE "s@^PATH=.*@PATH=$TERMUX_PREFIX/bin@" keychain
 	install -Dm700 keychain "${TERMUX_PREFIX}"/bin/keychain

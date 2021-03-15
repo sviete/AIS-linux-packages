@@ -10,19 +10,24 @@ TERMUX_PKG_SHA256=bc5c431f28fb5bd219dcbeb68534e0da2b118a5ea6ed27edd17317aa84e08e
 
 termux_step_make(){
 	termux_setup_golang
+
 	# The build.sh script doesn't with our compiler
 	# so small adjustments to file locations are needed
 	# so the build.go is fine.
 	mkdir -p go/src/github.com/syncthing/syncthing
 	cp $TERMUX_PKG_SRCDIR/vendor/* ./go/src/ -r
 	cp $TERMUX_PKG_SRCDIR/*  go/src/github.com/syncthing/syncthing -r
+
 	# Set gopath so dependencies are built as in go get etc.
 	export GOPATH=$(pwd)/go
+
 	cd go/src/github.com/syncthing/syncthing
+
 	# Unset GOARCH so building build.go works.
 	export GO_ARCH=$GOARCH
 	export _CC=$CC
 	unset GOOS GOARCH CC
+
 	# Now file structure is same as go get etc.
 	go build build.go
 	export CC=$_CC
@@ -32,8 +37,10 @@ termux_step_make(){
 		-version v$TERMUX_PKG_VERSION \
 		build
 }
+
 termux_step_make_install() {
 	cp go/src/github.com/syncthing/syncthing/syncthing $TERMUX_PREFIX/bin/
+
 	for section in 1 5 7; do
 		local MANDIR=$PREFIX/share/man/man$section
 		mkdir -p $MANDIR

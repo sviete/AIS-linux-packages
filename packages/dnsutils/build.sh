@@ -9,6 +9,7 @@ TERMUX_PKG_DEPENDS="openssl, readline, resolv-conf, zlib, libuv"
 TERMUX_PKG_BREAKS="dnsutils-dev"
 TERMUX_PKG_REPLACES="dnsutils-dev"
 TERMUX_PKG_BUILD_IN_SRC=true
+
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-linux-caps
 --without-python
@@ -23,6 +24,7 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --with-readline=-lreadline
 --with-eddsa=no
 "
+
 termux_step_pre_configure() {
 	export BUILD_AR=ar
 	export BUILD_CC=gcc
@@ -30,9 +32,11 @@ termux_step_pre_configure() {
 	export BUILD_CPPFLAGS=
 	export BUILD_LDFLAGS=
 	export BUILD_RANLIB=
+
 	_RESOLV_CONF=$TERMUX_PREFIX/etc/resolv.conf
 	CFLAGS+=" $CPPFLAGS -DRESOLV_CONF=\\\"$_RESOLV_CONF\\\""
 }
+
 termux_step_make() {
 	make -C lib/isc
 	make -C lib/dns
@@ -45,6 +49,7 @@ termux_step_make() {
 	make -C bin/delv
 	make -C bin/nsupdate
 }
+
 termux_step_make_install() {
 	make -C lib/isc install
 	make -C lib/dns install

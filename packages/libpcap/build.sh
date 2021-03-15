@@ -8,5 +8,6 @@ TERMUX_PKG_SHA256=ef46b04fdae1e04ea1096ada7ad9600594fd68fc5becb11591e263c8e101e2
 TERMUX_PKG_BREAKS="libpcap-dev"
 TERMUX_PKG_REPLACES="libpcap-dev"
 TERMUX_PKG_BUILD_IN_SRC=true
+
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--with-pcap=linux --without-libnl"
 TERMUX_PKG_RM_AFTER_INSTALL="bin/pcap-config share/man/man1/pcap-config.1"

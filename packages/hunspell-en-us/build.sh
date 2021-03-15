@@ -6,6 +6,7 @@ TERMUX_PKG_VERSION=20181025
 TERMUX_PKG_REVISION=1
 TERMUX_PKG_SKIP_SRC_EXTRACT=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
+
 termux_step_make_install() {
 	mkdir -p $TERMUX_PREFIX/share/hunspell/
 	# On checksum mismatch the files may have been updated:

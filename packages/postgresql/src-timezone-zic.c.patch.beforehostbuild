@@ -4,7 +4,7 @@ diff -uNr postgresql-13.1/src/timezone/zic.c postgresql-13.1.mod/src/timezone/zi
 @@ -19,6 +19,12 @@
  #include "private.h"
  #include "tzfile.h"
-
+ 
 +/*
 + * Avoid the qsort->pg_qsort define to more easily build
 + * a native patched zic tool.
@@ -13,7 +13,7 @@ diff -uNr postgresql-13.1/src/timezone/zic.c postgresql-13.1.mod/src/timezone/zi
 +
  #define	ZIC_VERSION_PRE_2013 '2'
  #define	ZIC_VERSION	'3'
-
+ 
 @@ -1015,8 +1021,12 @@
  				progname, directory, target, strerror(EPERM));
  		exit(EXIT_FAILURE);

@@ -12,14 +12,17 @@ TERMUX_PKG_DEPENDS="binutils-gold, clang, libc++, ndk-sysroot, libandroid-glob, 
 TERMUX_PKG_BUILD_DEPENDS="cmake, ninja, perl, pkg-config, python2, rsync"
 TERMUX_PKG_BLACKLISTED_ARCHES="i686"
 TERMUX_PKG_NO_STATICSPLIT=true
+
 SWIFT_COMPONENTS="autolink-driver;compiler;clang-resource-dir-symlink;swift-remote-mirror;parser-lib;license;sourcekit-inproc;stdlib;sdk-overlay"
 SWIFT_TOOLCHAIN_FLAGS="-R --no-assertions --llvm-targets-to-build='X86;ARM;AArch64' -j $TERMUX_MAKE_PROCESSES"
 SWIFT_PATH_FLAGS="--build-subdir=. --install-destdir=/ --install-prefix=$TERMUX_PREFIX"
 SWIFT_BUILD_FLAGS="$SWIFT_TOOLCHAIN_FLAGS $SWIFT_PATH_FLAGS"
+
 if [ "$TERMUX_ON_DEVICE_BUILD" = "false" ]; then
 SWIFT_BIN="swift-$TERMUX_PKG_VERSION-$SWIFT_RELEASE-ubuntu20.04"
 SWIFT_BINDIR="$TERMUX_PKG_HOSTBUILD_DIR/$SWIFT_BIN/usr/bin"
 fi
+
 termux_step_post_get_source() {
 	if [ "$TERMUX_PKG_QUICK_REBUILD" = "false" ]; then
 		# The Swift build-script requires a particular organization of source directories,
@@ -27,6 +30,7 @@ termux_step_post_get_source() {
 		mkdir .temp
 		mv [a-zA-Z]* .temp/
 		mv .temp swift
+
 		declare -A library_checksums
 		library_checksums[swift-cmark]=24316b173df877c02ea6f3a080b2bf69e8b644a301d3510e9c13fa1059b279e9
 		library_checksums[llvm-project]=fe3fb21653263c3dd4b9e02794169445f5460751b155a4c7277a37145ce057f3
@@ -44,9 +48,11 @@ termux_step_post_get_source() {
 			tar xf $TERMUX_PKG_CACHEDIR/$library-$TERMUX_PKG_VERSION.tar.gz
 			mv $library-swift-${TERMUX_PKG_VERSION}-$SWIFT_RELEASE $library
 		done
+
 		mv swift-cmark cmark
 		mv swift-llbuild llbuild
 		mv swift-package-manager swiftpm
+
 		if [ "$TERMUX_ON_DEVICE_BUILD" = "false" ]; then
 			termux_download \
 				https://swift.org/builds/swift-$TERMUX_PKG_VERSION-release/ubuntu2004/swift-$TERMUX_PKG_VERSION-$SWIFT_RELEASE/$SWIFT_BIN.tar.gz \
@@ -57,20 +63,24 @@ termux_step_post_get_source() {
 	# The Swift compiler searches for the clang headers so symlink against them.
 	export TERMUX_CLANG_VERSION=$(grep ^TERMUX_PKG_VERSION= $TERMUX_PKG_BUILDER_DIR/../libllvm/build.sh | cut -f2 -d=)
 }
+
 termux_step_host_build() {
 	if [ "$TERMUX_ON_DEVICE_BUILD" = "false" ]; then
 		termux_setup_cmake
 		termux_setup_ninja
 		termux_setup_standalone_toolchain
+
 		# Natively compile llvm-tblgen and some other files needed later.
 		SWIFT_BUILD_ROOT=$TERMUX_PKG_BUILDDIR $TERMUX_PKG_SRCDIR/swift/utils/build-script \
 		-R --no-assertions -j $TERMUX_MAKE_PROCESSES $SWIFT_PATH_FLAGS \
 		--skip-build-cmark --skip-build-llvm --skip-build-swift \
 		--host-cc=$TERMUX_STANDALONE_TOOLCHAIN/bin/clang \
 		--host-cxx=$TERMUX_STANDALONE_TOOLCHAIN/bin/clang++
+
 		tar xf $TERMUX_PKG_CACHEDIR/$SWIFT_BIN.tar.gz -C $TERMUX_PKG_HOSTBUILD_DIR
 	fi
 }
+
 termux_step_pre_configure() {
 	export SWIFT_ARCH=$TERMUX_ARCH
 	test $SWIFT_ARCH == 'arm' && SWIFT_ARCH='armv7'
@@ -78,14 +88,17 @@ termux_step_pre_configure() {
 		cd llbuild
 		# A single patch needed from the existing llbuild package
 		patch -p1 < $TERMUX_PKG_BUILDER_DIR/../llbuild/lib-llvm-Support-CmakeLists.txt.patch
+
 		cd ../llvm-project
 		patch -p1 < $TERMUX_PKG_BUILDER_DIR/../libllvm/clang-lib-Driver-ToolChain.cpp.patch
 		patch -p1 < $TERMUX_PKG_BUILDER_DIR/../libllvm/clang-lib-Driver-ToolChains-Linux.cpp.patch
 		cd ..
+
 		sed "s%\@TERMUX_PREFIX\@%${TERMUX_PREFIX}%g" \
 		$TERMUX_PKG_BUILDER_DIR/swiftpm-Utilities-bootstrap | \
 		sed "s%\@TERMUX_PKG_BUILDDIR\@%${TERMUX_PKG_BUILDDIR}%g" | \
 		sed "s%\@SWIFT_ARCH\@%${SWIFT_ARCH}%g" | patch -p1
+
 		if [ "$TERMUX_ON_DEVICE_BUILD" = "false" ]; then
 			sed "s%\@TERMUX_STANDALONE_TOOLCHAIN\@%${TERMUX_STANDALONE_TOOLCHAIN}%g" \
 			$TERMUX_PKG_BUILDER_DIR/swiftpm-android-flags.json | \
@@ -96,6 +109,7 @@ termux_step_pre_configure() {
 		fi
 	fi
 }
+
 termux_step_make() {
 	if [ "$TERMUX_ON_DEVICE_BUILD" = "false" ]; then
 		export TERMUX_SWIFTPM_FLAGS="-target $CCTERMUX_HOST_PLATFORM \
@@ -117,15 +131,18 @@ termux_step_make() {
 		--native-swift-tools-path=$SWIFT_BINDIR
 		--native-clang-tools-path=$TERMUX_STANDALONE_TOOLCHAIN/bin"
 	fi
+
 	SWIFT_BUILD_ROOT=$TERMUX_PKG_BUILDDIR $TERMUX_PKG_SRCDIR/swift/utils/build-script \
 	$SWIFT_BUILD_FLAGS --xctest -b -p --build-swift-static-stdlib --install-swift \
 	--swift-install-components=$SWIFT_COMPONENTS --llvm-install-components=IndexStore \
 	--install-libdispatch --install-foundation --install-xctest --install-llbuild \
 	--install-swiftpm
 }
+
 termux_step_make_install() {
 	rm $TERMUX_PREFIX/lib/swift/pm/llbuild/libllbuild.so
 	rm $TERMUX_PREFIX/lib/swift/android/lib{dispatch,BlocksRuntime}.so
+
 	if [ "$TERMUX_ON_DEVICE_BUILD" = "false" ]; then
 		mv $TERMUX_PREFIX/glibc-native.modulemap \
 			$TERMUX_PREFIX/lib/swift/android/$SWIFT_ARCH/glibc.modulemap

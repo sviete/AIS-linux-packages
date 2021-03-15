@@ -6,6 +6,7 @@ TERMUX_PKG_VERSION=1.9.1
 TERMUX_PKG_SRCURL=https://github.com/doxygen/doxygen/archive/Release_${TERMUX_PKG_VERSION//./_}.tar.gz
 TERMUX_PKG_SHA256=96db0b69cd62be1a06b0efe16b6408310e5bd4cd5cb5495b77f29c84c7ccf7d7
 TERMUX_PKG_DEPENDS="libc++, libiconv"
+
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DBISON_EXECUTABLE=$(command -v bison)
 -DCMAKE_BUILD_TYPE=Release
@@ -14,6 +15,7 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -Dbuild_parse=yes
 -Dbuild_xmlparser=yes
 "
+
 termux_step_post_make_install() {
 	mkdir -p $TERMUX_PREFIX/share/man/man1
 	cp $TERMUX_PKG_SRCDIR/doc/doxygen.1 $TERMUX_PREFIX/share/man/man1

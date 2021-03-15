@@ -8,6 +8,7 @@ TERMUX_PKG_SRCURL=https://github.com/grobian/html2text/archive/v${TERMUX_PKG_VER
 TERMUX_PKG_SHA256=061125bfac658c6d89fa55e9519d90c5eeb3ba97b2105748ee62f3a3fa2449de
 TERMUX_PKG_DEPENDS="libiconv"
 TERMUX_PKG_BUILD_IN_SRC=true
+
 termux_step_pre_configure() {
 	CXX="$CXX $CXXFLAGS $CPPFLAGS $LDFLAGS"
 	mkdir -p $TERMUX_PREFIX/share/man/man1

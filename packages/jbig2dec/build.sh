@@ -8,6 +8,7 @@ TERMUX_PKG_SHA256=279476695b38f04939aa59d041be56f6bade3422003a406a85e9792c27118a
 TERMUX_PKG_DEPENDS="libpng"
 TERMUX_PKG_BREAKS="jbig2dec-dev"
 TERMUX_PKG_REPLACES="jbig2dec-dev"
+
 termux_step_pre_configure() {
 	./autogen.sh
 }

@@ -13,6 +13,7 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-utmp
 --disable-runtime-loading
 "
+
 termux_step_pre_configure() {
 	export LIBS="-lssl -lcrypto"
 	autoreconf -i

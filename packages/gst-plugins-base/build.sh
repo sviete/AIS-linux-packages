@@ -14,8 +14,10 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -Dexamples=disabled
 -Dpango=disabled
 "
+
 # Conflicts with Mesa.
 TERMUX_PKG_RM_AFTER_INSTALL="include/GL"
+
 termux_step_pre_configure() {
 	LDFLAGS+=" -landroid-shmem"
 }

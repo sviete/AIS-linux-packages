@@ -27,3 +27,4 @@ diff -u -r ../../pristine-src/libziparchive/zip_archive.cc ./zip_archive.cc
 -#endif
        return -1;
      }
+ 

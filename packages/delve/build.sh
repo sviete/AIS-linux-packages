@@ -7,6 +7,7 @@ TERMUX_PKG_DEPENDS="golang, git"
 TERMUX_PKG_SRCURL=https://github.com/go-delve/delve/archive/v${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_SHA256=a10a6fc40d87572c6d3f3becdb1a289269e17526d038749f2fa04dd9f591f26a
 TERMUX_PKG_BLACKLISTED_ARCHES="arm, i686"
+
 termux_step_make() {
 	termux_setup_golang
 	cd $TERMUX_PKG_SRCDIR
