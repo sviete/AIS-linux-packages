@@ -11,3 +11,4 @@ TERMUX_PKG_DEPENDS="glib"
 termux_step_post_get_source() {
 	./bootstrap
 }
+
