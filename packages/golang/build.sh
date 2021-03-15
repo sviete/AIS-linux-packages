@@ -47,3 +47,4 @@ termux_step_make_install() {
 termux_step_post_massage() {
 	find . -path '*/testdata*' -delete
 }
+
