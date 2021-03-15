@@ -9,3 +9,4 @@ TERMUX_PKG_SHA256=ffd8b161ef13c823c43417ac00402c1f4b0dfa4b3e6e4c5f7cdf0ceae9511c
 TERMUX_PKG_DEPENDS="openssl"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--no-default-features --features crypto-openssl,send2,send3,history,archive,qrcode,urlshorten,infer-command"
+
