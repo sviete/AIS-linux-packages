@@ -11,3 +11,4 @@ TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --enable-utf8
 --with-openssl"
+
