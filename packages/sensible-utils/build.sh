@@ -7,3 +7,4 @@ TERMUX_PKG_SRCURL=http://ftp.debian.org/debian/pool/main/s/sensible-utils/sensib
 TERMUX_PKG_SHA256=a6ee528bf4122d77acacdb97f20cd0434a12ad3ecd119186a5fcee066844c644
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="ac_cv_prog_PO4A=/bin/echo"
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
+
