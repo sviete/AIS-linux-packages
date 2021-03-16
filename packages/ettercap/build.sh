@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://www.ettercap-project.org
-TERMUX_PKG_DESCRIPTION="Comprehensive suite for MITM attacks, can sniff live connections, do content filtering on the fly and much more"
+TERMUX_PKG_DESCRIPTION="Comprehensive suite for MITM attacks, can sniff live connections"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_VERSION=0.8.3
 TERMUX_PKG_SRCURL=https://github.com/Ettercap/ettercap/archive/v${TERMUX_PKG_VERSION}.tar.gz
@@ -10,4 +10,3 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DENABLE_GTK=off
 -DENABLE_GEOIP=off
 "
-
