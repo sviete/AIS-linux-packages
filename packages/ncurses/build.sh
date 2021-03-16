@@ -102,3 +102,4 @@ termux_step_post_massage() {
 	tic -x -o $TI $TERMUX_PKG_SRCDIR/kitty-${TERMUX_PKG_VERSION[3]}/terminfo/kitty.terminfo
 }
 
+
