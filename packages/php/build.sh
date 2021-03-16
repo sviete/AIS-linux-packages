@@ -93,3 +93,4 @@ termux_step_post_make_install() {
 
 	sed -i 's/SED=.*/SED=sed/' $TERMUX_PREFIX/bin/phpize
 }
+
