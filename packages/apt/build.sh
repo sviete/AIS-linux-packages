@@ -61,7 +61,8 @@ termux_step_pre_configure() {
 }
 
 termux_step_post_make_install() {
-	printf "# The main termux repository:\ndeb https://termux.org/packages/ stable main\n" > $TERMUX_PREFIX/etc/apt/sources.list
+	printf "# The main AI-Speaker repository:\ndeb [trusted=yes] https://powiedz.co/apt dom stable\n" > $TERMUX_PREFIX/etc/apt/sources.list
+	printf "# Python3.9 AI-Speaker repository:\ndeb [trusted=yes] https://powiedz.co/apt python 3.9\n" > $TERMUX_PREFIX/etc/apt/sources.list
 	cp $TERMUX_PKG_BUILDER_DIR/trusted.gpg $TERMUX_PREFIX/etc/apt/
 
 	# apt-transport-tor
@@ -73,4 +74,3 @@ termux_step_post_make_install() {
 	mkdir -p $TERMUX_PREFIX/share/man/
 	cp -Rf $TERMUX_PKG_BUILDER_DIR/man/* $TERMUX_PREFIX/share/man/
 }
-
