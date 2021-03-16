@@ -15,3 +15,4 @@ termux_step_pre_configure() {
 	CXXFLAGS+=" -DNCURSES_WIDECHAR -U_XOPEN_SOURCE"
 }
 
+
