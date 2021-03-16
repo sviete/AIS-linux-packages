@@ -34,3 +34,4 @@ termux_step_post_massage() {
 	cp "$TERMUX_PKG_SRCDIR/$(basename $f)" "$TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX/$f"
     done
 }
+
