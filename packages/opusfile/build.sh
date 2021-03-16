@@ -16,3 +16,4 @@ termux_step_pre_configure() {
 	echo "PACKAGE_VERSION=$TERMUX_PKG_VERSION" > package_version
 	./autogen.sh
 }
+
