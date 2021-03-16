@@ -65,3 +65,4 @@ termux_step_make_install() {
 		install -Dm755 -t $TERMUX_PREFIX/bin target/${CARGO_TARGET_NAME}/release/$applet
 	done
 }
+
