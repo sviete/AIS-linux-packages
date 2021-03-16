@@ -7,3 +7,4 @@ TERMUX_PKG_SRCURL=https://github.com/libvips/libvips/releases/download/v${TERMUX
 TERMUX_PKG_SHA256=a4eef2f5334ab6dbf133cd3c6d6394d5bdb3e76d5ea4d578b02e1bc3d9e1cfd8
 TERMUX_PKG_DEPENDS="fftw, giflib, imagemagick, libexif, libexpat, libjpeg-turbo, libtiff, libwebp"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-gtk-doc"
+
