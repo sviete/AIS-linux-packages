@@ -15,3 +15,4 @@ termux_step_configure() {
 	CC+=" $CPPFLAGS"
 	export LDLIBS="-liconv"
 }
+
