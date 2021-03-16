@@ -25,3 +25,4 @@ termux_step_make_install() {
 	./install.sh
 }
 
+
