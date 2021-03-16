@@ -21,3 +21,4 @@ termux_step_pre_configure() {
 	rm -Rf $TERMUX_PREFIX/lib/libopenjp2.so*
 }
 
+
