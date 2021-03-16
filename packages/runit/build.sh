@@ -15,3 +15,4 @@ termux_step_make_install() {
 	mkdir -p $TERMUX_PREFIX/share/man/man8
 	install -Dm644 runit-${TERMUX_PKG_VERSION}/man/{chpst,runit,runsv,runsvchdir,runsvdir,sv,svlogd,utmpset}.8 $TERMUX_PREFIX/share/man/man8/
 }
+
