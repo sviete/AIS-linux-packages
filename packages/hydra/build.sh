@@ -14,3 +14,4 @@ termux_step_configure() {
 	export XLIBS="-lcrypto -lssl -lpcre -lssh"
 	cat Makefile.am | sed 's/^install:.*/install: all/'  >> Makefile
 }
+

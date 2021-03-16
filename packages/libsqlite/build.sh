@@ -21,3 +21,4 @@ termux_step_pre_configure() {
 	CPPFLAGS+=" -Werror -DSQLITE_ENABLE_DBSTAT_VTAB=1"
 	LDFLAGS+=" -lm"
 }
+

@@ -12,3 +12,4 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-udev"
 termux_step_pre_configure() {
 	NOCONFIGURE=true ./autogen.sh
 }
+

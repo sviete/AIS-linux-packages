@@ -13,3 +13,4 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --disable-music
 --enable-lock-dir=$TERMUX_PREFIX/var/run
 "
+

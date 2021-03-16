@@ -23,3 +23,4 @@ termux_step_make_install() {
 		"$GOPATH"/src/github.com/yudai/gotty/gotty \
 		"$TERMUX_PREFIX"/bin/
 }
+

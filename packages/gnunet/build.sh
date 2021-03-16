@@ -12,3 +12,4 @@ termux_step_pre_configure() {
 	CPPFLAGS+=" -D_LINUX_IN6_H"
 	./bootstrap
 }
+

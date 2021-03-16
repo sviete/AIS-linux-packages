@@ -11,3 +11,4 @@ TERMUX_PKG_REPLACES="libexif-dev"
 termux_step_pre_configure() {
 	autoreconf -fi
 }
+

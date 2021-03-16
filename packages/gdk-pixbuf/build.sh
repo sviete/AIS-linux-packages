@@ -24,3 +24,4 @@ termux_step_create_debscripts() {
 	unset i
 	chmod 644 ./triggers
 }
+

@@ -7,3 +7,4 @@ TERMUX_PKG_SRCURL=https://mirrors.edge.kernel.org/pub/software/network/iw/iw-${T
 TERMUX_PKG_SHA256=a2469f677088d7b1070a7fbb28f3c747041697e8f6ec70783339cb1bc27a395f
 TERMUX_PKG_DEPENDS="libnl"
 TERMUX_PKG_BUILD_IN_SRC=true
+
