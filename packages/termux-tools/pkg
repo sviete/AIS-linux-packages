@@ -43,77 +43,8 @@ show_help() {
 select_mirror() {
 	local main_repo="https://powiedz.co/apt"
 
-	declare -A mirrors
-	mirrors[30]="$main_repo"
-
-	local current_mirror
-	current_mirror=$(grep -P "^\s*deb\s+" @TERMUX_PREFIX@/etc/apt/sources.list | grep -oP 'https?://[a-z0-9/._-]+')
-
-	# Do not update mirror if:
-	# * Uses .cn domain - specific to Chinese users.
-	# * If $TERMUX_PKG_NO_MIRROR_SELECT was set.
-	if [ -n "${TERMUX_PKG_NO_MIRROR_SELECT-}" ] || grep -qP '.+\.cn/' <(echo "${current_mirror-x}"); then
-		return
-	fi
-
-	# Mirrors are rotated if 6 hours timeout has been passed or mirror is no longer accessible.
-	if [ -n "$(find @TERMUX_CACHE_DIR@/apt/pkgcache.bin -mmin -360 2>/dev/null)" ]; then
-		if [ -n "${current_mirror}" ]; then
-			echo -n "Checking availability of current mirror: "
-			if timeout 6 curl \
-				--head \
-				--fail \
-				--connect-timeout 5 \
-				--location \
-				--user-agent 'Termux-PKG/1.0 mirror-checker (termux-tools @PACKAGE_VERSION@) Termux (@TERMUX_APP_PACKAGE@; install-prefix:@TERMUX_PREFIX@)' \
-				"${current_mirror%/}/dom/stable/Release" >/dev/null 2>&1; then
-					echo "ok"
-					return
-			else
-				echo "bad"
-			fi
-		fi
-	fi
-
-	# Test mirror availability, remove unaccessible mirrors from list.
-	echo "Testing the available mirrors:"
-	local w total_mirror_weight=0
-	for w in "${!mirrors[@]}"; do
-		echo -n "[*] ${mirrors[$w]}: "
-		if timeout 6 curl \
-			--head \
-			--fail \
-			--connect-timeout 5 \
-			--location \
-			--user-agent 'Termux-PKG/1.0 mirror-checker (termux-tools @PACKAGE_VERSION@) Termux (@TERMUX_APP_PACKAGE@; install-prefix:@TERMUX_PREFIX@)' \
-			"${mirrors[$w]%/}/dom/stable/Release" >/dev/null 2>&1; then
-				echo "ok"
-				total_mirror_weight=$((total_mirror_weight + w))
-		else
-			echo "bad"
-			unset "mirrors[$w]"
-		fi
-	done
-	unset w
-
-	# Weight-based mirror selection.
-	local selected_mirror=""
-	if ((total_mirror_weight > 0)); then
-		local w random_weight calc_weight=0
-		random_weight=$((RANDOM % total_mirror_weight + 1))
-		for w in $(echo "${!mirrors[@]}" | tr ' ' '\n' | sort -n); do
-			calc_weight=$((calc_weight + w))
-
-			if ((calc_weight >= random_weight)); then
-				echo "Picking mirror: ${mirrors[$w]}"
-				selected_mirror="${mirrors[$w]}"
-				break
-			fi
-		done
-	fi
-
 	echo "deb [trusted=yes] https://powiedz.co/apt dom stable"  > @TERMUX_PREFIX@/etc/apt/sources.list
-	echo "deb [trusted=yes] https://powiedz.co/apt python 3.9"  > @TERMUX_PREFIX@/etc/apt/sources.list
+	echo "deb [trusted=yes] https://powiedz.co/apt python 3.9"  >> @TERMUX_PREFIX@/etc/apt/sources.list
 }
 
 update_apt_cache() {
