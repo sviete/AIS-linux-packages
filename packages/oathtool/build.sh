@@ -10,3 +10,4 @@ TERMUX_PKG_BREAKS="oathtool-dev"
 TERMUX_PKG_REPLACES="oathtool-dev"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-pam"
 
+
