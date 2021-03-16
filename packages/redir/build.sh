@@ -8,3 +8,4 @@ TERMUX_PKG_SRCURL=https://github.com/troglobit/redir/releases/download/v$TERMUX_
 TERMUX_PKG_SHA256=7ce53ac52a24c1b3279b994bfffbd429c44df2db10a4b1a0f54e108604fdae6e
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_RM_AFTER_INSTALL="share/applications share/pixmaps"
+
