@@ -14,3 +14,4 @@ termux_step_configure() {
 	yes "" | make config || true
 }
 
+
