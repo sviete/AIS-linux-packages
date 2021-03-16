@@ -14,3 +14,4 @@ termux_step_post_configure () {
 	CFLAGS+=" -I$TERMUX_PREFIX/include"
 }
 
+
