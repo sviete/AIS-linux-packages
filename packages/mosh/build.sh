@@ -21,3 +21,4 @@ termux_step_post_make_install() {
 		-std=c++11 -Wall -Wextra -Werror \
 		$TERMUX_PKG_BUILDER_DIR/mosh.cc -o mosh
 }
+
