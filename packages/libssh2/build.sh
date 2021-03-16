@@ -9,3 +9,4 @@ TERMUX_PKG_SHA256=d5fb8bd563305fd1074dda90bd053fb2d29fc4bce048d182f96eaa466dfada
 TERMUX_PKG_DEPENDS="openssl, zlib"
 TERMUX_PKG_BREAKS="libssh2-dev"
 TERMUX_PKG_REPLACES="libssh2-dev"
+
