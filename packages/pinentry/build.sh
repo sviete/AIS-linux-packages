@@ -8,3 +8,4 @@ TERMUX_PKG_SHA256=cd12a064013ed18e2ee8475e669b9f58db1b225a0144debdb85a68cecddba5
 TERMUX_PKG_DEPENDS="libandroid-support, libassuan, libiconv, ncurses"
 TERMUX_PKG_BUILD_DEPENDS="libgpg-error"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--disable-pinentry-fltk --without-libcap"
+
