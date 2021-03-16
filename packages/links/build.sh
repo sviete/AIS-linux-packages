@@ -14,3 +14,4 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --enable-graphics
 --without-openmp
 "
+
