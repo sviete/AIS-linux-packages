@@ -21,3 +21,4 @@ termux_step_pre_configure() {
 	autoreconf # for configure.ac in 5.11fix.patch
 	CPPFLAGS+=" -Dfputs_unlocked=fputs"
 }
+
