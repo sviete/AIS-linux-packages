@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://packages.debian.org/apt
-TERMUX_PKG_DESCRIPTION="Front-end for the dpkg package manager"
+TERMUX_PKG_DESCRIPTION="Front-end for the dpkg package manager."
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=2.2.0
