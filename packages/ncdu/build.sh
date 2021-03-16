@@ -9,3 +9,4 @@ TERMUX_PKG_SHA256=b02ddc4dbf1db139cc6fbbe2f54a282770380f0ca5c17089855eab52a9ea3f
 TERMUX_PKG_DEPENDS="ncurses, libandroid-support"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--with-shell=$TERMUX_PREFIX/bin/bash"
 
+
