@@ -3,7 +3,7 @@ TERMUX_PKG_DESCRIPTION="Front-end for the dpkg package manager"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=2.2.0
-TERMUX_PKG_REVISION=1
+TERMUX_PKG_REVISION=2
 TERMUX_PKG_SRCURL=https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/apt/${TERMUX_PKG_VERSION}/apt_${TERMUX_PKG_VERSION}.tar.xz
 TERMUX_PKG_SHA256=b25c9e6cb89e2e3c812584b38dfba333ff8be75e8e907a27a0394914abc36ca9
 # apt-key requires utilities from coreutils, findutils, gpgv, grep, sed.
@@ -62,7 +62,7 @@ termux_step_pre_configure() {
 }
 
 termux_step_post_make_install() {
-	printf "# The main AI-Speaker repository:\ndeb [trusted=yes] https://powiedz.co/apt dom stable\ndeb [trusted=yes] https://powiedz.co/apt python 3.9\n" > $TERMUX_PREFIX/etc/apt/sources.list
+	printf "# The main AI-Speaker repository:\ndeb [trusted=yes] https://powiedz.co/apt dom stable\ndeb [trusted=yes] https://powiedz.co/apt python 3.9" > $TERMUX_PREFIX/etc/apt/sources.list
 	cp $TERMUX_PKG_BUILDER_DIR/trusted.gpg $TERMUX_PREFIX/etc/apt/
 
 	# apt-transport-tor
