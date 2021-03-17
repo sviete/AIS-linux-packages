@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://github.com/matsuyoshi30/germanium
-TERMUX_PKG_DESCRIPTION="Generate image from source code"
+TERMUX_PKG_DESCRIPTION="Generate image from source code."
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="Raven Ravener <ravener.anime@gmail.com>"
 TERMUX_PKG_VERSION=0.3.0
@@ -11,7 +11,7 @@ termux_step_make() {
 	termux_setup_golang
 	go build
 }
- 
+
 termux_step_make_install() {
 	install -Dm700 -t "$TERMUX_PREFIX"/bin germanium
 }
