@@ -43,8 +43,9 @@ show_help() {
 select_mirror() {
 	local main_repo="https://powiedz.co/apt"
 
-	echo "deb [trusted=yes] https://powiedz.co/apt dom stable"  > @TERMUX_PREFIX@/etc/apt/sources.list
-	echo "deb [trusted=yes] https://powiedz.co/apt python 3.9"  >> @TERMUX_PREFIX@/etc/apt/sources.list
+	echo "# The main AI-Speaker repository:" > @TERMUX_PREFIX@/etc/apt/sources.list
+	echo "deb [trusted=yes] https://powiedz.co/apt dom stable" >> @TERMUX_PREFIX@/etc/apt/sources.list
+	echo "deb [trusted=yes] https://powiedz.co/apt python 3.9" >> @TERMUX_PREFIX@/etc/apt/sources.list
 }
 
 update_apt_cache() {
