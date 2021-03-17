@@ -5,23 +5,10 @@ git pull
 
 # changes
 # builds=`ls packages/z*/build.sh`
-builds=`ls packages/[d-z]*/build.sh`
-for build in $builds; do
-  echo "Adding line to file: $build"
-  echo "" >> $build
-  git add $build
-  git commit -m "$build"
-  git push
-  echo "Sleep 5 minutes"
-  sleep 300
-  echo "done ------------------"
-done
-
-
-# builds=`ls packages/n*/build.sh`
+# builds=`ls packages/[d-z]*/build.sh`
 # for build in $builds; do
-#   echo "Remove back, the line from the end of the file: $build"
-#   sed -i '/^$/d' $build
+#   echo "Adding line to file: $build"
+#   echo "" >> $build
 #   git add $build
 #   git commit -m "$build"
 #   git push
@@ -29,3 +16,16 @@ done
 #   sleep 300
 #   echo "done ------------------"
 # done
+
+
+builds=`ls packages/*/build.sh`
+for build in $builds; do
+  echo "Remove back, the line from the end of the file: $build"
+  sed -i '/^$/d' $build
+  git add $build
+  git commit -m "$build"
+  git push
+  echo "Sleep 5 minutes"
+  sleep 300
+  echo "done ------------------"
+done
