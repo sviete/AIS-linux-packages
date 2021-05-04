@@ -10,4 +10,3 @@ TERMUX_PKG_DEPENDS="ncurses, file"
 termux_step_pre_configure() {
 	autoreconf -if
 }
-
