@@ -1,10 +1,11 @@
 TERMUX_PKG_HOMEPAGE=https://php.net
 TERMUX_PKG_DESCRIPTION="Server-side, HTML-embedded scripting language"
-TERMUX_PKG_LICENSE="PHP-3.0"
+TERMUX_PKG_LICENSE="PHP-3.01"
+TERMUX_PKG_LICENSE_FILE=LICENSE
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=8.0.3
+TERMUX_PKG_VERSION=8.0.6
 TERMUX_PKG_SRCURL=https://github.com/php/php-src/archive/php-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=378c4de8cca3bd94bfdd8de165845598fd82293ed0f262e0e482723c00be302c
+TERMUX_PKG_SHA256=ddf7a059cf5cd26d00bc5493f1ca2242172408c0dcc4acdba6ef8952f8bb5a38
 # Build native php for phar to build (see pear-Makefile.frag.patch):
 TERMUX_PKG_HOSTBUILD=true
 TERMUX_PKG_BLACKLISTED_ARCHES="x86_64"
@@ -92,4 +93,3 @@ termux_step_post_make_install() {
 
 	sed -i 's/SED=.*/SED=sed/' $TERMUX_PREFIX/bin/phpize
 }
-
