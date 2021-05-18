@@ -13,5 +13,3 @@ termux_step_pre_configure() {
 	CFLAGS+=" $CPPFLAGS -I$TERMUX_PREFIX/include/libandroid-support -DGNUPLOT -DNO_WORDEXP"
 	TERMUX_PKG_BUILDDIR+="/src"
 }
-
-
