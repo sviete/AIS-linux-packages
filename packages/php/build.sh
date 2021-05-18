@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://php.net
-TERMUX_PKG_DESCRIPTION="Server-side, HTML-embedded scripting language"
+TERMUX_PKG_DESCRIPTION="Server-side, HTML-embedded scripting language."
 TERMUX_PKG_LICENSE="PHP-3.01"
 TERMUX_PKG_LICENSE_FILE=LICENSE
 TERMUX_PKG_MAINTAINER="@termux"
