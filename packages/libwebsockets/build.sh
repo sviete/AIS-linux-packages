@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://libwebsockets.org
-TERMUX_PKG_DESCRIPTION="Lightweight C websockets library"
+TERMUX_PKG_DESCRIPTION="Lightweight C websockets library."
 TERMUX_PKG_LICENSE="LGPL-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=4.2.0
@@ -16,4 +16,3 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DLWS_BUILD_HASH=no_hash
 "
 TERMUX_PKG_RM_AFTER_INSTALL="lib/pkgconfig/libwebsockets_static.pc"
-
