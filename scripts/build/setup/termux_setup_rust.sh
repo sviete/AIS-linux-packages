@@ -12,7 +12,7 @@ termux_setup_rust() {
 			echo "Package 'rust' is not installed."
 			echo "You can install it with"
 			echo
-			echo "  pkg install rust"
+			echo "  apt install rust"
 			echo
 			echo "or build it from source with"
 			echo

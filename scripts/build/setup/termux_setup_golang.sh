@@ -28,7 +28,7 @@ termux_setup_golang() {
 			echo "Package 'golang' is not installed."
 			echo "You can install it with"
 			echo
-			echo "  pkg install golang"
+			echo "  apt install golang"
 			echo
 			echo "or build it from source with"
 			echo

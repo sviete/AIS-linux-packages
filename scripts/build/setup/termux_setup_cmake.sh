@@ -29,7 +29,7 @@ termux_setup_cmake() {
 			echo "Package 'cmake' is not installed."
 			echo "You can install it with"
 			echo
-			echo "  pkg install cmake"
+			echo "  apt install cmake"
 			echo
 			exit 1
 		fi

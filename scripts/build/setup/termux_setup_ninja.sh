@@ -27,7 +27,7 @@ termux_setup_ninja() {
 			echo "Package 'ninja' is not installed."
 			echo "You can install it with"
 			echo
-			echo "  pkg install ninja"
+			echo "  apt install ninja"
 			echo
 			echo "or build it from source with"
 			echo
