@@ -3,5 +3,6 @@ TERMUX_PKG_DESCRIPTION="Suggest installation of packages in interactive shell se
 TERMUX_PKG_LICENSE="Apache-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=1.62
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://github.com/tomasz75/command-not-found/archive/${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_SHA256=57b3caf3fc560e35866129be13daa769cf0f1f5c8ad21907bd64d9830c87c8ad
