@@ -116,7 +116,7 @@ jobs:
 
         if [ -f ./built_packages.txt ]; then
           ./scripts/lint-packages.sh $(cat ./built_packages.txt | awk '{print "packages/"$1"/build.sh"}')
-          ./scripts/run-docker.sh ./build-package.sh -a ${{ matrix.target_arch }} $(cat ./built_packages.txt)
+          ./scripts/run-docker.sh ./build-package.sh -I -a ${{ matrix.target_arch }} $(cat ./built_packages.txt)
         fi
 
         test -d ./termux-packages/debs && mv ./termux-packages/debs/* ./debs/
@@ -152,7 +152,7 @@ jobs:
       with:
         name: termux-packages-${{ github.sha }}
         path: ./
-    - name: Setup ssh key and known_hosts
+    - name: Upload to powiedz.co/apt
       env:
         AIS_SERVER_IP: ${{ secrets.AIS_SERVER_IP }}
         AIS_PORT: ${{ secrets.AIS_PORT }}

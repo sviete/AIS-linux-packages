@@ -10,5 +10,4 @@ This project contains scripts and patches to build packages for the Android term
 
 This project is a fork off the Termux master branch - [Termux master](https://github.com/termux/termux-packages/tree/master) - the packages are build for for Android 7.0 or higher.
 
-
 Read [CONTRIBUTING.md](/CONTRIBUTING.md) and [Developer's Wiki](https://github.com/termux/termux-packages/wiki) for more details.
