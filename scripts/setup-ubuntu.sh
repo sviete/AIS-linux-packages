@@ -207,6 +207,11 @@ $SUDO apt-get -yq update
 $SUDO DEBIAN_FRONTEND=noninteractive \
 	apt-get install -yq --no-install-recommends $PACKAGES
 
+# Pip for python2.
+curl -L --output /tmp/py2-get-pip.py https://bootstrap.pypa.io/pip/2.7/get-pip.py
+$SUDO python2 /tmp/py2-get-pip.py
+rm -f /tmp/py2-get-pip.py
+
 $SUDO locale-gen --purge en_US.UTF-8
 echo -e 'LANG="en_US.UTF-8"\nLANGUAGE="en_US:en"\n' | $SUDO tee -a /etc/default/locale
 
