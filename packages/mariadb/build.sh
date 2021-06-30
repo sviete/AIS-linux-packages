@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://mariadb.org
-TERMUX_PKG_DESCRIPTION="A drop-in replacement for mysql server"
+TERMUX_PKG_DESCRIPTION="A drop-in replacement for mysql server."
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=2:10.5.8
@@ -113,4 +113,3 @@ termux_step_create_debscripts() {
 	echo "exit 0" >> postinst
 	chmod 0755 postinst
 }
-
