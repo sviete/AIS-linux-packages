@@ -126,7 +126,6 @@ PACKAGES+=" zlib1g-dev:i386"
 
 # For swift.
 PACKAGES+=" lld"
-PACKAGES+=" patchelf"
 
 # Needed by wrk.
 PACKAGES+=" luajit"
@@ -142,6 +141,9 @@ PACKAGES+=" openjdk-8-jdk"
 
 # needed by ovmf
 PACKAGES+=" libarchive-tools"
+
+# Needed by cavif-rs
+PACKAGES+=" nasm"
 
 # Needed by packages in unstable repository.
 PACKAGES+=" docbook-to-man"
