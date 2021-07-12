@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://metacpan.org/pod/Regexp::Assemble
-TERMUX_PKG_DESCRIPTION="Perl module to merge several regular expressions"
+TERMUX_PKG_DESCRIPTION="Perl module to merge several regular expressions."
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=0.38
