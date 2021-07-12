@@ -17,6 +17,4 @@ termux_step_make() {
 
 termux_step_make_install() {
 	cp ${TERMUX_PKG_SRCDIR}/cloudflared $TERMUX_PREFIX/bin/cloudflared
-	mkdir $HOME/.cloudflared
-	curl -L --url https://ai-speaker.com/ota/ais_cloudflared --output $HOME/.cloudflared/cert.pem
 }
