@@ -4,7 +4,7 @@ diff -uNr LuaJIT-2.1.0-beta3/etc/luajit.pc LuaJIT-2.1.0-beta3.mod/etc/luajit.pc
 @@ -5,7 +5,7 @@
  version=${majver}.${minver}.${relver}-beta3
  abiver=5.1
- 
+
 -prefix=/usr/local
 +prefix=@TERMUX_PREFIX@
  multilib=lib
