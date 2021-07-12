@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://github.com/FiloSottile/age
-TERMUX_PKG_DESCRIPTION="A simple, modern and secure encryption tool with small explicit keys, no config options, and UNIX-style composability"
+TERMUX_PKG_DESCRIPTION="A simple, modern and secure encryption tool with small explicit keys, no config options, and UNIX-style composability."
 TERMUX_PKG_LICENSE="BSD 3-Clause"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=1.0.0-rc.3
@@ -20,4 +20,3 @@ termux_step_make_install() {
 		"${TERMUX_PKG_SRCDIR}"/age \
 		"${TERMUX_PKG_SRCDIR}"/age-keygen
 }
-
