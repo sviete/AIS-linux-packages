@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://gegl.org/babl/
-TERMUX_PKG_DESCRIPTION="Dynamic pixel format translation library"
+TERMUX_PKG_DESCRIPTION="Dynamic pixel format translation library."
 TERMUX_PKG_LICENSE="LGPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=0.1.88
@@ -9,4 +9,3 @@ TERMUX_PKG_DEPENDS="littlecms"
 TERMUX_PKG_BREAKS="babl-dev"
 TERMUX_PKG_REPLACES="babl-dev"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="-Denable-gir=false"
-
