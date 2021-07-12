@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://www.perl.org/
-TERMUX_PKG_DESCRIPTION="Capable, feature-rich programming language"
+TERMUX_PKG_DESCRIPTION="Capable, feature-rich programming language."
 TERMUX_PKG_LICENSE="Artistic-License-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
 # Packages which should be rebuilt after version change:
@@ -93,4 +93,3 @@ termux_step_post_make_install() {
 		sed -i "s@cc => '$ORIG_CC',@cc => '$ORIG_CC -pie',@g" Config.pm
 	fi
 }
-
