@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://packages.debian.org/libapt-pkg-perl
-TERMUX_PKG_DESCRIPTION="Perl interface to APT's libapt-pkg."
+TERMUX_PKG_DESCRIPTION="Perl interface to APT's libapt-pkg"
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=0.1.40
