@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://gstreamer.freedesktop.org/projects/orc.html
-TERMUX_PKG_DESCRIPTION="Library of Optimized Inner Loops Runtime Compiler."
+TERMUX_PKG_DESCRIPTION="Library of Optimized Inner Loops Runtime Compiler"
 TERMUX_PKG_LICENSE="LGPL-2.1"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=0.4.32
