@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://github.com/rhash/RHash
-TERMUX_PKG_DESCRIPTION="Console utility for calculation and verification of magnet links and a wide range of hash sums"
+TERMUX_PKG_DESCRIPTION="Console utility for calculation and verification of magnet links and a wide range of hash sums."
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=1.4.2
@@ -32,4 +32,3 @@ termux_step_make_install() {
 
 	ln -sf $TERMUX_PREFIX/lib/librhash.so.0 $TERMUX_PREFIX/lib/librhash.so
 }
-
