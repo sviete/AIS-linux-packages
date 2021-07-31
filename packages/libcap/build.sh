@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://sites.google.com/site/fullycapable/
-TERMUX_PKG_DESCRIPTION="POSIX 1003.1e capabilities"
+TERMUX_PKG_DESCRIPTION="POSIX 1003.1e capabilities."
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=2.51
@@ -17,4 +17,3 @@ termux_step_make() {
 termux_step_make_install() {
 	make CC="$CC -Wl,-rpath=$TERMUX_PREFIX/lib -Wl,--enable-new-dtags" prefix="$TERMUX_PREFIX" RAISE_SETFCAP=no lib=/lib PTHREADS=no install
 }
-
