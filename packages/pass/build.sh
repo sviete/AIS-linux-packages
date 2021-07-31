@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://www.passwordstore.org
-TERMUX_PKG_DESCRIPTION="Lightweight directory-based password manager"
+TERMUX_PKG_DESCRIPTION="Lightweight directory-based password manager."
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=1.7.4
@@ -12,4 +12,3 @@ TERMUX_PKG_SUGGESTS="pass-otp"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
 TERMUX_PKG_EXTRA_MAKE_ARGS="WITH_ALLCOMP=yes"
-
