@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://github.com/go-delve/delve
-TERMUX_PKG_DESCRIPTION="A debugger for the Go programming language."
+TERMUX_PKG_DESCRIPTION="A debugger for the Go programming language"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="Krishna kanhaiya @kcubeterm"
 TERMUX_PKG_VERSION=1.7.0
