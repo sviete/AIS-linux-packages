@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://newsboat.org/
-TERMUX_PKG_DESCRIPTION="RSS/Atom feed reader for the text console"
+TERMUX_PKG_DESCRIPTION="RSS/Atom feed reader for the text console."
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=2.24
@@ -25,5 +25,3 @@ termux_step_pre_configure() {
 
 	export PKG_CONFIG_ALLOW_CROSS=1
 }
-
-
