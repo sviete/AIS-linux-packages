@@ -29,8 +29,7 @@ termux_get_repo_files() {
 			while ((download_attempts > 0)); do
 				if termux_download "${TERMUX_REPO_URL[$idx-1]}/dists/${TERMUX_REPO_DISTRIBUTION[$idx-1]}/Release" \
 					"$RELEASE_FILE" SKIP_CHECKSUM; then
-					# ais
-					local failed=false
+					break
 				fi
 
 				download_attempts=$((download_attempts - 1))
@@ -42,6 +41,17 @@ termux_get_repo_files() {
 				sleep 30
 			done
 
+			# gpg --verify "${RELEASE_FILE}.gpg" "$RELEASE_FILE"
+
+			for arch in all $TERMUX_ARCH; do
+				local PACKAGES_HASH=$(./scripts/get_hash_from_file.py ${RELEASE_FILE} $arch ${TERMUX_REPO_COMPONENT[$idx-1]})
+				# If packages_hash = "" then the repo probably doesn't contain debs for $arch
+				if [ -n "$PACKAGES_HASH" ]; then
+					termux_download "${TERMUX_REPO_URL[$idx-1]}/dists/${TERMUX_REPO_DISTRIBUTION[$idx-1]}/${TERMUX_REPO_COMPONENT[$idx-1]}/binary-$arch/Packages" \
+							"${TERMUX_COMMON_CACHEDIR}-$arch/${TERMUX_REPO_NAME}-${TERMUX_REPO_DISTRIBUTION[$idx-1]}-${TERMUX_REPO_COMPONENT[$idx-1]}-Packages" \
+							$PACKAGES_HASH
+				fi
+			done
 		done
 	fi
 }
