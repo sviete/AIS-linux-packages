@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://github.com/github/git-sizer
-TERMUX_PKG_DESCRIPTION="Compute various size metrics for a Git repository."
+TERMUX_PKG_DESCRIPTION="Compute various size metrics for a Git repository"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="Yaksh Bariya <yakshbari4@gmail.com>"
 TERMUX_PKG_VERSION=1.4.0
