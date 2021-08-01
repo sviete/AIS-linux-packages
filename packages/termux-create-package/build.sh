@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://github.com/termux/termux-create-package
-TERMUX_PKG_DESCRIPTION="Utility to create Termux packages"
+TERMUX_PKG_DESCRIPTION="Utility to create Termux packages."
 TERMUX_PKG_LICENSE="Apache-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=0.10
@@ -13,4 +13,3 @@ TERMUX_PKG_PLATFORM_INDEPENDENT=true
 termux_step_make_install() {
 	install -Dm700 -t $TERMUX_PREFIX/bin termux-create-package
 }
-
