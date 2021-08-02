@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE="https://www.cups.org/"
-TERMUX_PKG_DESCRIPTION="Common UNIX Printing System"
+TERMUX_PKG_DESCRIPTION="Common UNIX Printing System."
 TERMUX_PKG_LICENSE="Apache-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION="2.3.3"
