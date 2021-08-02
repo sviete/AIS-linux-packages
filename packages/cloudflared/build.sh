@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://github.com/cloudflare/cloudflared/
-TERMUX_PKG_DESCRIPTION="Argo Tunnel client"
+TERMUX_PKG_DESCRIPTION="Argo Tunnel client."
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="@araczkowski"
 TERMUX_PKG_VERSION=2021.8.0
