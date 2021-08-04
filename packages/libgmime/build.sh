@@ -3,7 +3,7 @@ TERMUX_PKG_DESCRIPTION="MIME message parser and creator"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=3.2.7
-TERMUX_PKG_REVISION=3
+TERMUX_PKG_REVISION=4
 TERMUX_PKG_SRCURL=https://download.gnome.org/sources/gmime/${TERMUX_PKG_VERSION:0:3}/gmime-${TERMUX_PKG_VERSION}.tar.xz
 TERMUX_PKG_SHA256=2aea96647a468ba2160a64e17c6dc6afe674ed9ac86070624a3f584c10737d44
 TERMUX_PKG_DEPENDS="glib, libffi, libiconv, libidn2, zlib"
@@ -20,4 +20,3 @@ ac_cv_have_iconv_detect_h=yes
 termux_step_pre_configure() {
 	cp "$TERMUX_PKG_BUILDER_DIR"/iconv-detect.h ./
 }
-
