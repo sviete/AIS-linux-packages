@@ -68,7 +68,7 @@ PACKAGES+=" ed"
 # Provides utility hexdump which is needed by package bitcoin.
 PACKAGES+=" bsdmainutils"
 
-# Needed by package ccnet.
+# Needed by package seafile-client.
 PACKAGES+=" valac"
 
 # Needed by package libgcrypt.
@@ -145,6 +145,9 @@ PACKAGES+=" libarchive-tools"
 # Needed by cavif-rs
 PACKAGES+=" nasm"
 
+# Needed by dgsh
+PACKAGES+=" rsync"
+
 # Needed by packages in unstable repository.
 PACKAGES+=" docbook-to-man"
 PACKAGES+=" docbook-utils"
@@ -180,6 +183,8 @@ PACKAGES+=" xfce4-dev-tools"
 PACKAGES+=" xfonts-utils"
 PACKAGES+=" xutils-dev"
 PACKAGES+=" libdbus-glib-1-dev-bin"
+PACKAGES+=" wayland-scanner++"
+PACKAGES+=" libwayland-dev"
 
 # Needed by packages in science repository
 PACKAGES+=" sqlite3"
