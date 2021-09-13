@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://github.com/PojavLauncherTeam/mobile
-TERMUX_PKG_DESCRIPTION="Java development kit and runtime"
+TERMUX_PKG_DESCRIPTION="Java development kit and runtime."
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=17.0
