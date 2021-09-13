@@ -3,7 +3,7 @@
 @@ -145,6 +145,40 @@
    pthread_rwlock_unlock(rwlock);
  }
- 
+
 +/*
 + * '_cupsThreadAndroidSignalHandler()' - Wrapper around pthread_exit(0) to be called from a signal handler
 + */
@@ -22,14 +22,14 @@
 +_cupsThreadAndroidWrapper(void *arg)
 +{
 +  _cups_wrapped_thread_func_t *wrapped = (_cups_wrapped_thread_func_t*) arg;
-+  
++
 +  struct sigaction actions;
 +  memset(&actions, 0, sizeof(actions));
 +  sigemptyset(&actions.sa_mask);
 +  actions.sa_flags = 0;
 +  actions.sa_handler = _cupsThreadAndroidSignalHandler;
 +  sigaction(SIGUSR2, &actions, NULL);
-+  
++
 +  _cups_thread_func_t func = wrapped->func;
 +  void *func_arg = wrapped->arg;
 +
@@ -38,7 +38,7 @@
 +  return (*func)(func_arg);
 +}
 +
- 
+
  /*
   * '_cupsThreadCancel()' - Cancel (kill) a thread.
 @@ -153,7 +187,7 @@
@@ -48,12 +48,12 @@
 -  pthread_cancel(thread);
 +  pthread_kill(thread, SIGUSR2);
  }
- 
- 
+
+
 @@ -168,7 +202,11 @@
  {
    pthread_t thread;
- 
+
 -  if (pthread_create(&thread, NULL, (void *(*)(void *))func, arg))
 +  _cups_wrapped_thread_func_t *wrapped = malloc(sizeof(_cups_wrapped_thread_func_t));
 +  wrapped->func = func;

@@ -21,6 +21,6 @@
 -		$(INSTALL_DATA) cups-128.png $(BUILDROOT)$(ICONDIR)/hicolor/128x128/apps/cups.png; \
 -	fi
 -
- 
+
  #
  # Install programs...

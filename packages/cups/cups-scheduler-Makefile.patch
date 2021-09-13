@@ -46,7 +46,7 @@
 -		$(INSTALL_DATA) cups-lpd.xinetd $(BUILDROOT)$(XINETD)/cups-lpd; \
 -	fi
 -
-+	fi	
- 
++	fi
+
  #
  # Install programs...
