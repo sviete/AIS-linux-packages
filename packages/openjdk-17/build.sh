@@ -6,9 +6,9 @@ TERMUX_PKG_VERSION=17.0
 TERMUX_PKG_REVISION=15
 TERMUX_PKG_SRCURL=https://github.com/termux/openjdk-mobile-termux/archive/ec285598849a27f681ea6269342cf03cf382eb56.tar.gz
 TERMUX_PKG_SHA256=d7c6ead9d80d0f60d98d0414e9dc87f5e18a304e420f5cd21f1aa3210c1a1528
-TERMUX_PKG_DEPENDS="freetype, libandroid-shmem, libandroid-spawn, libiconv, zlib, xorgproto, libx11, libxcursor, libxext, cups, fontconfig, libpng, libxrender, libxtst, libxrandr, libxt, libxi"
-TERMUX_PKG_BUILD_DEPENDS="cups, fontconfig, libpng, libx11, libxrender"
-TERMUX_PKG_SUGGESTS="cups, fontconfig, libx11, libxrender"
+TERMUX_PKG_DEPENDS="freetype, libandroid-shmem, libandroid-spawn, libiconv, zlib, xorgproto, libx11, libxcursor, libxext, fontconfig, libpng, libxrender, libxtst, libxrandr, libxt, libxi"
+TERMUX_PKG_BUILD_DEPENDS="fontconfig, libpng, libx11, libxrender"
+TERMUX_PKG_SUGGESTS="fontconfig, libx11, libxrender"
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_HAS_DEBUG=false
 
@@ -69,7 +69,6 @@ termux_step_configure() {
 		--with-jvm-variants=server \
 		--with-devkit="$TERMUX_STANDALONE_TOOLCHAIN" \
 		--with-debug-level=release \
-		--with-cups-include="$TERMUX_PREFIX/include" \
 		--with-fontconfig-include="$TERMUX_PREFIX/include" \
 		--with-freetype-include="$TERMUX_PREFIX/include/freetype2" \
 		--with-freetype-lib="$TERMUX_PREFIX/lib" \
