@@ -4,7 +4,7 @@ diff -uNr mobile-ec285598849a27f681ea6269342cf03cf382eb56/src/java.base/share/na
 @@ -54,6 +54,24 @@
  #include "java.h"
  #include "jni.h"
- 
+
 +#ifdef __TERMUX__
 +#include <stdbool.h>
 +#include <dlfcn.h>
@@ -29,7 +29,7 @@ diff -uNr mobile-ec285598849a27f681ea6269342cf03cf382eb56/src/java.base/share/na
 @@ -252,6 +270,8 @@
      _is_java_args = javaargs;
      _wc_enabled = cpwildcard;
- 
+
 +    android_disable_tags();
 +
      InitLauncher(javaw);

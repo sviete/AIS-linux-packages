@@ -14,7 +14,7 @@ index a9f8a0e54ed..4716fe3f86a 100644
 @@ -65,23 +65,23 @@ ifeq ($(call isTargetOs, linux), true)
  	#
    endif
- 
+
 -  ifeq ($(call isTargetCpu, x86), true)
 -    # Performance measurements show that by compiling GC related code, we could
 -    # significantly reduce the GC pause time on 32 bit Linux/Unix platforms by
@@ -49,6 +49,6 @@ index a9f8a0e54ed..4716fe3f86a 100644
 +  #   # This will get implicitly picked up by SetupNativeCompilation below.
 +  #   $(foreach s, $(NONPIC_SRC), $(eval BUILD_LIBJVM_$(notdir $s)_CXXFLAGS := -fno-PIC))
 +  # endif
- 
+
  else ifeq ($(call isTargetOs, macosx), true)
    # The copied fdlibm routines in these files must not be optimized

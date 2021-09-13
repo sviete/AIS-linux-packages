@@ -13,7 +13,7 @@ index ff462ad27..f0314a729 100644
 +++ b/src/hotspot/os_cpu/linux_arm/os_linux_arm.cpp
 @@ -85,8 +85,14 @@
  #endif
- 
+
  address os::current_stack_pointer() {
 +#if defined(__clang__) || defined(__llvm__)
 +  void *sp;
@@ -24,8 +24,7 @@ index ff462ad27..f0314a729 100644
    return sp;
 +#endif
  }
- 
- char* os::non_memory_address_word() {
--- 
-2.30.2
 
+ char* os::non_memory_address_word() {
+--
+2.30.2

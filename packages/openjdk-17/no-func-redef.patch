@@ -4,7 +4,7 @@ diff -uNr mobile-ec285598849a27f681ea6269342cf03cf382eb56/src/hotspot/os/linux/o
 @@ -132,7 +132,7 @@
  // for timer info max values which include all bits
  #define ALL_64_BITS CONST64(0xFFFFFFFFFFFFFFFF)
- 
+
 -#if defined(MUSL_LIBC) || defined(__ANDROID__)
 +#if defined(MUSL_LIBC) || defined(__ANDROID__) && !defined(__TERMUX__)
  // dlvsym is not a part of POSIX
@@ -16,7 +16,7 @@ diff -uNr mobile-ec285598849a27f681ea6269342cf03cf382eb56/src/java.base/unix/nat
 @@ -155,7 +155,7 @@
  static lutimes_func* my_lutimes_func = NULL;
  static fdopendir_func* my_fdopendir_func = NULL;
- 
+
 -#ifdef __ANDROID__
 +#if defined(__ANDROID__) && !defined(__TERMUX__)
  /*
@@ -28,7 +28,7 @@ diff -uNr mobile-ec285598849a27f681ea6269342cf03cf382eb56/src/java.base/unix/nat
 @@ -46,7 +46,7 @@
  #include "java_props_macosx.h"
  #endif
- 
+
 -#ifdef __ANDROID__
 +#if defined(__ANDROID__) && !defined(__TERMUX__)
  // From https://android.googlesource.com/platform/bionic/+/master/libc/bionic/langinfo.cpp

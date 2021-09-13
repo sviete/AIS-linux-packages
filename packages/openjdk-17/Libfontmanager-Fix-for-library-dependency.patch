@@ -22,12 +22,11 @@ index 0bd1b5063..e2c456c45 100644
      LIBS_windows := $(WIN_JAVA_LIB) advapi32.lib user32.lib gdi32.lib \
          $(WIN_AWT_LIB), \
  ))
- 
+
 -$(BUILD_LIBFONTMANAGER): $(BUILD_LIBAWT)
 +$(BUILD_LIBFONTMANAGER): $(BUILD_LIBAWT) $(BUILD_LIBAWT_XAWT)
- 
+
  ifeq ($(call isTargetOs, macosx), true)
    $(BUILD_LIBFONTMANAGER): $(call FindLib, $(MODULE), awt_lwawt)
--- 
+--
 2.30.2
-
