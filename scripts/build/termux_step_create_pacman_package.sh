@@ -35,9 +35,17 @@ termux_step_create_pacman_package() {
 			PKG_FORMAT="xz";;
 	esac
 
-	local PACMAN_FILE=$TERMUX_OUTPUT_DIR/${TERMUX_PKG_NAME}${DEBUG}-${TERMUX_PKG_FULLVERSION}-${TERMUX_ARCH}.pkg.tar.${PKG_FORMAT}
-
+	# Version view revisions.
 	local TERMUX_PKG_VERSION=$(echo $TERMUX_PKG_VERSION | sed "s|-|.|")
+	local TERMUX_PKG_VERSION=${TERMUX_PKG_VERSION/[a-z]/.${TERMUX_PKG_VERSION//[0-9.]/}}
+	local TERMUX_PKG_FULLVERSION="${TERMUX_PKG_VERSION}"
+	if [ -n "$TERMUX_PKG_REVISION" ]; then
+		TERMUX_PKG_FULLVERSION+="-${TERMUX_PKG_REVISION}"
+	else
+		TERMUX_PKG_FULLVERSION+="-0"
+	fi
+
+	local PACMAN_FILE=$TERMUX_OUTPUT_DIR/${TERMUX_PKG_NAME}${DEBUG}-${TERMUX_PKG_FULLVERSION}-${TERMUX_ARCH}.pkg.tar.${PKG_FORMAT}
 
 	local BUILD_DATE
 	BUILD_DATE=$(date +%s)
@@ -46,11 +54,7 @@ termux_step_create_pacman_package() {
 	{
 		echo "pkgname = $TERMUX_PKG_NAME"
 		echo "pkgbase = $TERMUX_PKG_NAME"
-		if [ -n "$TERMUX_PKG_REVISION" ]; then
-			echo "pkgver = $TERMUX_PKG_VERSION-${TERMUX_PKG_REVISION}"
-		else
-			echo "pkgver = $TERMUX_PKG_VERSION-0"
-		fi
+		echo "pkgver = $TERMUX_PKG_FULLVERSION"
 		echo "pkgdesc = $(echo "$TERMUX_PKG_DESCRIPTION" | tr '\n' ' ')"
 		echo "url = $TERMUX_PKG_HOMEPAGE"
 		echo "builddate = $BUILD_DATE"
@@ -97,6 +101,10 @@ termux_step_create_pacman_package() {
 		if [ -n "$TERMUX_PKG_CONFFILES" ]; then
 			tr ',' '\n' <<< "$TERMUX_PKG_CONFFILES" | awk '{ printf "backup = '"${TERMUX_PREFIX:1}"'/%s\n", $1 }'
 		fi
+
+		if [ -n "$TERMUX_PKG_GROUPS" ]; then
+			tr ',' '\n' <<< "${TERMUX_PKG_GROUPS/#, /}" | awk '{ printf "group = %s\n", $1 }'
+		fi
 	} > .PKGINFO
 
 	# Build metadata.
@@ -104,11 +112,7 @@ termux_step_create_pacman_package() {
 		echo "format = 2"
 		echo "pkgname = $TERMUX_PKG_NAME"
 		echo "pkgbase = $TERMUX_PKG_NAME"
-		if [ -n "$TERMUX_PKG_REVISION" ]; then
-			echo "pkgver = $TERMUX_PKG_VERSION-${TERMUX_PKG_REVISION}"
-		else
-			echo "pkgver = $TERMUX_PKG_VERSION-0"
-		fi
+		echo "pkgver = $TERMUX_PKG_FULLVERSION"
 		echo "pkgarch = $TERMUX_ARCH"
 		echo "packager = $TERMUX_PKG_MAINTAINER"
 		echo "builddate = $BUILD_DATE"

@@ -23,6 +23,7 @@ termux_create_pacman_subpackages() {
 		local TERMUX_SUBPKG_REPLACES=""
 		local TERMUX_SUBPKG_CONFFILES=""
 		local TERMUX_SUBPKG_DEPEND_ON_PARENT=""
+		local TERMUX_SUBPKG_GROUPS=""
 		local SUB_PKG_MASSAGE_DIR=$SUB_PKG_DIR/massage/$TERMUX_PREFIX
 		local SUB_PKG_PACKAGE_DIR=$SUB_PKG_DIR/package
 		mkdir -p "$SUB_PKG_MASSAGE_DIR" "$SUB_PKG_PACKAGE_DIR"
@@ -66,17 +67,21 @@ termux_create_pacman_subpackages() {
 			TERMUX_SUBPKG_DEPENDS+=", $TERMUX_PKG_DEPENDS"
 		fi
 
+		# Version view revisions.
 		local TERMUX_PKG_VERSION=$(echo $TERMUX_PKG_VERSION | sed "s|-|.|")
+		local TERMUX_PKG_VERSION=${TERMUX_PKG_VERSION/[a-z]/.${TERMUX_PKG_VERSION//[0-9.]/}}
+		local TERMUX_PKG_FULLVERSION="${TERMUX_PKG_VERSION}"
+		if [ -n "$TERMUX_PKG_REVISION" ]; then
+			TERMUX_PKG_FULLVERSION+="-${TERMUX_PKG_REVISION}"
+		else
+			TERMUX_PKG_FULLVERSION+="-0"
+		fi
 
 		# Package metadata.
 		{
 			echo "pkgname = $SUB_PKG_NAME"
 			echo "pkgbase = $TERMUX_PKG_NAME"
-			if [ -n "$TERMUX_PKG_REVISION" ]; then
-				echo "pkgver = $TERMUX_PKG_VERSION-${TERMUX_PKG_REVISION}"
-			else
-				echo "pkgver = $TERMUX_PKG_VERSION-0"
-			fi
+			echo "pkgver = $TERMUX_PKG_FULLVERSION"
 			echo "pkgdesc = $(echo "$TERMUX_SUBPKG_DESCRIPTION" | tr '\n' ' ')"
 			echo "url = $TERMUX_PKG_HOMEPAGE"
 			echo "builddate = $BUILD_DATE"
@@ -103,6 +108,10 @@ termux_create_pacman_subpackages() {
 			if [ -n "$TERMUX_SUBPKG_CONFFILES" ]; then
 				tr ',' '\n' <<< "$TERMUX_SUBPKG_CONFFILES" | awk '{ printf "backup = '"${TERMUX_PREFIX:1}"'/%s\n", $1 }'
 			fi
+
+			if [ -n "$TERMUX_SUBPKG_GROUPS" ]; then
+				tr ',' '\n' <<< "${TERMUX_SUBPKG_GROUPS/#, /}" | awk '{ printf "group = %s\n", $1 }'
+			fi
 		} > .PKGINFO
 
 		# Build metadata.
@@ -110,11 +119,7 @@ termux_create_pacman_subpackages() {
 			echo "format = 2"
 			echo "pkgname = $SUB_PKG_NAME"
 			echo "pkgbase = $TERMUX_PKG_NAME"
-			if [ -n "$TERMUX_PKG_REVISION" ]; then
-				echo "pkgver = $TERMUX_PKG_VERSION-${TERMUX_PKG_REVISION}"
-			else
-				echo "pkgver = $TERMUX_PKG_VERSION-0"
-			fi
+			echo "pkgver = $TERMUX_PKG_FULLVERSION"
 			echo "pkgarch = $SUB_PKG_ARCH"
 			echo "packager = $TERMUX_PKG_MAINTAINER"
 			echo "builddate = $BUILD_DATE"
