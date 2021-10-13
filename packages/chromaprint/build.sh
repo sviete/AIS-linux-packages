@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://acoustid.org/chromaprint
-TERMUX_PKG_DESCRIPTION="C library for generating audio fingerprints used by AcoustID"
+TERMUX_PKG_DESCRIPTION="C library for generating audio fingerprints used by AcoustID."
 TERMUX_PKG_LICENSE="LGPL-2.1, MIT"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=1.5.0
@@ -13,4 +13,3 @@ termux_step_post_make_install() {
   ln -sf "${TERMUX_PREFIX}/lib/libchromaprint.so" "${TERMUX_PREFIX}/lib/libchromaprint.so.${TERMUX_PKG_VERSION:0:1}"
   ln -sf "${TERMUX_PREFIX}/lib/libchromaprint.so" "${TERMUX_PREFIX}/lib/libchromaprint.so.${TERMUX_PKG_VERSION}"
 }
-
