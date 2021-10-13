@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://github.com/taviso/ctypes.sh
-TERMUX_PKG_DESCRIPTION="A foreign function interface for bash"
+TERMUX_PKG_DESCRIPTION="A foreign function interface for bash."
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=1.2
