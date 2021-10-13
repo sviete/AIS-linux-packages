@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://dasm-dillon.sourceforge.io/
-TERMUX_PKG_DESCRIPTION="Macro assembler with support for several 8-bit microprocessors"
+TERMUX_PKG_DESCRIPTION="Macro assembler with support for several 8-bit microprocessors."
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=2.20.14.1
@@ -11,4 +11,3 @@ TERMUX_PKG_BUILD_IN_SRC=true
 termux_step_make_install() {
   cp $TERMUX_PKG_SRCDIR/bin/* $TERMUX_PREFIX/bin/
 }
-
