@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=http://dar.linux.free.fr/
-TERMUX_PKG_DESCRIPTION="A full featured command-line backup tool, short for Disk ARchive"
+TERMUX_PKG_DESCRIPTION="A full featured command-line backup tool, short for Disk ARchive."
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=2.7.2
@@ -16,4 +16,3 @@ termux_step_pre_configure() {
 	fi
 	CXXFLAGS+=" $CPPFLAGS"
 }
-
