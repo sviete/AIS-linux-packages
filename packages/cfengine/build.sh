@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://cfengine.com/
-TERMUX_PKG_DESCRIPTION="CFEngine is a configuration management technology."
+TERMUX_PKG_DESCRIPTION="CFEngine is a configuration management technology"
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@craigcomstock"
 TERMUX_PKG_VERSION=1:3.18.0
@@ -41,4 +41,3 @@ termux_step_create_debscripts() {
         fi
 EOF
 }
-
