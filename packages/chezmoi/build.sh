@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://chezmoi.io
-TERMUX_PKG_DESCRIPTION="Manage your dotfiles across multiple machines"
+TERMUX_PKG_DESCRIPTION="Manage your dotfiles across multiple machines."
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="Henrik Grimler @Grimler91"
 TERMUX_PKG_VERSION=2.7.0
