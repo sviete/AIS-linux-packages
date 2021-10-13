@@ -32,9 +32,10 @@ Host staging
   AddKeysToAgent yes
 END
 
-for i in debs-*.tar; do
-  tar xf $i
+for archive in termux-packages-*/*.tar; do
+  tar xf "$archive"
 done
+
 # Purging debfiles of removed packages.
 TO_DELETE=$(test -f ./debs/deleted_packages.txt && cat ./debs/deleted_packages.txt || true)
 if [ -n "$TO_DELETE" ]; then
