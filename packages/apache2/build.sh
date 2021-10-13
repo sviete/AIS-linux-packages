@@ -2,9 +2,9 @@ TERMUX_PKG_HOMEPAGE=https://httpd.apache.org
 TERMUX_PKG_DESCRIPTION="Apache Web Server"
 TERMUX_PKG_LICENSE="Apache-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=1:2.4.48
+TERMUX_PKG_VERSION=1:2.4.50
 TERMUX_PKG_SRCURL=https://www.apache.org/dist/httpd/httpd-${TERMUX_PKG_VERSION:2}.tar.bz2
-TERMUX_PKG_SHA256=1bc826e7b2e88108c7e4bf43c026636f77a41d849cfb667aa7b5c0b86dbf966c
+TERMUX_PKG_SHA256=6a2817c070c606682eb53ed963511407d3c3d7a379cdf855971467b00fb3890f
 TERMUX_PKG_DEPENDS="apr, apr-util, pcre, openssl, libcrypt, libandroid-support, libnghttp2, libexpat, libuuid, zlib"
 TERMUX_PKG_BREAKS="apache2-dev"
 TERMUX_PKG_REPLACES="apache2-dev"
@@ -72,6 +72,7 @@ TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_RM_AFTER_INSTALL="share/apache2/manual etc/apache2/original share/man/man8/suexec.8 libexec/httpd.exp"
 TERMUX_PKG_EXTRA_MAKE_ARGS="-s"
 TERMUX_PKG_SERVICE_SCRIPT=("httpd" 'exec httpd -DNO_DETACH 2>&1')
+
 
 termux_step_pre_configure() {
 	# Certain packages are not safe to build on device because their
