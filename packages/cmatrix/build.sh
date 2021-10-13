@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://github.com/abishekvashok/cmatrix
-TERMUX_PKG_DESCRIPTION="Command producing a Matrix-style animation"
+TERMUX_PKG_DESCRIPTION="Command producing a Matrix-style animation."
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=2.0
@@ -17,4 +17,3 @@ termux_step_pre_configure() {
 	export ac_cv_file__usr_lib_X11_fonts_misc=no
 	export ac_cv_file__usr_X11R6_lib_X11_fonts_misc=no
 }
-
