@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://github.com/direnv/direnv
-TERMUX_PKG_DESCRIPTION="Environment switcher for shell."
+TERMUX_PKG_DESCRIPTION="Environment switcher for shell"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=2.28.0
