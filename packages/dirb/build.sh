@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=http://dirb.sourceforge.net/
-TERMUX_PKG_DESCRIPTION="Web Directory Fuzzer."
+TERMUX_PKG_DESCRIPTION="Web Directory Fuzzer"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=2.22
@@ -19,4 +19,3 @@ termux_step_post_make_install() {
 	find "$TERMUX_PREFIX"/share/dirb/wordlists -type f | xargs chmod 600
 	mv -f "$TERMUX_PREFIX"/bin/gendict "$TERMUX_PREFIX"/bin/dirb-gendict
 }
-
