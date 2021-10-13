@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://github.com/github/cmark
-TERMUX_PKG_DESCRIPTION="CommonMark parsing and rendering program"
+TERMUX_PKG_DESCRIPTION="CommonMark parsing and rendering program."
 TERMUX_PKG_LICENSE="BSD 2-Clause"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=0.29.0.gfm.2
