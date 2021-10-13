@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://github.com/cronie-crond/cronie/
-TERMUX_PKG_DESCRIPTION="Daemon that runs specified programs at scheduled times and related tools"
+TERMUX_PKG_DESCRIPTION="Daemon that runs specified programs at scheduled times and related tools."
 TERMUX_PKG_LICENSE="BSD"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=1.5.7
@@ -28,4 +28,3 @@ termux_step_create_debscripts() {
 	mkdir -p $TERMUX_PREFIX/etc/cron.d
 	EOF
 }
-
