@@ -1,9 +1,11 @@
 TERMUX_PKG_HOMEPAGE=https://www.samba.org/
 TERMUX_PKG_DESCRIPTION="SMB/CIFS fileserver"
 TERMUX_PKG_LICENSE="GPL-3.0"
-TERMUX_PKG_VERSION=4.14.4
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION=4.14.8
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://download.samba.org/pub/samba/samba-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=89af092a0b00f5354ed287f0aa37b8c2cf9ba2ce67ea6464192e2c18528f89b9
+TERMUX_PKG_SHA256=c936b782c2aced8cd7299c13bec67c495fd4affdb217a6ed6150f4fd6d770fde
 TERMUX_PKG_DEPENDS="libbsd, libcap, libcrypt, libgnutls, libiconv, libicu, libpopt, libtalloc, libtirpc, ncurses, openssl, readline, zlib"
 TERMUX_PKG_BUILD_DEPENDS="e2fsprogs"
 TERMUX_PKG_BUILD_IN_SRC=true
@@ -77,6 +79,7 @@ EOF
 
 	USING_SYSTEM_ASN1_COMPILE=1 ASN1_COMPILE=/usr/bin/asn1_compile \
 	USING_SYSTEM_COMPILE_ET=1 COMPILE_ET=/usr/bin/compile_et \
+	CFLAGS="-D__ANDROID_API__=24 -D__USE_FILE_OFFSET64=1" \
 	./buildtools/bin/waf configure \
 		--jobs="$TERMUX_MAKE_PROCESSES" \
 		--bundled-libraries='!asn1_compile,!compile_et' \
