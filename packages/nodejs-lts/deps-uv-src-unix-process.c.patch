@@ -17,4 +17,3 @@
 -
    if ((options->flags & UV_PROCESS_SETGID) && setgid(options->gid))
      uv__write_errno(error_fd);
- 
