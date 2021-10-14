@@ -6,7 +6,7 @@ TERMUX_PKG_VERSION=22.3.4
 TERMUX_PKG_SRCURL=https://github.com/erlang/otp/archive/OTP-$TERMUX_PKG_VERSION.tar.gz
 TERMUX_PKG_SHA256=79657e07aee0cc174f89c1bd7d8d251295f64144cced6ea72b98777ec6a6660d
 TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_AUTO_UPDATE_TAG_REGEXP="\d+\.\d+"
+TERMUX_PKG_AUTO_UPDATE_TAG_REGEXP="\d+(\.\d+)+"
 TERMUX_PKG_DEPENDS="openssl, ncurses, zlib"
 TERMUX_PKG_NO_STATICSPLIT=true
 TERMUX_PKG_HOSTBUILD=true
@@ -35,4 +35,3 @@ termux_step_pre_configure() {
 	cp bin/*/* $TERMUX_PKG_SRCDIR/bootstrap/bin
 	export PATH="$TERMUX_PKG_SRCDIR/bootstrap/bin:$PATH"
 }
-
