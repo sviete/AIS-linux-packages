@@ -6,6 +6,8 @@ TERMUX_PKG_VERSION=2.3.3
 TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://github.com/libgd/libgd/releases/download/gd-${TERMUX_PKG_VERSION}/libgd-${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_SHA256=dd3f1f0bb016edcc0b2d082e8229c822ad1d02223511997c80461481759b1ed2
+TERMUX_PKG_AUTO_UPDATE=true
+TERMUX_PKG_AUTO_UPDATE_TAG_REGEXP="\d+\.\d+\.\d+"
 TERMUX_PKG_DEPENDS="freetype, fontconfig, libiconv, libjpeg-turbo, libpng, libtiff, libwebp, zlib"
 TERMUX_PKG_BREAKS="libgd-dev"
 TERMUX_PKG_REPLACES="libgd-dev"
@@ -13,4 +15,3 @@ TERMUX_PKG_REPLACES="libgd-dev"
 # Disable vpx support for now, look at https://github.com/gagern/libgd/commit/d41eb72cd4545c394578332e5c102dee69e02ee8
 # for enabling:
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="--without-vpx --without-x"
-
