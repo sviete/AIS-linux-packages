@@ -1,6 +1,6 @@
 ##
 ## A list of package upstreams located on Github which should be
-## checked for updates.
+## checked for updates..
 ##
 ## Each entry has a following format:
 ##
