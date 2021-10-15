@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://www.imagemagick.org/
-TERMUX_PKG_DESCRIPTION="Suite to create, edit, compose, or convert images in a variety of formats"
+TERMUX_PKG_DESCRIPTION="Suite to create, edit, compose, or convert images in a variety of formats."
 TERMUX_PKG_LICENSE="ImageMagick"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=7.1.0.10
