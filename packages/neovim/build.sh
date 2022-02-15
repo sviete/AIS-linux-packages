@@ -2,21 +2,22 @@ TERMUX_PKG_HOMEPAGE=https://neovim.io/
 TERMUX_PKG_DESCRIPTION="Ambitious Vim-fork focused on extensibility and agility (nvim)"
 TERMUX_PKG_LICENSE="Apache-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=0.5.1
+TERMUX_PKG_VERSION=0.6.1
+TERMUX_PKG_REVISION=2
 TERMUX_PKG_SRCURL=https://github.com/neovim/neovim/archive/v${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=aa449795e5cc69bdd2eeed7095f20b9c086c6ecfcde0ab62ab97a9d04243ec84
+TERMUX_PKG_SHA256=dd882c21a52e5999f656cae3f336b5fc702d52addd4d9b5cd3dc39cfff35e864
 TERMUX_PKG_AUTO_UPDATE=true
 TERMUX_PKG_DEPENDS="libiconv, libuv, luv, libmsgpack, libandroid-support, libvterm, libtermkey, libluajit, libunibilium, libtreesitter"
 TERMUX_PKG_HOSTBUILD=true
 
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DENABLE_JEMALLOC=OFF
--DGETTEXT_MSGFMT_EXECUTABLE=$(which msgfmt)
--DGETTEXT_MSGMERGE_EXECUTABLE=$(which msgmerge)
+-DGETTEXT_MSGFMT_EXECUTABLE=$(command -v msgfmt)
+-DGETTEXT_MSGMERGE_EXECUTABLE=$(command -v msgmerge)
 -DGPERF_PRG=$TERMUX_PKG_HOSTBUILD_DIR/deps/usr/bin/gperf
 -DLUA_PRG=$TERMUX_PKG_HOSTBUILD_DIR/deps/usr/bin/luajit
--DPKG_CONFIG_EXECUTABLE=$(which pkg-config)
--DXGETTEXT_PRG=$(which xgettext)
+-DPKG_CONFIG_EXECUTABLE=$(command -v pkg-config)
+-DXGETTEXT_PRG=$(command -v xgettext)
 -DLUAJIT_INCLUDE_DIR=$TERMUX_PREFIX/include/luajit-2.1
 "
 TERMUX_PKG_CONFFILES="share/nvim/sysinit.vim"
@@ -31,7 +32,7 @@ _patch_luv() {
 termux_step_host_build() {
 	termux_setup_cmake
 
-	TERMUX_ORIGINAL_CMAKE=$(which cmake)
+	TERMUX_ORIGINAL_CMAKE=$(command -v cmake)
 	if [ ! -f "$TERMUX_ORIGINAL_CMAKE.orig" ]; then
 		mv "$TERMUX_ORIGINAL_CMAKE" "$TERMUX_ORIGINAL_CMAKE.orig"
 	fi

@@ -3,11 +3,11 @@ TERMUX_PKG_DESCRIPTION="Python 3 programming language intended to enable clear p
 TERMUX_PKG_LICENSE="PythonPL"
 TERMUX_PKG_MAINTAINER="@termux"
 _MAJOR_VERSION=3.10
-TERMUX_PKG_VERSION=${_MAJOR_VERSION}.0
-TERMUX_PKG_REVISION=1
+TERMUX_PKG_VERSION=${_MAJOR_VERSION}.2
+TERMUX_PKG_REVISION=2
 TERMUX_PKG_SRCURL=https://www.python.org/ftp/python/${TERMUX_PKG_VERSION}/Python-${TERMUX_PKG_VERSION}.tar.xz
-TERMUX_PKG_SHA256=5a99f8e7a6a11a7b98b4e75e0d1303d3832cada5534068f69c7b6222a7b1b002
-TERMUX_PKG_DEPENDS="gdbm, libandroid-support, libbz2, libcrypt, libexpat, libffi, liblzma, libsqlite, ncurses, ncurses-ui-libs, openssl, readline, zlib"
+TERMUX_PKG_SHA256=17de3ac7da9f2519aa9d64378c603a73a0e9ad58dffa8812e45160c086de64c7
+TERMUX_PKG_DEPENDS="gdbm, libandroid-posix-semaphore, libandroid-support, libbz2, libcrypt, libexpat, libffi, liblzma, libsqlite, ncurses, ncurses-ui-libs, openssl, readline, zlib"
 TERMUX_PKG_RECOMMENDS="clang, make, pkg-config"
 TERMUX_PKG_SUGGESTS="python-tkinter"
 TERMUX_PKG_BREAKS="python2 (<= 2.7.15), python-dev"
@@ -25,23 +25,26 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" ac_cv_func_faccessat=no"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" --build=$TERMUX_BUILD_TUPLE --with-system-ffi --with-system-expat --without-ensurepip"
 # Hard links does not work on Android 6:
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" ac_cv_func_linkat=no"
-# Posix semaphores are not supported on Android:
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" ac_cv_posix_semaphores_enabled=no"
 # Do not assume getaddrinfo is buggy when cross compiling:
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" ac_cv_buggy_getaddrinfo=no"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" --enable-loadable-sqlite-extensions"
 # Fix https://github.com/termux/termux-packages/issues/2236:
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" ac_cv_little_endian_double=yes"
-# Force disable semaphores (Android does not support them).
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" ac_cv_func_sem_open=no"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" ac_cv_func_sem_timedwait=no"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" ac_cv_func_sem_getvalue=no"
-TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" ac_cv_func_sem_unlink=no"
+# Force enable posix semaphores.
+TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" ac_cv_posix_semaphores_enabled=yes"
+TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" ac_cv_func_sem_open=yes"
+TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" ac_cv_func_sem_timedwait=yes"
+TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" ac_cv_func_sem_getvalue=yes"
+TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" ac_cv_func_sem_unlink=yes"
+# Force enable posix shared memory.
+TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" ac_cv_func_shm_open=yes"
+TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" ac_cv_func_shm_unlink=yes"
 
 TERMUX_PKG_RM_AFTER_INSTALL="
 lib/python${_MAJOR_VERSION}/test
 lib/python${_MAJOR_VERSION}/*/test
 lib/python${_MAJOR_VERSION}/*/tests
+lib/python${_MAJOR_VERSION}/site-packages/*/
 "
 
 termux_step_pre_configure() {
@@ -55,6 +58,13 @@ termux_step_pre_configure() {
 	CPPFLAGS+=" -I$TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/include"
 	LDFLAGS+=" -L$TERMUX_STANDALONE_TOOLCHAIN/sysroot/usr/lib"
 	if [ $TERMUX_ARCH = x86_64 ]; then LDFLAGS+=64; fi
+
+	if [ "$TERMUX_ON_DEVICE_BUILD" = "true" ]; then
+		# Python's configure script fails with
+		#    Fatal: you must define __ANDROID_API__
+		# if __ANDROID_API__ is not defined.
+		CPPFLAGS+=" -D__ANDROID_API__=$(getprop ro.build.version.sdk)"
+	fi
 }
 
 termux_step_post_make_install() {

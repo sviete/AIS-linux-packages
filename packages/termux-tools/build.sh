@@ -2,7 +2,7 @@ TERMUX_PKG_HOMEPAGE=https://termux.com/
 TERMUX_PKG_DESCRIPTION="Basic system tools for Termux"
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=0.143
+TERMUX_PKG_VERSION=0.161
 TERMUX_PKG_SKIP_SRC_EXTRACT=true
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
 TERMUX_PKG_ESSENTIAL=true
@@ -18,7 +18,7 @@ etc/termux-login.sh
 # Some of these packages are not dependencies and used only to ensure
 # that core packages are installed after upgrading (we removed busybox
 # from essentials).
-TERMUX_PKG_DEPENDS="bzip2, coreutils, curl, dash, diffutils, findutils, gawk, grep, gzip, less, procps, psmisc, sed, tar, termux-am, termux-exec, util-linux, xz-utils, dialog"
+TERMUX_PKG_DEPENDS="bzip2, coreutils, curl, dash, diffutils, findutils, gawk, grep, gzip, less, procps, psmisc, sed, tar, termux-am, termux-am-socket, termux-exec, util-linux, xz-utils, dialog"
 
 # Optional packages that are distributed as part of bootstrap archives.
 TERMUX_PKG_RECOMMENDS="ed, dos2unix, inetutils, net-tools, patch, unzip"
@@ -26,7 +26,7 @@ TERMUX_PKG_RECOMMENDS="ed, dos2unix, inetutils, net-tools, patch, unzip"
 termux_step_make_install() {
 	# Remove LD_LIBRARY_PATH from environment to avoid conflicting
 	# with system libraries that system binaries may link against:
-	for tool in df getprop logcat mount ping ping6 ip pm settings top umount cmd; do
+	for tool in df getprop logcat mount ping ping6 pm settings top umount cmd; do
 		WRAPPER_FILE=$TERMUX_PREFIX/bin/$tool
 		echo '#!/bin/sh' > $WRAPPER_FILE
 		echo 'unset LD_LIBRARY_PATH LD_PRELOAD' >> $WRAPPER_FILE
@@ -48,6 +48,7 @@ termux_step_make_install() {
 				-e "s%\@TERMUX_HOME\@%${TERMUX_ANDROID_HOME}%g" \
 				-e "s%\@TERMUX_PREFIX\@%${TERMUX_PREFIX}%g" \
 				-e "s%\@PACKAGE_VERSION\@%${TERMUX_PKG_VERSION}%g" \
+				-e "s%\@TERMUX_PACKAGE_FORMAT\@%${TERMUX_PACKAGE_FORMAT}%g" \
 				$TERMUX_PREFIX/bin/$script
 	done
 

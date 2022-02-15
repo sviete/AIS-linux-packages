@@ -3,10 +3,9 @@ TERMUX_PKG_DESCRIPTION="Dart is a general-purpose programming language"
 TERMUX_PKG_LICENSE="BSD"
 TERMUX_PKG_LICENSE_FILE="sdk/LICENSE"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=2.13.4
+TERMUX_PKG_VERSION=2.16.0
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_SKIP_SRC_EXTRACT=true
-TERMUX_PKG_BLACKLISTED_ARCHES="x86_64"
 
 # Dart uses tar and gzip to extract downloaded packages.
 # Busybox-based versions of such utilities cause issues so
@@ -32,6 +31,12 @@ termux_step_get_source() {
 	gclient sync -D --force --reset
 }
 
+termux_step_pre_configure() {
+	sed -i -e 's:\([^A-Za-z0-9_]\)/usr/bin:\1'$TERMUX_PREFIX'/local/bin:g' \
+		-e 's:\([^A-Za-z0-9_]\)/bin:\1'$TERMUX_PREFIX'/bin:g' \
+		"$TERMUX_PKG_SRCDIR/sdk/third_party/pkg/pub/lib/src/io.dart"
+}
+
 termux_step_make() {
 	:
 }
@@ -42,21 +47,21 @@ termux_step_make_install() {
 	rm -f ./out/*/args.gn
 
 	if [ $TERMUX_ARCH = "arm" ]; then
-		DART_MAKE_PLATFORM_SDK=true python2 ./tools/build.py --no-goma --mode release --arch=arm --os=android create_sdk
+		python2 ./tools/build.py --no-goma --mode release --arch=arm --os=android create_sdk
 		chmod +x ./out/ReleaseAndroidARM/dart-sdk/bin/*
 		cp -r ./out/ReleaseAndroidARM/dart-sdk ${TERMUX_PREFIX}/lib
 	elif [ $TERMUX_ARCH = "i686" ]; then
-		DART_MAKE_PLATFORM_SDK=true python2 ./tools/build.py --no-goma --mode release --arch=ia32 --os=android create_sdk
+		python2 ./tools/build.py --no-goma --mode release --arch=ia32 --os=android create_sdk
 		chmod +x ./out/ReleaseAndroidIA32/dart-sdk/bin/*
 		cp -r ./out/ReleaseAndroidIA32/dart-sdk ${TERMUX_PREFIX}/lib
 	elif [ $TERMUX_ARCH = "aarch64" ]; then
-		DART_MAKE_PLATFORM_SDK=true python2 ./tools/build.py --no-goma --mode release --arch=arm64 --os=android create_sdk
-		chmod +x ./out/ReleaseAndroidARM64/dart-sdk/bin/*
-		cp -r ./out/ReleaseAndroidARM64/dart-sdk ${TERMUX_PREFIX}/lib
+		python2 ./tools/build.py --no-goma --mode release --arch=arm64c --os=android create_sdk
+		chmod +x ./out/ReleaseAndroidARM64C/dart-sdk/bin/*
+		cp -r ./out/ReleaseAndroidARM64C/dart-sdk ${TERMUX_PREFIX}/lib
 	elif [ $TERMUX_ARCH = "x86_64" ]; then
-		DART_MAKE_PLATFORM_SDK=true python2 ./tools/build.py --no-goma --mode release --arch=x64 --os=android create_sdk
-		chmod +x ./out/ReleaseAndroidX64/dart-sdk/bin/*
-		cp -r ./out/ReleaseAndroidX64/dart-sdk ${TERMUX_PREFIX}/lib
+		python2 ./tools/build.py --no-goma --mode release --arch=x64c --os=android create_sdk
+		chmod +x ./out/ReleaseAndroidX64C/dart-sdk/bin/*
+		cp -r ./out/ReleaseAndroidX64C/dart-sdk ${TERMUX_PREFIX}/lib
 	else
 		termux_error_exit "Unsupported arch '$TERMUX_ARCH'"
 	fi
