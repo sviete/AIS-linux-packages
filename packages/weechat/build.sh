@@ -3,7 +3,7 @@ TERMUX_PKG_DESCRIPTION="Fast, light and extensible IRC chat client"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=3.0.1
-TERMUX_PKG_REVISION=5
+TERMUX_PKG_REVISION=7
 TERMUX_PKG_SRCURL=https://www.weechat.org/files/src/weechat-${TERMUX_PKG_VERSION}.tar.bz2
 TERMUX_PKG_SHA256=63ac24c41e88798ad48bfbe8a7e1fd56ddf24416f86bccd3a53b258a569ca038
 TERMUX_PKG_DEPENDS="libiconv, ncurses, libgcrypt, libcurl, libgnutls, libandroid-support, zlib"
@@ -30,9 +30,9 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DENABLE_SPELL=OFF
 -DENABLE_TESTS=OFF
 -DSTRICT=ON
--DMSGFMT_EXECUTABLE=$(which msgfmt)
--DMSGMERGE_EXECUTABLE=$(which msgmerge)
--DXGETTEXT_EXECUTABLE=$(which xgettext)
+-DMSGFMT_EXECUTABLE=$(command -v msgfmt)
+-DMSGMERGE_EXECUTABLE=$(command -v msgmerge)
+-DXGETTEXT_EXECUTABLE=$(command -v xgettext)
 "
 
 termux_step_pre_configure() {

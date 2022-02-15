@@ -6,11 +6,14 @@ termux_setup_rust() {
 	fi
 
 	if [ "$TERMUX_ON_DEVICE_BUILD" = "true" ]; then
-		if [ "$(dpkg-query -W -f '${db:Status-Status}\n' rust 2>/dev/null)" != "installed" ]; then
+		if [[ "$TERMUX_MAIN_PACKAGE_FORMAT" = "debian" && "$(dpkg-query -W -f '${db:Status-Status}\n' rust 2>/dev/null)" != "installed" ]] ||
+                   [[ "$TERMUX_MAIN_PACKAGE_FORMAT" = "pacman" && ! "$(pacman -Q rust 2>/dev/null)" ]]; then
 			echo "Package 'rust' is not installed."
 			echo "You can install it with"
 			echo
 			echo "  apt install rust"
+			echo
+			echo "  pacman -S rust"
 			echo
 			echo "or build it from source with"
 			echo

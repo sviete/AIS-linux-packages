@@ -2,10 +2,9 @@ TERMUX_PKG_HOMEPAGE=https://git-scm.com/
 TERMUX_PKG_DESCRIPTION="Fast, scalable, distributed revision control system"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=2.33.0
-TERMUX_PKG_REVISION=1
-TERMUX_PKG_SRCURL=https://www.kernel.org/pub/software/scm/git/git-${TERMUX_PKG_VERSION}.tar.xz
-TERMUX_PKG_SHA256=bf3c6ab5f82e072aad4768f647cfb1ef60aece39855f83f080f9c0222dd20c4f
+TERMUX_PKG_VERSION=2.35.1
+TERMUX_PKG_SRCURL=https://mirrors.kernel.org/pub/software/scm/git/git-${TERMUX_PKG_VERSION}.tar.xz
+TERMUX_PKG_SHA256=d768528e6443f65a203036266f1ca50f9d127ba89751e32ead37117ed9191080
 TERMUX_PKG_DEPENDS="libcurl, libiconv, less, openssl, pcre2, zlib"
 
 ## This requires a working $TERMUX_PREFIX/bin/sh on the host building:
@@ -51,7 +50,7 @@ termux_step_pre_configure() {
 
 	# Setup perl so that the build process can execute it:
 	rm -f $TERMUX_PREFIX/bin/perl
-	ln -s $(which perl) $TERMUX_PREFIX/bin/perl
+	ln -s $(command -v perl) $TERMUX_PREFIX/bin/perl
 
 	# Force fresh perl files (otherwise files from earlier builds
 	# remains without bumped modification times, so are not picked

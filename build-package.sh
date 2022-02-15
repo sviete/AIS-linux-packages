@@ -67,6 +67,10 @@ source "$TERMUX_SCRIPTDIR/scripts/build/setup/termux_setup_golang.sh"
 # shellcheck source=scripts/build/setup/termux_setup_rust.sh
 source "$TERMUX_SCRIPTDIR/scripts/build/setup/termux_setup_rust.sh"
 
+# Utility function for zig-using packages to setup a zig toolchain.
+# shellcheck source=scripts/build/setup/termux_setup_zig.sh
+source "$TERMUX_SCRIPTDIR/scripts/build/setup/termux_setup_zig.sh"
+
 # Utility function to setup a current ninja build system.
 # shellcheck source=scripts/build/setup/termux_setup_ninja.sh
 source "$TERMUX_SCRIPTDIR/scripts/build/setup/termux_setup_ninja.sh"
@@ -96,8 +100,8 @@ source "$TERMUX_SCRIPTDIR/scripts/build/termux_step_handle_buildarch.sh"
 source "$TERMUX_SCRIPTDIR/scripts/build/termux_extract_dep_info.sh"
 
 # Function that downloads a .deb (using the termux_download function)
-# shellcheck source=scripts/build/termux_download_deb.sh
-source "$TERMUX_SCRIPTDIR/scripts/build/termux_download_deb.sh"
+# shellcheck source=scripts/build/termux_download_deb_pac.sh
+source "$TERMUX_SCRIPTDIR/scripts/build/termux_download_deb_pac.sh"
 
 # Script to download InRelease, verify it's signature and then download Packages.xz by hash
 # shellcheck source=scripts/build/termux_get_repo_files.sh
@@ -269,7 +273,10 @@ source "$TERMUX_SCRIPTDIR/scripts/build/termux_step_finish_build.sh"
 if [ "$TERMUX_ON_DEVICE_BUILD" = "true" ]; then
 	# For on device builds cross compiling is not supported.
 	# Target architecture must be same as for environment used currently.
-	TERMUX_ARCH=$(dpkg --print-architecture)
+	case "$TERMUX_MAIN_PACKAGE_FORMAT" in
+		"debian") TERMUX_ARCH=$(dpkg --print-architecture);;
+		"pacman") TERMUX_ARCH=$(pacman-conf | grep Architecture | sed 's/Architecture = //g');;
+	esac
 	export TERMUX_ARCH
 fi
 
@@ -370,21 +377,13 @@ unset -f _show_usage
 if [ "${TERMUX_INSTALL_DEPS-false}" = "true" ]; then
 	# Setup PGP keys for verifying integrity of dependencies.
 	# Keys are obtained from our keyring package.
-	gpg --list-keys 2218893D3F679BEFC421FD976700B77E6D8D0AE7 > /dev/null 2>&1 || {
-		gpg --import "$TERMUX_SCRIPTDIR/packages/termux-keyring/fornwall.gpg"
-		gpg --no-tty --command-file <(echo -e "trust\n5\ny")  --edit-key 2218893D3F679BEFC421FD976700B77E6D8D0AE7
-	}
-	gpg --list-keys B63168609E8839CA9150CE2DD9EFD56891B2BB50 > /dev/null 2>&1 || {
+	gpg --list-keys 2C7F29AE97891F6419A9E2CDB0076E490B71616B > /dev/null 2>&1 || {
 		gpg --import "$TERMUX_SCRIPTDIR/packages/termux-keyring/grimler.gpg"
-		gpg --no-tty --command-file <(echo -e "trust\n5\ny")  --edit-key B63168609E8839CA9150CE2DD9EFD56891B2BB50
+		gpg --no-tty --command-file <(echo -e "trust\n5\ny")  --edit-key 2C7F29AE97891F6419A9E2CDB0076E490B71616B
 	}
 	gpg --list-keys CC72CF8BA7DBFA0182877D045A897D96E57CF20C > /dev/null 2>&1 || {
 		gpg --import "$TERMUX_SCRIPTDIR/packages/termux-keyring/termux-autobuilds.gpg"
 		gpg --no-tty --command-file <(echo -e "trust\n5\ny")  --edit-key CC72CF8BA7DBFA0182877D045A897D96E57CF20C
-	}
-	gpg --list-keys 3B6B548ADE5EA3BDD33CEEF045F2964132545795 > /dev/null 2>&1 || {
-		gpg --import "$TERMUX_SCRIPTDIR/packages/termux-keyring/xeffyr.gpg"
-		gpg --no-tty --command-file <(echo -e "trust\n5\ny")  --edit-key 3B6B548ADE5EA3BDD33CEEF045F2964132545795
 	}
 fi
 
@@ -405,7 +404,7 @@ for ((i=0; i<${#PACKAGE_LIST[@]}; i++)); do
 				env TERMUX_ARCH="$arch" TERMUX_BUILD_IGNORE_LOCK=true ./build-package.sh \
 					${TERMUX_FORCE_BUILD+-f} ${TERMUX_INSTALL_DEPS+-i} ${TERMUX_IS_DISABLED+-D} \
 					${TERMUX_DEBUG_BUILD+-d} ${TERMUX_OUTPUT_DIR+-o $TERMUX_OUTPUT_DIR} \
-					--format ${TERMUX_PACKAGE_FORMAT} "${PACKAGE_LIST[i]}"
+					--format ${TERMUX_PACKAGE_FORMAT:=debian} "${PACKAGE_LIST[i]}"
 			done
 			exit
 		fi

@@ -2,16 +2,16 @@ TERMUX_PKG_HOMEPAGE=https://packages.debian.org/apt
 TERMUX_PKG_DESCRIPTION="Front-end for the dpkg package manager"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=2.3.9
+TERMUX_PKG_VERSION=2.3.15
 TERMUX_PKG_SRCURL=https://deb.debian.org/debian/pool/main/a/apt/apt_${TERMUX_PKG_VERSION}.tar.xz
-TERMUX_PKG_SHA256=28597fe803a652f55f618dd7a44bd2fb2712dbd91c258dfa5981cb75356291e3
+TERMUX_PKG_SHA256=2562007d110993dd7e7a86dd81ea650e61210179b59eac72b6edff6364c0bba6
 # apt-key requires utilities from coreutils, findutils, gpgv, grep, sed.
-TERMUX_PKG_DEPENDS="coreutils, dpkg, findutils, gpgv, grep, libandroid-glob, libbz2, libc++, libcurl, libgnutls, liblz4, liblzma, sed, termux-licenses, xxhash, zlib"
+TERMUX_PKG_DEPENDS="coreutils, dpkg, findutils, gpgv, grep, libandroid-glob, libbz2, libc++, libcurl, libgnutls, liblz4, liblzma, sed, termux-keyring, termux-licenses, xxhash, zlib"
 TERMUX_PKG_BUILD_DEPENDS="docbook-xsl"
 TERMUX_PKG_CONFLICTS="apt-transport-https, libapt-pkg"
-TERMUX_PKG_REPLACES="apt-transport-https, libapt-pkg"
-TERMUX_PKG_RECOMMENDS="game-repo, science-repo"
-TERMUX_PKG_SUGGESTS="gnupg, unstable-repo, x11-repo"
+TERMUX_PKG_REPLACES="apt-transport-https, libapt-pkg, unstable-repo, game-repo, science-repo"
+TERMUX_PKG_PROVIDES="unstable-repo, game-repo, science-repo"
+TERMUX_PKG_SUGGESTS="gnupg, x11-repo"
 TERMUX_PKG_ESSENTIAL=true
 
 TERMUX_PKG_CONFFILES="

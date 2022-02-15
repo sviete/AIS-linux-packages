@@ -301,8 +301,6 @@ for package_arch in "${TERMUX_ARCHITECTURES[@]}"; do
 	# Package manager.
 	if ! ${BOOTSTRAP_ANDROID10_COMPATIBLE}; then
 		pull_package apt
-		pull_package game-repo
-		pull_package science-repo
 	fi
 
 	# Core utilities.
@@ -327,6 +325,7 @@ for package_arch in "${TERMUX_ARCHITECTURES[@]}"; do
 	pull_package sed
 	pull_package tar
 	pull_package termux-exec
+	pull_package termux-keyring
 	pull_package termux-tools
 	pull_package util-linux
 	pull_package xz-utils

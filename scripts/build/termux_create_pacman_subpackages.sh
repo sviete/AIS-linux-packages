@@ -67,21 +67,11 @@ termux_create_pacman_subpackages() {
 			TERMUX_SUBPKG_DEPENDS+=", $TERMUX_PKG_DEPENDS"
 		fi
 
-		# Version view revisions.
-		local TERMUX_PKG_VERSION=$(echo $TERMUX_PKG_VERSION | sed "s|-|.|")
-		local TERMUX_PKG_VERSION=${TERMUX_PKG_VERSION/[a-z]/.${TERMUX_PKG_VERSION//[0-9.]/}}
-		local TERMUX_PKG_FULLVERSION="${TERMUX_PKG_VERSION}"
-		if [ -n "$TERMUX_PKG_REVISION" ]; then
-			TERMUX_PKG_FULLVERSION+="-${TERMUX_PKG_REVISION}"
-		else
-			TERMUX_PKG_FULLVERSION+="-0"
-		fi
-
 		# Package metadata.
 		{
 			echo "pkgname = $SUB_PKG_NAME"
 			echo "pkgbase = $TERMUX_PKG_NAME"
-			echo "pkgver = $TERMUX_PKG_FULLVERSION"
+			echo "pkgver = $TERMUX_PKG_FULLVERSION_FOR_PACMAN"
 			echo "pkgdesc = $(echo "$TERMUX_SUBPKG_DESCRIPTION" | tr '\n' ' ')"
 			echo "url = $TERMUX_PKG_HOMEPAGE"
 			echo "builddate = $BUILD_DATE"
@@ -102,7 +92,7 @@ termux_create_pacman_subpackages() {
 			fi
 
 			if [ -n "$TERMUX_SUBPKG_DEPENDS" ]; then
-				tr ',' '\n' <<< "${TERMUX_SUBPKG_DEPENDS/#, /}" | sed 's|(||g; s|)||g; s| ||g; s|>>|>|g; s|<<|<|g' | awk '{ printf "depend = %s\n", $1 }'
+				tr ',' '\n' <<< "${TERMUX_SUBPKG_DEPENDS/#, /}" | sed 's|(||g; s|)||g; s| ||g; s|>>|>|g; s|<<|<|g' | awk '{ printf "depend = %s\n", $1 }' | sed 's/|.*//'
 			fi
 
 			if [ -n "$TERMUX_SUBPKG_CONFFILES" ]; then
@@ -119,7 +109,7 @@ termux_create_pacman_subpackages() {
 			echo "format = 2"
 			echo "pkgname = $SUB_PKG_NAME"
 			echo "pkgbase = $TERMUX_PKG_NAME"
-			echo "pkgver = $TERMUX_PKG_FULLVERSION"
+			echo "pkgver = $TERMUX_PKG_FULLVERSION_FOR_PACMAN"
 			echo "pkgarch = $SUB_PKG_ARCH"
 			echo "packager = $TERMUX_PKG_MAINTAINER"
 			echo "builddate = $BUILD_DATE"
@@ -160,7 +150,7 @@ termux_create_pacman_subpackages() {
 		esac
 
 		# Create the actual .pkg file:
-		local TERMUX_SUBPKG_PACMAN_FILE=$TERMUX_OUTPUT_DIR/${SUB_PKG_NAME}${DEBUG}-${TERMUX_PKG_FULLVERSION}-${SUB_PKG_ARCH}.pkg.tar.${PKG_FORMAT}
+		local TERMUX_SUBPKG_PACMAN_FILE=$TERMUX_OUTPUT_DIR/${SUB_PKG_NAME}${DEBUG}-${TERMUX_PKG_FULLVERSION_FOR_PACMAN}-${SUB_PKG_ARCH}.pkg.tar.${PKG_FORMAT}
 		shopt -s dotglob globstar
 		printf '%s\0' **/* | bsdtar -cnf - --format=mtree \
 			--options='!all,use-set,type,uid,gid,mode,time,size,md5,sha256,link' \
