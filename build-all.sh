@@ -12,7 +12,7 @@ fi
 test -f "$HOME"/.termuxrc && . "$HOME"/.termuxrc
 : ${TERMUX_TOPDIR:="$HOME/.termux-build"}
 : ${TERMUX_ARCH:="arm"}
-: ${TERMUX_DEBUG:=""}
+: ${TERMUX_DEBUG_BUILD:=""}
 : ${TERMUX_INSTALL_DEPS:="-s"}
 # Set TERMUX_INSTALL_DEPS to -s unless set to -i
 
