@@ -1,5 +1,6 @@
---- ./deps/v8/src/trap-handler/trap-handler.h	2021-11-30 19:26:35.000000000 +0530
-+++ ./deps/v8/src/trap-handler/trap-handler.h.mod	2021-12-01 19:12:48.402386879 +0530
+diff '--color=auto' -uNr node-v17.8.0.orig/deps/v8/src/trap-handler/trap-handler.h node-v17.8.0/deps/v8/src/trap-handler/trap-handler.h
+--- node-v17.8.0.orig/deps/v8/src/trap-handler/trap-handler.h	2022-03-26 22:11:03.655459286 +0530
++++ node-v17.8.0/deps/v8/src/trap-handler/trap-handler.h	2022-03-26 22:12:11.475459260 +0530
 @@ -17,23 +17,7 @@
  namespace internal {
  namespace trap_handler {

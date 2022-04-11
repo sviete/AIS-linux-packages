@@ -2,12 +2,12 @@ TERMUX_PKG_HOMEPAGE=https://emscripten.org
 TERMUX_PKG_DESCRIPTION="Emscripten: An LLVM-to-WebAssembly Compiler"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="@truboxl"
-TERMUX_PKG_VERSION=3.1.2
+TERMUX_PKG_VERSION=3.1.8
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://github.com/emscripten-core/emscripten.git
 TERMUX_PKG_GIT_BRANCH=$TERMUX_PKG_VERSION
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
 TERMUX_PKG_RECOMMENDS="emscripten-llvm, emscripten-binaryen, python, nodejs-lts | nodejs"
-TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_HOSTBUILD=true
 TERMUX_PKG_NO_STATICSPLIT=true
 
@@ -21,26 +21,29 @@ opt/emscripten-llvm/bin/clang-extdef-mapping
 opt/emscripten-llvm/bin/clang-format
 opt/emscripten-llvm/bin/clang-func-mapping
 opt/emscripten-llvm/bin/clang-import-test
+opt/emscripten-llvm/bin/clang-linker-wrapper
 opt/emscripten-llvm/bin/clang-nvlink-wrapper
 opt/emscripten-llvm/bin/clang-offload-bundler
 opt/emscripten-llvm/bin/clang-offload-wrapper
+opt/emscripten-llvm/bin/clang-pseudo
 opt/emscripten-llvm/bin/clang-refactor
-opt/emscripten-llvm/bin/clang-repl
 opt/emscripten-llvm/bin/clang-rename
+opt/emscripten-llvm/bin/clang-repl
 opt/emscripten-llvm/bin/clang-scan-deps
 opt/emscripten-llvm/bin/diagtool
 opt/emscripten-llvm/bin/git-clang-format
 opt/emscripten-llvm/bin/hmaptool
-opt/emscripten-llvm/bin/llvm-cov
-opt/emscripten-llvm/bin/llvm-ml
-opt/emscripten-llvm/bin/llvm-profdata
-opt/emscripten-llvm/bin/llvm-rc
-opt/emscripten-llvm/bin/llvm-strip
 opt/emscripten-llvm/bin/ld.lld
 opt/emscripten-llvm/bin/ld64.lld
 opt/emscripten-llvm/bin/ld64.lld.darwin*
 opt/emscripten-llvm/bin/lld-link
+opt/emscripten-llvm/bin/llvm-cov
 opt/emscripten-llvm/bin/llvm-lib
+opt/emscripten-llvm/bin/llvm-ml
+opt/emscripten-llvm/bin/llvm-pdbutil
+opt/emscripten-llvm/bin/llvm-profdata
+opt/emscripten-llvm/bin/llvm-rc
+opt/emscripten-llvm/bin/llvm-strip
 opt/emscripten-llvm/lib/libclang.so*
 opt/emscripten-llvm/share
 opt/emscripten/LICENSE
@@ -61,13 +64,13 @@ opt/emscripten/LICENSE
 
 # https://github.com/emscripten-core/emscripten/issues/11362
 # can switch to stable LLVM to save space once above is fixed
-LLVM_COMMIT=782c0dd1a1c235afb09a34e7da4a1267ead14765
-LLVM_TGZ_SHA256=241f12c4275c77a4300095f8a65cf05b781b2dc88c171385dc87f61648b0a610
+LLVM_COMMIT=80ec0ebfdc5692a58e0832125f2c6a991df9d63f
+LLVM_TGZ_SHA256=adc89de66fb60133a1debb52e45e9e7d73b8ce6c0e8b02a338978437eac6407f
 
 # https://github.com/emscripten-core/emscripten/issues/12252
 # upstream says better bundle the right binaryen revision for now
-BINARYEN_COMMIT=c918679ec50d4a404bd06244e79691651bdee95b
-BINARYEN_TGZ_SHA256=434cfcfe7c40853b4f4134de34596eed2d986c263d8cea345fcb74d2dc428485
+BINARYEN_COMMIT=22d24fda983d471ebf73ebadbc37ef1741a5594d
+BINARYEN_TGZ_SHA256=fa29ce17c16bc59f761df7f8d60155a71d8f756086b632651e3ffc2e2228195b
 
 # https://github.com/emscripten-core/emsdk/blob/main/emsdk.py
 # https://chromium.googlesource.com/emscripten-releases/+/refs/heads/main/src/build.py
@@ -84,7 +87,7 @@ LLVM_BUILD_ARGS="
 -DLLVM_ENABLE_LIBEDIT=OFF
 -DLLVM_ENABLE_LIBPFM=OFF
 -DLLVM_ENABLE_LIBXML2=OFF
--DLLVM_ENABLE_PROJECTS=clang;compiler-rt;libunwind;lld
+-DLLVM_ENABLE_PROJECTS=clang;compiler-rt;lld
 -DLLVM_ENABLE_TERMINFO=OFF
 -DLLVM_INCLUDE_EXAMPLES=OFF
 -DLLVM_INCLUDE_TESTS=OFF
@@ -104,14 +107,12 @@ LLVM_BUILD_ARGS="
 -DCOMPILER_RT_BUILD_SANITIZERS=OFF
 -DCOMPILER_RT_BUILD_XRAY=OFF
 -DCOMPILER_RT_INCLUDE_TESTS=OFF
-
--DLIBUNWIND_USE_COMPILER_RT=ON
 "
 
 # https://github.com/WebAssembly/binaryen/blob/main/CMakeLists.txt
 BINARYEN_BUILD_ARGS="
--DCMAKE_BUILD_TYPE=MinSizeRel
 -DCMAKE_INSTALL_PREFIX=$TERMUX_PREFIX/opt/emscripten-binaryen
+-DBUILD_TESTS=OFF
 "
 
 termux_step_post_get_source() {
@@ -128,6 +129,11 @@ termux_step_post_get_source() {
 
 	cd "$TERMUX_PKG_CACHEDIR/llvm-project-$LLVM_COMMIT"
 	for patch in $TERMUX_PKG_BUILDER_DIR/llvm-project-*.patch.diff; do
+		patch -p1 -i "$patch"
+	done
+
+	cd "$TERMUX_PKG_CACHEDIR/binaryen-$BINARYEN_COMMIT"
+	for patch in $TERMUX_PKG_BUILDER_DIR/binaryen-*.patch.diff; do
 		patch -p1 -i "$patch"
 	done
 }
@@ -170,25 +176,27 @@ termux_step_make() {
 	cmake \
 		-G Ninja \
 		-S "$TERMUX_PKG_CACHEDIR/llvm-project-$LLVM_COMMIT/llvm" \
-		-B "$TERMUX_PKG_CACHEDIR/build-llvm" \
+		-B "$TERMUX_PKG_BUILDDIR/build-llvm" \
 		$LLVM_BUILD_ARGS
 	cmake \
-		--build "$TERMUX_PKG_CACHEDIR/build-llvm" \
+		--build "$TERMUX_PKG_BUILDDIR/build-llvm" \
 		-j "$TERMUX_MAKE_PROCESSES" \
 		--target install
 
 	cmake \
 		-G Ninja \
 		-S "$TERMUX_PKG_CACHEDIR/binaryen-$BINARYEN_COMMIT" \
-		-B "$TERMUX_PKG_CACHEDIR/build-binaryen" \
+		-B "$TERMUX_PKG_BUILDDIR/build-binaryen" \
 		$BINARYEN_BUILD_ARGS
 	cmake \
-		--build "$TERMUX_PKG_CACHEDIR/build-binaryen" \
+		--build "$TERMUX_PKG_BUILDDIR/build-binaryen" \
 		-j "$TERMUX_MAKE_PROCESSES" \
 		--target install
 }
 
 termux_step_make_install() {
+	cd "$TERMUX_PKG_SRCDIR"
+
 	# https://github.com/emscripten-core/emscripten/pull/15840
 	sed -e "s|-git||" -i "$TERMUX_PKG_SRCDIR/emscripten-version.txt"
 
@@ -201,7 +209,7 @@ termux_step_make_install() {
 
 	# first run generates .emscripten and exits immediately
 	rm -f "$TERMUX_PKG_SRCDIR/.emscripten"
-	./emcc
+	./emcc --generate-config
 	sed -i .emscripten -e "s|^EMSCRIPTEN_ROOT.*|EMSCRIPTEN_ROOT = '$TERMUX_PREFIX/opt/emscripten' # directory|"
 	sed -i .emscripten -e "s|^LLVM_ROOT.*|LLVM_ROOT = '$TERMUX_PREFIX/opt/emscripten-llvm/bin' # directory|"
 	sed -i .emscripten -e "s|^BINARYEN_ROOT.*|BINARYEN_ROOT = '$TERMUX_PREFIX/opt/emscripten-binaryen' # directory|"
@@ -217,8 +225,8 @@ termux_step_make_install() {
 	install -Dm644 "$TERMUX_PKG_TMPDIR/emscripten.sh" "$TERMUX_PREFIX/etc/profile.d/emscripten.sh"
 
 	# add useful tools not installed by LLVM_INSTALL_TOOLCHAIN_ONLY=ON
-	for tool in llc llvm-{addr2line,dwarfdump,dwp,link,nm,objdump,readobj,size} opt; do
-		install -Dm755 "$TERMUX_PKG_CACHEDIR/build-llvm/bin/$tool" "$TERMUX_PREFIX/opt/emscripten-llvm/bin/$tool"
+	for tool in llc llvm-{addr2line,dwarfdump,dwp,link,mc,nm,objdump,ranlib,readobj,size} opt; do
+		install -Dm755 "$TERMUX_PKG_BUILDDIR/build-llvm/bin/$tool" "$TERMUX_PREFIX/opt/emscripten-llvm/bin/$tool"
 	done
 
 	# wasm32 triplets
@@ -226,14 +234,15 @@ termux_step_make_install() {
 	ln -fsT "clang++" "$TERMUX_PREFIX/opt/emscripten-llvm/bin/wasm32-clang++"
 	ln -fsT "clang"   "$TERMUX_PREFIX/opt/emscripten-llvm/bin/wasm32-wasi-clang"
 	ln -fsT "clang++" "$TERMUX_PREFIX/opt/emscripten-llvm/bin/wasm32-wasi-clang++"
+	ln -fsT "lld"     "$TERMUX_PREFIX/opt/emscripten-llvm/bin/wasm-ld"
 
 	# unable to determine the reason why different linker searches for
 	# libclang_rt.builtins-*-android.a in different paths even after adding
 	# the patches from libllvm (also which one is more correct?)
 	#
-	# binutils LD searches lib/clang/14.0.0/lib/linux (exist)
-	# LLVM LD.LLD searches lib/clang/14.0.0/lib/android (not exist)
-	ln -fsT "linux" "$TERMUX_PREFIX/opt/emscripten-llvm/lib/clang/14.0.0/lib/android"
+	# binutils LD searches lib/clang/15.0.0/lib/linux (exist)
+	# LLVM LD.LLD searches lib/clang/15.0.0/lib/android (not exist)
+	ln -fsT "linux" "$TERMUX_PREFIX/opt/emscripten-llvm/lib/clang/15.0.0/lib/android"
 }
 
 termux_step_create_debscripts() {
@@ -287,9 +296,8 @@ termux_step_create_debscripts() {
 # https://github.com/emscripten-core/emscripten/issues/9098
 #
 # Steps:
-# - pkg install emscripten-tests-third-party openjdk-17
+# - pkg install emscripten-tests-third-party ndk-sysroot openjdk-17
 # - cd $PREFIX/opt/emscripten
-# - npm ci --no-optional
-# - export EMCC_CORES=1
+# - npm install --no-optional
 # - export EMTEST_SKIP_V8=1
 # - tests/runner {test_name}

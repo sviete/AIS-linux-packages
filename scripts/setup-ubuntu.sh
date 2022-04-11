@@ -60,9 +60,13 @@ PACKAGES+=" python3.9"
 PACKAGES+=" python3.10"
 PACKAGES+=" python3-pip"
 PACKAGES+=" python3-setuptools"
+PACKAGES+=" python3.10-venv"
 
 # Needed by package bc.
 PACKAGES+=" ed"
+
+# Needed by gnunet.
+PACKAGES+=" recutils"
 
 # Provides utility hexdump which is needed by package bitcoin.
 PACKAGES+=" bsdmainutils"
@@ -82,9 +86,15 @@ PACKAGES+=" swig"
 # Needed by package dbus-glib.
 PACKAGES+=" libdbus-1-dev"
 
+# Needed by package below.
+PACKAGES+=" libelf-dev"
+
 # Needed by package ghostscript.
 PACKAGES+=" libexpat1-dev"
 PACKAGES+=" libjpeg-dev"
+
+# Needed by package vlc.
+PACKAGES+=" lua5.2"
 
 # Needed by package luarocks.
 PACKAGES+=" lua5.3"
@@ -207,6 +217,13 @@ PACKAGES+=" python3-jsonschema"
 
 # Needed by proxmark3/proxmark3-git
 PACKAGES+=" gcc-arm-none-eabi"
+
+# Needed by pypy
+PACKAGES+=" qemu-user-static"
+
+# For opt, llvm-link, llc not shipped by NDK.
+# Required by picolisp (and maybe a few others in future)
+PACKAGES+=" llvm-12"
 
 # Do not require sudo if already running as root.
 if [ "$(id -u)" = "0" ]; then

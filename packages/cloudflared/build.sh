@@ -1,19 +1,21 @@
-TERMUX_PKG_HOMEPAGE=https://github.com/cloudflare/cloudflared/
-TERMUX_PKG_DESCRIPTION="Argo Tunnel client."
-TERMUX_PKG_LICENSE="MIT"
-TERMUX_PKG_MAINTAINER="@araczkowski"
-TERMUX_PKG_VERSION=2021.10.0
+TERMUX_PKG_HOMEPAGE=https://github.com/cloudflare/cloudflared
+TERMUX_PKG_DESCRIPTION="A tunneling daemon that proxies traffic from the Cloudflare network to your origins"
+TERMUX_PKG_LICENSE="Apache-2.0"
+TERMUX_PKG_MAINTAINER="@termux"
+TERMUX_PKG_VERSION="2022.4.0"
 TERMUX_PKG_SRCURL=https://github.com/cloudflare/cloudflared/archive/refs/tags/${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=195e3e8f9208dc329b161098695b8a26e426ad641d59ba1a2f9d662e2b01063c
+TERMUX_PKG_SHA256=b4b1a5ef2086a78e497fab460e434225f96913d45506ee32b6639e1cd6376d88
+TERMUX_PKG_AUTO_UPDATE=true
+TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_make() {
 	termux_setup_golang
 
-	cd "$TERMUX_PKG_SRCDIR"
-	sed -i 's/linux/android/g' Makefile
-	make cloudflared
+	local _DATE=$(date -u '+%Y.%m.%d-%H:%M UTC')
+	go build -v -ldflags "-X \"main.Version=$TERMUX_PKG_VERSION\" -X \"main.BuildTime=$_DATE\"" \
+		./cmd/cloudflared
 }
 
 termux_step_make_install() {
-	cp ${TERMUX_PKG_SRCDIR}/cloudflared $TERMUX_PREFIX/bin/cloudflared
+	install -Dm700 -t $TERMUX_PREFIX/bin cloudflared
 }

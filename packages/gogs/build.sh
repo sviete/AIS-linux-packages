@@ -2,9 +2,9 @@ TERMUX_PKG_HOMEPAGE=https://gogs.io
 TERMUX_PKG_DESCRIPTION="A painless self-hosted Git service."
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="Injamul Mohammad Mollah <mrinjamul@gmail.com>"
-TERMUX_PKG_VERSION=0.12.4
+TERMUX_PKG_VERSION=0.12.6
 TERMUX_PKG_SRCURL=https://github.com/gogs/gogs/archive/v$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=e6b0ab345b5bc1eb53478e81a2cb9b34cc558e3196a21ca51978da2f69380c8a
+TERMUX_PKG_SHA256=f59ba4f8f8e18c74caba348e8848961f8273459324d232e98843dae8020bcac6
 TERMUX_PKG_AUTO_UPDATE=true
 TERMUX_PKG_DEPENDS="dash, git"
 TERMUX_PKG_CONFFILES="etc/gogs/app.ini"
@@ -15,7 +15,7 @@ termux_step_handle_hostbuild() {
 	export GOPATH=$TERMUX_PKG_HOSTBUILD_DIR
 	mkdir -p $TERMUX_PKG_HOSTBUILD_DIR
 	cd $TERMUX_PKG_HOSTBUILD_DIR
-	go get -u github.com/kevinburke/go-bindata/...
+	go install github.com/kevinburke/go-bindata/go-bindata@latest
 }
 
 termux_step_make() {
