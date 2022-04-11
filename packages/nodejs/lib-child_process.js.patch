@@ -1,6 +1,7 @@
---- ./lib/child_process.js	2021-06-03 07:15:32.000000000 +0530
-+++ ./lib/child_process.js.mod	2021-06-18 20:32:47.215642156 +0530
-@@ -520,7 +520,7 @@
+diff '--color=auto' -uNr node-v17.8.0.orig/lib/child_process.js node-v17.8.0/lib/child_process.js
+--- node-v17.8.0.orig/lib/child_process.js	2022-03-26 22:11:04.095459285 +0530
++++ node-v17.8.0/lib/child_process.js	2022-03-26 22:12:16.905459258 +0530
+@@ -589,7 +589,7 @@
        if (typeof options.shell === 'string')
          file = options.shell;
        else if (process.platform === 'android')

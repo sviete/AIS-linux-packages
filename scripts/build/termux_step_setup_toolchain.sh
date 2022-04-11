@@ -17,6 +17,16 @@ termux_step_setup_toolchain() {
 	export READELF=llvm-readelf
 	export STRIP=llvm-strip
 	export NM=llvm-nm
+	
+	export TERMUX_HASKELL_LLVM_BACKEND="-fllvm --ghc-option=-fllvm"
+	if [ "${TERMUX_ARCH}" = "i686" ]; then
+		TERMUX_HASKELL_LLVM_BACKEND=""
+	fi
+
+	export TERMUX_HASKELL_OPTIMISATION="-O"
+	if [ "${TERMUX_DEBUG_BUILD}" = true ]; then
+		TERMUX_HASKELL_OPTIMISATION="-O0"
+	fi
 
 	if [ "$TERMUX_ON_DEVICE_BUILD" = "false" ]; then
 		export PATH=$TERMUX_STANDALONE_TOOLCHAIN/bin:$PATH
@@ -199,7 +209,8 @@ termux_setup_standalone_toolchain() {
 	# Remove <spawn.h> as it's only for future (later than android-27).
 	# Remove <zlib.h> and <zconf.h> as we build our own zlib.
 	# Remove unicode headers provided by libicu.
-	rm usr/include/{sys/{capability,shm,sem},{glob,iconv,spawn,zlib,zconf}}.h
+	# Remove KRH/khrplatform.h provided by mesa.
+	rm usr/include/{sys/{capability,shm,sem},{glob,iconv,spawn,zlib,zconf},KHR/khrplatform}.h
 	rm usr/include/unicode/{char16ptr,platform,ptypes,putil,stringoptions,ubidi,ubrk,uchar,uconfig,ucpmap,udisplaycontext,uenum,uldnames,ulocdata,uloc,umachine,unorm2,urename,uscript,ustring,utext,utf16,utf8,utf,utf_old,utypes,uvernum,uversion}.h
 
 	sed -i "s/define __ANDROID_API__ __ANDROID_API_FUTURE__/define __ANDROID_API__ $TERMUX_PKG_API_LEVEL/" \

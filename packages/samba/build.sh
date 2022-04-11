@@ -2,9 +2,9 @@ TERMUX_PKG_HOMEPAGE=https://www.samba.org/
 TERMUX_PKG_DESCRIPTION="SMB/CIFS fileserver"
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=4.14.10
+TERMUX_PKG_VERSION=4.14.13
 TERMUX_PKG_SRCURL=https://download.samba.org/pub/samba/samba-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=107ee862f58062682cec362ec68a24251292805f89aa4c97e7ab80237f91c7af
+TERMUX_PKG_SHA256=e1df792818a17d8d21faf33580d32939214694c92b84fb499464210d86a7ff75
 TERMUX_PKG_DEPENDS="libbsd, libcap, libcrypt, libgnutls, libiconv, libicu, libpopt, libtalloc, libtirpc, ncurses, openssl, readline, zlib"
 TERMUX_PKG_BUILD_DEPENDS="e2fsprogs"
 TERMUX_PKG_BUILD_IN_SRC=true
@@ -74,6 +74,7 @@ Checking for the maximum value of the 'time_t' type: NO
 Checking whether the realpath function allows a NULL argument: OK
 Checking for ftruncate extend: OK
 getcwd takes a NULL argument: OK
+Checking for readlink breakage: NO
 EOF
 
 	USING_SYSTEM_ASN1_COMPILE=1 ASN1_COMPILE=/usr/bin/asn1_compile \
@@ -123,10 +124,11 @@ EOF
 		--without-utmp \
 		--without-winbind \
 		--with-shared-modules="${_vfs_modules},${_pdb_modules},${_auth_modules}" \
-		--with-static-modules='!auth_winbind'
+		--with-static-modules='!auth_winbind' ||
 		# --disable-fault-handling \
 		# --disable-rpath-private-install \
 		# --with-logfilebase="$TERMUX_PREFIX/tmp/log/samba" \
+                (cat cross-answers.txt | grep UNKNOWN && return 1)
 
 	./buildtools/bin/waf install --jobs="$TERMUX_MAKE_PROCESSES"
 
