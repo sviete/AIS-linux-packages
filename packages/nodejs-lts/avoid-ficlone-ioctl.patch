@@ -4,7 +4,7 @@ diff '--color=auto' -uNr node-v16.14.2.orig/deps/uv/src/unix/fs.c node-v16.14.2/
 @@ -1339,6 +1339,7 @@
  #endif  /* !__linux__ */
    }
- 
+
 +#ifndef __ANDROID__
  #ifdef FICLONE
    if (req->flags & UV_FS_COPYFILE_FICLONE ||
@@ -14,6 +14,6 @@ diff '--color=auto' -uNr node-v16.14.2.orig/deps/uv/src/unix/fs.c node-v16.14.2/
    }
  #endif
 +#endif
- 
+
    bytes_to_send = src_statsbuf.st_size;
    in_offset = 0;

@@ -4,16 +4,16 @@ diff '--color=auto' -uNr node-v16.14.2.orig/deps/uv/src/unix/sysinfo-memory.c no
 @@ -25,6 +25,7 @@
  #include <stdint.h>
  #include <sys/sysinfo.h>
- 
+
 +#ifndef __ANDROID__
  uint64_t uv_get_free_memory(void) {
    struct sysinfo info;
- 
+
 @@ -32,6 +33,7 @@
      return (uint64_t) info.freeram * info.mem_unit;
    return 0;
  }
 +#endif
- 
+
  uint64_t uv_get_total_memory(void) {
    struct sysinfo info;

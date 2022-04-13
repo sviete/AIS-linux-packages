@@ -4,7 +4,7 @@ diff '--color=auto' -uNr node-v16.14.2.orig/deps/v8/src/trap-handler/trap-handle
 @@ -17,22 +17,7 @@
  namespace internal {
  namespace trap_handler {
- 
+
 -// X64 on Linux, Windows, MacOS, FreeBSD.
 -#if V8_HOST_ARCH_X64 && V8_TARGET_ARCH_X64 &&                        \
 -    ((V8_OS_LINUX && !V8_OS_ANDROID) || V8_OS_WIN || V8_OS_MACOSX || \
@@ -21,6 +21,6 @@ diff '--color=auto' -uNr node-v16.14.2.orig/deps/v8/src/trap-handler/trap-handle
 -#else
  #define V8_TRAP_HANDLER_SUPPORTED false
 -#endif
- 
+
  // Setup for shared library export.
  #if defined(BUILDING_V8_SHARED) && defined(V8_OS_WIN)
