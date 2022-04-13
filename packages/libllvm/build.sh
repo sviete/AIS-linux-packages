@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://clang.llvm.org/
-TERMUX_PKG_DESCRIPTION="Modular compiler and toolchain technologies library"
+TERMUX_PKG_DESCRIPTION="Modular compiler and toolchain technologies library."
 TERMUX_PKG_LICENSE="NCSA"
 TERMUX_PKG_MAINTAINER="@buttaface"
 TERMUX_PKG_VERSION=13.0.1
