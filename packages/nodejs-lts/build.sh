@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://nodejs.org/
-TERMUX_PKG_DESCRIPTION="Open Source, cross-platform JavaScript runtime environment."
+TERMUX_PKG_DESCRIPTION="Open Source, cross-platform JavaScript runtime environment"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="Yaksh Bariya <yakshbari4@gmail.com>"
 TERMUX_PKG_VERSION=16.14.2
