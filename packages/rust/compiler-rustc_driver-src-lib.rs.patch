@@ -3,7 +3,7 @@
 @@ -1296,7 +1296,7 @@
      tracing::subscriber::set_global_default(subscriber).unwrap();
  }
- 
+
 -#[cfg(all(unix, any(target_env = "gnu", target_os = "macos")))]
 +#[cfg(all(unix, any(target_env = "gnu", target_os = "macos"), not(target_os = "android")))]
  mod signal_handler {
@@ -12,7 +12,7 @@
 @@ -1340,7 +1340,7 @@
      }
  }
- 
+
 -#[cfg(not(all(unix, any(target_env = "gnu", target_os = "macos"))))]
 +#[cfg(not(all(unix, any(target_env = "gnu", target_os = "macos"), not(target_os = "android"))))]
  mod signal_handler {
