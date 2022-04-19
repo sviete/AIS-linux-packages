@@ -215,6 +215,12 @@ PACKAGES+=" aspell"
 # Needed by package kphp.
 PACKAGES+=" python3-jsonschema"
 
+# Needed by package lilypond.
+PACKAGES+=" fontforge-nox"
+PACKAGES+=" guile-2.2"
+PACKAGES+=" python3-fontforge"
+PACKAGES+=" texlive-metapost"
+
 # Needed by proxmark3/proxmark3-git
 PACKAGES+=" gcc-arm-none-eabi"
 
@@ -224,6 +230,12 @@ PACKAGES+=" qemu-user-static"
 # For opt, llvm-link, llc not shipped by NDK.
 # Required by picolisp (and maybe a few others in future)
 PACKAGES+=" llvm-12"
+
+# Required by cava
+PACKAGES+=" xxd"
+
+# Required for parsing repo.json
+PACKAGES+=" jq"
 
 # Do not require sudo if already running as root.
 if [ "$(id -u)" = "0" ]; then
