@@ -26,3 +26,5 @@ ais_secret.txt
 scripts/ais-secret.txt
 /ais-info/ais-secret.sh
 ais-bootstraps/*
+/root-packages/*/cache
+/x11-packages/*/cache
