@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=http://site.icu-project.org/home
-TERMUX_PKG_DESCRIPTION='International Components for Unicode library'
+TERMUX_PKG_DESCRIPTION='International Components for Unicode library.'
 TERMUX_PKG_LICENSE="BSD"
 # We override TERMUX_PKG_SRCDIR termux_step_post_get_source so need to do
 # this hack to be able to find the license file.
