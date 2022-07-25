@@ -88,7 +88,7 @@ termux_step_start_build() {
 	local TERMUX_ELF_CLEANER_VERSION
 	TERMUX_ELF_CLEANER_VERSION=$(bash -c ". $TERMUX_SCRIPTDIR/packages/termux-elf-cleaner/build.sh; echo \$TERMUX_PKG_VERSION")
 	termux_download \
-		"https://raw.githubusercontent.com/termux/termux-elf-cleaner/master/termux-elf-cleaner.cpp" \
+		"https://raw.githubusercontent.com/termux/termux-elf-cleaner/master/elf-cleaner.cpp" \
 		"$TERMUX_ELF_CLEANER_SRC" \
 		022197c19129c4e57a37515bd4adcc19e05f9aa7f9ba4fbcab85a20210c39632
 	if [ "$TERMUX_ELF_CLEANER_SRC" -nt "$TERMUX_ELF_CLEANER" ]; then
