@@ -39,7 +39,7 @@ if [ ! -e "$TERMUX_BUILD_LOCK_FILE" ]; then
 	touch "$TERMUX_BUILD_LOCK_FILE"
 fi
 
-export TERMUX_PACKAGES_DIRECTORIES=$(jq --raw-output 'keys | .[]' < ${TERMUX_SCRIPTDIR}/repo.json)
+export TERMUX_PACKAGES_DIRECTORIES=$(jq --raw-output 'keys | .[]' ${TERMUX_SCRIPTDIR}/repo.json)
 
 # Special variable for internal use. It forces script to ignore
 # lock file.
@@ -85,6 +85,10 @@ source "$TERMUX_SCRIPTDIR/scripts/build/setup/termux_setup_python_crossenv.sh"
 # Utility function for rust-using packages to setup a rust toolchain.
 # shellcheck source=scripts/build/setup/termux_setup_rust.sh
 source "$TERMUX_SCRIPTDIR/scripts/build/setup/termux_setup_rust.sh"
+
+# Utility function for swift-using packages to setup a swift toolchain
+# shellcheck source=scripts/build/setup/termux_setup_swift.sh
+source "$TERMUX_SCRIPTDIR/scripts/build/setup/termux_setup_swift.sh"
 
 # Utility function for zig-using packages to setup a zig toolchain.
 # shellcheck source=scripts/build/setup/termux_setup_zig.sh
@@ -313,10 +317,13 @@ source "$TERMUX_SCRIPTDIR/scripts/build/termux_step_finish_build.sh"
 . "$TERMUX_SCRIPTDIR/scripts/properties.sh"
 
 if [ "$TERMUX_ON_DEVICE_BUILD" = "true" ]; then
+	# Setup TERMUX_APP_PACKAGE_MANAGER
+	source "$TERMUX_PREFIX/bin/termux-setup-package-manager"
+
 	# For on device builds cross compiling is not supported.
 	# Target architecture must be same as for environment used currently.
-	case "$TERMUX_MAIN_PACKAGE_FORMAT" in
-		"debian") TERMUX_ARCH=$(dpkg --print-architecture);;
+	case "$TERMUX_APP_PACKAGE_MANAGER" in
+		"apt") TERMUX_ARCH=$(dpkg --print-architecture);;
 		"pacman") TERMUX_ARCH=$(pacman-conf | grep Architecture | sed 's/Architecture = //g');;
 	esac
 	export TERMUX_ARCH
@@ -360,11 +367,7 @@ while (($# >= 1)); do
 				if [ -z "$1" ]; then
 					termux_error_exit "./build-package.sh: argument to '--format' should not be empty"
 				fi
-
-				case "$1" in
-					debian|pacman) TERMUX_PACKAGE_FORMAT="$1";;
-					*) termux_error_exit "./build-package.sh: only 'debian' and 'pacman' formats are supported";;
-				esac
+				TERMUX_PACKAGE_FORMAT="$1"
 			else
 				termux_error_exit "./build-package.sh: option '--format' requires an argument"
 			fi
@@ -416,6 +419,13 @@ while (($# >= 1)); do
 done
 unset -f _show_usage
 
+if [ -n "${TERMUX_PACKAGE_FORMAT-}" ]; then
+	case "${TERMUX_PACKAGE_FORMAT-}" in
+		debian|pacman) :;;
+		*) termux_error_exit "Unsupported package format \"${TERMUX_PACKAGE_FORMAT-}\". Only 'debian' and 'pacman' formats are supported";;
+	esac
+fi
+
 if [ "${TERMUX_INSTALL_DEPS-false}" = "true" ]; then
 	# Setup PGP keys for verifying integrity of dependencies.
 	# Keys are obtained from our keyring package.
@@ -460,11 +470,11 @@ for ((i=0; i<${#PACKAGE_LIST[@]}; i++)); do
 			export TERMUX_PKG_BUILDER_DIR=$(realpath "${PACKAGE_LIST[i]}")
 		else
 			# Package name:
-                        for package_directory in $TERMUX_PACKAGES_DIRECTORIES; do
+			for package_directory in $TERMUX_PACKAGES_DIRECTORIES; do
 				if [ -d "${TERMUX_SCRIPTDIR}/${package_directory}/${TERMUX_PKG_NAME}" ]; then
 					export TERMUX_PKG_BUILDER_DIR=${TERMUX_SCRIPTDIR}/$package_directory/$TERMUX_PKG_NAME
 					break
-				elif [ -n "${TERMUX_IS_DISABLED=""}" ] && [ -d "${TERMUX_SCRIPTDIR}/disabled-packages/${TERMUX_PKG_NAME}"]; then
+				elif [ -n "${TERMUX_IS_DISABLED=""}" ] && [ -d "${TERMUX_SCRIPTDIR}/disabled-packages/${TERMUX_PKG_NAME}" ]; then
 					export TERMUX_PKG_BUILDER_DIR=$TERMUX_SCRIPTDIR/disabled-packages/$TERMUX_PKG_NAME
 					break
 				fi

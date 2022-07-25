@@ -1,18 +1,26 @@
 # shellcheck shell=bash
 __termux_haskell_register_packages() {
 	# Register dependency haskell packages with termux-ghc-pkg.
-	IFS=',' read -r -a DEP <<<"$(echo "${TERMUX_PKG_DEPENDS},${TERMUX_PKG_BUILD_DEPENDS}" | tr -d ' ')"
-	for dep in "${DEP[@]}"; do
-		if [[ "${dep/haskell-/}" != "${dep}" ]]; then
-			echo "Dependency '${dep}' is a haskell package, registering it with ghc-pkg..."
+	echo "Registering haskell packages with ghc-pkg...(if any)"
+	while read DEP DEP_DIR; do
+		if [[ -z $DEP ]]; then
+			continue
+		elif [[ "${DEP}" == "ERROR" ]]; then
+			termux_error_exit "Failed to find dependencies of ${TERMUX_PKG_NAME} [Context: ${FUNCNAME[0]}]"
+		fi
+		if [[ "${DEP/haskell-/}" != "${DEP}" ]]; then
 			sed "s|${TERMUX_PREFIX}/bin/ghc-pkg|$(command -v termux-ghc-pkg)|g" \
-				"${TERMUX_PREFIX}/share/haskell/register/${dep}.sh" | sh
+				"${TERMUX_PREFIX}/share/haskell/register/${DEP}.sh" | sh
 			termux-ghc-pkg recache
 			# NOTE: Above command rewrites a cache file at
 			# "${TERMUX_PREFIX}/lib/ghc-${TERMUX_GHC_VERSION}/package.conf.d". Since it is done after
 			# timestamp creation, we need to remove it in massage step.
 		fi
-	done
+	done <<<"$(
+		# shellcheck disable=SC2086
+		cd "${TERMUX_SCRIPTDIR}" &&
+			./scripts/buildorder.py -i "${TERMUX_PKG_BUILDER_DIR}" ${TERMUX_PACKAGES_DIRECTORIES} || echo "ERROR"
+	)"
 }
 
 __termux_haskell_setup_build_script() {
@@ -116,8 +124,8 @@ termux_setup_ghc_cross_compiler() {
 		rm "${TERMUX_GHC_TAR}"
 	else
 
-		if [[ "${TERMUX_MAIN_PACKAGE_FORMAT}" == "debian" ]] && "$(dpkg-query -W -f '${db:Status-Status}\n' ghc 2>/dev/null)" != "installed" ||
-			[[ "${TERMUX_MAIN_PACKAGE_FORMAT}" == "pacman" ]] && ! "$(pacman -Q ghc 2>/dev/null)"; then
+		if [[ "${TERMUX_APP_PACKAGE_MANAGER}" == "apt" ]] && "$(dpkg-query -W -f '${db:Status-Status}\n' ghc 2>/dev/null)" != "installed" ||
+			[[ "${TERMUX_APP_PACKAGE_MANAGER}" == "pacman" ]] && ! "$(pacman -Q ghc 2>/dev/null)"; then
 			echo "Package 'ghc' is not installed."
 			exit 1
 		else

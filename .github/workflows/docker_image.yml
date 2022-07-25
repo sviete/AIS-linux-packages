@@ -16,9 +16,12 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
     - name: Clone repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Build
       run: |
         cd ./scripts

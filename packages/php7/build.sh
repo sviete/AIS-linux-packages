@@ -1,11 +1,10 @@
 TERMUX_PKG_HOMEPAGE=https://php.net
 TERMUX_PKG_DESCRIPTION="Server-side, HTML-embedded scripting language"
 TERMUX_PKG_LICENSE="PHP-3.0"
-TERMUX_PKG_VERSION=7.4.28
-TERMUX_PKG_REVISION=2
+TERMUX_PKG_VERSION=7.4.30
 TERMUX_PKG_MAINTAINER="@xtkoba"
 TERMUX_PKG_SRCURL=https://github.com/php/php-src/archive/php-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=09677f574439bb1ff7d1eecfe0ebaa31d4e3166946ba901ff81a163e47b8b624
+TERMUX_PKG_SHA256=14cc61935732e11c17ed25d26b1388692d69ee363e96c82532249d65146067bd
 # Build native php for phar to build (see pear-Makefile.frag.patch):
 TERMUX_PKG_HOSTBUILD=true
 # Build the native php without xml support as we only need phar:
@@ -85,6 +84,20 @@ termux_step_pre_configure() {
 	CPPFLAGS="-I$TERMUX_PREFIX/include/openssl-1.1 $CPPFLAGS"
 	CXXFLAGS="-I$TERMUX_PREFIX/include/openssl-1.1 $CXXFLAGS"
 	LDFLAGS="-L$TERMUX_PREFIX/lib/openssl-1.1 -Wl,-rpath=$TERMUX_PREFIX/lib/openssl-1.1 $LDFLAGS"
+	export PKG_CONFIG_PATH=$PKG_CONFIG_LIBDIR
+	export PKG_CONFIG_LIBDIR=$TERMUX_PREFIX/lib/openssl-1.1/pkgconfig
+
+	local wrapper_bin=$TERMUX_PKG_BUILDDIR/_wrapper/bin
+	local _cc=$(basename $CC)
+	rm -rf $wrapper_bin
+	mkdir -p $wrapper_bin
+	cat <<-EOF > $wrapper_bin/$_cc
+		#!$(command -v sh)
+		exec $(command -v $_cc) -L$TERMUX_PREFIX/lib/openssl-1.1 \
+			-Wno-unused-command-line-argument "\$@"
+	EOF
+	chmod 0700 $wrapper_bin/$_cc
+	export PATH=$wrapper_bin:$PATH
 }
 
 termux_step_post_configure() {
