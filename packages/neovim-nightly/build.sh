@@ -1,10 +1,10 @@
 TERMUX_PKG_HOMEPAGE=https://neovim.io
 TERMUX_PKG_DESCRIPTION="Ambitious Vim-fork focused on extensibility and agility (nvim-nightly)"
 TERMUX_PKG_LICENSE="Apache-2.0"
-TERMUX_PKG_MAINTAINER="Aditya Alok <dev.aditya.alok@gmail.com>"
-TERMUX_PKG_VERSION="0.8.0-dev+12-g147cc60d2"
+TERMUX_PKG_MAINTAINER="Aditya Alok <alok@termux.org>"
+TERMUX_PKG_VERSION="0.8.0-dev-nightly-4-ge9b58a619"
 TERMUX_PKG_SRCURL="https://github.com/neovim/neovim/archive/nightly.tar.gz"
-TERMUX_PKG_SHA256=c14e2c9165d289ad3b6ad424dd8dc73ddf548fcbd16ed8862e41af02cd0ed656
+TERMUX_PKG_SHA256=101a42420c65e2c8e9290ef02c9929e8d44a2a620ba17c60503733974f731a16
 TERMUX_PKG_DEPENDS="libiconv, libuv, luv, libmsgpack, libandroid-support, libvterm, libtermkey, libluajit, libunibilium, libtreesitter"
 TERMUX_PKG_HOSTBUILD=true
 
@@ -18,6 +18,7 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DPKG_CONFIG_EXECUTABLE=$(which pkg-config)
 -DXGETTEXT_PRG=$(which xgettext)
 -DLUAJIT_INCLUDE_DIR=$TERMUX_PREFIX/include/luajit-2.1
+-DCOMPILE_LUA=OFF
 "
 TERMUX_PKG_CONFFILES="share/nvim/sysinit.vim"
 TERMUX_PKG_CONFLICTS="neovim"
@@ -26,26 +27,27 @@ TERMUX_PKG_AUTO_UPDATE=true
 
 termux_pkg_auto_update() {
 	# Scrap and parse github release page to get version of nightly build.
-	# Neovim just uses 'nightly' tag for release and not nightly version specific, so cannot use github api.
-	local curl_response=$(
+	# Neovim just uses 'nightly' tag for release, not version, therefore cannot use github api.
+	local curl_response
+	curl_response=$(
 		curl \
 			--silent \
 			"https://github.com/neovim/neovim/releases/tag/nightly" \
 			--write-out '|%{http_code}'
-	)
-	local http_code="${curl_response##*|}"
+	) || {
+		local http_code="${curl_response##*|}"
+		if [[ "${http_code}" != "200" ]]; then
+			echo "Error: failed to get latest neovim-nightly tag page."
+			echo -e "http code: ${http_code}\ncurl response: ${curl_response}"
+			exit 1
+		fi
+	}
 
-	if [ "$http_code" != "200" ]; then
-		echo "Error: failed to get latest neovim-nightly tag page."
-		echo -e "http code: ${http_code}\ncurl response: ${curl_response}"
-		exit 1
-	fi
-
-	# this outputs in the following format: "0.6.0-dev+575-g2ef9d2a66"
+	# this outputs in the following format: "0.8.0-dev-nightly-9-g1ef84547a"
 	local remote_nvim_version
 	remote_nvim_version=$(
-		echo "$curl_response" |
-			cut -d"|" -f1 | grep -oP '<pre class="notranslate"><code class="notranslate">NVIM v\K.*'
+		echo "$curl_response" \
+			| cut -d"|" -f1 | grep -oP '<pre class="notranslate"><code>NVIM v\K.*'
 	)
 
 	if [ -z "$remote_nvim_version" ]; then
@@ -53,7 +55,7 @@ termux_pkg_auto_update() {
 		return 1
 	fi
 
-	remote_nvim_version="$(grep -oP '^\d+\.\d+\.\d+-dev\+\d+-g[0-9a-f]+$' <<<"$remote_nvim_version" || true)"
+	remote_nvim_version="$(grep -oP '^\d+\.\d+\.\d+-dev-nightly-\d+-g[0-9a-f]+$' <<< "$remote_nvim_version" || true)"
 
 	if [ -z "$remote_nvim_version" ]; then
 		echo "WARNING: Version in nightly page is not in expected format. Skipping auto-update."
@@ -89,15 +91,15 @@ termux_step_host_build() {
 
 	mkdir -p $TERMUX_PKG_HOSTBUILD_DIR/deps
 	cd $TERMUX_PKG_HOSTBUILD_DIR/deps
-	cmake $TERMUX_PKG_SRCDIR/third-party
+	cmake $TERMUX_PKG_SRCDIR/cmake.deps
 
-	make -j 1 ||
-		(_patch_luv $TERMUX_PKG_HOSTBUILD_DIR/deps && make -j 1)
+	make -j 1 \
+		|| (_patch_luv $TERMUX_PKG_HOSTBUILD_DIR/deps && make -j 1)
 
 	cd $TERMUX_PKG_SRCDIR
 
-	make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$TERMUX_PKG_HOSTBUILD_DIR -DUSE_BUNDLED_LUAROCKS=ON" install ||
-		(_patch_luv $TERMUX_PKG_SRCDIR/.deps && make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$TERMUX_PKG_HOSTBUILD_DIR -DUSE_BUNDLED_LUAROCKS=ON" install)
+	make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$TERMUX_PKG_HOSTBUILD_DIR -DUSE_BUNDLED_LUAROCKS=ON" install \
+		|| (_patch_luv $TERMUX_PKG_SRCDIR/.deps && make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$TERMUX_PKG_HOSTBUILD_DIR -DUSE_BUNDLED_LUAROCKS=ON" install)
 
 	make distclean
 	rm -Rf build/
@@ -116,7 +118,7 @@ termux_step_post_make_install() {
 }
 
 termux_step_create_debscripts() {
-	cat <<-EOF >./postinst
+	cat <<- EOF > ./postinst
 		#!$TERMUX_PREFIX/bin/sh
 		if [ "$TERMUX_PACKAGE_FORMAT" = "pacman" ] || [ "\$1" = "configure" ] || [ "\$1" = "abort-upgrade" ]; then
 			if [ -x "$TERMUX_PREFIX/bin/update-alternatives" ]; then
@@ -128,7 +130,7 @@ termux_step_create_debscripts() {
 		fi
 	EOF
 
-	cat <<-EOF >./prerm
+	cat <<- EOF > ./prerm
 		#!$TERMUX_PREFIX/bin/sh
 		if [ "$TERMUX_PACKAGE_FORMAT" = "pacman" ] || [ "\$1" != "upgrade" ]; then
 			if [ -x "$TERMUX_PREFIX/bin/update-alternatives" ]; then

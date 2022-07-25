@@ -2,9 +2,9 @@ TERMUX_PKG_HOMEPAGE=https://htop.dev/
 TERMUX_PKG_DESCRIPTION="Interactive process viewer for Linux"
 TERMUX_PKG_LICENSE="GPL-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=3.1.2
+TERMUX_PKG_VERSION=3.2.1
 TERMUX_PKG_SRCURL=https://github.com/htop-dev/htop/archive/${TERMUX_PKG_VERSION}/htop-${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=fe9559637c8f21f5fd531a4c072048a404173806acbdad1359c6b82fd87aa001
+TERMUX_PKG_SHA256=b5ffac1949a8daaabcffa659c0964360b5008782aae4dfa7702d2323cfb4f438
 # htop checks setlocale() return value for UTF-8 support, so use libandroid-support.
 TERMUX_PKG_DEPENDS="libandroid-support, ncurses"
 TERMUX_PKG_BREAKS="htop-legacy"
@@ -23,8 +23,8 @@ termux_step_pre_configure() {
 	./autogen.sh
 }
 
-termux_step_create_debscripts() {
-	cp -f $TERMUX_PKG_BUILDER_DIR/postinst ./
-	sed -i "s|@TERMUX_PREFIX@|$TERMUX_PREFIX|g" ./postinst
+termux_step_post_make_install() {
+	mkdir $TERMUX_PREFIX/var/htop -p
+	cp -a $TERMUX_PKG_BUILDER_DIR/procstat $TERMUX_PREFIX/var/htop/stat
 }
 

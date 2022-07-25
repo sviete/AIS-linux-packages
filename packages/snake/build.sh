@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://github.com/gogakoreli/snake
-TERMUX_PKG_DESCRIPTION="Eat as much as you want while avoiding walls."
+TERMUX_PKG_DESCRIPTION="Eat as much as you want while avoiding walls"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="Tipz Team @TipzTeam"
 TERMUX_PKG_VERSION=2017.06.09
@@ -14,6 +14,6 @@ termux_step_make_install() {
 }
 
 termux_step_install_license() {
-	install -Dm644 -t $TERMUX_PREFIX/share/doc/snake/ \
+	install -Dm644 -t $TERMUX_PREFIX/share/doc/$TERMUX_PKG_NAME/ \
 		$TERMUX_PKG_BUILDER_DIR/LICENSE
 }

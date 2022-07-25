@@ -1,5 +1,5 @@
 # Default assignment: frequent contributors from @termux.
-* @buttaface @Grimler91 @landfillbaby @thunder-coding @xtkoba
+* @buttaface @Grimler91 @landfillbaby @2096779623
 
 # Build system.
 /build-all.sh @Grimler91
@@ -182,6 +182,10 @@
 /packages/gitui/ @PeroSar
 /packages/rxfetch/ @PeroSar
 
+# Packages owned by @2096779623
+/packages/alist/ @2096779623
+/packages/frp/ @2096779623
+
 # Misc
 /packages/blogc/ @rafaelmartins
 /packages/cfengine/ @craigcomstock
@@ -192,3 +196,4 @@
 /packages/rust/ @kcotugno
 /packages/squashfs-tools-ng/ @wmcbtech30
 /packages/xmake/ @waruqi
+/packages/pacman/ @Maxython

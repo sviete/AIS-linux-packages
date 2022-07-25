@@ -26,6 +26,12 @@ termux_setup_meson() {
 				79ecf0e16f613396f43621a928df6c17e6260aa190c320e5c01adad94abd07ad
 			patch --silent -p1 -d "$MESON_TMP_FOLDER" < "$MESON_0_61_2_GTKDOC_PATCH_FILE"
 		fi
+		# Patch meson to always return true for libintl check.
+		patch --silent -p1 -d "$MESON_TMP_FOLDER" < "$TERMUX_SCRIPTDIR"/scripts/build/setup/meson_libintl.patch || {
+			echo "[${FUNCNAME[0]}]: Meson libintl patch failed. Exiting now."
+			exit 1
+		}
+
 		mv "$MESON_TMP_FOLDER" "$MESON_FOLDER"
 	fi
 	TERMUX_MESON="$MESON_FOLDER/meson.py"
@@ -51,6 +57,7 @@ termux_setup_meson() {
 	echo "[binaries]" > $TERMUX_MESON_CROSSFILE
 	echo "ar = '$AR'" >> $TERMUX_MESON_CROSSFILE
 	echo "c = '$CC'" >> $TERMUX_MESON_CROSSFILE
+	echo "cmake = 'cmake'" >> $TERMUX_MESON_CROSSFILE
 	echo "cpp = '$CXX'" >> $TERMUX_MESON_CROSSFILE
 	echo "ld = '$LD'" >> $TERMUX_MESON_CROSSFILE
 	echo "pkgconfig = '$PKG_CONFIG'" >> $TERMUX_MESON_CROSSFILE

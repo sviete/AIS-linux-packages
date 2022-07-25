@@ -77,6 +77,9 @@ PACKAGES+=" valac"
 # Needed by package libgcrypt.
 PACKAGES+=" fig2dev"
 
+# Needed by package gimp.
+PACKAGES+=" gegl"
+
 # Needed by package libidn2.
 PACKAGES+=" gengetopt"
 
@@ -92,6 +95,9 @@ PACKAGES+=" libelf-dev"
 # Needed by package ghostscript.
 PACKAGES+=" libexpat1-dev"
 PACKAGES+=" libjpeg-dev"
+
+# Needed by package news-flash-gtk.
+PACKAGES+=" libsqlite3-dev"
 
 # Needed by package vlc.
 PACKAGES+=" lua5.2"
@@ -146,7 +152,7 @@ PACKAGES+=" luajit"
 PACKAGES+=" bc"
 
 # Java.
-PACKAGES+=" openjdk-8-jdk openjdk-16-jdk"
+PACKAGES+=" openjdk-8-jdk openjdk-18-jdk"
 
 # needed by ovmf
 PACKAGES+=" libarchive-tools"
@@ -234,8 +240,14 @@ PACKAGES+=" llvm-12"
 # Required by cava
 PACKAGES+=" xxd"
 
+# Required by samba
+PACKAGES+=" libjson-perl"
+
 # Required for parsing repo.json
 PACKAGES+=" jq"
+
+# Required by txikijs's hostbuild step
+PACKAGES+=" libcurl4-openssl-dev"
 
 # Do not require sudo if already running as root.
 if [ "$(id -u)" = "0" ]; then

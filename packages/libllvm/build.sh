@@ -1,9 +1,11 @@
 TERMUX_PKG_HOMEPAGE=https://clang.llvm.org/
-TERMUX_PKG_DESCRIPTION="Modular compiler and toolchain technologies library."
-TERMUX_PKG_LICENSE="NCSA"
+TERMUX_PKG_DESCRIPTION="Modular compiler and toolchain technologies library"
+TERMUX_PKG_LICENSE="Apache-2.0, NCSA"
+TERMUX_PKG_LICENSE_FILE="llvm/LICENSE.TXT"
 TERMUX_PKG_MAINTAINER="@buttaface"
-TERMUX_PKG_VERSION=14.0.0
-TERMUX_PKG_SHA256=35ce9edbc8f774fe07c8f4acdf89ec8ac695c8016c165dd86b8d10e7cba07e23
+LLVM_MAJOR_VERSION=14
+TERMUX_PKG_VERSION=${LLVM_MAJOR_VERSION}.0.6
+TERMUX_PKG_SHA256=8b3cfd7bc695bd6cea0f37f53f0981f34f87496e79e2529874fd03a2f9dd3a8a
 TERMUX_PKG_SRCURL=https://github.com/llvm/llvm-project/releases/download/llvmorg-$TERMUX_PKG_VERSION/llvm-project-$TERMUX_PKG_VERSION.src.tar.xz
 TERMUX_PKG_HOSTBUILD=true
 TERMUX_PKG_RM_AFTER_INSTALL="
@@ -18,6 +20,7 @@ TERMUX_PKG_CONFLICTS="gcc, clang (<< 3.9.1-3)"
 TERMUX_PKG_BREAKS="libclang, libclang-dev, libllvm-dev"
 TERMUX_PKG_REPLACES="gcc, libclang, libclang-dev, libllvm-dev"
 TERMUX_PKG_GROUPS="base-devel"
+_PYTHON_VERSION=$(. $TERMUX_SCRIPTDIR/packages/python/build.sh; echo $_MAJOR_VERSION)
 # See http://llvm.org/docs/CMake.html:
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DANDROID_PLATFORM_LEVEL=$TERMUX_PKG_API_LEVEL
@@ -33,7 +36,10 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DCOMPILER_RT_USE_BUILTINS_LIBRARY=ON
 -DDEFAULT_SYSROOT=$(dirname $TERMUX_PREFIX)
 -DLLVM_LINK_LLVM_DYLIB=ON
--DLLDB_ENABLE_PYTHON=OFF
+-DLLDB_ENABLE_PYTHON=ON
+-DLLDB_PYTHON_RELATIVE_PATH=lib/python${_PYTHON_VERSION}/site-packages
+-DLLDB_PYTHON_EXE_RELATIVE_PATH=bin/python${_PYTHON_VERSION}
+-DLLDB_PYTHON_EXT_SUFFIX=.cpython-${_PYTHON_VERSION}.so
 -DCLANG_TABLEGEN=$TERMUX_PKG_HOSTBUILD_DIR/bin/clang-tblgen
 -DLLDB_TABLEGEN=$TERMUX_PKG_HOSTBUILD_DIR/bin/lldb-tblgen
 -DLLVM_TABLEGEN=$TERMUX_PKG_HOSTBUILD_DIR/bin/llvm-tblgen
@@ -109,10 +115,11 @@ termux_step_post_make_install() {
 
 	cp docs/man/* $TERMUX_PREFIX/share/man/man1
 	cp tools/clang/docs/man/{clang,diagtool}.1 $TERMUX_PREFIX/share/man/man1
+	ln -s $TERMUX_PKG_VERSION $TERMUX_PREFIX/lib/clang/$LLVM_MAJOR_VERSION
 	cd $TERMUX_PREFIX/bin
 
 	for tool in clang clang++ cc c++ cpp gcc g++ ${TERMUX_HOST_PLATFORM}-{clang,clang++,gcc,g++,cpp}; do
-		ln -f -s clang-${TERMUX_PKG_VERSION:0:2} $tool
+		ln -f -s clang-${LLVM_MAJOR_VERSION} $tool
 	done
 
 	if [ $TERMUX_ARCH == "arm" ]; then

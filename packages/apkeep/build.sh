@@ -2,10 +2,11 @@ TERMUX_PKG_HOMEPAGE=https://github.com/EFForg/apkeep
 TERMUX_PKG_DESCRIPTION="A command-line tool for downloading APK files from various sources"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=0.10.0
+TERMUX_PKG_VERSION="0.13.0"
 TERMUX_PKG_SRCURL=https://github.com/EFForg/apkeep/archive/refs/tags/${TERMUX_PKG_VERSION}.tar.gz
-TERMUX_PKG_SHA256=8fd39e0f624f8cc9ee9169826b1401e25fab3d32c9806fd327efd02a5bd40cb3
-TERMUX_PKG_DEPENDS="openssl"
+TERMUX_PKG_SHA256=dc7f2c96af9dd3a131a85e5d2433a6b762398148f742e4cc7816fce9a33041c9
+TERMUX_PKG_DEPENDS="openssl (>= 3.0.3)"
+TERMUX_PKG_AUTO_UPDATE=true
 TERMUX_PKG_BUILD_IN_SRC=true
 
 termux_step_pre_configure() {

@@ -50,6 +50,9 @@ mkdir -p "$TERMUX_PKG_TMPDIR"
 #(. "$TERMUX_SCRIPTDIR"/scripts/build/setup/termux_setup_rust.sh
 #	termux_setup_rust
 #)
+(. "$TERMUX_SCRIPTDIR"/scripts/build/setup/termux_setup_swift.sh
+	termux_setup_swift
+)
 (. "$TERMUX_SCRIPTDIR"/scripts/build/setup/termux_setup_zig.sh
 	termux_setup_zig
 )
@@ -59,7 +62,7 @@ rm -rf "${TERMUX_PKG_TMPDIR}"
 )
 
 # Package sources.
-for repo_path in $(jq --raw-output 'keys | .[]' < $TERMUX_SCRIPTDIR/repo.json); do
+for repo_path in $(jq --raw-output 'keys | .[]' $TERMUX_SCRIPTDIR/repo.json); do
 	for p in "$TERMUX_SCRIPTDIR"/$repo_path/*; do
 		(
 			. "$TERMUX_SCRIPTDIR"/scripts/properties.sh
