@@ -8,6 +8,10 @@ TERMUX_PKG_SHA256=02066a93c2f6596cc046a897d5716c86e3607c1cd0f54db9a867ae8c826507
 TERMUX_PKG_DEPENDS="libc++, clang, openssl, lld, zlib, libllvm"
 TERMUX_PKG_RM_AFTER_INSTALL="bin/llvm-* bin/llc bin/opt"
 
+termux_step_pre_configure() {
+    autoreconf -fi
+}
+
 termux_step_configure() {
 	termux_setup_cmake
 	termux_setup_rust
