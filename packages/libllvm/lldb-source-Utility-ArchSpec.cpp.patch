@@ -12,5 +12,5 @@ index c7b56a8385f7..01887e37eb38 100644
 +    {eByteOrderLittle, 4, 1, 15, llvm::Triple::x86, ArchSpec::eCore_x86_32_i386,
 +#endif
       "i686"},
- 
+
      {eByteOrderLittle, 8, 1, 15, llvm::Triple::x86_64,

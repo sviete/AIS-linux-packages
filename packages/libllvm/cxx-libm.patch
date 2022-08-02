@@ -11,12 +11,11 @@ index 2ad4509..4d0b060 100644
    // Silence warnings when linking C code with a C++ '-stdlib' argument.
    Args.ClaimAllArgs(options::OPT_stdlib_EQ);
 @@ -513,6 +512,9 @@ void tools::gnutools::Linker::ConstructJob(Compilation &C, const JobAction &JA,
- 
+
        AddRunTimeLibs(ToolChain, D, CmdArgs, Args);
- 
+
 +      if (D.CCCIsCXX())
 +        CmdArgs.push_back("-lm");
 +
        if (WantPthread && !isAndroid)
          CmdArgs.push_back("-lpthread");
- 

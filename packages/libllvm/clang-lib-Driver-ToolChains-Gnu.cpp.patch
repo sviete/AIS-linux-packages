@@ -3,7 +3,7 @@
 @@ -152,14 +152,11 @@
      }
    }
- 
+
 -  const std::string &customGCCName = D.getCCCGenericGCCName();
 -  const char *GCCName;
 -  if (!customGCCName.empty())
@@ -17,6 +17,6 @@
 +  // On Termux gcc is a symlink to clang, so this leads into fork loop until
 +  // the whole system runs out of memory.
 +  const char *GCCName = "false";
- 
+
    const char *Exec = Args.MakeArgString(getToolChain().GetProgramPath(GCCName));
    C.addCommand(llvm::make_unique<Command>(JA, *this, Exec, CmdArgs, Inputs));

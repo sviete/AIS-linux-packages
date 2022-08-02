@@ -43,4 +43,3 @@ int      catclose(nl_catd);
 #endif
 
 #endif  /* ANDROID_NLTYPES_H */
-

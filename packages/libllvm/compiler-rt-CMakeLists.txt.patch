@@ -18,7 +18,7 @@
 +set(CXXABIS none default libc++_shared libstdc++ libc++ libcxxabi)
  set_property(CACHE SANITIZER_CXX_ABI PROPERTY STRINGS ;${CXXABIS})
  handle_default_cxx_lib(SANITIZER_CXX_ABI)
- 
+
 @@ -438,6 +441,8 @@
    list(APPEND SANITIZER_CXX_ABI_LIBRARIES "c++abi")
  elseif (SANITIZER_CXX_ABI_LIBNAME STREQUAL "libstdc++")
@@ -26,5 +26,5 @@
 +elseif (SANITIZER_CXX_ABI_LIBNAME STREQUAL "libc++_shared")
 +  list(APPEND SANITIZER_CXX_ABI_LIBRARIES "c++_shared")
  endif()
- 
+
  if (SANITIZER_TEST_CXX_LIBNAME STREQUAL "libc++")

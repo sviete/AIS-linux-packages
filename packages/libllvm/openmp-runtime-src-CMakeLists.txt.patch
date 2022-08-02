@@ -7,7 +7,7 @@
 +if(ANDROID)
 +	include_directories(${LIBOMP_SRC_DIR}/android)
 +endif()
- 
+
  # Getting correct source files to build library
  set(LIBOMP_CFILES)
 @@ -95,6 +98,9 @@

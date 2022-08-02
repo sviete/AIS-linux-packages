@@ -33,9 +33,9 @@ Options:
   --has-rtti        Print whether or not LLVM was built with rtti (YES or NO).
   --shared-mode     Print how the provided components can be collectively linked (\`shared\` or \`static\`).
   --link-shared     Link the components as shared libraries.
-  --link-static     Link the component libraries statically.                                                                                                                                 
-Typical components:                                                                                                                                                                          
-  all               All LLVM libraries (default).                                                                                                                                            
+  --link-static     Link the component libraries statically.
+Typical components:
+  all               All LLVM libraries (default).
   engine            Either a native JIT or a bitcode interpreter."
 }
 
@@ -147,4 +147,3 @@ handle_args () {
 }
 
 for arg in $@; do handle_args $arg; done
-

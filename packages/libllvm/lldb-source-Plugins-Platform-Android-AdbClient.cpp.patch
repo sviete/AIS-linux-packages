@@ -5,7 +5,7 @@ decides to work on a write a proper patch for the same).
 +++ b/lldb/source/Plugins/Platform/Android/AdbClient.cpp	2022-06-09 10:37:37.749300877 +0530
 @@ -370,8 +370,8 @@
      return error;
- 
+
    // ADB doesn't propagate return code of shell execution - if
 -  // output starts with /system/bin/sh: most likely command failed.
 -  static const char *kShellPrefix = "/system/bin/sh:";
