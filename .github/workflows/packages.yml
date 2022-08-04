@@ -20,8 +20,8 @@ on:
         required: true
 
 jobs:
-  timeout-minutes: 720
   build:
+    timeout-minutes: 720
     runs-on: ubuntu-latest
     env:
       ANDROID_HOME: "/opt/termux/android-sdk"
