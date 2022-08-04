@@ -1,5 +1,5 @@
 TERMUX_PKG_HOMEPAGE=https://www.rust-lang.org/
-TERMUX_PKG_DESCRIPTION="Systems programming language focused on safety, speed and concurrency. "
+TERMUX_PKG_DESCRIPTION="Systems programming language focused on safety, speed and concurrency"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=1.62.1
